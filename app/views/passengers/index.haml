@@ -1,0 +1,25 @@
+%table
+  %thead
+    %tr
+      %th Name
+      %th Active
+      %th Permanent
+      %th
+      %th
+      %th
+  %tbody
+    - @passengers.each do |passenger|
+      %tr
+        %td= passenger.name
+        - if passenger.active
+          %td Yes
+        - else
+          %td No
+        - if passenger.permanent
+          %td Yes
+        - else
+          %td No
+        %td= link_to "View", passenger
+        %td= link_to "Edit", edit_passenger_path(passenger)
+        %td= link_to "Delete", passenger_path(passenger),
+          data: { confirm:"Are you sure?" }, method: delete
