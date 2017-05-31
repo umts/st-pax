@@ -21,5 +21,4 @@
           %td No
         %td= link_to "View", passenger
         %td= link_to "Edit", edit_passenger_path(passenger)
-        %td= link_to "Delete", passenger_path(passenger),
-          data: { confirm:"Are you sure?" }, method: delete
+        %td= link_to "Delete", passenger, method: :delete,  data: { confirm:"Are you sure?" }

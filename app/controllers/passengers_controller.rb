@@ -16,27 +16,34 @@ class PassengersController < ApplicationController
   end
 
   def create
-    passenger = Passenger.new(params[:passenger])
+    passenger = Passenger.new(passenger_params)
     if passenger.save
       flash[:notice] = "Passenger has been created."
-    else 
+    else
       flash[:error] = passenger.errors.full_messages.to_sentence
     end
   end
-  
+
   def update
     passenger = Passenger.find(params[:id])
-    if passengers.update params[:passenger] 
+    if passengers.update passenger_params
       flash[:notice] = "Passenger has been updated"
     else
       flash[:notice] = passenger.errors.full_messages.to_sentence
     end
   end
-  
+
   def destroy
     passenger = Passenger.find(params[:id])
     passenger.destroy
     flash[:notice] = "Passenger has been deleted"
     redirect_to action: 'index'
+  end
+
+  private
+
+  def passenger_params
+    params.require(:passenger).permit(:name, :address, :email, :phone,
+      :wheelchair, :active, :permanent, :note)
   end
 end
