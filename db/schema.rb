@@ -10,24 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531175837) do
+ActiveRecord::Schema.define(version: 20170531212841) do
 
   create_table "passengers", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "address"
     t.string "phone"
-    t.text "additional_notes"
-    t.boolean "active"
     t.boolean "wheelchair"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean "active"
     t.boolean "permanent"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
