@@ -1,0 +1,30 @@
+%h1= @passenger.name 
+%p 
+  %b Address:
+  =@passenger.address
+%p
+  %b Email:
+  = @passenger.email
+%p
+  %b Phone:
+  = @passenger.phone
+%p
+  %b Wheelchair:
+  - if @passenger.wheelchair
+    Yes
+  - else
+    No
+%p
+  %b Active:
+  - if @passenger.active
+    Yes
+  - else
+    No
+%p
+  %b Permanent:
+  - if @passenger.permanent
+    Yes
+  - else
+    No
+%p= @passenger.note
+= link_to "Back", passengers_path

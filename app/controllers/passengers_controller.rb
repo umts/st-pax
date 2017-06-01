@@ -22,6 +22,7 @@ class PassengersController < ApplicationController
     else
       flash[:error] = passenger.errors.full_messages.to_sentence
     end
+    redirect_to passengers_path
   end
 
   def update
