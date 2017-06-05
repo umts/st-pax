@@ -27,7 +27,7 @@ class PassengersController < ApplicationController
 
   def update
     passenger = Passenger.find(params[:id])
-    if passengers.update passenger_params
+    if passenger.update passenger_params
       flash[:notice] = "Passenger has been updated"
     else
       flash[:notice] = passenger.errors.full_messages.to_sentence
