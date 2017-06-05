@@ -1,0 +1,27 @@
+=form_for @passenger do |form|
+  .field
+    = form.label "Passenger Name"
+    = form.text_field :name
+  .field
+    = form.label "Address"
+    = form.text_field :address
+  .field
+    = form.label "Email"
+    = form.text_field :email
+  .field
+    = form.label "Phone Number"
+    = form.phone_field :phone
+  .field
+    = form.label "10-23?"
+    = form.check_box :wheelchair
+  .field
+    = form.label "Active?"
+    = form.check_box :active
+  .field
+    = form.label "Permanent Passenger?"
+    = form.check_box :permanent
+  .field
+    = form.label "Additional Notes"
+    = form.text_area :note
+  .actions
+    = form.submit "Submit"

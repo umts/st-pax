@@ -16,29 +16,37 @@ class PassengersController < ApplicationController
   end
 
   def create
-    passenger = Passenger.new(passenger_params)
-    if passenger.save
-      flash[:beans] = "Passenger has been created."
-    else
-      flash[:tacos] = passenger.errors.full_messages.to_sentence
+    @passenger = Passenger.new(passenger_params)
+
+    respond_to do |format|
+      if @passenger.save
+        format.html { redirect_to @passenger, notice: 'Passenger was successfully created.' }
+        format.json { render :show, status: :created, location: @passenger }
+      else
+        format.html { render :new }
+        format.json { render json: @passenger.errors, status: :unprocessable_entity }
+      end
     end
-    redirect_to passengers_path
   end
 
   def update
-    passenger = Passenger.find(params[:id])
-    if passenger.update passenger_params
-      flash[:notice] = "Passenger has been updated"
-    else
-      flash[:notice] = passenger.errors.full_messages.to_sentence
+    respond_to do |format|
+      if @passenger.update(passenger_params)
+        format.html { redirect_to @passenger, notice: 'Passenger was successfully updated.' }
+        format.json { render :show, status: :ok, location: @passenger }
+      else
+        format.html { render :edit }
+        format.json { render json: @passenger.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    passenger = Passenger.find(params[:id])
-    passenger.destroy
-    flash[:notice] = "Passenger has been deleted"
-    redirect_to action: 'index'
+    @passenger.destroy
+    respond_to do |format|
+      format.html { redirect_to passengers_url, notice: 'Passenger was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
