@@ -18,9 +18,9 @@ class PassengersController < ApplicationController
   def create
     passenger = Passenger.new(passenger_params)
     if passenger.save
-      flash[:notice] = "Passenger has been created."
+      flash[:beans] = "Passenger has been created."
     else
-      flash[:error] = passenger.errors.full_messages.to_sentence
+      flash[:tacos] = passenger.errors.full_messages.to_sentence
     end
     redirect_to passengers_path
   end
