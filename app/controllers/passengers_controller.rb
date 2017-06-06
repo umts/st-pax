@@ -9,6 +9,10 @@ class PassengersController < ApplicationController
     else
       @passengers = Passenger.all.order('created_at DESC')
     end
+
+    if params[:filter]
+      @passengers = Passenger.permanent
+    end
   end
 
   def show
