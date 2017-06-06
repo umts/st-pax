@@ -1,26 +1,36 @@
+= form_tag(passengers_path, :method => "get", id: "search-form") do
+  = text_field_tag :search, params[:search], placeholder: "Search Passenger"
+  = submit_tag "Search"
 = link_to "Add New Passenger", new_passenger_path
-%table
-  %thead
-    %b 
-    %tr
-      %th Name
-      %th Active
-      %th Permanent
-      %th
-      %th
-      %th
-  %tbody
-    - @passengers.each do |passenger|
+- if @passengers.present?
+  %table
+    %thead
+      %b
       %tr
-        %td= passenger.name
-        - if passenger.active
-          %td Yes
-        - else
-          %td No
-        - if passenger.permanent
-          %td Yes
-        - else
-          %td No
-        %td= link_to "View", passenger
-        %td= link_to "Edit", edit_passenger_path(passenger)
-        %td= link_to "Delete", passenger, method: :delete,  data: { confirm:"Are you sure?" }
+        %th Name:
+        %th Email:
+        %th Phone:
+        %th Active:
+        %th Permanent:
+        %th
+        %th
+        %th
+    %tbody
+      - @passengers.each do |passenger|
+        %tr
+          %td= passenger.name
+          %td= passenger.email
+          %td= passenger.phone
+          - if passenger.active
+            %td Yes
+          - else
+            %td No
+          - if passenger.permanent
+            %td Yes
+          - else
+            %td No
+          %td= link_to "View", passenger
+          %td= link_to "Edit", edit_passenger_path(passenger)
+          %td= link_to "Delete", passenger, method: :delete,  data: { confirm:"Are you sure?" }
+- else
+  No results
