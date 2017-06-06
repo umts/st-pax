@@ -1,10 +1,12 @@
-= form_tag(passengers_path, :method => "get", id: "check_box") do
-  = check_box_tag("Permanent", "Yes")
-  = submit_tag "Filter"
-
-= form_tag(passengers_path, :method => "get", id: "search-form") do
-  = text_field_tag :search, params[:search], placeholder: "Search Passenger"
-  = submit_tag "Search"
+= form_tag(passengers_path, :method => "get") do
+  = label_tag 'Search by name:'
+  = text_field_tag :search, @search_term, placeholder: 'Enter a name'
+  = label_tag 'Filter by Type:'
+  Permanent
+  = check_box_tag :permanent, 1, params[:permanent]
+  Temporary
+  = check_box_tag :temporary, 1, params[:temporary]
+  = submit_tag "Find passengers"
 
 = link_to "Add New Passenger", new_passenger_path
 
@@ -37,6 +39,6 @@
             %td No
           %td= link_to "View", passenger
           %td= link_to "Edit", edit_passenger_path(passenger)
-          %td= link_to "Delete", passenger, method: :delete,  data: { confirm:"Are you sure?" }
+          %td= link_to "Delete", passenger, method: :delete,  data: { confirm: "Are you sure?" }
 - else
   No results

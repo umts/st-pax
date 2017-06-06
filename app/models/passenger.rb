@@ -4,12 +4,10 @@ class Passenger < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
+  scope :permanent, -> { where(permanent: true) }
+  scope :temporary, -> { where(permanent: false) }
+
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
-  end
-
-  def self.filter(filter)
-    scope :permanent, -> { where(permanent: true) }
-    scope :temporary, -> { where(temporary: false) }
   end
 end

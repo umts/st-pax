@@ -4,15 +4,13 @@ class PassengersController < ApplicationController
   end
 
   def index
-    if params[:search]
-      @passengers = Passenger.search(params[:search]).order("created_at DESC")
-    else
-      @passengers = Passenger.all.order('created_at DESC')
-    end
-
-    if params[:filter]
-      @passengers = Passenger.permanent
-    end
+    @permanent = params[:permanent]
+    @temporary = params[:temporary]
+    @search_term = params[:search]
+    @passengers = Passenger.order :name
+    @passengers = @passengers.search(@search_term) if @search_term.present?
+    @passengers = @passengers.permanent if @permanent.present?
+    @passengers = @passengers.temporary if @temporary.present?
   end
 
   def show
