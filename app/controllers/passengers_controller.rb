@@ -4,8 +4,9 @@ class PassengersController < ApplicationController
   end
 
   def index
-    @permanent = params[:permanent]
-    @temporary = params[:temporary]
+    @permanent = params[:filter] == 'permanent'
+    @temporary = params[:filter] == 'temporary'
+    @all = params[:filter] == 'all'
     @search_term = params[:search]
     @passengers = Passenger.order :name
     @passengers = @passengers.search(@search_term) if @search_term.present?

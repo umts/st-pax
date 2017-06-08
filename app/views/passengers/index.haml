@@ -3,9 +3,11 @@
   = text_field_tag :search, @search_term, placeholder: 'Enter a name'
   = label_tag 'Filter by Type:'
   Permanent
-  = radio_button_tag :permanent, 1, @permanent
+  = radio_button_tag :filter, 'permanent'
   Temporary
-  = radio_button_tag :temporary, 1, params[:temporary]
+  = radio_button_tag :filter, 'temporary'
+  Show All
+  = radio_button_tag :filter, 'all'
   = submit_tag "Find passengers"
 
 = link_to "Add New Passenger", new_passenger_path
