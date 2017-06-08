@@ -1,6 +1,7 @@
 = form_tag(passengers_path, :method => "get") do
   = label_tag 'Search by name:'
   = text_field_tag :search, @search_term, placeholder: 'Enter a name'
+  %p
   = label_tag 'Filter by Type:'
   Permanent
   = radio_button_tag :filter, 'permanent'
@@ -9,8 +10,15 @@
   Show All
   = radio_button_tag :filter, 'all'
   = submit_tag "Find passengers"
-
+%p
 = link_to "Add New Passenger", new_passenger_path
+
+- if @permanent.present?
+  %p Showing all Permanent
+- elsif @temporary.present?
+  %p Showing all Temporary
+- else
+  %p Showing All Passengers
 
 - if @passengers.present?
   %table
