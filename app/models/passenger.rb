@@ -10,4 +10,8 @@ class Passenger < ApplicationRecord
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
   end
+
+  def update_active
+    update_attributes(active: false)
+  end
 end
