@@ -22,11 +22,14 @@
     = form.label "10-23?"
     = form.check_box :wheelchair
   .field
-    = form.label "Active?"
+    = form.label :active
     = form.check_box :active
   .field
-    = form.label "Permanent Passenger?"
+    = form.label :permanent_passenger
     = form.check_box :permanent
+  .field
+    = form.label "Expiration Date"
+    = form.text_field :expiration, class: 'datepicker-here'
   .field
     = form.label "Additional Notes"
     = form.text_area :note

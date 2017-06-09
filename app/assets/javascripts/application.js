@@ -1,26 +1,3 @@
-diff --git a/app/assets/javascripts/application.js b/app/assets/javascripts/application.js
-
---- a/app/assets/javascripts/application.js
-
-+++ b/app/assets/javascripts/application.js
-
-@@ -10,6 +10,7 @@
-
- // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-
- // about supported directives.
-
- //
-
-//= require air-datepicker
-
- //= require jquery
-
- //= require jquery_ujs
-
- //= require turbolinks
-
-
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -32,7 +9,9 @@ diff --git a/app/assets/javascripts/application.js b/app/assets/javascripts/appl
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require jquery
+//= require jquery_ujs
+//= require air-datepicker
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
