@@ -10,4 +10,6 @@
 
   App.cable = ActionCable.createConsumer();
 
+  {:src => “dist/js/i18n/datepicker.en.js”}
+
 }).call(this);

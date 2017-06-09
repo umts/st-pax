@@ -60,6 +60,6 @@ class PassengersController < ApplicationController
 
   def passenger_params
     params.require(:passenger).permit(:name, :address, :email, :phone,
-      :wheelchair, :active, :permanent, :note)
+      :wheelchair, :active, :permanent, :expiration, :note)
   end
 end
