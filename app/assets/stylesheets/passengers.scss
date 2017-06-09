@@ -36,12 +36,17 @@ a {
   }
 }
 
-th {
-  padding-bottom: 5px;
-}
+table{
+  th {
+    font-size: 20px;
+    background: #9385d5;
+    padding-bottom: 5px;
+  }
 
-td {
-  padding: 0 5px 7px;
+  td {
+    font-size: 15px;
+    padding: 0 5px 7px;
+  }
 }
 
 div {

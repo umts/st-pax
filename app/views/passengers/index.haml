@@ -14,11 +14,14 @@
 = link_to "Add New Passenger", new_passenger_path
 
 - if @permanent.present?
-  %p Showing all Permanent
+  %p
+    %b Showing all Permanent
 - elsif @temporary.present?
-  %p Showing all Temporary
+  %p
+    %b Showing all Temporary
 - else
-  %p Showing All Passengers
+  %p
+    %b Showing All Passengers
 
 - if @passengers.present?
   %table
