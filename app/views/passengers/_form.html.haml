@@ -7,16 +7,16 @@
           %li= message
 
   .field
-    = form.label "Passenger Name"
+    = form.label :passenger_name
     = form.text_field :name
   .field
-    = form.label "Address"
+    = form.label :address
     = form.text_field :address
   .field
-    = form.label "Email"
+    = form.label :email
     = form.text_field :email
   .field
-    = form.label "Phone Number"
+    = form.label :phone_number
     = form.phone_field :phone
   .field
     = form.label "10-23?"
@@ -28,8 +28,10 @@
     = form.label :permanent_passenger
     = form.check_box :permanent
   .field
-    = form.label "Expiration Date"
-    = form.text_field :expiration, class: 'datepicker-here', 'data-language': 'en'
+    = form.label :expiration_date
+    = form.text_field :expiration,
+      class: 'datepicker-here',
+      'data-language': 'en'
   .field
     = form.label "Additional Notes"
     = form.text_area :note
