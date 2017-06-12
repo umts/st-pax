@@ -29,9 +29,8 @@
     = form.check_box :permanent
   .field
     = form.label :expiration_date
-    = form.date_field :expiration,
-      class: 'datepicker-here',
-      'data-language': 'en'
+    = form.text_field :expiration,
+      class: 'datepicker'
   .field
     = form.label "Additional Notes"
     = form.text_area :note
