@@ -31,7 +31,7 @@
 %p
   %b Expiration Date:
   - if @passenger.expiration.present?
-    = @passenger.expiration
+    = @passenger.expiration.strftime '%m/%d/%Y'
   - else
     None
 %p= @passenger.note
