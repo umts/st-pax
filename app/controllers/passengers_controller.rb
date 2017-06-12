@@ -61,7 +61,11 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    params.require(:passenger).permit(:name, :address, :email, :phone,
+    #binding.pry
+    permitted_attrs = params.require(:passenger).permit(:name, :address, :email, :phone,
       :wheelchair, :active, :permanent, :expiration, :note)
+    expiration_date = permitted_attrs[:expiration]
+    permitted_attrs[:expiration] = Date.strptime(expiration_date, '%m/%d/%Y')
+    permitted_attrs
   end
 end
