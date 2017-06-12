@@ -38,6 +38,7 @@ class PassengersController < ApplicationController
 
   def update
     respond_to do |format|
+      @passenger = Passenger.find(params[:id])
       if @passenger.update(passenger_params)
         format.html { redirect_to @passenger, notice: 'Passenger was successfully updated.' }
         format.json { render :show, status: :ok, location: @passenger }
@@ -49,6 +50,7 @@ class PassengersController < ApplicationController
   end
 
   def destroy
+    @passenger = Passenger.find(params[:id])
     @passenger.destroy
     respond_to do |format|
       format.html { redirect_to passengers_url, notice: 'Passenger was successfully destroyed.' }
