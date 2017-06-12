@@ -61,7 +61,6 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    #binding.pry
     permitted_attrs = params.require(:passenger).permit(:name, :address, :email, :phone,
       :wheelchair, :active, :permanent, :expiration, :note)
     expiration_date = permitted_attrs[:expiration]
