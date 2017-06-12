@@ -50,6 +50,7 @@ class PassengersController < ApplicationController
   end
 
   def destroy
+    @passenger = Passenger.find(params[:id])
     @passenger.destroy
     respond_to do |format|
       format.html { redirect_to passengers_url, notice: 'Passenger was successfully destroyed.' }
