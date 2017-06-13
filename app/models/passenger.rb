@@ -6,12 +6,20 @@ class Passenger < ApplicationRecord
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
+  scope :active, -> {where(active: true)}
+  scope :expired, -> {where(expired: false)}
 
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
   end
 
-  def update_active
-    update_attributes(active: false)
+  def self.deactivate_expired_doc_note
+    active.where("expiration <= ?", Date.today).each do |passenger|
+      passenger.update_attributes active: false
+    end
+  end
+
+  def will_expire_within_a_week?
+    expiration.present? && expiration <= 7.days.since
   end
 end

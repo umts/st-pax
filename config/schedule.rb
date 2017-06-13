@@ -1,5 +1,6 @@
 every 1.day, :at => '4:30 am' do
-  runner "Passenger.update_active"
+  runner "Passenger.deactivate_expired_doc_note"
+  runner "Passenger.will_expire_within_a_week"
 end
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
