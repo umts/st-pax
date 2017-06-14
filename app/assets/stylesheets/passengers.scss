@@ -47,8 +47,11 @@ table{
     font-size: 15px;
     padding: 0 5px 7px;
   }
-  .highlight {
+  .will_expire_soon {
     background-color: #b8cfe0;
+  }
+  .expired_3_days {
+    background-color: #aeeac0;
   }
 
 }

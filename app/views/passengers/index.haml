@@ -38,8 +38,7 @@
         %th
     %tbody
       - @passengers.each do |passenger|
-
-        %tr{class: ('highlight' if passenger.will_expire_within_a_week?}
+        %tr{class: expiration_check(passenger)}
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone

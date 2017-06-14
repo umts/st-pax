@@ -14,12 +14,15 @@ class Passenger < ApplicationRecord
   end
 
   def self.deactivate_expired_doc_note
-    active.where("expiration <= ?", Date.today).each do |passenger|
+    active.where("expiration < ?", 3.days.ago).each do |passenger|
       passenger.update_attributes active: false
     end
   end
 
   def will_expire_within_a_week?
-    expiration.present? && expiration <= 7.days.since
+    expiration.present? && expiration <= 7.days.since && expiration >= Date.today
+  end
+  def expired_within_3_days?
+    expiration.present? && expiration >= 3.days.ago && expiration <= 1.days.ago
   end
 end
