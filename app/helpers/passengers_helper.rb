@@ -4,6 +4,8 @@ module PassengersHelper
       'will_expire_soon'
     elsif passenger.expired_within_3_days?
       'expired_3_days'
+    elsif passenger.temporary? && passenger.expiration.blank?
+      'no_note'
     end
   end
 end

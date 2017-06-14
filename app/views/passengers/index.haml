@@ -28,11 +28,12 @@
     %thead
       %b
       %tr
-        %th Name:
-        %th Email:
-        %th Phone:
-        %th Active:
-        %th Permanent:
+        %th Name
+        %th Email
+        %th Phone
+        %th.yesno Active
+        %th.yesno Permanent
+        %th.yesno Expiration Date
         %th
         %th
         %th
@@ -43,13 +44,14 @@
           %td= passenger.email
           %td= passenger.phone
           - if passenger.active
-            %td Yes
+            %td.yes Yes
           - else
-            %td No
+            %td.no No
           - if passenger.permanent
-            %td Yes
+            %td.yes Yes
           - else
-            %td No
+            %td.no No
+          %td.yes= passenger.expiration_display
           %td= link_to "View", passenger
           %td= link_to "Edit", edit_passenger_path(passenger)
           %td= link_to "Delete", passenger, method: :delete,  data: { confirm: "Are you sure?" }

@@ -23,6 +23,20 @@ class Passenger < ApplicationRecord
     expiration.present? && expiration <= 7.days.since && expiration >= Date.today
   end
   def expired_within_3_days?
-    expiration.present? && expiration >= 3.days.ago && expiration <= 1.days.ago
+    expiration.present? && expiration >= 4.days.ago && expiration <= 1.days.ago
+  end
+  def expiration_display
+    if permanent?
+      "None"
+    else
+      if expiration.present?
+        expiration.strftime "%m/%d/%Y"
+      else
+        "No Note"
+      end
+    end
+  end
+  def temporary?
+    !permanent?
   end
 end

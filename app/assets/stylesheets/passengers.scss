@@ -37,21 +37,35 @@ a {
 }
 
 table{
+  border: 2px solid #999;
+  th.yesno {
+    text-align: center;
+    padding: 5px 25px 5px 25px;
+  }
+  tr {
+    border-bottom: 2px solid black;
+  }
   th {
     font-size: 20px;
     background: #9385d5;
-    padding-bottom: 5px;
+    padding: 5px 50px 5px 0;
   }
 
   td {
     font-size: 15px;
-    padding: 0 5px 7px;
+    padding: 5px 5px 5px 0;
+  }
+  td.yes, td.no {
+    text-align: center;
   }
   .will_expire_soon {
-    background-color: #b8cfe0;
+    background-color: #fcf2c0;
   }
   .expired_3_days {
-    background-color: #aeeac0;
+    background-color: #ee9b9b;
+  }
+  .no_note {
+    background-color: #cfc9c9;
   }
 
 }
