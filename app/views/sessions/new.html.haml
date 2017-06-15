@@ -9,4 +9,5 @@
       = f.password_field :password, class: 'form-control'
       = f.submit "Log in", class: "btn btn-primary"
     %p
-      New user? #{link_to "Sign up now!", login_path}
+      New user?
+      = link_to "Sign up now!", login_path
