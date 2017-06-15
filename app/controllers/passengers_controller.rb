@@ -1,4 +1,6 @@
 class PassengersController < ApplicationController
+  before_action :find_passenger, only: [:show, :edit, :update, :destroy]
+
   def new
     @passenger = Passenger.new
   end
@@ -15,47 +17,31 @@ class PassengersController < ApplicationController
   end
 
   def show
-    @passenger = Passenger.find(params[:id])
   end
 
   def edit
-    @passenger = Passenger.find(params[:id])
   end
 
   def create
     @passenger = Passenger.new(passenger_params)
-
-    respond_to do |format|
-      if @passenger.save
-        format.html { redirect_to @passenger, notice: 'Passenger was successfully created.' }
-        format.json { render :show, status: :created, location: @passenger }
-      else
-        format.html { render :new }
-        format.json { render json: @passenger.errors, status: :unprocessable_entity }
-      end
+    if @passenger.save
+      redirect_to @passenger, notice: 'Passenger was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      @passenger = Passenger.find(params[:id])
-      if @passenger.update(passenger_params)
-        format.html { redirect_to @passenger, notice: 'Passenger was successfully updated.' }
-        format.json { render :show, status: :ok, location: @passenger }
-      else
-        format.html { render :edit }
-        format.json { render json: @passenger.errors, status: :unprocessable_entity }
-      end
+    if @passenger.update(passenger_params)
+      redirect_to @passenger, notice: 'Passenger was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
-    @passenger = Passenger.find(params[:id])
     @passenger.destroy
-    respond_to do |format|
-      format.html { redirect_to passengers_url, notice: 'Passenger was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to passengers_url, notice: 'Passenger was successfully destroyed.'
   end
 
   private
@@ -63,5 +49,9 @@ class PassengersController < ApplicationController
   def passenger_params
     params.require(:passenger).permit(:name, :address, :email, :phone,
       :wheelchair, :active, :permanent, :expiration, :note)
+  end
+
+  def find_passenger
+    @passenger = Passenger.find(params[:id])
   end
 end
