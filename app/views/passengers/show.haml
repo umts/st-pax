@@ -33,9 +33,9 @@
   - if @passenger.permanent?
     None
   -elsif @passenger.expiration.present?
-    = @passenger.expiration.strftime "%m/%d/%Y"
+    = @passenger.expiration.strftime '%m/%d/%Y'
   - else
-    No Note
+    No note
 %p= @passenger.note
 = link_to "Edit", edit_passenger_path
 = link_to "Back", passengers_path

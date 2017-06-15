@@ -39,6 +39,8 @@ gem 'whenever', :require => false
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'factory_girl_rails'
+  gem 'ffaker'
 end
 
 group :development do
