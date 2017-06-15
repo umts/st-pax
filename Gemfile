@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'haml', '5.0.0.beta.2'
+gem 'haml'
 gem 'haml-rails'
 gem 'whenever', :require => false
 
