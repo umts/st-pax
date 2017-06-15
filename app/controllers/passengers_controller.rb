@@ -1,5 +1,5 @@
 class PassengersController < ApplicationController
-  before_action :find_passenger, only: [:show, :edit, :update, :destroy]
+  before_action :find_passenger, only: %i[show edit update destroy]
 
   def new
     @passenger = Passenger.new
