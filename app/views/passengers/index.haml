@@ -1,4 +1,4 @@
-= form_tag(passengers_path, :method => "get") do
+= form_tag passengers_path, method: :get do
   = label_tag 'Search by name:'
   = text_field_tag :search, @search_term, placeholder: 'Enter a name'
   %p
@@ -13,10 +13,10 @@
 %p
 = link_to "Add New Passenger", new_passenger_path
 
-- if @permanent.present?
+- if @permanent
   %p
     %b Showing all Permanent
-- elsif @temporary.present?
+- elsif @temporary
   %p
     %b Showing all Temporary
 - else
@@ -43,11 +43,11 @@
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone
-          - if passenger.active
+          - if passenger.active?
             %td.yes Yes
           - else
             %td.no No
-          - if passenger.permanent
+          - if passenger.permanent?
             %td.yes Yes
           - else
             %td.no No
