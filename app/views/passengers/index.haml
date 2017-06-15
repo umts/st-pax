@@ -42,11 +42,11 @@
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone
-          - if passenger.active
+          - if passenger.active?
             %td Yes
           - else
             %td No
-          - if passenger.permanent
+          - if passenger.permanent?
             %td Yes
           - else
             %td No
