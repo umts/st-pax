@@ -13,10 +13,10 @@
 %p
 = link_to "Add New Passenger", new_passenger_path
 
-- if @permanent.present?
+- if @permanent
   %p
     %b Showing all Permanent
-- elsif @temporary.present?
+- elsif @temporary
   %p
     %b Showing all Temporary
 - else
