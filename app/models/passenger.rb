@@ -7,7 +7,7 @@ class Passenger < ApplicationRecord
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
   scope :active, -> {where(active: true)}
-  scope :expired, -> {where(expired: false)}
+  scope :expired, -> {where(active: false)}
 
   def self.search(search)
     where("name LIKE ?", "%#{search}%")
@@ -22,9 +22,11 @@ class Passenger < ApplicationRecord
   def will_expire_within_a_week?
     expiration.present? && expiration <= 7.days.since && expiration >= Date.today
   end
+
   def expired_within_3_days?
     expiration.present? && expiration >= 4.days.ago && expiration <= 1.days.ago
   end
+
   def expiration_display
     if permanent?
       "None"
@@ -36,6 +38,7 @@ class Passenger < ApplicationRecord
       end
     end
   end
+
   def temporary?
     !permanent?
   end

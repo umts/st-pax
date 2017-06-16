@@ -3,22 +3,38 @@
   = text_field_tag :search, @search_term, placeholder: 'Enter a name'
   %p
   = label_tag 'Filter by Type:'
+  %p
   Permanent
   = radio_button_tag :filter, 'permanent'
+  %p
   Temporary
   = radio_button_tag :filter, 'temporary'
+  %p
+  Only Expired
+  = radio_button_tag :filter, 'expired'
+  %p
+  Only Active
+  = radio_button_tag :filter, 'active'
+  %p
   Show All
   = radio_button_tag :filter, 'all'
+  %p
   = submit_tag "Find passengers"
 %p
 = link_to "Add New Passenger", new_passenger_path
-
+%p
 - if @permanent
   %p
-    %b Showing all Permanent
+    %b Showing all Permanent Passengers
 - elsif @temporary
   %p
-    %b Showing all Temporary
+    %b Showing all Temporary Passengers
+- elsif @expired
+  %p
+    %b Showing Only Expired Passengers
+- elsif @active
+  %p
+    %b Showing all Temporary Passeners
 - else
   %p
     %b Showing All Passengers

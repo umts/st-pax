@@ -9,11 +9,15 @@ class PassengersController < ApplicationController
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
     @all = params[:filter] == 'all'
+    @expired = params[:filter] == 'expired'
+    @active = params[:filter] == 'active'
     @search_term = params[:search]
     @passengers = Passenger.order :name
     @passengers = @passengers.search(@search_term) if @search_term.present?
     @passengers = @passengers.permanent if @permanent.present?
     @passengers = @passengers.temporary if @temporary.present?
+    @passengers = @passengers.expired if @expired.present?
+    @passengers = @passengers.active if @active.present?
   end
 
   def show
