@@ -26,27 +26,35 @@ expirations = ((Date.today - 7.days)..(Date.today + 6.months)).to_a
                     wheelchair: false,
                     active: true,
                     permanent: true
+  Passenger.create! name: FFaker::Name.name,
+                    address: FFaker::Address.street_address,
+                    email: FFaker::Internet.email,
+                    phone: FFaker::PhoneNumber.short_phone_number,
+                    wheelchair: true,
+                    active: true,
+                    permanent: false
+  Passenger.create! name: FFaker::Name.name,
+                    address: FFaker::Address.street_address,
+                    email: FFaker::Internet.email,
+                    phone: FFaker::PhoneNumber.short_phone_number,
+                    wheelchair: false,
+                    active: true,
+                    permanent: false,
+                    expiration: (Date.today + 2.days)
+  Passenger.create! name: FFaker::Name.name,
+                    address: FFaker::Address.street_address,
+                    email: FFaker::Internet.email,
+                    phone: FFaker::PhoneNumber.short_phone_number,
+                    wheelchair: false,
+                    active: true,
+                    permanent: false,
+                    expiration: (Date.today - 2.days)
+  Passenger.create! name: FFaker::Name.name,
+                    address: FFaker::Address.street_address,
+                    email: FFaker::Internet.email,
+                    phone: FFaker::PhoneNumber.short_phone_number,
+                    wheelchair: false,
+                    active: true,
+                    permanent: false,
+                    expiration: (Date.today - 4.days)
 end
-
-Passenger.create! name: FFaker::Name.name,
-                  address: FFaker::Address.street_address,
-                  email: FFaker::Internet.email,
-                  phone: FFaker::PhoneNumber.short_phone_number,
-                  wheelchair: true,
-                  active: true,
-                  permanent: false
-Passenger.create! name: FFaker::Name.name,
-                  address: FFaker::Address.street_address,
-                  email: FFaker::Internet.email,
-                  phone: FFaker::PhoneNumber.short_phone_number,
-                  wheelchair: false,
-                  active: true,
-                  permanent: false
-Passenger.create! name: FFaker::Name.name,
-                  address: FFaker::Address.street_address,
-                  email: FFaker::Internet.email,
-                  phone: FFaker::PhoneNumber.short_phone_number,
-                  wheelchair: false,
-                  active: true,
-                  permanent: false,
-                  expiration: '2017-06-13'
