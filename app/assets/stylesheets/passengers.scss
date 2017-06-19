@@ -61,11 +61,14 @@ table#passengers{
   .will_expire_soon {
     background-color: #fcf2c0;
   }
-  .expired_3_days {
+  .expired_within_grace_period {
     background-color: #ee9b9b;
   }
   .no_note {
     background-color: #cfc9c9;
+  }
+  .expired_for_3_days {
+    background-color: #90C3D4
   }
 
 }
