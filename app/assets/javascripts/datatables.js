@@ -9,5 +9,7 @@ $(document).ready( function () {$('#passengers').DataTable({
     { "bSortable": false },
     { "bSortable": false },
     { "bSortable": false },
-  ]
+  ],
+  "aLengthMenu": [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
+  "iDisplayLength": 100
 });});

@@ -9,10 +9,6 @@ class Passenger < ApplicationRecord
   scope :active, -> {where(active: true)}
   scope :expired, -> {where(active: false)}
 
-  def self.search(search)
-    where("name LIKE ?", "%#{search}%")
-  end
-
   def self.deactivate_expired_doc_note
     active.where("expiration < ?", 3.days.ago).each do |passenger|
       passenger.update_attributes active: false

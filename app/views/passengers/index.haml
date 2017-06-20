@@ -1,27 +1,35 @@
+%p
+  %b.yay
+    = link_to "Add New Passenger", new_passenger_path
 = form_tag passengers_path, method: :get do
-  = label_tag 'Search by name:'
-  = text_field_tag :search, @search_term, placeholder: 'Enter a name'
   %p
   = label_tag 'Filter by Type:'
-  %p
   Permanent
   = radio_button_tag :filter, 'permanent'
-  %p
+  .checkbox-inline
   Temporary
   = radio_button_tag :filter, 'temporary'
-  %p
+  .checkbox-inline
   Only Expired
   = radio_button_tag :filter, 'expired'
-  %p
+  .checkbox-inline
   Only Active
   = radio_button_tag :filter, 'active'
-  %p
+  .checkbox-inline
   Show All
   = radio_button_tag :filter, 'all'
-  %p
+  .checkbox-inline
   = submit_tag "Find passengers"
-%p
-= link_to "Add New Passenger", new_passenger_path
+  .checkbox-inline
+    %table#key
+      %tbody
+        %tr
+          %td.space
+            %b Key:
+          %td.yellow Will Expire Soon
+          %td.red Have Expired Recently
+          %td.blue Expired
+          %td.grey No Note
 %p
 - if @permanent
   %p
