@@ -1,6 +1,6 @@
 class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy]
-
+  before_action :access_control, only: %i[destroy]
   def new
     @passenger = Passenger.new
   end
@@ -47,8 +47,11 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    params.require(:passenger).permit(:name, :address, :email, :phone,
-      :wheelchair, :active, :permanent, :expiration, :note)
+    permitted_params = params.require(:passenger).permit(:name, :address, :email, :phone,
+        :wheelchair, :active, :permanent, :expiration, :note)
+    unless user.admin?
+      permitted_params = permitted_params.except(:active, :permanent)
+    end
   end
 
   def find_passenger
