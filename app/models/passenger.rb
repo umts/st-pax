@@ -19,11 +19,11 @@ class Passenger < ApplicationRecord
     expiration.present? && expiration <= 7.days.since && expiration >= Date.today
   end
 
-  def expired_within_grace_period? #will_expire_within_3_days?
-    expiration.present? && (expiration < Date.today && expiration >= 3.days.ago)
+  def expired_within_grace_period?
+    expiration.present? && (expiration < Date.today && expiration >= 4.days.ago)
   end
 
-  def expired_for_3_days?
+  def expired?
     expiration.present? && expiration < 3.days.ago
   end
 

@@ -16,7 +16,7 @@ ol, ul, td {
   font-size: 13px;
   line-height: 18px;
 }
-b.yay {
+strong.bold_and_underline {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 18px;
   line-height: 18px;
@@ -59,27 +59,23 @@ a {
 
 table#key {
   td.space {
-    padding-left: 339px;
+    padding-left: 352px;
   }
-  td.yellow {
+  td {
     font-size: 13px;
+    padding: 5px;
+  }
+  .expire_within_week {
     background: #fcf2c0;
-    padding: 5px 5px 5px 5px;
   }
-  td.red {
-    font-size: 13px;
+  .expired_within_grace {
     background: #ee9b9b;
-    padding: 5px 5px 5px 5px;
   }
-  td.blue {
-    font-size: 13px;
+  .expired {
     background: #90C3D4;
-    padding: 5px 5px 5px 5px;
   }
-  td.grey {
-    font-size: 13px;
+  .no_note {
     background: #cfc9c9;
-    padding: 5px 5px 5px 5px;
   }
 }
 
@@ -114,7 +110,7 @@ table#passengers{
   .no_note {
     background-color: #cfc9c9;
   }
-  .expired_for_3_days {
+  .expired {
     background-color: #90C3D4
   }
 

@@ -1,5 +1,5 @@
 %p
-  %b.yay
+  %strong.bold_and_underline
     = link_to "Add New Passenger", new_passenger_path
 = form_tag passengers_path, method: :get do
   %p
@@ -26,10 +26,10 @@
         %tr
           %td.space
             %b Key:
-          %td.yellow Will Expire Within 1 Week
-          %td.red Expired Within Grace Period
-          %td.blue Expired
-          %td.grey No Note
+          %td.expire_within_week Will Expire Within 1 Week
+          %td.expired_within_grace Expired Within Grace Period
+          %td.expired Expired
+          %td.no_note No Note
 %p
 - if @permanent
   %p

@@ -4,8 +4,8 @@ module PassengersHelper
       'will_expire_soon'
     elsif passenger.expired_within_grace_period?
       'expired_within_grace_period'
-    elsif passenger.expired_for_3_days?
-      'expired_for_3_days'
+    elsif passenger.expired?
+      'expired'
     elsif passenger.temporary? && passenger.expiration.blank?
       'no_note'
     end
