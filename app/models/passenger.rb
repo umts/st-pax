@@ -9,22 +9,29 @@ class Passenger < ApplicationRecord
   scope :active, -> {where(active: true)}
   scope :expired, -> {where(active: false)}
 
+  def self.grace_period
+    3.days.ago.to_date
+  end
+  def self.expiration_warning
+    7.days.since.to_date
+  end
+
   def self.deactivate_expired_doc_note
-    active.where("expiration < ?", 3.days.ago).each do |passenger|
+    active.where("expiration < ?", grace_period).each do |passenger|
       passenger.update_attributes active: false
     end
   end
 
-  def will_expire_within_a_week?
-    expiration.present? && expiration <= 7.days.since && expiration >= Date.today
+  def will_expire_within_warning_period?
+    expiration.present? && expiration < Passenger.expiration_warning && expiration >= Date.today
   end
 
   def expired_within_grace_period?
-    expiration.present? && (expiration < Date.today && expiration >= 4.days.ago)
+    expiration.present? && (expiration < Date.today && expiration >= Passenger.grace_period)
   end
 
   def expired?
-    expiration.present? && expiration < 3.days.ago
+    expiration.present? && expiration < Passenger.grace_period
   end
 
   def expiration_display

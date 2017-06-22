@@ -20,35 +20,35 @@
   = radio_button_tag :filter, 'all'
   .checkbox-inline
   = submit_tag "Find passengers"
-  .checkbox-inline
+  .checkbox-inline.key_position
     %table#key
       %tbody
         %tr
           %td.space
             %b Key:
-          %td.expire_within_week Will Expire Within 1 Week
-          %td.expired_within_grace Expired Within Grace Period
+          %td.will_expire_soon Will Expire Within 1 Week
+          %td.expired_within_grace_period Expired Within Grace Period
           %td.expired Expired
           %td.no_note No Note
 %p
 - if @permanent
-  %p
+  %p.make_green
     %b Showing all Permanent Passengers
 - elsif @temporary
-  %p
+  %p.make_green
     %b Showing all Temporary Passengers
 - elsif @expired
-  %p
+  %p.make_green
     %b Showing Only Expired Passengers
 - elsif @active
-  %p
+  %p.make_green
     %b Showing Only Active Passeners
 - else
-  %p
+  %p.make_green
     %b Showing All Passengers
 %p
 - if @passengers.present?
-  %table#passengers
+  %table.row-border#passengers
     %thead
       %b
       %tr
