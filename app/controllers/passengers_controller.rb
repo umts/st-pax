@@ -6,17 +6,15 @@ class PassengersController < ApplicationController
   end
 
   def index
-    @permanent = params[:filter] == 'permanent'
-    @temporary = params[:filter] == 'temporary'
-    @all = params[:filter] == 'all'
-    @expired = params[:filter] == 'expired'
-    @active = params[:filter] == 'active'
+    @permanent = params[:filter] == ‘permanent’
+    @temporary = params[:filter] == ‘temporary’
+    @expired = params[:filter] == ‘expired’
+    @active = params[:filter] == ‘active’
     @passengers = Passenger.order :name
-    @passengers = @passengers.search(@search_term) if @search_term.present?
-    @passengers = @passengers.permanent if @permanent.present?
-    @passengers = @passengers.temporary if @temporary.present?
-    @passengers = @passengers.expired if @expired.present?
-    @passengers = @passengers.active if @active.present?
+    @passengers = @passengers.permanent if @permanent
+    @passengers = @passengers.temporary if @temporary
+    @passengers = @passengers.expired if @expired
+    @passengers = @passengers.active if @active
   end
 
   def show
