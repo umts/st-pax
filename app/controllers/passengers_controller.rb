@@ -6,10 +6,10 @@ class PassengersController < ApplicationController
   end
 
   def index
-    @permanent = params[:filter] == ‘permanent’
-    @temporary = params[:filter] == ‘temporary’
-    @expired = params[:filter] == ‘expired’
-    @active = params[:filter] == ‘active’
+    @permanent = params[:filter] == 'permanent'
+    @temporary = params[:filter] == 'temporary'
+    @expired = params[:filter] == 'expired'
+    @active = params[:filter] == 'active'
     @passengers = Passenger.order :name
     @passengers = @passengers.permanent if @permanent
     @passengers = @passengers.temporary if @temporary
