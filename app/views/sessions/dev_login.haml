@@ -1,0 +1,12 @@
+%h1 Development login
+
+
+= form_tag '/sessions/dev_login' do
+  = submit_tag 'Log in with no user record (should fail)'
+- [@admin, @user].each_with_index do |group, index|
+  %h2 Login as #{%w(admin user)[index]}:
+  %ul
+    - group.each do |user|
+      = form_tag '/sessions/dev_login' do
+        = hidden_field_tag :user_id, user.id
+        = submit_tag user.name
