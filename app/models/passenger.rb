@@ -7,7 +7,6 @@ class Passenger < ApplicationRecord
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
   scope :active, -> {where(active: true)}
-  scope :expired, -> {where(active: false)}
 
   def self.grace_period
     3.days.ago.to_date
