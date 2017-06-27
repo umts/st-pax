@@ -12,6 +12,7 @@
  *
  *= require bootstrap/dist/css/bootstrap
  *= require jquery-ui/themes/base/all
+ *= require datatables.net-dt/css/jquery.dataTables.css
  *= require_tree .
  *= require_self
  */
