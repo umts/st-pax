@@ -1,5 +1,5 @@
 %p
-  %strong.bold_and_underline
+  %strong.filter_description_emphasis
     = link_to "Add New Passenger", new_passenger_path
 = form_tag passengers_path, method: :get do
   %p
@@ -32,19 +32,19 @@
           %td.no_note No Note
 %p
 - if @permanent
-  %p.filter_description
+  %p.filter_description_color
     %b Showing all Permanent Passengers
 - elsif @temporary
-  %p.filter_description
+  %p.filter_description_color
     %b Showing all Temporary Passengers
 - elsif @expired
-  %p.filter_description
+  %p.filter_description_color
     %b Showing Only Expired Passengers
 - elsif @active
-  %p.filter_description
+  %p.filter_description_color
     %b Showing Only Active Passeners
 - else
-  %p.filter_description
+  %p.filter_description_color
     %b Showing All Passengers
 %p
 - if @passengers.present?
