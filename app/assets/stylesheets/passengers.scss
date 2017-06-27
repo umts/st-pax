@@ -16,7 +16,19 @@ p, ol, ul, td {
   font-size: 13px;
   line-height: 18px;
 }
-
+strong.filter_description_emphasis {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 18px;
+  background-color: #e0dbfa;
+  text-decoration: underline;
+}
+p.filter_description_color {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 19px;
+  line-height: 18px;
+  color: #25da6d;
+}
 pre {
   background-color: #eee;
   padding: 10px;
@@ -34,17 +46,48 @@ a {
     color: #fff;
     background-color: #000;
   }
+  .radioDiv {
+   width:200px;
+  }
+  .leftRadio {
+   float:left;
+  }
+  .rightRadio {
+   float:right;
+  }
+}
+table#key, table#passengers {
+  .will_expire_soon {
+    background-color: #fcf2c0;
+  }
+  .expired_within_grace_period {
+    background-color: #ee9b9b;
+  }
+  .no_note {
+    background-color: #cfc9c9;
+  }
+  .expired {
+    background-color: #90C3D4
+  }
+}
+.checkbox-inline.key_position {
+  float: right;
 }
 
-table{
+table#key {
+  td {
+    font-size: 13px;
+    padding: 5px;
+  }
+}
+
+table#passengers{
   border: 2px solid #999;
   th.yesno {
     text-align: center;
     padding: 5px 25px 5px 25px;
   }
-  tr {
-    border-bottom: 2px solid black;
-  }
+
   th {
     font-size: 20px;
     background: #9385d5;
@@ -58,16 +101,6 @@ table{
   td.yes, td.no {
     text-align: center;
   }
-  .will_expire_soon {
-    background-color: #fcf2c0;
-  }
-  .expired_3_days {
-    background-color: #ee9b9b;
-  }
-  .no_note {
-    background-color: #cfc9c9;
-  }
-
 }
 
 div {

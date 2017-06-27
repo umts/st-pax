@@ -1,30 +1,54 @@
+%p
+  %strong.filter_description_emphasis
+    = link_to "Add New Passenger", new_passenger_path
 = form_tag passengers_path, method: :get do
-  = label_tag 'Search by name:'
-  = text_field_tag :search, @search_term, placeholder: 'Enter a name'
   %p
   = label_tag 'Filter by Type:'
   Permanent
   = radio_button_tag :filter, 'permanent'
+  .checkbox-inline
   Temporary
   = radio_button_tag :filter, 'temporary'
+  .checkbox-inline
+  Only Expired
+  = radio_button_tag :filter, 'expired'
+  .checkbox-inline
+  Only Active
+  = radio_button_tag :filter, 'active'
+  .checkbox-inline
   Show All
   = radio_button_tag :filter, 'all'
+  .checkbox-inline
   = submit_tag "Find passengers"
+  .checkbox-inline.key_position
+    %table#key
+      %tbody
+        %tr
+          %td.space
+            %b Key:
+          %td.will_expire_soon Will Expire Within 1 Week
+          %td.expired_within_grace_period Expired Within Grace Period
+          %td.expired Expired
+          %td.no_note No Note
 %p
-= link_to "Add New Passenger", new_passenger_path
-
 - if @permanent
-  %p
-    %b Showing all Permanent
+  %p.filter_description_color
+    %b Showing all Permanent Passengers
 - elsif @temporary
-  %p
-    %b Showing all Temporary
+  %p.filter_description_color
+    %b Showing all Temporary Passengers
+- elsif @expired
+  %p.filter_description_color
+    %b Showing Only Expired Passengers
+- elsif @active
+  %p.filter_description_color
+    %b Showing Only Active Passeners
 - else
-  %p
+  %p.filter_description_color
     %b Showing All Passengers
-
+%p
 - if @passengers.present?
-  %table
+  %table.row-border#passengers
     %thead
       %b
       %tr
