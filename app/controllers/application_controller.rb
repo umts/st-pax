@@ -2,11 +2,6 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_user
   protect_from_forgery with: :exception
-<<<<<<< Updated upstream
-  def set_current_user
-    if session.key? :user_id
-      @current_user = User.find_by id: session[:user_id]
-=======
   before_action :set_spire
   before_action :set_current_user
   before_action :redirect_unauthenticated
@@ -16,18 +11,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Appended as a before_action in controllers by default
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def access_control
-    deny_access and return unless @current_user.present? && @current_user.admin?
-  end
-  # rubocop:enable Style/AndOr
-
   def deny_access
     if request.xhr?
       head :unauthorized
->>>>>>> Stashed changes
     else
       render file: 'public/401.html',
              status: :unauthorized,

@@ -8,13 +8,10 @@ class PassengersController < ApplicationController
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
-<<<<<<< Updated upstream
     @all = params[:filter] == 'all'
     @search_term = params[:search]
-=======
     @expired = params[:filter] == 'expired'
     @active = params[:filter] == 'active'
->>>>>>> Stashed changes
     @passengers = Passenger.order :name
     @passengers = @passengers.search(@search_term) if @search_term.present?
     @passengers = @passengers.permanent if @permanent.present?
