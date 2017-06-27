@@ -32,19 +32,19 @@
           %td.no_note No Note
 %p
 - if @permanent
-  %p.make_green
+  %p.filter_description
     %b Showing all Permanent Passengers
 - elsif @temporary
-  %p.make_green
+  %p.filter_description
     %b Showing all Temporary Passengers
 - elsif @expired
-  %p.make_green
+  %p.filter_description
     %b Showing Only Expired Passengers
 - elsif @active
-  %p.make_green
+  %p.filter_description
     %b Showing Only Active Passeners
 - else
-  %p.make_green
+  %p.filter_description
     %b Showing All Passengers
 %p
 - if @passengers.present?
