@@ -27,7 +27,7 @@ class Passenger < ApplicationRecord
   end
 
   def expired_within_grace_period?
-    expiration.present? && (expiration < Date.today && expiration >= Passenger.grace_period)
+    expiration.present? && expiration < Date.today && expiration >= Passenger.grace_period
   end
 
   def expired?
