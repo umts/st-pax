@@ -77,9 +77,9 @@
           - else
             %td.no No
           %td.yes= passenger.expiration_display
-          %td= link_to "View", passenger
-          %td= link_to "Edit", edit_passenger_path(passenger)
+          %td= link_to 'View', passenger
+          %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
-            %td= link_to "Delete", passenger, method: :delete,  data: { confirm: "Are you sure?" }
+            %td= link_to 'Delete', passenger, method: :delete,  data: { confirm: "Are you sure?" }
 - else
   No results

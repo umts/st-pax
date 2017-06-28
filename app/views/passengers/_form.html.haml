@@ -27,7 +27,7 @@
       = form.check_box :active
   .field
     = form.label :permanent_passenger
-    = form.check_box :permanent, disabled: !@current_user.admin?
+    = form.check_box :permanent, disabled: @current_user.dispatcher?
   .field
     = form.label :expiration_date
     = form.text_field :expiration,

@@ -52,6 +52,7 @@ class PassengersController < ApplicationController
         :wheelchair, :active, :permanent, :expiration, :note)
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
+      return permitted_params
     end
   end
 
