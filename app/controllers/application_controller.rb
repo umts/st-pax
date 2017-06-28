@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  attr_accessor :current_user
   protect_from_forgery with: :exception
-  before_action :set_spire
   before_action :set_current_user
   before_action :redirect_unauthenticated
   before_action :access_control
@@ -24,7 +22,7 @@ class ApplicationController < ActionController::Base
   # '... and return' is the correct behavior here, disable rubocop warning
   # rubocop:disable Style/AndOr
   def redirect_unauthenticated
-    unless @current_user.present? || session.key?(:spire)
+    unless @current_user.present?
       logger.info 'Request:'
       logger.info request.inspect
       logger.info 'Session:'
@@ -38,13 +36,13 @@ class ApplicationController < ActionController::Base
     @current_user =
       if session.key? :user_id
         User.find_by id: session[:user_id]
-      elsif session.key? :spire
-        User.find_by spire: session[:spire]
+      elsif request.env.key? 'fcIdNumber'
+        User.find_by spire: request.env['fcIdNumber']
       end
-  end
-
-  def set_spire
-    session[:spire] = request.env['fcIdNumber'] if request.env.key? 'fcIdNumber'
+    if @current_user.present?
+      session[:user_id] = @current_user.id
+    else redirect_to unauthenticated_session_path
+    end
   end
 
   # '... and return' is the correct behavior here, disable rubocop warning

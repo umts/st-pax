@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 
     def dev_login # route not defined in production
       if request.get?
-        @admin = User.where(admin: true)
+        @admins = User.where(admin: true)
         @dispatchers = User.where(admin: false)
       elsif request.post?
         find_user
@@ -28,10 +28,8 @@ class SessionsController < ApplicationController
 
     def find_user
       if params.permit(:user_id).present?
-        @dispatchers = User.find_by(id: params[:user_id])
-        session[:user_id] = @dispatchers.id
-      elsif params.permit(:spire).present?
-        session[:spire] = params[:spire]
+        @user = User.find_by(id: params[:user_id])
+        session[:user_id] = @user.id
       end
     end
 
