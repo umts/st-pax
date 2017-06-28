@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
       elsif request.env.key? 'fcIdNumber'
         User.find_by spire: request.env['fcIdNumber']
       end
+    if @current_user.present?
+      session[:user_id] = @current_user.id
+    else redirect_to unauthenticated_session_path
+    end
   end
 
   # '... and return' is the correct behavior here, disable rubocop warning
