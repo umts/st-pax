@@ -1,4 +1,5 @@
-$(document).ready( function () {$('#passengers').DataTable({
+$( document ).on("turbolinks:load", function() {
+  $('#passengers').DataTable({
   "aoColumns": [
     null,
     null,

@@ -5,7 +5,7 @@ module PassengersHelper
     elsif passenger.expired_within_grace_period?
       'expired_within_grace_period'
     elsif passenger.expired?
-      'expired'
+      'inactive'
     elsif passenger.temporary? && passenger.expiration.blank?
       'no_note'
     end

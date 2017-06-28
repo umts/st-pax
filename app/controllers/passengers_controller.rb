@@ -8,12 +8,12 @@ class PassengersController < ApplicationController
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
-    @expired = params[:filter] == 'expired'
+    @inactive = params[:filter] == 'inactive'
     @active = params[:filter] == 'active'
     @passengers = Passenger.order :name
     @passengers = @passengers.permanent if @permanent
     @passengers = @passengers.temporary if @temporary
-    @passengers = @passengers.expired if @expired
+    @passengers = @passengers.inactive if @inactive
     @passengers = @passengers.active if @active
   end
 
@@ -50,7 +50,7 @@ class PassengersController < ApplicationController
   def passenger_params
     permitted_params = params.require(:passenger).permit(:name, :address, :email, :phone,
         :wheelchair, :active, :permanent, :expiration, :note)
-    unless user.admin?
+    unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
   end
