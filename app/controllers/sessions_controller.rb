@@ -31,8 +31,6 @@ class SessionsController < ApplicationController
       if params.permit(:user_id).present?
         @user = User.find_by(id: params[:user_id])
         session[:user_id] = @user.id
-      elsif params.permit(:spire).present?
-        session[:spire] = params[:spire]
       end
     end
 
