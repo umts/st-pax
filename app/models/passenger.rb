@@ -10,7 +10,6 @@ class Passenger < ApplicationRecord
   scope :inactive, -> {where(active: false)}
 
   before_save do
-    binding.pry
     if permanent?
       assign_attributes(expiration:nil)
     end
