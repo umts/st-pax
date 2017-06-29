@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :redirect_unauthenticated
   before_action :access_control
   before_action :check_primary_account
-  layout 'application'
 
   private
 
