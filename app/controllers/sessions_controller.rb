@@ -26,10 +26,8 @@ class SessionsController < ApplicationController
     private
 
     def find_user
-      if params.permit(:user_id).present?
-        @user = User.find_by(id: params[:user_id])
+        @user = User.find_by(id: params.require(:user_id))
         session[:user_id] = @user.id
-      end
     end
 
   end

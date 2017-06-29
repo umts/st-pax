@@ -61,6 +61,7 @@ class ApplicationController < ActionController::Base
              layout: false
     end
   end
+
   def access_control
     deny_access and return unless @current_user.present? && @current_user.admin?
   end

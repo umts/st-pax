@@ -41,6 +41,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'rubocop'
 end
 
 group :development do
