@@ -9,6 +9,13 @@ class Passenger < ApplicationRecord
   scope :active, -> {where(active: true)}
   scope :inactive, -> {where(active: false)}
 
+  before_save do
+    binding.pry
+    if permanent?
+      assign_attributes(expiration:nil)
+    end
+  end
+
   def self.grace_period
     3.days.ago.to_date
   end
