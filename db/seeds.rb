@@ -13,3 +13,8 @@ expirations = ((Date.today - 7.days)..(Date.today + 6.months)).to_a
                       expiration: exp
   end
 end
+
+User.create! name: 'David Faulkenberry',
+             email: 'dave@example.com',
+             spire: '12345678@umass.edu',
+             admin: true
