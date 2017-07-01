@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :set_current_user
-  before_action :redirect_unauthenticated
   before_action :access_control
   before_action :check_primary_account
 
@@ -17,19 +16,6 @@ class ApplicationController < ActionController::Base
              layout: false
     end
   end
-
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def redirect_unauthenticated
-    unless @current_user.present?
-      logger.info 'Request:'
-      logger.info request.inspect
-      logger.info 'Session:'
-      logger.info session.inspect
-      redirect_to unauthenticated_session_path and return
-    end
-  end
-  # rubocop:enable Style/AndOr
 
   def set_current_user
     @current_user =
