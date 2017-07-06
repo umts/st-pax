@@ -1,12 +1,10 @@
-$(document).on("turbolinks:load", function() {
-  $('input#permanent_passenger').change(function(){
-      if($('input#permanent_passenger').is(":checked")){
-        $('input#expiration_date').prop("disabled", true);
-        $('input#expiration_date').val('');
+$(document).on('turbolinks:load', function(){
+  $('input#passenger_permanent').change(function(){
+      var expirationField = $('input#passenger_expiration')
+      if($(this).is(':checked')){
+        expirationField.prop('disabled', true);
+        expirationField.val('');
       }
-      else{
-        $('input#expiration_date').prop("disabled", false);
-      }
+      else expirationField.prop('disabled', false);
   });
 });
-//Checking in browser console with: $('input#passenger_permanent').is(":checked")
