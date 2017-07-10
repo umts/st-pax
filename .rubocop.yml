@@ -4,3 +4,12 @@ AllCops:
     - db/migrate/*.rb
     - config/spring.rb
     - config/puma.rb
+    - config/initializers/wrap_parameters.rb
+    - config/initializers/backtrace_silencers.rb
+    - config/environments/production.rb
+    - config/environments/development.rb
+    - config/application.rb
+    - config/environments/test.rb
+
+Style/Documentation:
+  Enabled: false

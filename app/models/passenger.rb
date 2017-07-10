@@ -28,11 +28,15 @@ class Passenger < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
-    expiration.present? && expiration < Passenger.expiration_warning && expiration >= Date.today
+    expiration.present? &&
+      expiration < Passenger.expiration_warning &&
+      expiration >= Date.today
   end
 
   def expired_within_grace_period?
-    expiration.present? && expiration < Date.today && expiration >= Passenger.grace_period
+    expiration.present? &&
+      expiration < Date.today &&
+      expiration >= Passenger.grace_period
   end
 
   def expired?
@@ -42,12 +46,10 @@ class Passenger < ApplicationRecord
   def expiration_display
     if permanent?
       'None'
+    elsif expiration.present?
+      expiration.strftime '%m/%d/%Y'
     else
-      if expiration.present?
-        expiration.strftime '%m/%d/%Y'
-      else
-        'No Note'
-      end
+      'No Note'
     end
   end
 

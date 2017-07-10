@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # rubocop:disable AbcSize
   def set_current_user
     @current_user =
       if session.key? :user_id
@@ -28,6 +29,7 @@ class ApplicationController < ActionController::Base
     else redirect_to unauthenticated_session_path
     end
   end
+  # rubocop:enable AbcSize
 
   # '... and return' is the correct behavior here, disable rubocop warning
   # rubocop:disable Style/AndOr
@@ -38,13 +40,12 @@ class ApplicationController < ActionController::Base
   # rubocop:enable Style/AndOr
 
   def check_primary_account
-    if request.env['UMAPrimaryAccount'] != request.env['uid']
-      @primary_account = request.env['UMAPrimaryAccount']
-      @uid = request.env['uid']
-      render 'sessions/unauthenticated_subsidiary',
-             status: :unauthorized,
-             layout: false
-    end
+    return unless request.env['UMAPrimaryAccount'] != request.env['uid']
+    @primary_account = request.env['UMAPrimaryAccount']
+    @uid = request.env['uid']
+    render 'sessions/unauthenticated_subsidiary',
+           status: :unauthorized,
+           layout: false
   end
 
   def access_control
