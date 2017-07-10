@@ -3,7 +3,7 @@
 = form_tag '/sessions/dev_login' do
   = submit_tag 'Log in with no user record (should fail)'
 - [@admins, @dispatchers].each_with_index do |group, index|
-  %h2 Login as #{%w(Admin Dispatcher)[index]}:
+  %h2 Login as #{%w[Admin Dispatcher][index]}:
   %ul
     - group.each do |user|
       = form_tag '/sessions/dev_login' do
