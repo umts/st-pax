@@ -6,13 +6,11 @@ class Passenger < ApplicationRecord
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
-  scope :active, -> {where(active: true)}
-  scope :inactive, -> {where(active: false)}
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   before_save do
-    if permanent?
-      assign_attributes(expiration:nil)
-    end
+    assign_attributes(expiration: nil) if permanent?
   end
 
   def self.grace_period
@@ -24,7 +22,7 @@ class Passenger < ApplicationRecord
   end
 
   def self.deactivate_expired_doc_note
-    active.where("expiration < ?", grace_period).each do |passenger|
+    active.where('expiration < ?', grace_period).each do |passenger|
       passenger.update_attributes active: false
     end
   end
@@ -43,12 +41,12 @@ class Passenger < ApplicationRecord
 
   def expiration_display
     if permanent?
-      "None"
+      'None'
     else
       if expiration.present?
-        expiration.strftime "%m/%d/%Y"
+        expiration.strftime '%m/%d/%Y'
       else
-        "No Note"
+        'No Note'
       end
     end
   end

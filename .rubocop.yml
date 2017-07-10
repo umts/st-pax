@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - db/*.rb
+    - db/migrate/*.rb
+    - config/spring.rb
+    - config/puma.rb

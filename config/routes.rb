@@ -12,5 +12,4 @@ Rails.application.routes.draw do
   end
   get 'sessions/unauthenticated', to: 'sessions#unauthenticated', as: :unauthenticated_session
   get 'sessions/destroy', to: 'sessions#destroy', as: :destroy_session
-  
 end

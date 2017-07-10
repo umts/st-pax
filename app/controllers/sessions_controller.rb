@@ -28,5 +28,4 @@ class SessionsController < ApplicationController
     @user = User.find_by(id: params.require(:user_id))
     session[:user_id] = @user.id
   end
-
 end
