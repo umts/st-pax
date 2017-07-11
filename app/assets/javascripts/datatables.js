@@ -1,5 +1,5 @@
 $( document ).on("turbolinks:load", function() {
-  $('#passengers').DataTable({
+  $('#passengers.admin-table').DataTable({
   "aoColumns": [
     null,
     null,
@@ -13,4 +13,22 @@ $( document ).on("turbolinks:load", function() {
   ],
   "aLengthMenu": [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
   "iDisplayLength": 100
-});});
+});
+});
+
+$( document ).on("turbolinks:load", function() {
+  $('#passengers.dispatch-table').DataTable({
+  "aoColumns": [
+    null,
+    null,
+    null,
+    { "bSortable": false },
+    { "bSortable": false },
+    null,
+    { "bSortable": false },
+    { "bSortable": false },
+  ],
+  "aLengthMenu": [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
+  "iDisplayLength": 100
+});
+});

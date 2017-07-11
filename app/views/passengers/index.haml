@@ -48,7 +48,7 @@
     %b Showing All Passengers
 %p
 - if @passengers.present?
-  %table.row-border#passengers
+  %table{id: 'passengers', class: table_class}
     %thead
       %b
       %tr

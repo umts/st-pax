@@ -1,4 +1,5 @@
 module PassengersHelper
+
   def expiration_check(passenger)
     if passenger.will_expire_within_warning_period?
       'will_expire_soon'
@@ -10,4 +11,13 @@ module PassengersHelper
       'no_note'
     end
   end
+
+  def table_class
+    if @current_user.admin?
+      'row-border admin-table'
+    else
+      'row-border dispatch-table'
+    end
+  end
+
 end
