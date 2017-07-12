@@ -11,19 +11,21 @@ class ApplicationController < ActionController::Base
       head :unauthorized
     else
       render file: 'public/401.html',
-             status: :unauthorized,
-             layout: false
+      status: :unauthorized,
+      layout: false
     end
   end
 
+  # Disable ABC size because this block will likely be
+  # changed in a later branch
   # rubocop:disable AbcSize
   def set_current_user
     @current_user =
-      if session.key? :user_id
-        User.find_by id: session[:user_id]
-      elsif request.env.key? 'fcIdNumber'
-        User.find_by spire: request.env['fcIdNumber']
-      end
+    if session.key? :user_id
+      User.find_by id: session[:user_id]
+    elsif request.env.key? 'fcIdNumber'
+      User.find_by spire: request.env['fcIdNumber']
+    end
     if @current_user.present?
       session[:user_id] = @current_user.id
     else redirect_to unauthenticated_session_path
@@ -44,8 +46,8 @@ class ApplicationController < ActionController::Base
     @primary_account = request.env['UMAPrimaryAccount']
     @uid = request.env['uid']
     render 'sessions/unauthenticated_subsidiary',
-           status: :unauthorized,
-           layout: false
+    status: :unauthorized,
+    layout: false
   end
 
   def access_control
