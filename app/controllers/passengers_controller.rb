@@ -19,10 +19,6 @@ class PassengersController < ApplicationController
     @passengers = @passengers.active if @active
   end
 
-  def show; end
-
-  def edit; end
-
   def create
     @passenger = Passenger.new(passenger_params)
     if @passenger.save
