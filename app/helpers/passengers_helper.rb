@@ -1,4 +1,4 @@
-module PassenersHelper
+module PassengersHelper
 
   def expiration_check(passenger)
     if passenger.will_expire_within_warning_period?
