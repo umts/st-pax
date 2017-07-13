@@ -1,26 +1,22 @@
 class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy]
-
+  before_action :access_control, only: %i[destroy]
   def new
     @passenger = Passenger.new
   end
 
+  #TODO: refactor
+
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
-    @expired = params[:filter] == 'expired'
+    @inactive = params[:filter] == 'inactive'
     @active = params[:filter] == 'active'
     @passengers = Passenger.order :name
     @passengers = @passengers.permanent if @permanent
     @passengers = @passengers.temporary if @temporary
-    @passengers = @passengers.expired if @expired
+    @passengers = @passengers.inactive if @inactive
     @passengers = @passengers.active if @active
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def create
@@ -48,8 +44,14 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    params.require(:passenger).permit(:name, :address, :email, :phone,
-      :wheelchair, :active, :permanent, :expiration, :note)
+    permitted_params = params.require(:passenger)
+                             .permit(:name, :address, :email, :phone,
+                                     :wheelchair, :active, :permanent,
+                                     :expiration, :note)
+    unless @current_user.admin?
+      permitted_params = permitted_params.except(:active, :permanent)
+    end
+    permitted_params
   end
 
   def find_passenger

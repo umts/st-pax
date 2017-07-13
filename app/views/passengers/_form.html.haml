@@ -21,12 +21,13 @@
   .field
     = form.label :wheelchair
     = form.check_box :wheelchair
-  .field
-    = form.label :active
-    = form.check_box :active
+  - if @current_user.admin?
+    .field
+      = form.label :active
+      = form.check_box :active
   .field
     = form.label :permanent_passenger
-    = form.check_box :permanent
+    = form.check_box :permanent, disabled: @current_user.dispatcher?
   .field
     = form.label :expiration_date
     = form.text_field :expiration,

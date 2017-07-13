@@ -10,8 +10,8 @@
   Temporary
   = radio_button_tag :filter, 'temporary'
   .checkbox-inline
-  Only Expired
-  = radio_button_tag :filter, 'expired'
+  Inactive
+  = radio_button_tag :filter, 'inactive'
   .checkbox-inline
   Only Active
   = radio_button_tag :filter, 'active'
@@ -28,7 +28,7 @@
             %b Key:
           %td.will_expire_soon Will Expire Within 1 Week
           %td.expired_within_grace_period Expired Within Grace Period
-          %td.expired Expired
+          %td.inactive Inactive
           %td.no_note No Note
 %p
 - if @permanent
@@ -37,9 +37,9 @@
 - elsif @temporary
   %p.filter_description_color
     %b Showing all Temporary Passengers
-- elsif @expired
+- elsif @inactive
   %p.filter_description_color
-    %b Showing Only Expired Passengers
+    %b Showing Inactive Passengers
 - elsif @active
   %p.filter_description_color
     %b Showing Only Active Passeners
@@ -48,7 +48,7 @@
     %b Showing All Passengers
 %p
 - if @passengers.present?
-  %table.row-border#passengers
+  %table#passengers{class: table_class}
     %thead
       %b
       %tr
@@ -60,7 +60,8 @@
         %th.yesno Expiration Date
         %th
         %th
-        %th
+        -if @current_user.admin?
+          %th
     %tbody
       - @passengers.each do |passenger|
         %tr{class: expiration_check(passenger)}
@@ -76,8 +77,9 @@
           - else
             %td.no No
           %td.yes= passenger.expiration_display
-          %td= link_to "View", passenger
-          %td= link_to "Edit", edit_passenger_path(passenger)
-          %td= link_to "Delete", passenger, method: :delete,  data: { confirm: "Are you sure?" }
+          %td= link_to 'View', passenger
+          %td= link_to 'Edit', edit_passenger_path(passenger)
+          - if @current_user.admin?
+            %td= link_to 'Delete', passenger, method: :delete,  data: { confirm: 'Are you sure?' }
 - else
   No results

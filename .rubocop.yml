@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - db/schema/*.rb
+    - db/migrate/*.rb
+Style/Documentation:
+  Enabled: false
