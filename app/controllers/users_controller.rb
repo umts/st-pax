@@ -9,15 +9,10 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
-
   # GET /users/new
   def new
     @user = User.new
   end
-
-  # GET /users/1/edit
-  def edit; end
 
   # POST /users
   # POST /users.json
@@ -26,8 +21,7 @@ class UsersController < ApplicationController
 
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
-    else
-      render :new
+    else render :new
     end
   end
 

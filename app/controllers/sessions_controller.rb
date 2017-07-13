@@ -20,8 +20,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  # Only shows if no user in databse AND no SPIRE provided from Shibboleth
-
   private
 
   def find_user
