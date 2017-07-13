@@ -7,8 +7,8 @@
   with your NetID, or your account has been deactivated. Some possible causes:
   %ul
     %li
-      = "You are not an employee of UMass Transit.
-        In this case, you might be looking for our public website, where you can access "
+      You are not an employee of UMass Transit.
+      In this case, you might be looking for our public website, where you can access
       = succeed ',' do
         = link_to 'news', 'http://umass.edu/transit/news.html'
       = succeed ', and' do
@@ -23,8 +23,3 @@
       accidentally deactivated.
 
 = link_to 'Logout', destroy_sessions_path, method: :delete
-
--if @shibboleth_down
-  %p="If you're the current ST Dispatcher and you're seeing this page,
-  please #{raw link_to('click here', backup_login_sessions_path, skip_permissions: true)} to
-  login.".html_safe
