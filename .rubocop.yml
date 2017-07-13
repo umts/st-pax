@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - db/*.rb
     - db/migrate/*.rb
-
+  Include:
+    - db/seeds.rb
 Style/Documentation:
   Enabled: false

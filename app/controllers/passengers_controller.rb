@@ -5,7 +5,8 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new
   end
 
-  # Will be refactored
+  #TODO: refactor
+
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
@@ -17,10 +18,6 @@ class PassengersController < ApplicationController
     @passengers = @passengers.inactive if @inactive
     @passengers = @passengers.active if @active
   end
-
-  def show; end
-
-  def edit; end
 
   def create
     @passenger = Passenger.new(passenger_params)

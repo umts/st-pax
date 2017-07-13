@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   # rubocop:enable Style/AndOr
 
   def check_primary_account
-    return unless request.env['UMAPrimaryAccount'] != request.env['uid']
+    return if request.env['UMAPrimaryAccount'] == request.env['uid']
     @primary_account = request.env['UMAPrimaryAccount']
     @uid = request.env['uid']
     render 'sessions/unauthenticated_subsidiary',
