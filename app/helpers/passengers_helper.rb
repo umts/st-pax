@@ -1,4 +1,4 @@
-module IndexHelper
+module PassenersHelper
 
   def expiration_check(passenger)
     if passenger.will_expire_within_warning_period?
@@ -12,7 +12,7 @@ module IndexHelper
     end
   end
 
-  def table_class
+  def passengers_table_class
     if @current_user.admin?
       'row-border admin-table'
     else
