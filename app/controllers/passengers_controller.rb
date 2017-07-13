@@ -29,7 +29,7 @@ class PassengersController < ApplicationController
   end
 
   def update
-    if @passenger.update_attributes(passenger_params)
+    if @passenger.update(passenger_params)
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
       render :edit
