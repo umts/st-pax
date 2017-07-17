@@ -17,6 +17,12 @@
   - else
     No
 %p
+  %b Mobility Device:
+  - if @passenger.mobility_device?
+    = @passenger.mobility_device
+  - else
+    None
+%p
   %b Active:
   - if @passenger.active
     Yes
