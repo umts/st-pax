@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609193541) do
+ActiveRecord::Schema.define(version: 20170713181820) do
 
   create_table "passengers", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170609193541) do
     t.datetime "updated_at", null: false
     t.text "note"
     t.date "expiration"
+    t.string "mobility_device"
   end
 
   create_table "users", force: :cascade do |t|

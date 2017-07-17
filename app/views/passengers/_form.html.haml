@@ -21,6 +21,9 @@
   .field
     = form.label :wheelchair
     = form.check_box :wheelchair
+  .field
+    = form.label :mobility_devices
+    = form.select :mobility_devices
   - if @current_user.admin?
     .field
       = form.label :active
