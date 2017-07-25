@@ -25,6 +25,10 @@ class Passenger < ApplicationRecord
     7.days.since.to_date
   end
 
+  def self.admin_override_time_period
+    7.days.ago.to_date
+  end
+
   def self.deactivate_expired_doc_note
     active.where('expiration < ?', grace_period).each do |passenger|
       passenger.update_attributes active: false
@@ -41,6 +45,12 @@ class Passenger < ApplicationRecord
     expiration.present? &&
       expiration < Date.today &&
       expiration >= Passenger.grace_period
+  end
+
+  def admin_override?
+    expiration.present? &&
+    expiration < Date.today &&
+    expiration >= Passenger.admin_override_time_period
   end
 
   def expired?

@@ -67,7 +67,10 @@ table#key, table#passengers {
     background-color: #cfc9c9;
   }
   .inactive {
-    background-color: #90C3D4
+    background-color: #90C3D4;
+  }
+  .has_been_overridden{
+    background-color: #E898FF;
   }
 }
 .checkbox-inline.key_position {
