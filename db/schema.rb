@@ -12,8 +12,20 @@
 
 ActiveRecord::Schema.define(version: 20170717172955) do
 
-# Could not dump table "passengers" because of following StandardError
-#   Unknown type '' for column 'string'
+  create_table "passengers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "address"
+    t.string "phone"
+    t.boolean "wheelchair"
+    t.boolean "active"
+    t.boolean "permanent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "note"
+    t.date "expiration"
+    t.string "mobility_device"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
