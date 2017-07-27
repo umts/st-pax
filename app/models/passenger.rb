@@ -9,6 +9,7 @@ class Passenger < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
+  has_one :doctors_note
   # TODO: Make configurable by user
   MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker',
                       'Service Dog'].freeze
@@ -23,10 +24,6 @@ class Passenger < ApplicationRecord
 
   def self.expiration_warning
     7.days.since.to_date
-  end
-
-  def self.admin_override_time_period
-    7.days.ago.to_date
   end
 
   def self.deactivate_expired_doc_note
@@ -45,12 +42,6 @@ class Passenger < ApplicationRecord
     expiration.present? &&
       expiration < Date.today &&
       expiration >= Passenger.grace_period
-  end
-
-  def admin_override?
-    expiration.present? &&
-    expiration < Date.today &&
-    expiration >= Passenger.admin_override_time_period
   end
 
   def expired?

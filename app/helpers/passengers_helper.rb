@@ -8,9 +8,6 @@ module PassengersHelper
       'inactive'
     elsif passenger.temporary? && passenger.expiration.blank?
       'no_note'
-    elsif passenger.admin_override?
-      'has_been_overridden'
-    end
   end
 
   def passengers_table_class
