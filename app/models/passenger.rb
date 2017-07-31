@@ -10,7 +10,8 @@ class Passenger < ApplicationRecord
   scope :inactive, -> { where(active: false) }
 
   # TODO: Make configurable by user
-  MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker', 'Service Dog']
+  MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker',
+                      'Service Dog'].freeze
 
   before_save do
     assign_attributes(expiration: nil) if permanent?
