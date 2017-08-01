@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Rails Type
 
-Things you may want to cover:
+This app uses Rails 5
 
-* Ruby version
+## What is It?
 
-* System dependencies
+This app is a database of Special Transit passengers, to be used by ST dispatchers and administrators.
 
-* Configuration
+## What Does It Do?
 
-* Database creation
+- Stores all Spacial Transit passengers and their attributes. This allows for functionality such as automatically deactivating temporary ST passengers who have expired doctors notes (done with a cron job that runs every day at 4:30am)
 
-* Database initialization
+## Current Functionality
 
-* How to run the test suite
+- Allows administrators to add, edit, and delete passengers (both temporary and permanent) from the database. Admins can also override passenger deactivation regardless of doctor's note expiration date
+- Allows on-duty ST dispatchers to add and edit temporary passengers in the database
+- Database is searchable, sortable, and filterable.
+- Color-coded for easy identification of passengers who are not active and good to go (e.g., passengers without doctor's notes, those within a week of the expiration date, recently expired passengers ...)
 
-* Services (job queues, cache servers, search engines, etc.)
+This app may later be expanded to serve other ST department needs, as well.
 
-* Deployment instructions
+## Tests
 
-* ...
+To seed the database, use `rails db:seed`.
+To run the script that deactivates expired passengers, go to a rails console and type, `Passenger.deactivate_expired_doc_note`.
+
+## Pull Requests
+
+(Eventual PR Guidelines)
+
+## Contribution Guidelines
+(Might make Contributing.md later)
