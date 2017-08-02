@@ -8,6 +8,7 @@ module PassengersHelper
       'inactive'
     elsif passenger.temporary? && passenger.expiration.blank?
       'no_note'
+    end
   end
 
   def passengers_table_class
