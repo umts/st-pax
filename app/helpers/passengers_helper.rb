@@ -1,5 +1,4 @@
 module PassengersHelper
-
   def expiration_check(passenger)
     if passenger.will_expire_within_warning_period?
       'will_expire_soon'
@@ -19,5 +18,4 @@ module PassengersHelper
       'row-border dispatch-table'
     end
   end
-
 end

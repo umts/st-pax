@@ -5,7 +5,7 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new
   end
 
-  #TODO: refactor
+  # TODO: refactor
 
   def index
     @permanent = params[:filter] == 'permanent'
@@ -46,7 +46,8 @@ class PassengersController < ApplicationController
   def passenger_params
     permitted_params = params.require(:passenger)
                              .permit(:name, :address, :email, :phone,
-                                     :wheelchair, :active, :permanent,
+                                     :wheelchair, :mobility_device, :active,
+                                     :permanent,
                                      :expiration, :note)
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
