@@ -1,0 +1,2 @@
+class MobilityDevice < ApplicationRecord
+end
