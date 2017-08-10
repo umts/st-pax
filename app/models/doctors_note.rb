@@ -35,16 +35,6 @@ class DoctorsNote < ApplicationRecord
     expiration_date.present? && expiration_date < DoctorsNote.grace_period
   end
 
-  def expiration_display
-    if permanent?
-      'None'
-    elsif expiration_date.present?
-      expiration_date.strftime '%m/%d/%Y'
-    else
-      'No Note'
-    end
-  end
-
   def temporary?
     !permanent?
   end

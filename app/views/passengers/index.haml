@@ -65,10 +65,7 @@
           %th
     %tbody
       - @passengers.each do |passenger|
-        - if passenger.doctors_note.present?
-          %tr{class: expiration_check(passenger.doctors_note)}
-        - else
-          %tr
+        %tr{class: passenger.doctors_note.present? ? expiration_check(passenger.doctors_note) : ""}
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone

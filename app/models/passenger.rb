@@ -15,5 +15,14 @@ class Passenger < ApplicationRecord
   MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker',
                       'Service Dog'].freeze
 
-  
+  def expiration_display
+    if permanent?
+      'None'
+    elsif doctors_note.present? && doctors_note.expiration_date.present?
+      doctors_note.expiration_date.strftime '%m/%d/%Y'
+    else
+      'No Note'
+    end
+  end
+
 end
