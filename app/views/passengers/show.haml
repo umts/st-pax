@@ -17,6 +17,12 @@
   - else
     No
 %p
+  %b Mobility Device:
+  - if @passenger.mobility_device?
+    = @passenger.mobility_device
+  - else
+    None
+%p
   %b Active:
   - if @passenger.active
     Yes
@@ -32,10 +38,11 @@
   %b Expiration Date:
   - if @passenger.permanent?
     None
-  -elsif @passenger.expiration.present?
+  - elsif @passenger.expiration.present?
     = @passenger.expiration.strftime '%m/%d/%Y'
   - else
-    No note
+    No Note
+
 %p= @passenger.note
 = link_to "Edit", edit_passenger_path
 = link_to "Back", passengers_path

@@ -9,16 +9,9 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
-
   # GET /users/new
   def new
     @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
   end
 
   # POST /users
@@ -26,22 +19,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        redirect_to @user, notice: 'User was successfully created.'
-      else
-        render :new
-      end
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
+    else render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        redirect_to @user, notice: 'User was successfully updated.'
-      else
-        render :edit
-      end
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -51,14 +39,17 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
   def set_user
     @user = User.find(params[:id])
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :phone, :spire, :active, :admin)
+    if @current_user.admin?
+      params.require(:user).permit(:name, :email, :phone, :spire,
+                                   :active, :admin)
+    else
+      params.require(:user).permit(:name, :email, :phone, :spire)
+    end
   end
-
 end

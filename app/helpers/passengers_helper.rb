@@ -5,9 +5,17 @@ module PassengersHelper
     elsif passenger.expired_within_grace_period?
       'expired_within_grace_period'
     elsif passenger.expired?
-      'expired'
+      'inactive'
     elsif passenger.temporary? && passenger.expiration.blank?
       'no_note'
+    end
+  end
+
+  def passengers_table_class
+    if @current_user.admin?
+      'row-border admin-table'
+    else
+      'row-border dispatch-table'
     end
   end
 end
