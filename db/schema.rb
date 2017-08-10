@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727200155) do
-
+ActiveRecord::Schema.define(version: 20170801202951) do
   create_table "doctors_notes", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
@@ -20,6 +19,12 @@ ActiveRecord::Schema.define(version: 20170727200155) do
     t.datetime "updated_at", null: false
     t.date "override_until"
     t.boolean "override_expiration"
+
+  create_table "mobility_devices", force: :cascade do |t|
+    t.string "device"
+    t.boolean "lift_ramp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "passengers", force: :cascade do |t|
