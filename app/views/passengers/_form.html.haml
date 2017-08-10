@@ -1,4 +1,4 @@
-=form_for @passenger do |form|
+=form_with model: @passenger do |form|
   - if @passenger.errors.any?
     #error_explanation
       %h2= "#{pluralize(@passenger.errors.count, "error")} prohibited this passenger from being saved:"
@@ -33,8 +33,8 @@
     = form.label :permanent_passenger
     = form.check_box :permanent, disabled: @current_user.dispatcher?
   .field
-    = form.label :expiration_date
-    = form.text_field :expiration,
+    = form.label @passenger.doctors_note.expiration_date
+    = form.text_field @passenger.doctors_note.expiration_date,
       class: 'datepicker'
   .field
     = form.label "Additional Notes"
