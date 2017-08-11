@@ -2,7 +2,7 @@ class DoctorsNote < ApplicationRecord
   belongs_to :passenger
 
   before_save do
-    assign_attributes(expiration_date: nil) if permanent?
+    assign_attributes(expiration_date: nil) if passenger.permanent?
   end
 
   def self.grace_period
@@ -36,6 +36,6 @@ class DoctorsNote < ApplicationRecord
   end
 
   def temporary?
-    !permanent?
+    !passenger.permanent?
   end
 end

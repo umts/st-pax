@@ -9,7 +9,8 @@ class Passenger < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
-  has_one :doctors_note
+  has_one :doctors_note, dependent: :destroy
+  accepts_nested_attributes_for :doctors_note
 
   # TODO: Make configurable by user
   MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker',
