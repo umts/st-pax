@@ -39,7 +39,7 @@
   - if @passenger.permanent?
     None
   - elsif @passenger.doctors_note.present?
-    = @passenger.doctors_note.expiration_date.strftime '%m/%d/%Y'
+    = @passenger.expiration_display
   - else
     No Note
 

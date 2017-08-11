@@ -32,10 +32,11 @@
   .field
     = form.label :permanent_passenger
     = form.check_box :permanent, disabled: @current_user.dispatcher?
-  .field
-    = form.label :expiration_date
-    = form.text_field :expiration_date,
-      class: 'datepicker'
+  = form_with model: @passenger.doctors_note do |field_form|
+    .field
+      = field_form.label :expiration_date
+      = field_form.text_field :expiration_date,
+        class: 'datepicker'
   .field
     = form.label "Additional Notes"
     = form.text_area :note, rows: 20, cols: 100

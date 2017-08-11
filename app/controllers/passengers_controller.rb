@@ -21,7 +21,6 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.doctors_note = DoctorsNote.new(params[:doctors_note])
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
     else
@@ -48,7 +47,7 @@ class PassengersController < ApplicationController
     permitted_params = params.require(:passenger)
                              .permit(:name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
-                                     :permanent, :note, :doctors_note)
+                                     :permanent, :note, doctors_note: [:expiration_date])
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
