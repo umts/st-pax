@@ -29,6 +29,7 @@ class PassengersController < ApplicationController
   end
 
   def update
+    #binding.pry
     if @passenger.update(passenger_params)
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
@@ -47,7 +48,7 @@ class PassengersController < ApplicationController
     permitted_params = params.require(:passenger)
                              .permit(:name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
-                                     :permanent, :note, doctors_note: [:expiration_date])
+                                     :permanent, :note, :doctors_note)
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
