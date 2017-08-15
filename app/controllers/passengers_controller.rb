@@ -30,7 +30,6 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.doctors_note = DoctorsNote.new(params[:doctors_note])
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
     else
@@ -40,11 +39,6 @@ class PassengersController < ApplicationController
 
   def update
     if @passenger.update(passenger_params)
-      if @passenger.doctors_note.present?
-        @passenger.doctors_note.update(params[:doctors_note])
-      else
-        @passenger.doctors_note = DoctorsNote.create(params[:doctors_note])
-      end
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
       render :edit
