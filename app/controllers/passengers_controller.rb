@@ -57,7 +57,6 @@ class PassengersController < ApplicationController
                              .permit(:name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
                                      :permanent, :note, doctors_note_attributes: [:expiration_date])
-    doctors_note_attrs = permitted_params[:doctors_note_attributes]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
