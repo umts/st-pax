@@ -37,7 +37,7 @@
     .field
       = d.label :expiration_date
       = d.text_field :expiration_date,
-        class: 'datepicker'
+        class: 'datepicker', id: "doctors_note_expiration_date"
   .field
     = form.label "Additional Notes"
     = form.text_area :note, rows: 20, cols: 100

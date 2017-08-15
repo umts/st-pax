@@ -58,9 +58,6 @@ class PassengersController < ApplicationController
                                      :wheelchair, :mobility_device, :active,
                                      :permanent, :note, doctors_note_attributes: [:expiration_date])
     doctors_note_attrs = permitted_params[:doctors_note_attributes]
-    unless doctors_note_attrs[:expiration_date].present?
-      permitted_params.delete :doctors_note_attributes
-    end
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end

@@ -1,6 +1,5 @@
 $(document).on('turbolinks:load', function(){
   $('#passenger_permanent').change(function(){
-    debugger;
     var expirationField = $('#doctors_note_expiration_date');
     if($(this).is(':checked')){
       expirationField.prop('disabled', true);
