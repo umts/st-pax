@@ -32,7 +32,7 @@
   .field
     = form.label :permanent_passenger
     = form.check_box :permanent, disabled: @current_user.dispatcher?
-  = fields_for :doctors_note do |d|
+  = form.fields_for :doctors_note, @doctors_note do |d|
     .field
       = d.label :expiration_date
       = d.text_field :expiration_date,

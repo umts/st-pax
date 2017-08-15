@@ -3,6 +3,15 @@ class PassengersController < ApplicationController
   before_action :access_control, only: %i[destroy]
   def new
     @passenger = Passenger.new
+    @doctors_note = DoctorsNote.new
+  end
+
+  def edit
+    if @passenger.doctors_note.present?
+      @doctors_note = @passenger.doctors_note
+    else
+      @doctors_note = DoctorsNote.new
+    end
   end
 
   # TODO: refactor
@@ -29,7 +38,6 @@ class PassengersController < ApplicationController
   end
 
   def update
-    #binding.pry
     if @passenger.update(passenger_params)
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
@@ -48,7 +56,11 @@ class PassengersController < ApplicationController
     permitted_params = params.require(:passenger)
                              .permit(:name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
-                                     :permanent, :note, :doctors_note)
+                                     :permanent, :note, doctors_note_attributes: [:expiration_date])
+    doctors_note_attrs = permitted_params[:doctors_note_attributes]
+    unless doctors_note_attrs[:expiration_date].present?
+      permitted_params.delete :doctors_note_attributes
+    end
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
