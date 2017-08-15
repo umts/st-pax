@@ -20,7 +20,9 @@ class PassengersController < ApplicationController
   end
 
   def create
+    binding.pry
     @passenger = Passenger.new(passenger_params)
+    @passenger.doctors_note = DoctorsNote.new(expiration_date: params[:passenger][:expiration_date])
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
     else
