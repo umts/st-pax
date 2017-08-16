@@ -32,4 +32,10 @@ describe Passenger do
       end
     end
   end
+
+  describe 'temporary?' do 
+    it 'gets the not of permanent' do 
+      expect(@passenger.temporary?).to eql true
+    end
+  end
 end
