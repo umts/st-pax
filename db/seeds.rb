@@ -1,19 +1,13 @@
-require 'ffaker'
+require 'factory_girl'
+include FactoryGirl::Syntax::Methods
 
-5.times do
-  User.create! name: FFaker::Name.name,
-               email: FFaker::Internet.email,
-               phone: FFaker::PhoneNumber.short_phone_number,
-               spire: rand(10**8).to_s.rjust(8, '0'),
-               active: true,
-               admin: false
-end
+2.times { create :user, :admin }
 
-2.times do
-  User.create! name: FFaker::Name.name,
-               email: FFaker::Internet.email,
-               phone: FFaker::PhoneNumber.short_phone_number,
-               spire: rand(10**8).to_s.rjust(8, '0'),
-               active: true,
-               admin: true
-end
+5.times { create :user }
+
+50.times { create :passenger, :permanent }
+50.times { create :passenger, :recently_expired }
+50.times { create :passenger, :expiring_soon }
+50.times { create :passenger, :expiration_overriden }
+50.times { create :passenger, :inactive }
+5.times  { create :passenger, :no_note }
