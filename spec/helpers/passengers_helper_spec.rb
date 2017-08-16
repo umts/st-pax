@@ -10,6 +10,21 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe PassengersHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe PassengersHelper do
+  describe 'passenger_table_class' do
+    context 'current user is admin' do 
+      it 'returns admin class' do 
+        user = create :user, :admin
+        allow(helper).to receive(:current_user).and_return(user)
+        expect(helper.passenger_table_class).to eql 'row-border admin-table'
+      end
+    end
+    context 'current user is not admin' do 
+      it 'returns dispatcher class' do 
+        user = create :user
+        allow(helper).to receive(:current_user).and_return(user)
+        expect(helper.passenger_table_class).to eql 'row-border dispatch-table'
+      end
+    end 
+  end
 end
