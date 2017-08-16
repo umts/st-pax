@@ -1,5 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Passenger, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Passenger do
+  before :each do 
+    @passenger = create :passenger
+  end
+  describe '' do 
+  end
+
+  describe '' do 
+  end
+
+  describe 'expiration_display' do 
+  end
 end
