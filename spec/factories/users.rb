@@ -1,7 +1,7 @@
 FactoryGirl.define do 
   factory :user do 
-    sequence(:name) {|n| "Name #{n}"}
-    sequence(:email) {|n| "test#{n}@example.com"}
+    name FFaker::Name.name
+    email FFaker::Internet.email
     sequence(:spire) {|n| n.to_s.rjust(8,'0')}
   end
 
