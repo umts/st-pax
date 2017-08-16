@@ -11,19 +11,19 @@ require 'rails_helper'
 #   end
 # end
 describe PassengersHelper do
-  describe 'passenger_table_class' do
+  describe 'passengers_table_class' do
     context 'current user is admin' do 
       it 'returns admin class' do 
         user = create :user, :admin
         session[:user_id] = user.id
-        expect(helper.passenger_table_class).to eql 'row-border admin-table'
+        expect(helper.passengers_table_class).to eql 'row-border admin-table'
       end
     end
     context 'current user is not admin' do 
       it 'returns dispatcher class' do 
         user = create :user
         session[:user_id] = user.id
-        expect(helper.passenger_table_class).to eql 'row-border dispatch-table'
+        expect(helper.passengers_table_class).to eql 'row-border dispatch-table'
       end
     end 
   end
