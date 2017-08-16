@@ -15,14 +15,14 @@ describe PassengersHelper do
     context 'current user is admin' do 
       it 'returns admin class' do 
         user = create :user, :admin
-        allow(helper).to receive(:current_user).and_return(user)
+        session[:user_id] = user.id
         expect(helper.passenger_table_class).to eql 'row-border admin-table'
       end
     end
     context 'current user is not admin' do 
       it 'returns dispatcher class' do 
         user = create :user
-        allow(helper).to receive(:current_user).and_return(user)
+        session[:user_id] = user.id
         expect(helper.passenger_table_class).to eql 'row-border dispatch-table'
       end
     end 
