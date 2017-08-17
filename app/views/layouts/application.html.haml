@@ -8,4 +8,6 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render 'layouts/navbar'
-    = yield
+    .panel.panel-default
+      .panel-body
+        = yield
