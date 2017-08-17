@@ -7,15 +7,10 @@ class PassengersController < ApplicationController
   end
 
   def edit
-    if @passenger.doctors_note.present?
-      @doctors_note = @passenger.doctors_note
-    else
-      @doctors_note = DoctorsNote.new
-    end
+    @doctors_note = @passenger.doctors_note || DoctorsNote.new
   end
 
   # TODO: refactor
-
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
