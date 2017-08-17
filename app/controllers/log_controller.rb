@@ -5,14 +5,14 @@ class LogController < ApplicationController
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
     if @entry.save
-      redirect_to log_path, notice: 'Log entry was successfully created.'
-    else render log_path
+      redirect_to log_index_path, notice: 'Log entry was successfully created.'
+    else render log_index_path
     end
   end
 
   def destroy
     @entry.destroy
-    redirect_to log_path, notice: 'Log entry was successfully deleted.'
+    redirect_to log_index_path, notice: 'Log entry was successfully deleted.'
   end
 
   def index
@@ -21,8 +21,8 @@ class LogController < ApplicationController
 
   def update
     if @entry.update entry_params
-      redirect_to log_path, notice: 'Log entry was successfully changed.'
-    else render log_path
+      redirect_to log_index_path, notice: 'Log entry was successfully changed.'
+    else render log_index_path
     end
   end
 

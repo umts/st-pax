@@ -1,6 +1,8 @@
 %p
   %strong.filter_description_emphasis
     = link_to "Add New Passenger", new_passenger_path
+  %strong.filter_description_emphasis
+    = link_to 'Dispatch Log', log_index_path
 = form_tag passengers_path, method: :get do
   %p
   = label_tag 'Filter by Type:'
