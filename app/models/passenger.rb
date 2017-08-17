@@ -26,4 +26,12 @@ class Passenger < ApplicationRecord
     end
   end
 
+  def self.deactivate_expired_doc_note
+    expired = active.joins(:doctors_note)
+                    .where('doctors_notes.expiration_date < ?', grace_period)
+    expired.each do |passenger|
+      passenger.update_attributes active: false
+    end
+  end
+
 end
