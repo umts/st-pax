@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users
   resources :passengers
   resources :doctors_notes
+  resources :log, except: %i[edit new show]
 
   unless Rails.env.production?
     get  'sessions/dev_login',
