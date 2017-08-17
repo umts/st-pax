@@ -13,12 +13,6 @@ class DoctorsNote < ApplicationRecord
     7.days.since.to_date
   end
 
-  def self.deactivate_expired_doc_note
-    active.where('expiration_date < ?', grace_period).each do |doctors_note|
-      doctors_note.update_attributes active: false
-    end
-  end
-
   def will_expire_within_warning_period?
     expiration_date.present? &&
       expiration_date < DoctorsNote.expiration_warning &&
@@ -33,9 +27,5 @@ class DoctorsNote < ApplicationRecord
 
   def expired?
     expiration_date.present? && expiration_date < DoctorsNote.grace_period
-  end
-
-  def temporary?
-    !passenger.permanent?
   end
 end

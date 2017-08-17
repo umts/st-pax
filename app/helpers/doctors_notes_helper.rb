@@ -7,7 +7,7 @@ module DoctorsNotesHelper
       'expired_within_grace_period'
     elsif doctors_note.expired?
       'inactive'
-    elsif doctors_note.temporary? && doctors_note.expiration_date.blank?
+    elsif doctors_note.passenger.temporary? && doctors_note.expiration_date.blank?
       'no_note'
     end
   end
