@@ -1,4 +1,6 @@
 class LogController < ApplicationController
+  skip_before_action :access_control
+
   before_action :find_entry, except: :index
   before_action :set_entries
 
