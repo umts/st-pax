@@ -1,9 +1,9 @@
 module ApplicationHelper
   def navbar_link(text, url)
-    button_class = 'button btn btn-default navbar-btn navbar-left'
-    button_class += ' current' if current_page? url
+    button_classes = %w[button btn btn-default navbar-btn navbar-left]
+    button_classes << 'current' if current_page? url
     link_to url do
-      content_tag :button, text, class: button_class
+      content_tag :button, text, class: button_classes
     end
   end
 end
