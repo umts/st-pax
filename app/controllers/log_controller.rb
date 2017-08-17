@@ -1,7 +1,7 @@
 class LogController < ApplicationController
-  skip_before_action :access_control
+  skip_before_action :access_control, except: :update
 
-  before_action :find_entry, except: :index
+  before_action :find_entry, only: %i[destroy update]
   before_action :set_entries
 
   def create
@@ -13,6 +13,7 @@ class LogController < ApplicationController
   end
 
   def destroy
+    deny_access and return unless @current_user.can_delete? @entry
     @entry.destroy
     redirect_to log_index_path, notice: 'Log entry was successfully deleted.'
   end
@@ -31,11 +32,11 @@ class LogController < ApplicationController
   private
 
   def find_entry
-    @entry = LogEntry.find_by params.require(:id)
+    @entry = LogEntry.find_by id: params.require(:id)
   end
 
   def entry_params
-    params.require(:log).permit(:text)
+    params.require(:log_entry).permit(:text)
   end
 
   def set_entries

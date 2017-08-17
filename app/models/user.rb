@@ -3,6 +3,10 @@ class User < ApplicationRecord
 
   scope :dispatchers, -> { where.not admin: true }
 
+  def can_delete?(item)
+    admin? || (item.is_a?(LogEntry) && item.user == self)
+  end
+
   def dispatcher?
     !admin?
   end
