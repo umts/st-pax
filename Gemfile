@@ -40,6 +40,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'pry-byebug'
   gem 'rubocop'
+  gem 'timecop'
 end
 
 group :development do
