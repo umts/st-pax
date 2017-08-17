@@ -38,4 +38,14 @@ describe Passenger do
       expect(@passenger.temporary?).to eql true
     end
   end
+
+  describe 'self.deactivate_expired_doc_note' do 
+    it 'deactivates the expired passenger' do 
+      doctors_note = create :doctors_note, passenger: @passenger,
+                              expiration_date: 10.days.ago
+      @passenger.update active: true
+      Passenger.deactivate_expired_doc_note
+      expect(@passenger.active).to eql false
+    end
+  end
 end
