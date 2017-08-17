@@ -28,8 +28,4 @@ class DoctorsNote < ApplicationRecord
   def expired?
     expiration_date.present? && expiration_date < DoctorsNote.grace_period
   end
-
-  def temporary?
-    !passenger.permanent?
-  end
 end
