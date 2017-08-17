@@ -43,6 +43,7 @@ group :development, :test do
   gem 'capybara'
   gem 'rspec-html-matchers'
   gem 'simplecov', require: false
+  gem 'rack_session_access'
 end
 
 group :development do

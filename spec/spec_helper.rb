@@ -102,5 +102,5 @@ RSpec.configure do |config|
 end
 
 def sign_in(user) 
-  session[:user_id] = user.id
+  page.set_rack_session(user_id: user.id)
 end
