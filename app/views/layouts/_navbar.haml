@@ -1,10 +1,7 @@
 %nav.navbar.navbar-default
   .container-fluid
-    = link_to passengers_url do
-      %button.btn.btn-default.navbar-btn.navbar-left All Passengers
-    = link_to new_passenger_path do
-      %button.btn.btn-default.navbar-btn.navbar-left Add New Passenger
-    = link_to '#' do
-      %button.btn.btn-default.navbar-btn.navbar-left Dispatch Log
+    = navbar_link 'All Passengers', passengers_url
+    = navbar_link 'Add New Passenger', new_passenger_url
+    = navbar_link 'Dispatch Log', '#'
     =link_to '#' do
       %button.btn.btn-default.navbar-btn.navbar-right Logout

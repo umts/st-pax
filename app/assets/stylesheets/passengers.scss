@@ -16,6 +16,10 @@ body {
   &.navbar-right{
     margin-right: 5px;
   }
+
+  &.current{
+    background: yellow;
+  }
 }
 
 .panel{
