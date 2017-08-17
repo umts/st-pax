@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   # changed in a later branch
   # rubocop:disable AbcSize
   def set_current_user
+    binding.pry
     @current_user =
       if session.key? :user_id
         User.find_by id: session[:user_id]
