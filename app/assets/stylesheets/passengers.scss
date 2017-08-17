@@ -63,11 +63,14 @@ table#key, table#passengers {
   .expired_within_grace_period {
     background-color: #ee9b9b;
   }
-  .no_note {
+  .inactive {
     background-color: #cfc9c9;
   }
-  .inactive {
-    background-color: #90C3D4
+  .no_note {
+    background-color: #90C3D4;
+  }
+  .has_been_overridden{
+    background-color: #E898FF;
   }
 }
 .checkbox-inline.key_position {

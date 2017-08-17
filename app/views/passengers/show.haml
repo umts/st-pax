@@ -36,12 +36,7 @@
     No
 %p
   %b Expiration Date:
-  - if @passenger.permanent?
-    None
-  - elsif @passenger.expiration.present?
-    = @passenger.expiration.strftime '%m/%d/%Y'
-  - else
-    No Note
+  = @passenger.expiration_display
 
 %p= @passenger.note
 = link_to "Edit", edit_passenger_path

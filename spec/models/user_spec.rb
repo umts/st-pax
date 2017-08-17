@@ -1,5 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+  before :each do 
+    @user = create :user, :admin
+  end
+  describe 'dispatcher?' do 
+    it 'gets the not of admin' do 
+      expect(@user.dispatcher?).to eql false
+    end
+  end
 end

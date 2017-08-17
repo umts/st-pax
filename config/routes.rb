@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :passengers
+  resources :doctors_notes
 
   unless Rails.env.production?
     get  'sessions/dev_login',
