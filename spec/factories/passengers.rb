@@ -1,5 +1,7 @@
-FactoryGirl.define do 
-  factory :passenger do 
+# frozen_string_literal: true
+
+FactoryGirl.define do
+  factory :passenger do
     name { FFaker::Name.name }
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }

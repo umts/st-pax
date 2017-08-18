@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy]
   before_action :access_control, only: %i[destroy]
@@ -10,7 +12,7 @@ class PassengersController < ApplicationController
     @doctors_note = @passenger.doctors_note || DoctorsNote.new
   end
 
-  # TODO: refactor
+  # TODO: refactor for complexity
   def index
     @permanent = params[:filter] == 'permanent'
     @temporary = params[:filter] == 'temporary'
@@ -49,9 +51,10 @@ class PassengersController < ApplicationController
 
   def passenger_params
     permitted_params = params.require(:passenger)
-                             .permit(:name, :address, :email, :phone,
+                             .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
-                                     :permanent, :note, doctors_note_attributes: [:expiration_date])
+                                     :permanent, :note,
+                                     doctors_note_attributes: [:expiration_date]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end

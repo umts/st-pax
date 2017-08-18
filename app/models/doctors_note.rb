@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DoctorsNote < ApplicationRecord
   belongs_to :passenger
 
