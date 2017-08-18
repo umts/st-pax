@@ -17,14 +17,13 @@ describe Passenger do
     context 'doctors note with expiration date' do
       it 'returns the expiration date' do
         date = 14.days.since
-        doctors_note = create :doctors_note, passenger: @passenger,
-                                             expiration_date: date
+        create :doctors_note, passenger: @passenger, expiration_date: date
         expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
       end
     end
     context 'doctors note no expiration date' do
       it "returns 'No Note'" do
-        doctors_note = create :doctors_note, passenger: @passenger
+        create :doctors_note, passenger: @passenger
         expect(@passenger.expiration_display).to eql 'No Note'
       end
     end

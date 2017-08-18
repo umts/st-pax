@@ -16,7 +16,8 @@ describe DoctorsNotesHelper do
     context 'expired withing graced period' do
       it "returns 'expired_within_grace_period'" do
         @doctors_note.update expiration_date: 1.day.ago
-        expect(helper.expiration_check(@doctors_note)).to eql 'expired_within_grace_period'
+        expect(helper.expiration_check(@doctors_note))
+          .to eql 'expired_within_grace_period'
       end
     end
     context 'expired' do
