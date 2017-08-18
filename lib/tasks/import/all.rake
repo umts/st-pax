@@ -5,5 +5,6 @@ namespace :import do
   task all: %i[
     dispatchers
     mobility_devices
+    log
   ]
 end
