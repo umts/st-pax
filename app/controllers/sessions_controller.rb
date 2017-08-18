@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   layout false
   skip_before_action :access_control, :check_primary_account, :set_current_user

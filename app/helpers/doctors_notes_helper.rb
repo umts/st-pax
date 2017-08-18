@@ -1,5 +1,6 @@
-module DoctorsNotesHelper
+# frozen_string_literal: true
 
+module DoctorsNotesHelper
   def expiration_check(doctors_note)
     if doctors_note.will_expire_within_warning_period?
       'will_expire_soon'
