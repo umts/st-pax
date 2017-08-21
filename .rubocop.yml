@@ -1,6 +1,15 @@
 AllCops:
+  TargetRubyVersion: 2.4
   Exclude:
+    - bin/**/*
+    - config/environments/**/*
+    - config/initializers/**/*
     - db/schema.rb
     - db/migrate/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Style/Documentation:
   Enabled: false

@@ -3,12 +3,28 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body {
-  background-color: #fff;
+  background-color: #ddd;
   color: #333;
-  margin: 33px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+}
+
+.navbar button{
+  margin-left: 3px;
+
+  &.navbar-right{
+    margin-right: 5px;
+  }
+
+  &.current{
+    background: yellow;
+  }
+}
+
+.panel{
+  margin: 1em;
+  border: 2px solid grey;
 }
 
 p, ol, ul, td {
