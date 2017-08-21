@@ -1,0 +1,23 @@
+= link_to 'Back', passengers_url
+
+%h1 Dispatch Log
+
+= form_with model: @entry, url: log_index_url do |f|
+  .field= f.text_area :text, size: '80x8'
+  .actions= f.submit 'Create log entry'
+
+%ul.dispatch-log
+  - @entries.each do |entry|
+    %li
+      .content
+        %span.name= entry.user.name
+        %span.time= entry.entry_time
+        .text= entry.text
+        - if @current_user.can_delete? entry
+          = button_to 'Delete', log_url(entry), method: :delete
+      - if @current_user.admin?
+        %button.edit-entry Edit
+        .edit-form
+          = form_with model: entry, url: log_url(entry) do |f|
+            .field= f.text_area :text, size: '80x8'
+            .actions= f.submit 'Change log entry'
