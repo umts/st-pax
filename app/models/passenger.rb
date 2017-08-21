@@ -14,9 +14,7 @@ class Passenger < ApplicationRecord
   has_one :doctors_note, dependent: :destroy
   accepts_nested_attributes_for :doctors_note
 
-  # TODO: Make configurable by user
-  MOBILITY_DEVICES = ['Boot', 'Crutches', 'Cane', 'Walker',
-                      'Service Dog'].freeze
+  belongs_to :mobility_device
 
   def expiration_display
     if permanent?

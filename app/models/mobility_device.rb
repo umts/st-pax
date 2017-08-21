@@ -2,4 +2,6 @@
 
 class MobilityDevice < ApplicationRecord
   validates :device, presence: true, uniqueness: true
+
+  has_many :passengers
 end

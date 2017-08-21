@@ -6,5 +6,6 @@ namespace :import do
     dispatchers
     mobility_devices
     log
+    passengers
   ]
 end
