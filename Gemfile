@@ -38,14 +38,14 @@ gem 'haml-rails'
 gem 'whenever', require: false
 
 group :development, :test do
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry-byebug'
-  gem 'rubocop'
-  gem 'capybara'
-  gem 'rspec-html-matchers'
-  gem 'simplecov', require: false
   gem 'rack_session_access'
+  gem 'rspec-html-matchers'
+  gem 'rubocop'
+  gem 'simplecov', require: false
   gem 'timecop'
 end
 

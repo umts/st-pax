@@ -13,33 +13,33 @@ describe User do
     end
   end
 
-  describe 'can_delete?' do 
-    context 'when admin' do 
-      it 'returns true' do 
+  describe 'can_delete?' do
+    context 'when admin' do
+      it 'returns true' do
         item = create :log_entry
         expect(@user.can_delete?(item)).to eql true
       end
     end
-    context 'when dispatcher' do 
-      before :each do 
+    context 'when dispatcher' do
+      before :each do
         @user = create :user
       end
-      context 'with a log entry' do 
+      context 'with a log entry' do
         context 'associated to the user' do
-          it 'returns false' do 
+          it 'returns false' do
             item = create :log_entry
             expect(@user.can_delete?(item)).to eql false
           end
         end
-        context 'not associated to the user' do 
-          it 'returns true' do 
+        context 'not associated to the user' do
+          it 'returns true' do
             item = create :log_entry, user: @user
             expect(@user.can_delete?(item)).to eql true
           end
         end
       end
-      context 'without a log entry' do 
-        it 'returns false' do 
+      context 'without a log entry' do
+        it 'returns false' do
           item = create :passenger
           expect(@user.can_delete?(item)).to eql false
         end
