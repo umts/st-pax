@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -28,5 +30,7 @@ module StPaxTracker
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.time_zone = 'Eastern Time (US & Canada)'
   end
 end

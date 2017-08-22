@@ -4,7 +4,6 @@
   %thead
     %tr
       %th Name
-      %th Email
       %th Phone
       %th Spire
       %th Active
@@ -17,7 +16,6 @@
     - @users.each do |user|
       %tr
         %td= user.name
-        %td= user.email
         %td= user.phone
         %td= user.spire
         %td= user.active
