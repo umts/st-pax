@@ -14,7 +14,7 @@ class Passenger < ApplicationRecord
   has_one :doctors_note, dependent: :destroy
   accepts_nested_attributes_for :doctors_note
 
-  belongs_to :mobility_device
+  belongs_to :mobility_device, optional: true
 
   def expiration_display
     if permanent?
