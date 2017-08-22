@@ -41,10 +41,12 @@ describe Passenger do
 
   describe 'self.deactivate_expired_doc_note' do 
     it 'deactivates the expired passenger' do 
+      expire_period = DoctorsNote.grace_period
       doctors_note = create :doctors_note, passenger: @passenger,
-                              expiration_date: 10.days.ago
+                              expiration_date: expire_period - 1.day
       @passenger.update active: true
       Passenger.deactivate_expired_doc_note
+      @passenger.reload
       expect(@passenger.active).to eql false
     end
   end
