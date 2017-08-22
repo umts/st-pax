@@ -15,11 +15,10 @@ namespace :import do
         puts "disp.csv:#{line} : Unrecognized status '#{row.fetch('Status')}'"
         next
       end
-      access_id = row.fetch('ID').to_i
       last_name, first_name = row.fetch('dispatcher').split ', '
       name = [first_name, last_name].join ' '
 
-      user = User.new name: name, admin: admin, access_id: access_id
+      user = User.new name: name, admin: admin
       unless user.save
         puts "disp.csv:#{line} : Skipping validations."
         user.save validate: false
