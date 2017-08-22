@@ -35,5 +35,6 @@ namespace :import do
 
     puts "Created #{Passenger.permanent.count} permanent passengers."
     puts "#{Passenger.permanent.count(&:valid?)} are valid."
+    puts
   end
 end
