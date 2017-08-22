@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818234950) do
+ActiveRecord::Schema.define(version: 20170822172333) do
 
   create_table "doctors_notes", force: :cascade do |t|
     t.integer "passenger_id"
@@ -42,19 +42,16 @@ ActiveRecord::Schema.define(version: 20170818234950) do
     t.string "email"
     t.string "address"
     t.string "phone"
-    t.boolean "wheelchair"
     t.boolean "active"
     t.boolean "permanent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "note"
-    t.string "mobility_device"
     t.integer "mobility_device_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.string "phone"
     t.string "spire"
     t.boolean "active"
