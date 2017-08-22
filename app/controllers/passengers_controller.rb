@@ -44,7 +44,7 @@ class PassengersController < ApplicationController
 
   def destroy
     @passenger.destroy
-    redirect_to passengers_url, notice: 'Passenger was successfully destroyed.'
+    redirect_to passengers_path, notice: 'Passenger was successfully destroyed.'
   end
 
   private
