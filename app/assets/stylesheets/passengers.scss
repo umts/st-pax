@@ -3,12 +3,28 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body {
-  background-color: #fff;
+  background-color: #ddd;
   color: #333;
-  margin: 33px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+}
+
+.navbar button{
+  margin-left: 3px;
+
+  &.navbar-right{
+    margin-right: 5px;
+  }
+
+  &.current{
+    background: yellow;
+  }
+}
+
+.panel{
+  margin: 1em;
+  border: 2px solid grey;
 }
 
 p, ol, ul, td {
@@ -16,13 +32,16 @@ p, ol, ul, td {
   font-size: 13px;
   line-height: 18px;
 }
+
 strong.filter_description_emphasis {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 18px;
   line-height: 18px;
   background-color: #e0dbfa;
   text-decoration: underline;
+  margin-right: 15px;
 }
+
 p.filter_description_color {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 19px;
