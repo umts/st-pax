@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
 
   def dev_login # route not defined in production
     if request.get?
-      @admins = User.where(admin: true)
-      @dispatchers = User.where(admin: false)
+      @admins = User.admins.order :name
+      @dispatchers = User.dispatchers.order :name
     elsif request.post?
       find_user
       redirect_to passengers_path
