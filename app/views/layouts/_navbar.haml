@@ -3,5 +3,5 @@
     = navbar_link 'All Passengers', passengers_url
     = navbar_link 'Add New Passenger', new_passenger_url
     = navbar_link 'Dispatch Log', log_index_url
-    =link_to '#' do
+    = link_to destroy_session_url do
       %button.btn.btn-default.navbar-btn.navbar-right Logout
