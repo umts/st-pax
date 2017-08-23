@@ -6,17 +6,18 @@
 = form_tag passengers_path, method: :get do
   %p
   = label_tag 'Filter by Type:'
-  Permanent
-  = check_box_tag :filter, 'permanent', @permanent
-  .checkbox-inline
-  Temporary
-  = check_box_tag :filter, 'temporary', @temporary
-  .checkbox-inline
-  Inactive
-  = check_box_tag :filter, 'inactive', @inactive
-  .checkbox-inline
-  Active
-  = check_box_tag :filter, 'active', @active
+  .passenger-filters
+    Permanent
+    = check_box_tag :filter, 'permanent', @permanent
+    .checkbox-inline
+    Temporary
+    = check_box_tag :filter, 'temporary', @temporary
+    .checkbox-inline
+    Inactive
+    = check_box_tag :filter, 'inactive', @inactive
+    .checkbox-inline
+    Active
+    = check_box_tag :filter, 'active', @active
   .checkbox-inline
   = submit_tag "Find passengers"
   .checkbox-inline.key_position

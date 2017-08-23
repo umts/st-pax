@@ -92,8 +92,16 @@ table#key, table#passengers {
     background-color: #E898FF;
   }
 }
+
 .checkbox-inline.key_position {
   float: right;
+}
+
+.passenger-filters{
+  display: inline;
+  checkbox{
+    margin-right: 10px;
+  }
 }
 
 table#key {
