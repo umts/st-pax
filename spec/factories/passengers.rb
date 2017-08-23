@@ -6,7 +6,6 @@ FactoryGirl.define do
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
-    wheelchair { [true, false].sample }
     mobility_device
     permanent false
     active true
