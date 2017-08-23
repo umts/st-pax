@@ -11,15 +11,9 @@
   %b Phone:
   = @passenger.phone
 %p
-  %b Wheelchair:
-  - if @passenger.wheelchair
-    Yes
-  - else
-    No
-%p
   %b Mobility Device:
-  - if @passenger.mobility_device?
-    = @passenger.mobility_device
+  - if @passenger.mobility_device.present?
+    = @passenger.mobility_device.device
   - else
     None
 %p

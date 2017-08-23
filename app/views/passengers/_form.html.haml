@@ -19,11 +19,8 @@
     = form.label :phone_number
     = form.phone_field :phone
   .field
-    = form.label :wheelchair
-    = form.check_box :wheelchair
-  .field
-    = form.label :mobility_device
-    = form.select :mobility_device, Passenger::MOBILITY_DEVICES,
+    = form.label :mobility_device_id
+    = form.select :mobility_device_id, MobilityDevice.all.collect { |md| [md.device, md.id] },
     include_blank: 'None'
   - if @current_user.admin?
     .field
