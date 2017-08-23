@@ -9,7 +9,7 @@ describe User do
 
   describe 'dispatcher?' do
     it 'gets the not of admin' do
-      expect(@user.dispatcher?).to eql false
+      expect(@user.dispatcher?).to be false
     end
   end
 
@@ -17,7 +17,7 @@ describe User do
     context 'when admin' do
       it 'returns true' do
         item = create :log_entry
-        expect(@user.can_delete?(item)).to eql true
+        expect(@user.can_delete?(item)).to be true
       end
     end
     context 'when dispatcher' do
@@ -28,20 +28,20 @@ describe User do
         context 'associated to the user' do
           it 'returns false' do
             item = create :log_entry
-            expect(@user.can_delete?(item)).to eql false
+            expect(@user.can_delete?(item)).to be false
           end
         end
         context 'not associated to the user' do
           it 'returns true' do
             item = create :log_entry, user: @user
-            expect(@user.can_delete?(item)).to eql true
+            expect(@user.can_delete?(item)).to be true
           end
         end
       end
       context 'without a log entry' do
         it 'returns false' do
           item = create :passenger
-          expect(@user.can_delete?(item)).to eql false
+          expect(@user.can_delete?(item)).to be false
         end
       end
     end

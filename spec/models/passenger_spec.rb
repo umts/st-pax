@@ -36,7 +36,7 @@ describe Passenger do
 
   describe 'temporary?' do
     it 'gets the not of permanent' do
-      expect(@passenger.temporary?).to eql true
+      expect(@passenger.temporary?).to be true
     end
   end
 
@@ -47,7 +47,7 @@ describe Passenger do
       @passenger.update active: true
       Passenger.deactivate_expired_doc_note
       @passenger.reload
-      expect(@passenger.active).to eql false
+      expect(@passenger.active).to be false
     end
   end
 end
