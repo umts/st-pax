@@ -7,17 +7,14 @@
   %p
   = label_tag 'Filter by Type:'
   .passenger-filters
-    Permanent
-    = check_box_tag :filter, 'permanent', @permanent
-    .checkbox-inline
-    Temporary
-    = check_box_tag :filter, 'temporary', @temporary
-    .checkbox-inline
-    Inactive
-    = check_box_tag :filter, 'inactive', @inactive
-    .checkbox-inline
-    Active
-    = check_box_tag :filter, 'active', @active
+    Permanent Only
+    = radio_button_tag :filter, 'permanent', @permanent
+    Temporary Only
+    = radio_button_tag :filter, 'temporary', @temporary
+    All
+    = radio_button_tag :filter, '', !(@permanent || @temporary)
+    Show Inactive
+    = check_box_tag :show_inactive, true, @show_inactive
   .checkbox-inline
   = submit_tag "Find passengers"
   .checkbox-inline.key_position

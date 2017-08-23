@@ -14,18 +14,22 @@ class PassengersController < ApplicationController
 
   # TODO: refactor for complexity
   def index
-    if params[:filter].present?
-      @permanent = params[:filter] == 'permanent'
-      @temporary = params[:filter] == 'temporary'
-      @inactive = params[:filter] == 'inactive'
-      @active = params[:filter] == 'active'
-    else @active = true
-    end
     @passengers = Passenger.order :name
-    @passengers = @passengers.permanent if @permanent
-    @passengers = @passengers.temporary if @temporary
-    @passengers = @passengers.inactive if @inactive
-    @passengers = @passengers.active if @active
+
+    if params[:filter].present?
+      if params[:filter] == 'permanent'
+        @permanent = true
+        @passengers = @passengers.permanent
+      else
+        @temporary = true
+        @passengers = @passengers.temporary
+      end
+    end
+
+    if params[:show_inactive]
+      @show_inactive = true
+    else @passengers = @passengers.active
+    end
   end
 
   def create
