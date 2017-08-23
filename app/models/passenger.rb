@@ -8,7 +8,8 @@ class Passenger < ApplicationRecord
   STATUSES = %w[Alumni Faculty Student]
   validates :status, presence: true, inclusion: { in: STATUSES }
 
-  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User'
+  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
+    optional: true
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
