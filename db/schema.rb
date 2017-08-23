@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170822180133) do
     t.boolean "lift_ramp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "access_id"
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -58,7 +57,6 @@ ActiveRecord::Schema.define(version: 20170822180133) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "access_id"
   end
 
 end
