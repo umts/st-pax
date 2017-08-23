@@ -2,10 +2,5 @@
 
 desc 'Run all import tasks from CSV files'
 namespace :import do
-  task all: %i[
-    dispatchers
-    mobility_devices
-    log
-    passengers
-  ]
+  task all: %i[dispatchers mobility_devices log passengers]
 end
