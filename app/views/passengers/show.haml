@@ -12,7 +12,7 @@
   = @passenger.phone
 %p
   %b Mobility Device:
-  - if @passenger.mobility_device.present?
+  - if @passenger.try(:mobility_device)
     = @passenger.mobility_device.device
   - else
     None
