@@ -23,3 +23,5 @@
 .byebug_history
 coverage/*
 !/coverage/.last_run.json
+
+data/*.csv
