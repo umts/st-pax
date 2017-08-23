@@ -10,7 +10,7 @@
   - @entries.each do |entry|
     %li
       .content
-        %span.name= entry.user.name
+        %span.name= entry.user.try(:name) || 'Unknown'
         %span.time= entry.entry_time
         .text= entry.text
         - if @current_user.can_delete? entry

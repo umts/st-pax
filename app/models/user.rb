@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   validates :name, :spire, presence: true
 
+  scope :admins, -> { where admin: true }
   scope :dispatchers, -> { where.not admin: true }
 
   def can_delete?(item)
