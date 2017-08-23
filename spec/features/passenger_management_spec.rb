@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 feature 'Passenger Management' do
-  feature 'as and admin' do
+  feature 'as an admin' do
     before :each do
-      sign_in(create(:user, :admin))
+      when_current_user_is(:admin, integration: true)
     end
     scenario 'creating a new passenger' do
       visit passengers_path
@@ -32,7 +32,8 @@ feature 'Passenger Management' do
   end
   feature 'as a dispatcher' do
     before :each do
-      sign_in(create(:user))
+      user = create :user
+      when_current_user_is(user, integration: true)
     end
     scenario 'creating a new passenger' do
       visit passengers_path
