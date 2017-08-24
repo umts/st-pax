@@ -23,7 +23,7 @@ class Passenger < ApplicationRecord
 
   def expiration_display
     if permanent?
-      'None'
+      ''
     elsif doctors_note.present? && doctors_note.expiration_date.present?
       doctors_note.expiration_date.strftime '%m/%d/%Y'
     else
