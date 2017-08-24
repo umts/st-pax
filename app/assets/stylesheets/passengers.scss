@@ -6,7 +6,7 @@ $maroon: #881c1c;
 $slightly-maroon: #eacccc;
 
 body {
-  background-color: #ddd;
+  background-color: $maroon;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -18,15 +18,17 @@ h1{
   margin: 15px 0;
 }
 
-.navbar button{
-  margin-left: 3px;
+.navbar{
+  button{
+    margin-left: 3px;
 
-  &.navbar-right{
-    margin-right: 5px;
-  }
+    &.navbar-right{
+      margin-right: 5px;
+    }
 
-  &.current{
-    background: $slightly-maroon;
+    &.current{
+      background: $slightly-maroon;
+    }
   }
 }
 
