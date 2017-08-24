@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :mobility_device do
-    device 'MyString'
+    device { FFaker::Lorem.word }
     lift_ramp false
   end
 end
