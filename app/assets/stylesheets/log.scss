@@ -18,19 +18,19 @@ ul.dispatch-log{
 
       .name{
         font-weight: bold;
-        width: 13%;
+        width: 12%;
       }
 
       .time{
         font-style: italic;
-        width: 22%;
+        width: 28%;
       }
 
       .text{
         background: white;
         border-radius: 6px;
         padding: 3px 10px;
-        width: 65%;
+        width: 60%;
         .edit-form{
           display: none;
         }
@@ -40,6 +40,9 @@ ul.dispatch-log{
     .actions{
       padding: 5px;
       width: 10%;
+      button{
+        margin: 2px;
+      }
     }
   }
 }
