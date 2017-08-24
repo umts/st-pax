@@ -7,6 +7,8 @@ module DoctorsNotesHelper
       'will_expire_soon'
     elsif doctors_note.expired_within_grace_period?
       'expired_within_grace_period'
+    elsif doctors_note.override_expiration?
+      'has_been_overridden'
     elsif doctors_note.expired?
       'inactive'
     elsif passenger.temporary? && doctors_note.expiration_date.blank?
