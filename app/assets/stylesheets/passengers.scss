@@ -111,6 +111,8 @@ table#key, table#passengers {
 
 table#key {
   td {
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
     font-size: 13px;
     padding: 5px;
   }
