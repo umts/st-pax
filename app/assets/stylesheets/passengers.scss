@@ -13,6 +13,11 @@ body {
   line-height: 18px;
 }
 
+h1{
+  text-align: center;
+  margin: 15px 0;
+}
+
 .navbar button{
   margin-left: 3px;
 
@@ -72,6 +77,7 @@ a {
    float:right;
   }
 }
+
 table#key, table#passengers {
   .will_expire_soon {
     background-color: #fcf2c0;
@@ -109,24 +115,23 @@ table#key {
 }
 
 table#passengers{
-  border: 2px solid #999;
-  th.yesno {
-    text-align: center;
-    padding: 5px 25px 5px 25px;
-  }
 
   th {
     font-size: 20px;
-    background: #9385d5;
     padding: 5px 50px 5px 0;
+
+    &.yesno {
+      text-align: center;
+      padding: 5px 25px 5px 25px;
+    }
   }
 
   td {
     font-size: 15px;
     padding: 5px 5px 5px 0;
-  }
-  td.yes, td.no {
-    text-align: center;
+    &.no,&.yes{
+      text-align: center;
+    }
   }
 }
 
