@@ -23,7 +23,7 @@ class Passenger < ApplicationRecord
 
   def expiration_display
     unless permanent?
-      doctors_note.try(:expiration_date).try(:strftime, '%m/%d/%Y') || 'No Note'
+      doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
     end
   end
 

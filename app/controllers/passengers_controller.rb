@@ -12,23 +12,18 @@ class PassengersController < ApplicationController
     @doctors_note = @passenger.doctors_note || DoctorsNote.new
   end
 
-  # TODO: refactor for complexity
   def index
     @passengers = Passenger.order :name
-
-    if params[:filter].present?
-      if params[:filter] == 'permanent'
-        @permanent = true
-        @passengers = @passengers.permanent
-      else
-        @temporary = true
-        @passengers = @passengers.temporary
-      end
+    @filters = []
+    filter = params[:filter]
+    if %w(Permanent Temporary).include? filter
+      @passengers = @passengers.send filter.downcase
+      @filters << filter
+    else @filters << 'All'
     end
-
-    if params[:show_inactive]
-      @show_inactive = true
-    else @passengers = @passengers.active
+    unless params[:show_inactive]
+      @passengers = @passengers.active
+      @filters << 'Active'
     end
   end
 
