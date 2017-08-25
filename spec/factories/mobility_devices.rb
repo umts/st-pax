@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :mobility_device do
-    device { FFaker::Lorem.word }
-    lift_ramp false
+    sequence(:device) { |n| "Device #{n}" }
+    lift_ramp { [true, false].sample }
   end
 end
