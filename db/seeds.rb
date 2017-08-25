@@ -9,11 +9,13 @@ require 'timecop'
 5.times { create :user }
 
 20.times { create :passenger, :permanent }
-20.times { create :passenger, :recently_expired }
-20.times { create :passenger, :expiring_soon }
-20.times { create :passenger, :expiration_overriden }
-20.times { create :passenger, :inactive }
-5.times  { create :passenger, :no_note }
+20.times { create :passenger, :temporary }
+
+5.times { create :passenger, :temporary, :recently_expired }
+5.times { create :passenger, :temporary, :expiring_soon }
+5.times { create :passenger, :temporary, :expiration_overriden }
+5.times { create :passenger, :temporary, :inactive }
+5.times  { create :passenger, :temporary, :no_note }
 
 dispatchers = User.dispatchers
 30.times do

@@ -2,10 +2,9 @@
 
 class DoctorsNote < ApplicationRecord
   belongs_to :passenger
+  validate :temporary_passenger
 
-  before_save do
-    assign_attributes(expiration_date: nil) if passenger.permanent?
-  end
+  validates :expiration_date, presence: true
 
   def self.grace_period
     3.days.ago.to_date
@@ -16,18 +15,22 @@ class DoctorsNote < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
-    expiration_date.present? &&
-      expiration_date < DoctorsNote.expiration_warning &&
-      expiration_date >= Date.today
+    expiration_date < DoctorsNote.expiration_warning && expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
-    expiration_date.present? &&
-      expiration_date < Date.today &&
-      expiration_date >= DoctorsNote.grace_period
+    expiration_date < Date.today && expiration_date >= DoctorsNote.grace_period
   end
 
   def expired?
-    expiration_date.present? && expiration_date < DoctorsNote.grace_period
+    expiration_date < DoctorsNote.grace_period
+  end
+
+  private
+
+  def temporary_passenger
+    if passenger.permanent?
+      errors.add :base, 'must belong to a temporary passenger'
+    end
   end
 end
