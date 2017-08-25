@@ -8,18 +8,21 @@ feature 'Passenger Management' do
       when_current_user_is(:admin)
     end
     scenario 'creating a new passenger' do
+      date = 2.days.since.strftime '%Y-%m-%d'
       visit passengers_path
       click_link 'Add New Passenger'
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
+      fill_in('doctors_note_expiration_date', with: date)
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      create :passenger
+      passenger = create :passenger, name: 'Foo Bar'
+      create :doctors_note, passenger: passenger
       visit passengers_path
       click_link 'Edit'
-      check('passenger_permanent')
+      fill_in('passenger[name]', with: 'Bar Foo')
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully updated.')
     end
@@ -36,15 +39,18 @@ feature 'Passenger Management' do
       when_current_user_is(user)
     end
     scenario 'creating a new passenger' do
+      date = 2.days.since.strftime '%Y-%m-%d'
       visit passengers_path
       click_link 'Add New Passenger'
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
+      fill_in('doctors_note_expiration_date', with: date)
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      create :passenger, name: 'Foo Bar'
+      passenger = create :passenger, name: 'Foo Bar'
+      create :doctors_note, passenger: passenger
       visit passengers_path
       click_link 'Edit'
       fill_in('passenger[name]', with: 'Bar Foo')

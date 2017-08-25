@@ -33,7 +33,6 @@ feature 'Passenger Keys' do
   end
   scenario 'No Note' do 
     passenger = create :passenger
-    create :doctors_note, passenger: passenger
     visit passengers_url
     expect(page).to have_css('tr.no_note')
   end

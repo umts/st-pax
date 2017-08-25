@@ -9,27 +9,16 @@ describe Passenger do
 
   describe 'expiration_display' do
     context 'permanent passenger' do
-      it "returns 'None'" do
+      it "returns nil" do
         @passenger.update permanent: true
-        expect(@passenger.expiration_display).to eql 'None'
+        expect(@passenger.expiration_display).to be nil
       end
     end
-    context 'doctors note with expiration date' do
+    context 'temporary passenger' do
       it 'returns the expiration date' do
         date = 14.days.since
         create :doctors_note, passenger: @passenger, expiration_date: date
         expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
-      end
-    end
-    context 'doctors note no expiration date' do
-      it "returns 'No Note'" do
-        create :doctors_note, passenger: @passenger
-        expect(@passenger.expiration_display).to eql 'No Note'
-      end
-    end
-    context 'no doctors note' do
-      it "returns 'No Note'" do
-        expect(@passenger.expiration_display).to eql 'No Note'
       end
     end
   end
