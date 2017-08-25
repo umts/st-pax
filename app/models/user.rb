@@ -4,6 +4,9 @@ class User < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
 
   validates :name, :spire, presence: true
+  validates :spire,
+            format: { with: /\A\d{8}@umass.edu\z/,
+                      message: 'must be 8 digits followed by @umass.edu' }
 
   scope :admins, -> { where admin: true }
   scope :dispatchers, -> { where.not admin: true }
