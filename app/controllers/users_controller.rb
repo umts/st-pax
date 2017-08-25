@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[destroy edit update]
 
-  # GET /users
-  # GET /users.json
   def index
-    @users = User.all
+    @users = User.order(:name)
+    if params[:show_inactive]
+      @show_inactive = true
+    else @users = @users.active
+    end
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  # GET /users/new
   def new
     @user = User.new
   end

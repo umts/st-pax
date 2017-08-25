@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   scope :admins, -> { where admin: true }
   scope :dispatchers, -> { where.not admin: true }
+  scope :active, -> { where active: true }
 
   def can_delete?(item)
     admin? || (item.is_a?(LogEntry) && item.user == self)
