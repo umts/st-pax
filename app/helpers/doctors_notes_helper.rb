@@ -2,8 +2,8 @@
 
 module DoctorsNotesHelper
   def expiration_check(passenger)
-    return if passenger.permanent?
     return 'inactive' unless passenger.active?
+    return if passenger.permanent?
     note = passenger.doctors_note
     if note.present?
       if note.will_expire_within_warning_period?
