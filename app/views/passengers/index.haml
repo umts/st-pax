@@ -41,7 +41,7 @@
           %th
     %tbody
       - @passengers.each do |passenger|
-        %tr{class: (expiration_check(passenger.doctors_note) if passenger.temporary?)}
+        %tr{class: expiration_check(passenger)}
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone
