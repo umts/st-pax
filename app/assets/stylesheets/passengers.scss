@@ -2,23 +2,33 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$maroon: #881c1c;
+$slightly-maroon: #eacccc;
+
 body {
-  background-color: #ddd;
+  background-color: $maroon;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
 
-.navbar button{
-  margin-left: 3px;
+h1{
+  text-align: center;
+  margin: 15px 0;
+}
 
-  &.navbar-right{
-    margin-right: 5px;
-  }
+.navbar{
+  button{
+    margin-left: 3px;
 
-  &.current{
-    background: yellow;
+    &.navbar-right{
+      margin-right: 5px;
+    }
+
+    &.current{
+      background: $slightly-maroon;
+    }
   }
 }
 
@@ -42,12 +52,6 @@ strong.filter_description_emphasis {
   margin-right: 15px;
 }
 
-p.filter_description_color {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 19px;
-  line-height: 18px;
-  color: #25da6d;
-}
 pre {
   background-color: #eee;
   padding: 10px;
@@ -75,6 +79,7 @@ a {
    float:right;
   }
 }
+
 table#key, table#passengers {
   .will_expire_soon {
     background-color: #fcf2c0;
@@ -106,30 +111,31 @@ table#key, table#passengers {
 
 table#key {
   td {
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
     font-size: 13px;
     padding: 5px;
   }
 }
 
 table#passengers{
-  border: 2px solid #999;
-  th.yesno {
-    text-align: center;
-    padding: 5px 25px 5px 25px;
-  }
 
   th {
     font-size: 20px;
-    background: #9385d5;
     padding: 5px 50px 5px 0;
+
+    &.yesno {
+      text-align: center;
+      padding: 5px 25px 5px 25px;
+    }
   }
 
   td {
     font-size: 15px;
     padding: 5px 5px 5px 0;
-  }
-  td.yes, td.no {
-    text-align: center;
+    &.no,&.yes{
+      text-align: center;
+    }
   }
 }
 
