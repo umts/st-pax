@@ -38,6 +38,9 @@ FactoryGirl.define do
 
     trait :inactive do
       active false
+      after :create do |passenger|
+        create :doctors_note, :expired, passenger: passenger
+      end
     end
 
     trait :no_note do

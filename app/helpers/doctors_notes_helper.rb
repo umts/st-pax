@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 module DoctorsNotesHelper
-  def expiration_check(note)
+  def expiration_check(passenger)
+    return if passenger.permanent?
+    return 'inactive' unless passenger.active?
+    note = passenger.doctors_note
     if note.present?
       if note.will_expire_within_warning_period?
         'will_expire_soon'
