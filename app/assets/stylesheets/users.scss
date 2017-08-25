@@ -1,5 +1,16 @@
 table#users{
-  th, td{
-    padding: 2px;
+  th{
+    background: lightgrey;
+    text-align: center;
   }
+
+  th, td{
+    padding: 5px;
+  }
+}
+
+span.glyphicon{
+  font-size: large;
+  &.glyphicon-ok{ color: green; }
+  &.glyphicon-remove{ color: red; }
 }
