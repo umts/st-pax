@@ -5,22 +5,17 @@ feature 'Passenger Keys' do
     when_current_user_is :admin 
   end
   scenario 'will expire in a week' do 
-    passenger = create :passenger
-    create :doctors_note, passenger: passenger,
-            expiration_date: 3.days.since
+    passenger = create :passenger, :expiring_soon
     visit passengers_url
     expect(page).to have_css('tr.will_expire_soon')
   end
   scenario 'recently expired' do 
-    passenger = create :passenger
-    create :doctors_note, passenger: passenger,
-            expiration_date: 1.day.ago
+    passenger = create :passenger, :recently_expired
     visit passengers_url
     expect(page).to have_css('tr.expired_within_grace_period')
   end
-  scenario 'overridden expiration' do 
-    passenger = create :passenger
-    create :doctors_note, :overriden, passenger: passenger
+  scenario 'overriden expiration' do 
+    passenger = create :passenger, :expiration_overriden
     visit passengers_url
     expect(page).to have_css('tr.has_been_overridden')
   end
