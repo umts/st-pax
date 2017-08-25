@@ -21,10 +21,10 @@ This app is a database of Special Transit passengers, to be used by ST dispatche
 
 This app may later be expanded to serve other ST department needs, as well.
 
-## Tests
+## Setup
 
-To seed the database, use `rails db:seed`.
-To run the script that deactivates expired passengers, go to a rails console and type, `Passenger.deactivate_expired_doc_note`.
+- To seed the database, use `rails db:seed`.
+- Run `yarn` to add Boostrap, jQuery, jQuery-ui, and Datatables packages.
 
 ## Pull Requests
 
