@@ -3,5 +3,7 @@
     = navbar_link 'Passengers', passengers_url
     = navbar_link 'Add New Passenger', new_passenger_url
     = navbar_link 'Dispatch Log', log_index_url
+    - if @current_user.admin?
+      = navbar_link 'Manage Users', users_url
     = link_to destroy_session_url do
       %button.btn.btn-default.navbar-btn.navbar-right Logout
