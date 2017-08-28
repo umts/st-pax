@@ -32,7 +32,7 @@
         %th Name
         %th Email
         %th Phone
-        - if @show_inactive
+        - unless @filters.include? 'Active'
           %th.yesno Active
         %th.yesno Permanent
         %th.yesno Expiration Date
@@ -46,7 +46,7 @@
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone
-          - if @show_inactive
+          - unless @filters.include? 'Active'
             %td.yes= yes_no_image passenger.active?
           %td.yes= yes_no_image passenger.permanent?
           %td.yes= passenger.expiration_display
