@@ -14,8 +14,7 @@ FactoryGirl.define do
     override_until { rand(30).days.since }
   end
 
-  # This needs to be within DoctorsNote.grace_period.
-  trait :recently_expired do
+  trait :expired_within_grace_period do
     expiration_date { DoctorsNote.grace_period - rand(3).days }
   end
 
