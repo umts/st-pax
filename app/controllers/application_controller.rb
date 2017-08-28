@@ -53,6 +53,6 @@ class ApplicationController < ActionController::Base
   end
 
   def access_control
-    deny_access and return unless @current_user.present? && @current_user.admin?
+    deny_access && return unless @current_user.present? && @current_user.admin?
   end
 end

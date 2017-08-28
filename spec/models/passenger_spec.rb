@@ -9,7 +9,7 @@ describe Passenger do
 
   describe 'expiration_display' do
     context 'permanent passenger' do
-      it "returns nil" do
+      it 'returns nil' do
         @passenger.update permanent: true
         expect(@passenger.expiration_display).to be nil
       end
