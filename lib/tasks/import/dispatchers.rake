@@ -18,7 +18,7 @@ namespace :import do
       last_name, first_name = row.fetch('dispatcher').split ', '
       name = [first_name, last_name].join ' '
 
-      user = User.new name: name, admin: admin
+      user = User.new name: name, admin: admin, active: true
       unless user.save
         puts "disp.csv:#{line} : Skipping validations."
         user.save validate: false
