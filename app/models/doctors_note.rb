@@ -2,6 +2,7 @@
 
 class DoctorsNote < ApplicationRecord
   belongs_to :passenger
+  validates :passenger, uniqueness: true
   validate :temporary_passenger
 
   validates :expiration_date, presence: true
