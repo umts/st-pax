@@ -28,7 +28,7 @@ describe DoctorsNotesHelper do
     end
     context 'expiration date blank' do
       it "returns 'no_note'" do
-        expect(helper.expiration_check(@doctors_note)).to eql 'no_note'
+        expect(helper.expiration_check(nil)).to eql 'no_note'
       end
     end
   end

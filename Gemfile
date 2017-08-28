@@ -19,7 +19,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-gem 'capybara'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -38,10 +38,14 @@ gem 'haml-rails'
 gem 'whenever', require: false
 
 group :development, :test do
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry-byebug'
+  gem 'rack_session_access'
+  gem 'rspec-html-matchers'
   gem 'rubocop'
+  gem 'simplecov', require: false
   gem 'timecop'
 end
 

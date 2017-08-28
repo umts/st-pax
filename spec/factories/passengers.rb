@@ -10,7 +10,9 @@ FactoryGirl.define do
 
     trait :temporary do
       permanent false
-      doctors_note
+      after :create do |passenger|
+        create :doctors_note, passenger: passenger
+      end
     end
 
     trait :permanent do

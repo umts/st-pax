@@ -11,13 +11,13 @@ describe DoctorsNote do
     context 'expiration date: 5 days ago' do
       it 'returns false' do
         @doctors_note.update expiration_date: 5.days.ago
-        expect(@doctors_note.will_expire_within_warning_period?).to eql false
+        expect(@doctors_note.will_expire_within_warning_period?).to be false
       end
     end
     context 'expiration date: 5 days since' do
       it 'returns true' do
         @doctors_note.update expiration_date: 5.days.since
-        expect(@doctors_note.will_expire_within_warning_period?).to eql true
+        expect(@doctors_note.will_expire_within_warning_period?).to be true
       end
     end
   end
@@ -26,13 +26,13 @@ describe DoctorsNote do
     context 'expiration date: 1 day since' do
       it 'returns false' do
         @doctors_note.update expiration_date: 1.day.since
-        expect(@doctors_note.expired_within_grace_period?).to eql false
+        expect(@doctors_note.expired_within_grace_period?).to be false
       end
     end
     context 'expiration date: 1 day ago' do
       it 'returns true' do
         @doctors_note.update expiration_date: 1.day.ago
-        expect(@doctors_note.expired_within_grace_period?).to eql true
+        expect(@doctors_note.expired_within_grace_period?).to be true
       end
     end
   end
@@ -41,13 +41,13 @@ describe DoctorsNote do
     context 'expiration date: 10 days ago' do
       it 'returns true' do
         @doctors_note.update expiration_date: 10.days.ago
-        expect(@doctors_note.expired?).to eql true
+        expect(@doctors_note.expired?).to be true
       end
     end
     context 'expiration date: 2 days since' do
       it 'returns false' do
         @doctors_note.update expiration_date: 2.days.since
-        expect(@doctors_note.expired?).to eql false
+        expect(@doctors_note.expired?).to be false
       end
     end
   end

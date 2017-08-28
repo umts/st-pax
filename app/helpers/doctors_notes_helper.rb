@@ -7,6 +7,8 @@ module DoctorsNotesHelper
         'will_expire_soon'
       elsif note.expired_within_grace_period?
         'expired_within_grace_period'
+      elsif note.override_expiration?
+        'has_been_overridden'
       elsif note.expired?
         'inactive'
       end
