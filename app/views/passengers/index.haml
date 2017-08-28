@@ -30,6 +30,7 @@
     %thead
       %tr
         %th Name
+        %th Mobility Device
         %th Email
         %th Phone
         - unless @filters.include? 'Active'
@@ -44,6 +45,7 @@
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
+          %td= passenger.mobility_device.try(:device)
           %td= passenger.email
           %td= passenger.phone
           - unless @filters.include? 'Active'
