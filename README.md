@@ -17,7 +17,7 @@ This app is a database of Special Transit passengers, to be used by ST dispatche
 - Allows administrators to add, edit, and delete passengers (both temporary and permanent) from the database. Admins can also override passenger deactivation regardless of doctor's note expiration date
 - Allows on-duty ST dispatchers to add and edit temporary passengers in the database
 - Database is searchable, sortable, and filterable.
-- Color-coded for easy identification of passengers who are not active and good to go (e.g., passengers without doctor's notes, those within a week of the expiration date, recently expired passengers ...)
+- Color-coded for easy identification of passengers who are not active and good to go (e.g., passengers without doctor's notes, those within a week of the expiration date, notes that have expired within the grace period ...)
 
 This app may later be expanded to serve other ST department needs, as well.
 

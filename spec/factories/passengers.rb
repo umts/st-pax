@@ -18,9 +18,9 @@ FactoryGirl.define do
       doctors_note nil
     end
 
-    trait :recently_expired do
+    trait :expired_within_grace_period do
       after :create do |passenger|
-        create :doctors_note, :recently_expired, passenger: passenger
+        create :doctors_note, :expired_within_grace_period, passenger: passenger
       end
     end
 

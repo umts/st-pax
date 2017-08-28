@@ -11,7 +11,7 @@ require 'timecop'
 20.times { create :passenger, :permanent }
 20.times { create :passenger, :temporary }
 
-5.times { create :passenger, :temporary, :recently_expired }
+5.times { create :passenger, :temporary, :expired_within_grace_period }
 5.times { create :passenger, :temporary, :expiring_soon }
 5.times { create :passenger, :temporary, :expiration_overriden }
 5.times { create :passenger, :temporary, :inactive }
