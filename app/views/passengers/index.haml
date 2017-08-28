@@ -32,7 +32,8 @@
         %th Name
         %th Email
         %th Phone
-        %th.yesno Active
+        - if @show_inactive
+          %th.yesno Active
         %th.yesno Permanent
         %th.yesno Expiration Date
         %th
@@ -45,14 +46,9 @@
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone
-          - if passenger.active?
-            %td.yes Yes
-          - else
-            %td.no No
-          - if passenger.permanent?
-            %td.yes Yes
-          - else
-            %td.no No
+          - if @show_inactive
+            %td.yes= yes_no_image passenger.active?
+          %td.yes= yes_no_image passenger.permanent?
           %td.yes= passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
