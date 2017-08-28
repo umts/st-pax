@@ -3,7 +3,6 @@ $(document).on('turbolinks:load', function(){
     var registeredbyField = $('#pax_registered_with_DS');
     var hasbrochureField = $('#pax_has_brouchure');
     if($(this).is(':checked')){
-      debugger;
       registeredbyField.prop('disabled', true);
       registeredbyField.prop('checked', false);
     }
