@@ -1,12 +1,19 @@
 $(document).on('turbolinks:load', function(){
   $('#passenger_permanent').change(function(){
-    var registeredbyField = $('#passenger_registered_with_disability_services');
-    //var hasbrochureField = $('#has_brouchure');
+    var registeredbyField = $('#pax_registered_with_DS');
+    var hasbrochureField = $('#pax_has_brouchure');
     if($(this).is(':checked')){
+      debugger;
       registeredbyField.prop('disabled', true);
-     // hasbrochureField.prop('disabled', true);
+      registeredbyField.prop('checked', false);
     }
-    else registeredbyField.prop('disabled', false);
-         //hasbrochureField.prop('disabled', false);
+    else registeredbyField.prop('disabled', false)
+         registeredbyField.prop('checked', false)
+    if($(this).is(':checked')){
+      hasbrochureField.prop('disabled', true);
+      hasbrochureField.prop('checked', false);
+    }
+    else hasbrochureField.prop('disabled', false);
+         hasbrochureField.prop('checked', false);
   });
 });
