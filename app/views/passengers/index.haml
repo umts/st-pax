@@ -20,7 +20,7 @@
       %tbody
         %tr
           %td.will_expire_soon Will Expire Within 1 Week
-          %td.expired_within_grace_period Recently Expired
+          %td.expired_within_grace_period Expired Within Grace Period
           %td.has_been_overridden Expiration Overridden by Admin
           %td.inactive Inactive
           %td.no_note No Note
@@ -41,7 +41,7 @@
           %th
     %tbody
       - @passengers.each do |passenger|
-        %tr{class: (expiration_check(passenger.doctors_note) if passenger.temporary?)}
+        %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
           %td= passenger.email
           %td= passenger.phone

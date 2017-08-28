@@ -1,29 +1,31 @@
-%h1 Listing users
-
-%table
+%h1 Users
+%table#users
   %thead
     %tr
       %th Name
       %th Phone
-      %th Spire
-      %th Active
-      %th Admin
+      %th Spire ID
+      %th Active?
+      %th Admin?
       %th
       %th
-      %th
-
   %tbody
-    - @users.each do |user|
+    - if @users.present?
+      - @users.each do |user|
+        %tr
+          %td= user.name
+          %td= user.phone
+          %td= user.spire
+          %td= yes_no_image user.active?
+          %td= yes_no_image user.admin?
+          %td= link_to 'Edit', edit_user_path(user)
+          %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+    - else
       %tr
-        %td= user.name
-        %td= user.phone
-        %td= user.spire
-        %td= user.active
-        %td= user.admin
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
-
+        %td{colspan: 7} No users to show.
+- if @show_inactive
+  = link_to 'Show active users only', users_url
+- else
+  = link_to 'Also show inactive users', users_url(show_inactive: true)
 %br
-
 = link_to 'New User', new_user_path

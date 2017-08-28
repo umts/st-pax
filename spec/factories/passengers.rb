@@ -6,11 +6,11 @@ FactoryGirl.define do
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
+    mobility_device { MobilityDevice.all.sample }
     active true
 
     trait :temporary do
       permanent false
-      doctors_note
     end
 
     trait :permanent do
@@ -18,9 +18,26 @@ FactoryGirl.define do
       doctors_note nil
     end
 
-    trait :recently_expired do
+    trait :inactive do
+      active false
       after :create do |passenger|
-        create :doctors_note, :recently_expired, passenger: passenger
+        create :doctors_note, :expired, passenger: passenger
+      end
+    end
+
+    trait :no_note do
+      doctors_note nil
+    end
+
+    trait :with_note do
+      after :create do |passenger|
+        create :doctors_note, passenger: passenger
+      end
+    end
+
+    trait :expired_within_grace_period do
+      after :create do |passenger|
+        create :doctors_note, :expired_within_grace_period, passenger: passenger
       end
     end
 
@@ -34,14 +51,6 @@ FactoryGirl.define do
       after :create do |passenger|
         create :doctors_note, :overriden, passenger: passenger
       end
-    end
-
-    trait :inactive do
-      active false
-    end
-
-    trait :no_note do
-      doctors_note nil
     end
   end
 end
