@@ -15,7 +15,7 @@ class LogController < ApplicationController
   end
 
   def destroy
-    deny_access && return unless @current_user.can_delete? @entry
+    deny_access and return unless @current_user.can_delete? @entry
     @entry.destroy
     redirect_to log_index_path, notice: 'Log entry was successfully deleted.'
   end
