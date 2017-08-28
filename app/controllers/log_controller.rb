@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LogController < ApplicationController
   skip_before_action :access_control, except: :update
 

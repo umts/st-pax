@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %h1= @passenger.name
 %p
   %b Address:
@@ -11,17 +9,8 @@
   %b Phone:
   = @passenger.phone
 %p
-  %b Wheelchair:
-  - if @passenger.wheelchair
-    Yes
-  - else
-    No
-%p
   %b Mobility Device:
-  - if @passenger.mobility_device?
-    = @passenger.mobility_device
-  - else
-    None
+  = @passenger.mobility_device.try(:device) || 'None'
 %p
   %b Active:
   - if @passenger.active
