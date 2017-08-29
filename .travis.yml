@@ -1,0 +1,15 @@
+language: ruby
+rvm: 2.4.1
+#env: CODECLIMATE_REPO_TOKEN=b1b9b856c0aa49c7733aedea0b460b1c118c2ff1296db77bdcf762e6e8ff91c5
+before_script:
+  - mysql -e 'create database st_pax_test'
+  - cp config/database.yml.example config/database.yml
+script:
+  - bundle exec rake db:reset
+  - bundle exec rspec
+  - bundle exec codeclimate-test-reporter
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+    recipients: programmers@admin.umass.edu

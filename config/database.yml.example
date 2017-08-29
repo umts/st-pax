@@ -1,0 +1,12 @@
+default: &default
+  adapter: mysql
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: st_pax_development
+
+test:
+  <<: *default
+  database: st_pax_test
