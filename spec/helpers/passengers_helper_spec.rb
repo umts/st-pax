@@ -37,6 +37,12 @@ describe PassengersHelper do
         expect(helper.passengers_table_row_class(@passenger)).to eql 'inactive'
       end
     end
+    context 'expiration overridden' do
+      it "returns 'overridden'" do
+        @doctors_note.update override_expiration: true
+        expect(helper.passengers_table_row_class(@passenger)).to eql 'overridden'
+      end
+    end
     context 'no note' do
       it "returns 'no_note'" do
         @passenger = create :passenger, :temporary, :no_note
