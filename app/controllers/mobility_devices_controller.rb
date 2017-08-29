@@ -7,14 +7,16 @@ class MobilityDevicesController < ApplicationController
     @device = MobilityDevice.new(device_params)
 
     if @device.save
-      redirect_to mobility_devices_url, notice: 'Mobility device was successfully created.'
+      redirect_to mobility_devices_url,
+                  notice: 'Mobility device was successfully created.'
     else render :new
     end
   end
 
   def destroy
     @device.destroy
-    redirect_to mobility_devices_url, notice: 'Mobility device was successfully destroyed.'
+    redirect_to mobility_devices_url,
+                notice: 'Mobility device was successfully destroyed.'
   end
 
   def index
@@ -27,7 +29,8 @@ class MobilityDevicesController < ApplicationController
 
   def update
     if @device.update(device_params)
-      redirect_to mobility_devices_url, notice: 'Mobility device was successfully updated.'
+      redirect_to mobility_devices_url,
+                  notice: 'Mobility device was successfully updated.'
     else render :edit
     end
   end
@@ -40,6 +43,6 @@ class MobilityDevicesController < ApplicationController
   end
 
   def device_params
-    params.require(:mobility_device).permit(:device, :needs_longer_rides)
+    params.require(:mobility_device).permit :device, :needs_longer_rides
   end
 end
