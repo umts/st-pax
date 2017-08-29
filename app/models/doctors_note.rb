@@ -16,7 +16,8 @@ class DoctorsNote < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
-    expiration_date < DoctorsNote.expiration_warning && expiration_date >= Date.today
+    expiration_date < DoctorsNote.expiration_warning &&
+      expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
@@ -30,8 +31,7 @@ class DoctorsNote < ApplicationRecord
   private
 
   def temporary_passenger
-    if passenger.permanent?
-      errors.add :base, 'must belong to a temporary passenger'
-    end
+    return if passenger.temporary?
+    errors.add :base, 'must belong to a temporary passenger'
   end
 end

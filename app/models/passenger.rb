@@ -5,11 +5,11 @@ class Passenger < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-  STATUSES = %w[Alumni Faculty Staff Student]
+  STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
-    optional: true
+                          optional: true
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where(permanent: false) }
@@ -22,9 +22,8 @@ class Passenger < ApplicationRecord
   belongs_to :mobility_device, optional: true
 
   def expiration_display
-    unless permanent?
-      doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
-    end
+    return if permanent?
+    doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
   def temporary?

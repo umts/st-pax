@@ -5,7 +5,7 @@ require 'csv'
 desc 'Import daily log from Access CSV at data/daily_log.csv'
 namespace :import do
   task log: :environment do
-    CSV.foreach('data/daily_log.csv', encoding: 'ISO-8859-1', headers: true).with_index 2 do |row, line|
+    CSV.foreach('data/daily_log.csv', encoding: 'ISO-8859-1', headers: true) do |row|
       date = Date.parse row.fetch('Date:')
       user_name = row.fetch('Dispatcher:')
       if user_name.is_a? String
