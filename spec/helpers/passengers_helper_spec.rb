@@ -15,8 +15,8 @@ require 'rails_helper'
 describe PassengersHelper do
   describe 'passengers_table_row_class' do
     before :each do
-      @doctors_note = create :doctors_note
-      @passenger = @doctors_note.passenger
+      @passenger = create :passenger, :temporary, :with_note
+      @doctors_note = @passenger.doctors_note
     end
     context 'will expire within warning period' do
       it "returns 'will_expire_soon'" do
@@ -37,9 +37,9 @@ describe PassengersHelper do
         expect(helper.passengers_table_row_class(@passenger)).to eql 'inactive'
       end
     end
-    context 'expiration date blank' do
+    context 'no note' do
       it "returns 'no_note'" do
-        @doctors_note.destroy
+        @passenger = create :passenger, :temporary, :no_note
         expect(helper.passengers_table_row_class(@passenger)).to eql 'no_note'
       end
     end

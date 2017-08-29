@@ -13,8 +13,7 @@ module PassengersHelper
       elsif note.expired?
         'inactive'
       end
-    else
-      'no_note'
+    else 'no_note'
     end
   end
 
