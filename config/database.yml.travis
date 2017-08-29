@@ -1,0 +1,5 @@
+test:
+  adapter: mysql2
+  database: st_pax_test
+  username: travis
+  password: apples
