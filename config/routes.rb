@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   else root 'passengers#index'
   end
 
-  resources :users
+  resources :users, except: :show
   resources :passengers
   resources :doctors_notes
   resources :log, except: %i[edit new show]

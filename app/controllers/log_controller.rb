@@ -14,11 +14,13 @@ class LogController < ApplicationController
     end
   end
 
+  # rubocop:disable Style/AndOr
   def destroy
     deny_access and return unless @current_user.can_delete? @entry
     @entry.destroy
     redirect_to log_index_path, notice: 'Log entry was successfully deleted.'
   end
+  # rubocop:enable Style/AndOr
 
   def index
     @entry = LogEntry.new

@@ -8,8 +8,12 @@ require 'timecop'
 
 5.times { create :user }
 
+%w[Cane Crutches Wheelchair].each do |device|
+  create :mobility_device, device: device
+end
+
 20.times { create :passenger, :permanent }
-20.times { create :passenger, :temporary }
+20.times { create :passenger, :temporary, :with_note }
 
 5.times { create :passenger, :temporary, :expired_within_grace_period }
 5.times { create :passenger, :temporary, :expiring_soon }

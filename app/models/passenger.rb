@@ -22,9 +22,8 @@ class Passenger < ApplicationRecord
   belongs_to :mobility_device, optional: true
 
   def expiration_display
-    unless permanent?
-      doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
-    end
+    return if permanent?
+    doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
   def temporary?
