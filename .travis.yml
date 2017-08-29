@@ -8,7 +8,7 @@ before_script:
   - cp config/database.yml.travis config/database.yml
   - yarn
 script:
-  - bundle exec rake db:reset
+  - bundle exec rake db:create db:schema:load
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter
 notifications:
