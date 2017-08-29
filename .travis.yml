@@ -6,6 +6,7 @@ before_script:
   - mysql -e "SET PASSWORD FOR 'travis' = PASSWORD('apples');"
   - mysql -e "GRANT ALL PRIVILEGES ON st_pax_test.* to 'travis';"
   - cp config/database.yml.travis config/database.yml
+  - yarn
 script:
   - bundle exec rake db:reset
   - bundle exec rspec
