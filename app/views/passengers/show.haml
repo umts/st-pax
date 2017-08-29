@@ -10,7 +10,7 @@
   = @passenger.phone
 %p
   %b Mobility Device:
-  = @passenger.mobility_device.try(:device) || 'None'
+  = @passenger.mobility_device.try(:name) || 'None'
 %p
   %b Active:
   - if @passenger.active

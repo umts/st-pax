@@ -56,7 +56,7 @@ class PassengersController < ApplicationController
   def passenger_params
     permitted_params = params.require(:passenger)
                              .permit :name, :address, :email, :phone,
-                                     :wheelchair, :mobility_device, :active,
+                                     :wheelchair, :mobility_device_id, :active,
                                      :permanent, :note,
                                      doctors_note_attributes: [:expiration_date]
     unless @current_user.admin?
