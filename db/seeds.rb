@@ -19,7 +19,7 @@ end
 5.times { create :passenger, :temporary, :expiring_soon }
 5.times { create :passenger, :temporary, :expiration_overriden }
 5.times { create :passenger, :temporary, :inactive }
-5.times  { create :passenger, :temporary, :no_note }
+5.times { create :passenger, :temporary, :no_note }
 
 dispatchers = User.dispatchers
 30.times do
