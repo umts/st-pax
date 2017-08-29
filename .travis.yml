@@ -1,6 +1,6 @@
 language: ruby
 rvm: 2.4.1
-#env: CODECLIMATE_REPO_TOKEN=b1b9b856c0aa49c7733aedea0b460b1c118c2ff1296db77bdcf762e6e8ff91c5
+env: CODECLIMATE_REPO_TOKEN=4e48b2d3a1dd02664172b2bc5aa4f3a9be039db7f2f159fc0da17924037109e0
 before_script:
   - mysql -e 'create database st_pax_test'
   - cp config/database.yml.example config/database.yml
