@@ -52,7 +52,10 @@ class ApplicationController < ActionController::Base
            layout: false
   end
 
+  # '... and return' is the correct behavior here, disable rubocop warning
+  # rubocop:disable Style/AndOr
   def access_control
     deny_access and return unless @current_user.present? && @current_user.admin?
   end
+  # rubocop:enable Style/AndOr
 end
