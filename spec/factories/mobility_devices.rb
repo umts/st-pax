@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :mobility_device do
     sequence(:device) { |n| "Device #{n}" }
-    lift_ramp { [true, false].sample }
+    needs_longer_rides { [true, false].sample }
   end
 end
