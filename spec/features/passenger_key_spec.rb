@@ -12,7 +12,7 @@ feature 'Passenger Keys' do
     expect(page).to have_css('tr.will_expire_soon')
   end
   scenario 'recently expired' do
-    create :passenger, :recently_expired
+    create :passenger, :expired_within_grace_period
     visit passengers_url
     expect(page).to have_css('tr.expired_within_grace_period')
   end
