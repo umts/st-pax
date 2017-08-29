@@ -52,8 +52,9 @@ feature 'Passenger Filters' do
     visit passengers_url
     check('show_inactive')
     click_on('Show Passengers')
-    expect(page).to have_selector('table#passengers tbody tr', count: 1)
+    # Shows both active and inactive passengers
+    expect(page).to have_selector('table#passengers tbody tr', count: 2)
     expect(page).to have_content('Mary Sue')
-    expect(page).not_to have_content('Gary Stue')
+    expect(page).to have_content('Gary Stue')
   end
 end
