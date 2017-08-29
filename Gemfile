@@ -14,6 +14,7 @@ gem 'whenever', require: false
 
 group :development, :test do
   gem 'capybara'
+  gem 'codeclimate-test-reporter'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry-byebug'
