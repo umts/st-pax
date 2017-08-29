@@ -25,3 +25,5 @@ coverage/*
 !/coverage/.last_run.json
 
 data/*.csv
+
+config/database.yml
