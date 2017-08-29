@@ -40,6 +40,6 @@ class MobilityDevicesController < ApplicationController
   end
 
   def device_params
-    params.require(:device).permit(:device, :needs_longer_rides)
+    params.require(:mobility_device).permit(:device, :needs_longer_rides)
   end
 end
