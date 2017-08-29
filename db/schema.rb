@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829130516) do
+ActiveRecord::Schema.define(version: 20170829132804) do
 
   create_table "doctors_notes", force: :cascade do |t|
     t.integer "passenger_id"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170829130516) do
 
   create_table "mobility_devices", force: :cascade do |t|
     t.string "device"
-    t.boolean "lift_ramp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "needs_longer_rides", default: false, null: false
