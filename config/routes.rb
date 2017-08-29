@@ -6,10 +6,11 @@ Rails.application.routes.draw do
   else root 'passengers#index'
   end
 
-  resources :users, except: :show
-  resources :passengers
   resources :doctors_notes
   resources :log, except: %i[edit new show]
+  resources :mobility_devices, except: :show
+  resources :passengers
+  resources :users, except: :show
 
   unless Rails.env.production?
     get  'sessions/dev_login',
