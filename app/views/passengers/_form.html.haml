@@ -49,7 +49,7 @@
         class: 'datepicker', id: "doctors_note_expiration_date"
   .field
     = form.label :registering_dispatcher
-    = form.text_field :registered_by
+    = form.select :registered_by, options_from_collection_for_select(User.all, :id, :name),include_blank: true
   .field
     = form.label "Additional Notes"
     = form.text_area :note, rows: 20, cols: 100
