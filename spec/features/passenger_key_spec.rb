@@ -19,11 +19,11 @@ feature 'Passenger Keys' do
   scenario 'overriden expiration' do
     create :passenger, :expiration_overriden
     visit passengers_url
-    expect(page).to have_css('tr.has_been_overridden')
+    expect(page).to have_css('tr.overridden')
   end
   scenario 'Inactive' do
     create :passenger, :inactive
-    visit passengers_url
+    visit passengers_url(show_inactive: true)
     expect(page).to have_css('tr.inactive')
   end
   scenario 'No Note' do
