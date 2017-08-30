@@ -8,8 +8,8 @@ require 'timecop'
 
 5.times { create :user }
 
-%w[Cane Crutches Wheelchair].each do |device|
-  create :mobility_device, device: device
+%w[Cane Crutches Wheelchair].each do |name|
+  create :mobility_device, name: name
 end
 
 20.times { create :passenger, :permanent }
