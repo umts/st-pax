@@ -20,7 +20,7 @@ class MobilityDevicesController < ApplicationController
   end
 
   def index
-    @devices = MobilityDevice.order :device
+    @devices = MobilityDevice.order :name
   end
 
   def new
@@ -43,6 +43,6 @@ class MobilityDevicesController < ApplicationController
   end
 
   def device_params
-    params.require(:mobility_device).permit :device, :needs_longer_rides
+    params.require(:mobility_device).permit :name, :needs_longer_rides
   end
 end
