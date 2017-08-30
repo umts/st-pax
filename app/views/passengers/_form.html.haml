@@ -26,7 +26,7 @@
     = form.phone_field :phone
   .field
     = form.label :umass_status
-    = form.text_field :status
+    = form.select :status, Passenger::STATUSES, include_blank: true
   .field
     = form.label :registered_with_disability_services
     = form.check_box :registered_with_disability_services,
