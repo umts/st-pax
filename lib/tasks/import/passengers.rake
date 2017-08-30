@@ -25,7 +25,7 @@ namespace :import do
         puts "paxinfo.csv:#{line} : Unknown status #{status}"
       end
       device_name = row.fetch('mobilityDevice')
-      mobility_device = MobilityDevice.find_by device: device_name
+      mobility_device = MobilityDevice.find_by name: device_name
       if mobility_device.present?
         attrs[:mobility_device] = mobility_device
       else
