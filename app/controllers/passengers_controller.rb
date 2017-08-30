@@ -33,6 +33,7 @@ class PassengersController < ApplicationController
       redirect_to @passenger, notice: 'Passenger was successfully created.'
     else
       render :new
+      respond_to :html, :json
     end
   end
 
@@ -55,7 +56,9 @@ class PassengersController < ApplicationController
     permitted_params = params.require(:passenger)
                              .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device, :active,
-                                     :permanent, :note,
+                                     :permanent, :note, :spire, :status,
+                                     :registered_by, :has_brochure,
+                                     :registered_with_disability_services,
                                      doctors_note_attributes: [:expiration_date]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
