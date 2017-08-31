@@ -6,14 +6,14 @@
         %li= message
 = form_with model: @passenger, local: true do |form|
   .field
-    = form.label :permanent_passenger
+    = form.label :permanent
     = form.check_box :permanent, disabled: @current_user.dispatcher?,
       id: "passenger_permanent"
   .field
-    = form.label :passenger_name
+    = form.label :name
     = form.text_field :name
   .field
-    = form.label :passenger_spire
+    = form.label :spire
     = form.text_field :spire, placeholder: "12345678@umass.edu"
   .field
     = form.label :address
@@ -22,10 +22,10 @@
     = form.label :email
     = form.text_field :email
   .field
-    = form.label :phone_number
+    = form.label :phone
     = form.phone_field :phone
   .field
-    = form.label :umass_status
+    = form.label :status
     = form.select :status, Passenger::STATUSES, include_blank: true
   .field
     = form.label :registered_with_disability_services
