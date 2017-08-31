@@ -33,11 +33,7 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new(passenger_params)
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
-    else
-      respond_to do |format|
-        format.html { render :new }
-        format.json { render json: @passenger }
-      end
+    else render :new
     end
   end
 

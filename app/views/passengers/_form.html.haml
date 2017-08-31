@@ -4,7 +4,7 @@
     %ul
       - @passenger.errors.full_messages.each do |message|
         %li= message
-= form_with model: @passenger do |form|
+= form_with model: @passenger, local: true do |form|
   .field
     = form.label :permanent_passenger
     = form.check_box :permanent, disabled: @current_user.dispatcher?,
