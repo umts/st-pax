@@ -57,7 +57,7 @@ class PassengersController < ApplicationController
   def passenger_params
     permitted_params = params.require(:passenger)
                              .permit :name, :address, :email, :phone,
-                                     :wheelchair, :mobility_device, :active,
+                                     :wheelchair, :mobility_device_id, :active,
                                      :permanent, :note, :spire, :status,
                                      :registered_by, :has_brochure,
                                      :registered_with_disability_services,
