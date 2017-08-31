@@ -46,7 +46,7 @@
   = @passenger.expiration_display
 %p
   %b Registering Dispatcher:
-  = @passenger.registered_by
+  = User.where(id: @passenger.registered_by).first.try(:name) || "Unknown"
 %p
   %b Other Notes:
   = @passenger.note
