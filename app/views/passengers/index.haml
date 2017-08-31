@@ -21,7 +21,7 @@
         %tr
           %td.will_expire_soon Will Expire Within 1 Week
           %td.expired_within_grace_period Expired Within Grace Period
-          %td.has_been_overridden Expiration Overridden by Admin
+          %td.overridden Expiration Overridden by STSPV
           %td.inactive Inactive
           %td.no_note No Note
 %p
@@ -30,9 +30,11 @@
     %thead
       %tr
         %th Name
+        %th Mobility Device
         %th Email
         %th Phone
-        %th.yesno Active
+        - unless @filters.include? 'Active'
+          %th.yesno Active
         %th.yesno Permanent
         %th.yesno Expiration Date
         %th
@@ -43,16 +45,12 @@
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
+          %td= passenger.mobility_device.try(:name)
           %td= passenger.email
           %td= passenger.phone
-          - if passenger.active?
-            %td.yes Yes
-          - else
-            %td.no No
-          - if passenger.permanent?
-            %td.yes Yes
-          - else
-            %td.no No
+          - unless @filters.include? 'Active'
+            %td.yes= yes_no_image passenger.active?
+          %td.yes= yes_no_image passenger.permanent?
           %td.yes= passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)

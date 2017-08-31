@@ -12,11 +12,12 @@ class PassengersController < ApplicationController
     @doctors_note = @passenger.doctors_note || DoctorsNote.new
   end
 
+  # rubocop:disable Style/GuardClause
   def index
     @passengers = Passenger.order :name
     @filters = []
     filter = params[:filter]
-    if %w(Permanent Temporary).include? filter
+    if %w[Permanent Temporary].include? filter
       @passengers = @passengers.send filter.downcase
       @filters << filter
     else @filters << 'All'
@@ -26,6 +27,7 @@ class PassengersController < ApplicationController
       @filters << 'Active'
     end
   end
+  # rubocop:enable Style/GuardClause
 
   def create
     @passenger = Passenger.new(passenger_params)

@@ -4,13 +4,13 @@ require 'factory_girl'
 include FactoryGirl::Syntax::Methods
 require 'timecop'
 
-%w[Cane Crutches Wheelchair].each do |device|
-  create :mobility_device, device: device
-end
-
 2.times { create :user, :admin }
 
 5.times { create :user }
+
+%w[Cane Crutches Wheelchair].each do |name|
+  create :mobility_device, name: name
+end
 
 20.times { create :passenger, :permanent }
 20.times { create :passenger, :temporary, :with_note }
@@ -19,7 +19,7 @@ end
 5.times { create :passenger, :temporary, :expiring_soon }
 5.times { create :passenger, :temporary, :expiration_overriden }
 5.times { create :passenger, :temporary, :inactive }
-5.times  { create :passenger, :temporary, :no_note }
+5.times { create :passenger, :temporary, :no_note }
 
 dispatchers = User.dispatchers
 30.times do

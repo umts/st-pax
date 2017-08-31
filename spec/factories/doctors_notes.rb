@@ -15,7 +15,7 @@ FactoryGirl.define do
   end
 
   trait :expired_within_grace_period do
-    expiration_date { DoctorsNote.grace_period - rand(3).days }
+    expiration_date { DoctorsNote.grace_period + rand(3).days }
   end
 
   trait :expiring_soon do
@@ -23,6 +23,6 @@ FactoryGirl.define do
   end
 
   trait :expired do
-    expiration_date { DoctorsNote.grace_period + rand(30).days }
+    expiration_date { Date.today + rand(30).days }
   end
 end
