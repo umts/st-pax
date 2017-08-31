@@ -34,7 +34,7 @@
   .field
     = form.label :has_brochure
     = form.check_box :has_brochure,
-      id: "pax_has_brouchure"
+      id: "pax_has_brochure"
   .field
     = form.label :mobility_device_id
     = form.select :mobility_device_id, options_from_collection_for_select(MobilityDevice.order(:name), :id, :name), include_blank: 'None'
