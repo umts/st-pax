@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829182335) do
+ActiveRecord::Schema.define(version: 20170831135848) do
 
-  create_table "doctors_notes", force: :cascade do |t|
+  create_table "doctors_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
     t.integer "overriden_by"
@@ -22,21 +22,21 @@ ActiveRecord::Schema.define(version: 20170829182335) do
     t.boolean "override_expiration"
   end
 
-  create_table "log_entries", force: :cascade do |t|
+  create_table "log_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "mobility_devices", force: :cascade do |t|
+  create_table "mobility_devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "needs_longer_rides", default: false, null: false
   end
 
-  create_table "passengers", force: :cascade do |t|
+  create_table "passengers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "address"
@@ -54,9 +54,8 @@ ActiveRecord::Schema.define(version: 20170829182335) do
     t.boolean "has_brochure"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.string "phone"
     t.string "spire"
     t.boolean "active"
     t.boolean "admin", default: false
