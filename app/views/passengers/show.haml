@@ -16,7 +16,7 @@
   = @passenger.status
 %p
   %b Registered with disability services?
-  - if @passenger.registered_with_disability_services
+  - if @passenger.registered_with_disability_services?
     Yes
   - else
     No
