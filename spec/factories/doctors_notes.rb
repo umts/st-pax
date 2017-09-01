@@ -7,10 +7,10 @@ FactoryGirl.define do
     expiration_date { rand(150).days.since }
   end
 
-  trait :overriden do
+  trait :overridden do
     override_expiration true
     # TODO: I think this should be defined as a real association.
-    overriden_by 1
+    overridden_by 1
     override_until { rand(30).days.since }
   end
 
