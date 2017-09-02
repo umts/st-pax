@@ -41,7 +41,11 @@
   - if @current_user.admin?
     .field
       = form.label :active
-      = form.check_box :active
+      = form.check_box :active, id: 'passenger_active'
+  .field
+    = form.label :permanent_passenger
+    = form.check_box :permanent, disabled: @current_user.dispatcher?,
+      id: "passenger_permanent"
   = form.fields_for :doctors_note, @doctors_note do |d|
     .field
       = d.label :expiration_date
