@@ -31,7 +31,7 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.registered_by = @current_user.id
+    @passenger.registered_by = @current_user
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
     else render :new

@@ -1,6 +1,8 @@
 - if @passenger.errors.any?
   #error_explanation
-    %h2= "#{pluralize(@passenger.errors.count, "error")} prohibited this passenger from being saved:"
+    %h2
+      = pluralize @passenger.errors.count, "error"
+      prohibited this passenger from being saved:
     %ul
       - @passenger.errors.full_messages.each do |message|
         %li= message
@@ -30,11 +32,11 @@
   .field
     = form.label :registered_with_disability_services
     = form.check_box :registered_with_disability_services,
-      id: "pax_registered_with_DS"
+      id: :pax_registered_with_DS
   .field
     = form.label :has_brochure
     = form.check_box :has_brochure,
-      id: "pax_has_brochure"
+      id: :pax_has_brochure
   .field
     = form.label :mobility_device_id
     = form.select :mobility_device_id, options_from_collection_for_select(MobilityDevice.order(:name), :id, :name), include_blank: 'None'
