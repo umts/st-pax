@@ -17,7 +17,7 @@ end
 
 5.times { create :passenger, :temporary, :expired_within_grace_period }
 5.times { create :passenger, :temporary, :expiring_soon }
-5.times { create :passenger, :temporary, :expiration_overriden }
+5.times { create :passenger, :temporary, :expiration_overridden }
 5.times { create :passenger, :temporary, :inactive }
 5.times { create :passenger, :temporary, :no_note }
 

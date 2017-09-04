@@ -47,9 +47,9 @@ FactoryGirl.define do
       end
     end
 
-    trait :expiration_overriden do
+    trait :expiration_overridden do
       after :create do |passenger|
-        create :doctors_note, :overriden, passenger: passenger
+        create :doctors_note, :overridden, passenger: passenger
       end
     end
   end
