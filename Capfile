@@ -5,4 +5,4 @@
 require 'whenever/capistrano'
 install_plugin Capistrano::SCM::Git
 
-Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
