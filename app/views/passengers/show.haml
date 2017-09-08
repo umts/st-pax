@@ -16,31 +16,19 @@
   = @passenger.status
 %p
   %b Registered with disability services?
-  - if @passenger.registered_with_disability_services?
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.registered_with_disability_services?
 %p
   %b Has brochure?
-  - if @passenger.has_brochure
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.has_brochure?
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
   %b Active:
-  - if @passenger.active
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.active?
 %p
   %b Permanent:
-  - if @passenger.permanent
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.permanent
 %p
   %b Expiration Date:
   = @passenger.expiration_display
