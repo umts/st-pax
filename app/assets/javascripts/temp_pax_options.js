@@ -7,8 +7,8 @@ $(document).on('turbolinks:load', function(){
       registeredbyField.prop('checked', false);
     }
     else {
-      registeredbyField.prop('disabled', false)
-      registeredbyField.prop('checked', false)
+      registeredbyField.prop('disabled', false);
+      registeredbyField.prop('checked', false);
     }
     if($(this).is(':checked')){
       hasbrochureField.prop('disabled', true);
