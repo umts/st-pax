@@ -10,7 +10,7 @@
   .field
     = form.label :permanent
     = form.check_box :permanent, disabled: @current_user.dispatcher?,
-      id: "passenger_permanent"
+      id: :passenger_permanent
   .field
     = form.label :name
     = form.text_field :name
