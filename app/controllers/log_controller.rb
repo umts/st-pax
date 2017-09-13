@@ -45,6 +45,6 @@ class LogController < ApplicationController
 
   def set_entries
     @entries = LogEntry.includes(:user).order('created_at desc')
-                       .paginate(page: params[:page] || 1)
+                       .page(params[:page] || 1)
   end
 end
