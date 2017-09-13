@@ -35,8 +35,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    if @user.destroy
+      redirect_to users_url, notice: 'User was successfully destroyed.'
+    else redirect_to users_url,
+      alert: 'Cannot delete users who have made log entries.'
+    end
   end
 
   private
