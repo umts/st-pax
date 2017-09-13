@@ -1,7 +1,10 @@
 %h1= @passenger.name
 %p
   %b Address:
-  =@passenger.address
+  = @passenger.address
+%p
+  %b Spire:
+  = @passenger.spire
 %p
   %b Email:
   = @passenger.email
@@ -9,24 +12,32 @@
   %b Phone:
   = @passenger.phone
 %p
+  %b UMass Status:
+  = @passenger.status
+%p
+  %b Registered with disability services?
+  %td.yes= yes_no_image @passenger.registered_with_disability_services?
+%p
+  %b Has brochure?
+  %td.yes= yes_no_image @passenger.has_brochure?
+%p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
   %b Active:
-  - if @passenger.active
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.active?
 %p
   %b Permanent:
-  - if @passenger.permanent
-    Yes
-  - else
-    No
+  %td.yes= yes_no_image @passenger.permanent
 %p
   %b Expiration Date:
   = @passenger.expiration_display
+%p
+  %b Registering Dispatcher:
+  = @passenger.registerer || "Unknown"
+%p
+  %b Other Notes:
+  = @passenger.note
 
-%p= @passenger.note
 = link_to "Edit", edit_passenger_path
 = link_to "Back", passengers_path
