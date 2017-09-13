@@ -14,9 +14,13 @@ class MobilityDevicesController < ApplicationController
   end
 
   def destroy
-    @device.destroy
-    redirect_to mobility_devices_url,
-                notice: 'Mobility device was successfully destroyed.'
+    if @device.destroy
+      redirect_to mobility_devices_url,
+                  notice: 'Mobility device was successfully destroyed.'
+    else
+      alert = 'Cannot delete devices which have been assigned to a passenger.'
+      redirect_to mobility_devices_url, alert: alert
+    end
   end
 
   def index
