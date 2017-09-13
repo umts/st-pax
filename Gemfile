@@ -10,6 +10,7 @@ gem 'rails', '~> 5.1.0'
 gem 'rspec-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
+gem 'will_paginate', '~> 3.1'
 gem 'whenever', require: false
 
 group :development, :test do
