@@ -17,8 +17,9 @@ class MobilityDevicesController < ApplicationController
     if @device.destroy
       redirect_to mobility_devices_url,
                   notice: 'Mobility device was successfully destroyed.'
-    else redirect_to mobility_devices_url,
-                     alert: 'Cannot delete devices which have been assigned to a passenger.'
+    else
+      alert = 'Cannot delete devices which have been assigned to a passenger.'
+      redirect_to mobility_devices_url, alert: alert
     end
   end
 
