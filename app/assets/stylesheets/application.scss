@@ -15,7 +15,65 @@
  *= require_tree .
  *= require_self
  */
+$maroon: #881c1c;
+$slightly-maroon: #eacccc;
+
+$body-bg: $maroon;
+$font-family-sans-serif: verdana, arial, helvetica, sans-serif;
+$font-size-base: 13px;
+
+$navbar-padding-horizontal: 20px;
+
+$link-color: #000;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+h1{
+  text-align: center;
+  margin: 15px 0;
+}
+
+.navbar{
+  button{
+    margin-left: 3px;
+
+    &.navbar-right{
+      margin-right: 5px;
+    }
+
+    &.current{
+      background: $slightly-maroon;
+    }
+  }
+}
+
+.panel{
+  margin: 1em;
+  border: 2px solid grey;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a {
+  text-decoration: underline;
+
+  &:visited {
+    color: #666;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+span.glyphicon{
+  font-size: large;
+  &.glyphicon-ok{ color: green; }
+  &.glyphicon-remove{ color: red; }
+}
