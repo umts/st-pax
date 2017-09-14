@@ -33,6 +33,15 @@ feature 'Passenger Management' do
       click_link 'Delete'
       expect(page).to have_text('Passenger was successfully destroyed.')
     end
+    scenario 'creating a temporary passenger without a doctors note' do
+      visit new_passenger_path
+      fill_in 'Passenger Name', with: 'Jane Fonda'
+      fill_in 'Passenger Spire', with: '12345678@umass.edu'
+      fill_in 'Email', with: 'jfonda@umass.edu'
+      select 'Student', from: 'UMass Status'
+      click_button 'Submit'
+      expect(page).to have_text 'Passenger was successfully created.'
+    end
   end
   feature 'as a dispatcher' do
     before :each do
