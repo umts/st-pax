@@ -22,8 +22,8 @@ end
 5.times { create :passenger, :temporary, :no_note }
 
 dispatchers = User.dispatchers
-30.times do
-  Timecop.freeze 1.month.ago + rand(1.month) do
+300.times do
+  Timecop.freeze 12.months.ago + rand(12.months) do
     create :log_entry, user: dispatchers.sample
   end
 end
