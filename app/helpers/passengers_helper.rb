@@ -26,4 +26,10 @@ module PassengersHelper
       'row-border dispatch-table'
     end
   end
+
+  def passengers_form
+    if @doctors_note.override_expiration == false
+      'hide_view'
+    end
+  end
 end

@@ -12,21 +12,25 @@
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
-  %b Active:
-  - if @passenger.active
-    Yes
-  - else
-    No
-%p
   %b Permanent:
   - if @passenger.permanent
     Yes
   - else
     No
 %p
-  %b Expiration Date:
-  = @passenger.expiration_display
-
+  %b Active:
+  - if @passenger.active
+    Yes
+  - else
+    No
+- if @passenger.expiration_display
+  %p
+    %b Expiration Date:
+    = @passenger.expiration_display
+- if  @passenger.doctors_note.present? && @passenger.doctors_note.override_until.present?
+  %p
+    %b Override Expiration Date:
+    = @passenger.doctors_note.override_until
 %p= @passenger.note
-= link_to "Edit", edit_passenger_path
-= link_to "Back", passengers_path
+= link_to 'Edit', edit_passenger_path
+= link_to 'Back', passengers_path

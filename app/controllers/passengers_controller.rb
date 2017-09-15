@@ -3,6 +3,7 @@
 class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy]
   before_action :access_control, only: %i[destroy]
+
   def new
     @passenger = Passenger.new
     @doctors_note = DoctorsNote.new
@@ -40,6 +41,7 @@ class PassengersController < ApplicationController
 
   def update
     if @passenger.update(passenger_params)
+      @passenger.doctors_note.update_attributes(overridden_by: @current_user)
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
       render :edit
@@ -58,7 +60,9 @@ class PassengersController < ApplicationController
                              .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device_id, :active,
                                      :permanent, :note,
-                                     doctors_note_attributes: [:expiration_date]
+                                     doctors_note_attributes: [:expiration_date,
+                                                               :override_expiration,
+                                                               :override_until]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
