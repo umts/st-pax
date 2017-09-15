@@ -65,6 +65,10 @@ class PassengersController < ApplicationController
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
+    note_params = permitted_params[:doctors_note_attributes]
+    if note_params.try(:[], :expiration_date).blank?
+      permitted_params.delete :doctors_note_attributes
+    end
     permitted_params
   end
 

@@ -2,47 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$maroon: #881c1c;
-$slightly-maroon: #eacccc;
-
-body {
-  background-color: $maroon;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-h1{
-  text-align: center;
-  margin: 15px 0;
-}
-
-.navbar{
-  button{
-    margin-left: 3px;
-
-    &.navbar-right{
-      margin-right: 5px;
-    }
-
-    &.current{
-      background: $slightly-maroon;
-    }
-  }
-}
-
-.panel{
-  margin: 1em;
-  border: 2px solid grey;
-}
-
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
 strong.filter_description_emphasis {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 18px;
@@ -52,24 +11,7 @@ strong.filter_description_emphasis {
   margin-right: 15px;
 }
 
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
-}
-
 a {
-  color: #000;
-  text-decoration: underline;
-
-  &:visited {
-    color: #666;
-  }
-
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
   .radioDiv {
    width:200px;
   }
@@ -181,8 +123,4 @@ div {
     font-size: 12px;
     list-style: square;
   }
-}
-
-label {
-  display: block;
 }
