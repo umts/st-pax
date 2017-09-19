@@ -29,6 +29,13 @@ describe Passenger do
     end
   end
 
+  describe 'not having a SPIRE' do
+    it 'is valid' do
+      passenger = build :passenger, spire: ''
+      expect(passenger).to be_valid
+    end
+  end
+
   describe 'self.deactivate_expired_doc_note' do
     it 'deactivates the expired passenger' do
       create :doctors_note, passenger: @passenger,
