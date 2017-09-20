@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PassengersController < ApplicationController
-  before_action :find_passenger, only: %i[show edit update destroy]
-  before_action :access_control, only: %i[destroy]
+  before_action :find_passenger, only: [:show, :edit, :update, :destroy]
+  before_action :access_control, only: [:destroy]
 
   def new
     @passenger = Passenger.new
@@ -32,10 +32,10 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
+    @passenger.registered_by = @current_user
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully created.'
-    else
-      render :new
+    else render :new
     end
   end
 
@@ -60,11 +60,18 @@ class PassengersController < ApplicationController
                              .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device_id, :active,
                                      :permanent, :note,
-                                     doctors_note_attributes: %i[expiration_date
-                                                                 override_expiration
-                                                                 override_until]
+                                     :permanent, :note, :spire, :status,
+                                     :has_brochure,
+                                     :registered_with_disability_services,
+                                     doctors_note_attributes: [:expiration_date,
+                                                                 :override_expiration,
+                                                                 :override_until]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
+    end
+    note_params = permitted_params[:doctors_note_attributes]
+    if note_params.try(:[], :expiration_date).blank?
+      permitted_params.delete :doctors_note_attributes
     end
     permitted_params
   end
