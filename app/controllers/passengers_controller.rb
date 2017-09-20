@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PassengersController < ApplicationController
-  before_action :find_passenger, only: [:show, :edit, :update, :destroy]
-  before_action :access_control, only: [:destroy]
+  before_action :find_passenger, only: %i[show edit update destroy]
+  before_action :access_control, only: %i[destroy]
 
   def new
     @passenger = Passenger.new
@@ -59,13 +59,12 @@ class PassengersController < ApplicationController
     permitted_params = params.require(:passenger)
                              .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device_id, :active,
-                                     :permanent, :note,
                                      :permanent, :note, :spire, :status,
                                      :has_brochure,
                                      :registered_with_disability_services,
-                                     doctors_note_attributes: [:expiration_date,
-                                                                 :override_expiration,
-                                                                 :override_until]
+                                     doctors_note_attributes: %i[expiration_date
+                                                                 override_expiration
+                                                                 override_until]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
