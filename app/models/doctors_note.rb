@@ -5,9 +5,8 @@ class DoctorsNote < ApplicationRecord
   belongs_to :overridden_by, class_name: 'User', required: false
   before_save :check_override
 
-  private
   def check_override
-    self.override_until = nil unless self.override_expiration?
+    self.override_until = nil unless override_expiration?
   end
 
   validates :passenger, uniqueness: true

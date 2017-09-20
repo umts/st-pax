@@ -60,9 +60,9 @@ class PassengersController < ApplicationController
                              .permit :name, :address, :email, :phone,
                                      :wheelchair, :mobility_device_id, :active,
                                      :permanent, :note,
-                                     doctors_note_attributes: [:expiration_date,
-                                                               :override_expiration,
-                                                               :override_until]
+                                     doctors_note_attributes: %i[expiration_date
+                                                                 override_expiration
+                                                                 override_until]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end

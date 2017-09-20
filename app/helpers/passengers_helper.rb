@@ -28,8 +28,6 @@ module PassengersHelper
   end
 
   def passengers_form
-    if @doctors_note.override_expiration == false
-      'hide_view'
-    end
+    'hide_view' unless @doctors_note.override_expiration?
   end
 end
