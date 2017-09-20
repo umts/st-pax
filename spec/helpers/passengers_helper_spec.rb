@@ -21,7 +21,8 @@ describe PassengersHelper do
     context 'will expire within warning period' do
       it "returns 'will_expire_soon'" do
         @doctors_note.update expiration_date: 5.days.since
-        expect(helper.passengers_table_row_class(@passenger)).to eql 'will_expire_soon'
+        expect(helper.passengers_table_row_class(@passenger))
+          .to eql 'will_expire_soon'
       end
     end
     context 'expired withing graced period' do
@@ -40,7 +41,8 @@ describe PassengersHelper do
     context 'expiration overridden' do
       it "returns 'overridden'" do
         @doctors_note.update override_expiration: true
-        expect(helper.passengers_table_row_class(@passenger)).to eql 'overridden'
+        expect(helper.passengers_table_row_class(@passenger))
+          .to eql 'overridden'
       end
     end
     context 'no note' do
