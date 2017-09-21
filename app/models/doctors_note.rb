@@ -5,10 +5,6 @@ class DoctorsNote < ApplicationRecord
   belongs_to :overridden_by, class_name: 'User', required: false
   before_save :check_override
 
-  def check_override
-    self.override_until = nil unless override_expiration?
-  end
-
   validates :passenger, uniqueness: true
   validate :temporary_passenger
 
@@ -36,6 +32,10 @@ class DoctorsNote < ApplicationRecord
   end
 
   private
+
+  def check_override
+    self.override_until = nil unless override_expiration?
+  end
 
   def temporary_passenger
     return if passenger.temporary?
