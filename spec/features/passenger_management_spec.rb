@@ -5,7 +5,9 @@ require 'rails_helper'
 feature 'Passenger Management' do
   feature 'as an admin' do
     before :each do
-      when_current_user_is(:admin)
+      @user = create :user, :admin
+      @passenger = create :passenger, name: 'Foo Bar'
+      when_current_user_is(@user)
     end
     scenario 'creating a new passenger' do
       date = 2.days.since.strftime '%Y-%m-%d'
@@ -19,8 +21,7 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      passenger = create :passenger, name: 'Foo Bar'
-      create :doctors_note, passenger: passenger
+      create :doctors_note, passenger: @passenger
       visit passengers_path
       click_link 'Edit'
       fill_in('passenger[name]', with: 'Bar Foo')
@@ -28,7 +29,6 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully updated.')
     end
     scenario 'deleting an existing passenger' do
-      create :passenger
       visit passengers_path
       click_link 'Delete'
       expect(page).to have_text('Passenger was successfully destroyed.')
@@ -41,6 +41,16 @@ feature 'Passenger Management' do
       select 'Student', from: 'UMass Status'
       click_button 'Submit'
       expect(page).to have_text 'Passenger was successfully created.'
+    end
+    scenario 'overriding expiration shows done by' do
+      create :doctors_note, passenger: @passenger
+      date = 2.days.since.strftime '%Y-%m-%d'
+      visit passengers_path
+      click_link 'Edit'
+      check('passenger[doctors_note_attributes][override_expiration]')
+      fill_in('passenger[doctors_note_attributes][override_until]', with: date)
+      click_button('Submit')
+      expect(@passenger.reload.doctors_note.overridden_by).to eql(@user)
     end
   end
   feature 'as a dispatcher' do

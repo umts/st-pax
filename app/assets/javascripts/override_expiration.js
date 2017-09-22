@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function(){
-    $('#check-click').change(function(){
+    $('#active-checkbox').change(function(){
       $('#slide-date').slideToggle();
     });
 });
