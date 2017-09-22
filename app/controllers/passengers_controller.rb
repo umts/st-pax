@@ -60,15 +60,15 @@ class PassengersController < ApplicationController
 
   def passenger_params
     permitted_params = params
-                           .require(:passenger)
-                           .permit :name, :address, :email, :phone,
-                                   :wheelchair, :mobility_device_id, :active,
-                                   :permanent, :note, :spire, :status,
-                                   :has_brochure,
-                                   :registered_with_disability_services,
-                                   doctors_note_attributes: %i[expiration_date
-                                                             override_expiration
-                                                             override_until]
+                       .require(:passenger)
+                       .permit :name, :address, :email, :phone,
+                               :wheelchair, :mobility_device_id, :active,
+                               :permanent, :note, :spire, :status,
+                               :has_brochure,
+                               :registered_with_disability_services,
+                               doctors_note_attributes: %i[expiration_date
+                                                           override_expiration
+                                                           override_until]
     unless @current_user.admin?
       permitted_params = permitted_params.except(:active, :permanent)
     end
