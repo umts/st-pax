@@ -9,8 +9,9 @@
 = form_with model: @passenger, local: true do |form|
   .field
     = form.label :permanent
-    = form.check_box :permanent, disabled: @current_user.dispatcher?,
-      id: :passenger_permanent
+    - unless @current_user.dispatcher?
+      = form.check_box :permanent, disabled: @current_user.dispatcher?,
+        id: :passenger_permanent
   .field
     = form.label :name
     = form.text_field :name, id: :passenger_name
