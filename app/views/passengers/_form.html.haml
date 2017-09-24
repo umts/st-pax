@@ -35,9 +35,10 @@
       = form.check_box :registered_with_disability_services,
         id: :pax_registered_with_DS, disabled: @passenger.permanent?
   .field
-    = form.label :has_brochure
-    = form.check_box :has_brochure,
-      id: :pax_has_brochure, disabled: @passenger.permanent?
+    - unless @passenger.permanent?
+      = form.label :has_brochure
+      = form.check_box :has_brochure,
+        id: :pax_has_brochure, disabled: @passenger.permanent?
   .field
     = form.label :mobility_device_id
     = form.select :mobility_device_id, options_from_collection_for_select(MobilityDevice.order(:name), :id, :name), include_blank: 'None'
