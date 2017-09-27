@@ -55,8 +55,9 @@ feature 'Passenger Management' do
   end
   feature 'as a dispatcher' do
     before :each do
-      user = create :user
-      when_current_user_is(user)
+      @user = create :user
+      @passenger = create :passenger, name: 'Foo Bar'
+      when_current_user_is(@user)
     end
     scenario 'creating a new passenger' do
       date = 2.days.since.strftime '%Y-%m-%d'
@@ -70,8 +71,7 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      passenger = create :passenger, name: 'Foo Bar'
-      create :doctors_note, passenger: passenger
+      create :doctors_note, passenger: @passenger
       visit passengers_path
       click_link 'Edit'
       fill_in('passenger[name]', with: 'Bar Foo')
@@ -79,9 +79,14 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully updated.')
     end
     scenario 'deleting an existing passenger' do
-      create :passenger
       visit passengers_path
       expect(page).not_to have_link('Delete')
+    end
+    scenario 'overriding expiration date' do
+      create :doctors_note, passenger: @passenger
+      visit passengers_path
+      expect(page).not_to have_checked_field('passenger[doctors_note_attributes][override_expiration]')
+      expect(page).not_to have_field('passenger[doctors_note_attributes][override_until]')
     end
   end
 end

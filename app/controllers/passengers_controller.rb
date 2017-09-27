@@ -41,7 +41,7 @@ class PassengersController < ApplicationController
 
   def update
     @passenger.assign_attributes passenger_params
-    if @passenger.doctors_note.override_until_changed?
+    if @passenger.doctors_note.override_until_changed? && @current_user.admin?
       @passenger.doctors_note.assign_attributes overridden_by: @current_user
     end
     if @passenger.save
