@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'haml-rails'
@@ -11,6 +12,7 @@ gem 'rspec-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'whenever', require: false
+gem 'will_paginate', '~> 3.1'
 
 group :development, :test do
   gem 'capybara'

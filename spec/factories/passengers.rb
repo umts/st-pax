@@ -7,6 +7,7 @@ FactoryGirl.define do
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
     mobility_device { MobilityDevice.all.sample }
+    sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
     active true
 
     trait :temporary do

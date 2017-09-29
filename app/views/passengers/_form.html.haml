@@ -1,41 +1,72 @@
-=form_with model: @passenger do |form|
-  - if @passenger.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@passenger.errors.count, "error")} prohibited this passenger from being saved:"
-      %ul
-        - @passenger.errors.full_messages.each do |message|
-          %li= message
-
+- if @passenger.errors.any?
+  #error_explanation
+    %h2
+      = pluralize @passenger.errors.count, 'error'
+      prohibited this passenger from being saved:
+    %ul
+      - @passenger.errors.full_messages.each do |message|
+        %li= message
+= form_with model: @passenger, local: true do |form|
   .field
-    = form.label :passenger_name
-    = form.text_field :name
+    = form.label :permanent
+    - unless @current_user.dispatcher?
+      = form.check_box :permanent,
+        id: :passenger_permanent
+  .field
+    = form.label :name
+    = form.text_field :name, id: :passenger_name
+  .field
+    = form.label :spire
+    = form.text_field :spire, placeholder: '12345678@umass.edu', id: :passenger_spire
   .field
     = form.label :address
     = form.text_field :address
   .field
     = form.label :email
-    = form.text_field :email
+    = form.text_field :email, id: :passenger_email
   .field
-    = form.label :phone_number
+    = form.label :phone
     = form.phone_field :phone
   .field
+    = form.label :status
+    = form.select :status, Passenger::STATUSES, { include_blank: true },
+     { id: :passenger_status }
+  .field
+    - unless @passenger.permanent?
+      = form.label :registered_with_disability_services
+      = form.check_box :registered_with_disability_services,
+        id: :pax_registered_with_DS
+  .field
+    - unless @passenger.permanent?
+      = form.label :has_brochure
+      = form.check_box :has_brochure,
+        id: :pax_has_brochure
+  .field
     = form.label :mobility_device_id
-    = form.select :mobility_device_id, options_from_collection_for_select(MobilityDevice.order(:name), :id, :name), include_blank: 'None'
+    = form.select :mobility_device_id,
+     options_from_collection_for_select(MobilityDevice.order(:name),
+      :id, :name), include_blank: 'None'
   - if @current_user.admin?
     .field
       = form.label :active
-      = form.check_box :active, id: 'passenger_active'
-  .field
-    = form.label :permanent_passenger
-    = form.check_box :permanent, disabled: @current_user.dispatcher?,
-      id: "passenger_permanent"
+      = form.check_box :active, id: :passenger_active
   = form.fields_for :doctors_note, @doctors_note do |d|
     .field
       = d.label :expiration_date
       = d.text_field :expiration_date,
-        class: 'datepicker', id: "doctors_note_expiration_date"
+        class: 'datepicker', id: :doctors_note_expiration_date
+    - if @current_user.admin?
+      .field
+        = d.label :override_expiration
+        = d.check_box :override_expiration,
+          id: 'active-checkbox'
+      - if @doctors_note.present?
+        .field#slide-date{class: passengers_form_class}
+          = d.label :override_until
+          = d.text_field :override_until,
+            class: 'datepicker'
   .field
-    = form.label "Additional Notes"
+    = form.label :note
     = form.text_area :note, rows: 20, cols: 100
   .actions
-    = form.submit "Submit"
+    = form.submit 'Submit'

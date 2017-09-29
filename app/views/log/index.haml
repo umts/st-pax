@@ -4,6 +4,8 @@
   .field= f.text_area :text, size: '80x8'
   .actions= f.submit 'Create log entry'
 
+= will_paginate @entries
+
 %ul.dispatch-log
   - @entries.each do |entry|
     %li

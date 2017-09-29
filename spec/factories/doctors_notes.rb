@@ -9,8 +9,7 @@ FactoryGirl.define do
 
   trait :overridden do
     override_expiration true
-    # TODO: I think this should be defined as a real association.
-    overridden_by 1
+    overridden_by { create :user, :admin }
     override_until { rand(30).days.since }
   end
 

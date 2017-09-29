@@ -7,6 +7,10 @@ class Passenger < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
+  validates :spire,
+            format: { with: /\A\d{8}@umass.edu\z/,
+                      message: 'must be 8 digits followed by @umass.edu',
+                      allow_blank: true }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true

@@ -5,7 +5,9 @@ require 'rails_helper'
 feature 'Passenger Management' do
   feature 'as an admin' do
     before :each do
-      when_current_user_is(:admin)
+      @user = create :user, :admin
+      @passenger = create :passenger, name: 'Foo Bar'
+      when_current_user_is(@user)
     end
     scenario 'creating a new passenger' do
       date = 2.days.since.strftime '%Y-%m-%d'
@@ -13,13 +15,13 @@ feature 'Passenger Management' do
       click_link 'Add New Passenger'
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
+      fill_in('passenger[spire]', with: '12345678@umass.edu')
       fill_in('doctors_note_expiration_date', with: date)
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      passenger = create :passenger, name: 'Foo Bar'
-      create :doctors_note, passenger: passenger
+      create :doctors_note, passenger: @passenger
       visit passengers_path
       click_link 'Edit'
       fill_in('passenger[name]', with: 'Bar Foo')
@@ -27,16 +29,35 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully updated.')
     end
     scenario 'deleting an existing passenger' do
-      create :passenger
       visit passengers_path
       click_link 'Delete'
       expect(page).to have_text('Passenger was successfully destroyed.')
     end
+    scenario 'creating a temporary passenger without a doctors note' do
+      visit new_passenger_path
+      fill_in 'Passenger Name', with: 'Jane Fonda'
+      fill_in 'Passenger Spire', with: '12345678@umass.edu'
+      fill_in 'Email', with: 'jfonda@umass.edu'
+      select 'Student', from: 'UMass Status'
+      click_button 'Submit'
+      expect(page).to have_text 'Passenger was successfully created.'
+    end
+    scenario 'overriding expiration shows done by' do
+      create :doctors_note, passenger: @passenger
+      date = 2.days.since.strftime '%Y-%m-%d'
+      visit passengers_path
+      click_link 'Edit'
+      check('passenger[doctors_note_attributes][override_expiration]')
+      fill_in('passenger[doctors_note_attributes][override_until]', with: date)
+      click_button('Submit')
+      expect(@passenger.reload.doctors_note.overridden_by).to eql(@user)
+    end
   end
   feature 'as a dispatcher' do
     before :each do
-      user = create :user
-      when_current_user_is(user)
+      @user = create :user
+      @passenger = create :passenger, name: 'Foo Bar'
+      when_current_user_is(@user)
     end
     scenario 'creating a new passenger' do
       date = 2.days.since.strftime '%Y-%m-%d'
@@ -45,12 +66,12 @@ feature 'Passenger Management' do
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
       fill_in('doctors_note_expiration_date', with: date)
+      fill_in('passenger[spire]', with: '12345678@umass.edu')
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
     end
     scenario 'editing an existing passenger' do
-      passenger = create :passenger, name: 'Foo Bar'
-      create :doctors_note, passenger: passenger
+      create :doctors_note, passenger: @passenger
       visit passengers_path
       click_link 'Edit'
       fill_in('passenger[name]', with: 'Bar Foo')
@@ -58,9 +79,14 @@ feature 'Passenger Management' do
       expect(page).to have_text('Passenger was successfully updated.')
     end
     scenario 'deleting an existing passenger' do
-      create :passenger
       visit passengers_path
       expect(page).not_to have_link('Delete')
+    end
+    scenario 'overriding expiration date' do
+      create :doctors_note, passenger: @passenger
+      visit passengers_path
+      expect(page).not_to have_checked_field('passenger[doctors_note_attributes][override_expiration]')
+      expect(page).not_to have_field('passenger[doctors_note_attributes][override_until]')
     end
   end
 end

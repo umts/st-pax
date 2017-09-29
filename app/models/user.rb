@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
+  has_many :doctors_notes
 
   validates :name, :spire, presence: true
   validates :spire,

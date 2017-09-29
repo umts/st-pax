@@ -2,7 +2,6 @@
   "name": "st_pax_tracker",
   "private": true,
   "dependencies": {
-    "bootstrap": "^3.3.7",
     "datatables.net": "^1.10.15",
     "datatables.net-dt": "^1.10.15",
     "jquery": "^3.2.1",
