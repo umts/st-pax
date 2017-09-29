@@ -16,7 +16,7 @@ feature 'Passenger Management' do
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
       fill_in('passenger[spire]', with: '12345678@umass.edu')
-      fill_in('doctors_note_expiration_date', with: date)
+      fill_in('passenger[doctors_note_attributes][expiration_date]', with: date)
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
     end
@@ -65,7 +65,7 @@ feature 'Passenger Management' do
       click_link 'Add New Passenger'
       fill_in('passenger[name]', with: 'Foo Bar')
       fill_in('passenger[email]', with: 'foobar@invalid.com')
-      fill_in('doctors_note_expiration_date', with: date)
+      fill_in('passenger[doctors_note_attributes][expiration_date]', with: date)
       fill_in('passenger[spire]', with: '12345678@umass.edu')
       click_button('Submit')
       expect(page).to have_text('Passenger was successfully created.')
