@@ -4,7 +4,7 @@ lock '~> 3.9.0'
 
 set :application, 'st-pax'
 
-set :repo_url, 'git@github.com:umts/st-pax.git'
+set :repo_url, 'https://github.com/umts/st-pax.git'
 set :branch, :master
 
 set :keep_releases, 5
