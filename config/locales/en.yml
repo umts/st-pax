@@ -42,6 +42,9 @@ en:
         registered_with_disability_services: 'Registered with Disability Services?'
         has_brochure: 'Has Brochure?'
         active: 'Active?'
+        note: 'Additional Notes'
       user:
         active: 'Active?'
         admin:  'Admin?'
+      doctors_note:
+        override_expiration: 'Override Expiration Date?'
