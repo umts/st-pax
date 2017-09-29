@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function(){
     var expirationField = $('.doctors_note_expiration_date');
     if($(this).is(':checked')){
       expirationField.prop('disabled', true);
+      expirationField.prop("checked", false);
       expirationField.val('');
     }
     else expirationField.prop('disabled', false);
