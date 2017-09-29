@@ -39,7 +39,6 @@ class PassengersController < ApplicationController
   end
 
   def update
-    binding.pry
     if @passenger.update(passenger_params)
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
