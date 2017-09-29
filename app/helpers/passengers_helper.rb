@@ -27,7 +27,7 @@ module PassengersHelper
     end
   end
 
-  def passengers_form_class
+  def hide_form_class
     'hide_view' unless @doctors_note.override_expiration?
   end
 end

@@ -54,17 +54,17 @@
     .field
       = d.label :expiration_date
       = d.text_field :expiration_date,
-        class: 'datepicker', id: :doctors_note_expiration_date
+        class: 'datepicker doctors_note_expiration_date', disabled: @passenger.permanent?
     - if @current_user.admin?
       .field
         = d.label :override_expiration
         = d.check_box :override_expiration,
           id: 'active-checkbox'
       - if @doctors_note.present?
-        .field#slide-date{class: passengers_form_class}
+        .field#slide-date{class: hide_form_class}
           = d.label :override_until
           = d.text_field :override_until,
-            class: 'datepicker'
+            class: 'datepicker doctors_note_expiration_date', disabled: @passenger.permanent?
   .field
     = form.label :note
     = form.text_area :note, rows: 20, cols: 100
