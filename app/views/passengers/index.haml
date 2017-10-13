@@ -5,17 +5,13 @@
 = form_tag passengers_path, method: :get do
   = label_tag 'Filter by Type:'
   .passenger-filters
-    %label{ for: 'filter_Permanent' }
-      Permanent Only
+    %label{ for: 'filter_Permanent' } Permanent Only
     = radio_button_tag :filter, 'Permanent', @filters.include?('Permanent')
-    %label{ for: 'filter_Temporary' }
-      Temporary Only
+    %label{ for: 'filter_Temporary' } Temporary Only
     = radio_button_tag :filter, 'Temporary', @filters.include?('Temporary')
-    %label{ for: 'filter_'}
-      All
+    %label{ for: 'filter_'} All
     = radio_button_tag :filter, '', @filters.include?('All')
-    %label{ for: 'show_inactive' }
-      Show Inactive
+    %label{ for: 'show_inactive' } Show Inactive
     = check_box_tag :show_inactive, true, !@filters.include?('Active')
   = submit_tag 'Show Passengers'
   .checkbox-inline.key_position
