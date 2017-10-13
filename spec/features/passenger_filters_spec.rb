@@ -31,7 +31,7 @@ feature 'Passenger Filters' do
     create :passenger, :permanent, name: 'Mary Sue'
     visit passengers_url
     choose 'All'
-    click_on'Show Passengers'
+    click_on 'Show Passengers'
     expect(page).to have_selector 'table#passengers tbody tr', count: 2
     expect(page).to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
