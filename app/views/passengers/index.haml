@@ -6,14 +6,18 @@
   %p
   = label_tag 'Filter by Type:'
   .passenger-filters
-    Permanent Only
-    = radio_button_tag :filter, 'Permanent', @filters.include?('Permanent')
-    Temporary Only
-    = radio_button_tag :filter, 'Temporary', @filters.include?('Temporary')
-    All
-    = radio_button_tag :filter, '', @filters.include?('All')
-    Show Inactive
-    = check_box_tag :show_inactive, true, !@filters.include?('Active')
+    %label{ for: 'filter_Permanent' }
+      = radio_button_tag :filter, 'Permanent', @filters.include?('Permanent')
+      Permanent Only
+    %label{ for: 'filter_Temporary' }
+      = radio_button_tag :filter, 'Temporary', @filters.include?('Temporary')
+      Temporary Only
+    %label{ for: 'filter_'}
+      = radio_button_tag :filter, '', @filters.include?('All')
+      All
+    %label{ for: 'show_inactive' }
+      = check_box_tag :show_inactive, true, !@filters.include?('Active')
+      Show Inactive
   = submit_tag 'Show Passengers'
   .checkbox-inline.key_position
     %table#key
