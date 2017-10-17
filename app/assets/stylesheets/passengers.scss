@@ -46,7 +46,10 @@ table#key, table#passengers {
 }
 
 .passenger-filters{
-  display: inline;
+  label {
+    display: inline;
+  }
+
   input{
     margin-right: 15px;
   }
