@@ -18,14 +18,14 @@ class PassengersController < ApplicationController
     @passengers = Passenger.order :name
     @filters = []
     filter = params[:filter]
-    if %w[Permanent Temporary].include? filter
+    if %w[permanent temporary].include? filter
       @passengers = @passengers.send filter.downcase
       @filters << filter
-    else @filters << 'All'
+    else @filters << 'all'
     end
     unless params[:show_inactive]
       @passengers = @passengers.active
-      @filters << 'Active'
+      @filters << 'active'
     end
   end
   # rubocop:enable Style/GuardClause
@@ -41,7 +41,7 @@ class PassengersController < ApplicationController
 
   def update
     @passenger.assign_attributes passenger_params
-    if @passenger.doctors_note.override_until_changed? && @current_user.admin?
+    if @current_user.admin? && @passenger.doctors_note.try(:override_until_changed?)
       @passenger.doctors_note.assign_attributes overridden_by: @current_user
     end
     if @passenger.save

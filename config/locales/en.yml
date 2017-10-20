@@ -48,3 +48,5 @@ en:
         admin:  'Admin?'
       doctors_note:
         override_expiration: 'Override Expiration Date?'
+        override_until: 'Override Until'
+        expiration_date: 'Expiration Date'
