@@ -3,12 +3,13 @@ $(document).on("turbolinks:load", function() {
     var columns = [null,
                    null,
                    null,
+                   null,
                    { "bSortable": false },
                    { "bSortable": false },
                    null,
                    { "bSortable": false },
                    { "bSortable": false }];
-    if($(this).hasClass('.admin-table')
+    if($('#passengers').hasClass('admin-table'))
       columns.push({ "bSortable": false });
     $('#passengers').DataTable({
       "aoColumns": columns,
