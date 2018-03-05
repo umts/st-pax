@@ -27,6 +27,15 @@ class PassengersController < ApplicationController
       @passengers = @passengers.active
       @filters << 'active'
     end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PrintRecordPdf.new
+        send_data pdf.render, filename: "Going to be the date",
+                              type: 'application/pdf',
+                              disposition: :inline
+      end
+    end
   end
   # rubocop:enable Style/GuardClause
 

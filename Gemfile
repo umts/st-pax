@@ -13,6 +13,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1'
+gem 'prawn'
+gem 'prawn-table'
 
 group :development, :test do
   gem 'capybara'
