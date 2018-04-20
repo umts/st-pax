@@ -30,8 +30,8 @@ class PassengersController < ApplicationController
 
     if params[:print].present?
       pdf = PassengersPDF.new(@passengers, @filters)
-      filename = "#{@filters.join(' ')} Passengers as of #{Date.today}"
-      send_data pdf.render, filename: filename,
+      name = "#{@filters.map(&:capitalize).join(' ')} Passengers #{Date.today}"
+      send_data pdf.render, filename: name,
                             type: 'application/pdf',
                             disposition: :inline
     end
