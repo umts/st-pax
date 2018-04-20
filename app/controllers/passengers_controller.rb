@@ -28,9 +28,9 @@ class PassengersController < ApplicationController
       @filters << 'active'
     end
 
-    if( params[:print].present? )
+    if params[:print].present?
       pdf = PassengersPDF.new(@passengers, @filters)
-      send_data pdf.render, filename: "Going to be the date",
+      send_data pdf.render, filename: "Current Temporary Passengers",
                             type: 'application/pdf',
                             disposition: :inline
     end

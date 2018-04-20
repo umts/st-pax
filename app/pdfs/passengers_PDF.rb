@@ -2,22 +2,21 @@ require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
   def initialize(passengers, filters)
-    super(page_layout: :landscape, page_size: "A3" )
-    content_width = bounds.width - 10
+    super(page_layout: :landscape, page_size: "TABLOID" )
     header(filters)
-    mycooltable(passengers)
+    passengers_table(passengers)
   end
 
-  def mycooltable(passengers)
+  def passengers_table(passengers)
     font_size 14
     passenger_table = [["Name", "Mobility Device ", "Phone", "Expiration Date", "Notes"]]
 
     passengers.each do |passenger|
-      name = passenger.name || ''
-      mobility_device = passenger.mobility_device.try(:name) || ''
-      phone = passenger.phone || ''
-      expiration = passenger.expiration_display || ''
-      note = passenger.note || ''
+      name = passenger.name
+      mobility_device = passenger.mobility_device.try(:name)
+      phone = passenger.phone
+      expiration = passenger.expiration_display
+      note = passenger.note 
       passenger_table << [ name, mobility_device, phone, expiration, note ]
     end
     table(passenger_table) do
@@ -27,8 +26,8 @@ class PassengersPDF < Prawn::Document
 
   def header(filters)
     font_size 30
-    date = Time.now.strftime("%m/%d/%Y").to_s
-    text filters.map(&:capitalize).join(' ') + " " + "Passengers" + " " + date, style: :bold, size: 30
+    date = Time.now.strftime("%m/%d/%Y")
+    text (filters + ['Passengers', date]).map(&:capitalize).join(' '), style: :bold, size: 30
     move_down 20
   end
 end

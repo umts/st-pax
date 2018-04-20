@@ -14,7 +14,7 @@
     %label{ for: 'show_inactive' } Show Inactive
     = check_box_tag :show_inactive, true, !@filters.include?('active')
   = submit_tag 'Show Passengers'
-  = submit_tag 'Print This Page', name: "print"
+  = submit_tag 'Print These Filters', name: "print"
   .checkbox-inline.key_position
     %table#key
       %tbody

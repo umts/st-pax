@@ -21,6 +21,7 @@ group :development, :test do
   gem 'codeclimate-test-reporter'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'pdf-inspector', require: "pdf/inspector"
   gem 'pry-byebug'
   gem 'rack_session_access'
   gem 'rspec-html-matchers'
