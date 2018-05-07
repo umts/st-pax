@@ -61,10 +61,9 @@ feature 'Passenger Filters' do
     visit passengers_url
     choose 'Permanent Only'
     create :passenger, :permanent, name: 'Spongebob'
-    click_on 'Print This Page'
+    click_on 'Print These Filters'
     analysis = PDF::Inspector::Text.analyze(page.body)
     expect(analysis.strings).to include 'Name'
-    expect(analysis.strings).to include 'Permanent Active Passengers 04/20/2018'
     expect(analysis.strings).to include 'Spongebob'
   end
 end

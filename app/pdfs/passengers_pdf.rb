@@ -3,21 +3,21 @@ require 'prawn/table'
 class PassengersPDF < Prawn::Document
   # what is the name of this file?
   def initialize(passengers, filters)
-    super(page_layout: :landscape, page_size: "TABLOID" )
+    super(page_layout: :landscape, page_size: "TABLOID")
     header(filters)
     passengers_table(passengers)
   end
 
   def passengers_table(passengers)
     font_size 14
-    passenger_table = [["Name", "Mobility Device ", "Phone", "Expiration Date", "Notes"]]
+    passenger_table = [["Name", "Mobility Device", "Phone", "Expiration Date", "Notes"]]
 
     passengers.each do |passenger|
       name = passenger.name
       mobility_device = passenger.mobility_device.try(:name)
       phone = passenger.phone
       expiration = passenger.expiration_display
-      note = passenger.note 
+      note = passenger.note
       passenger_table << [ name, mobility_device, phone, expiration, note ]
     end
     table(passenger_table) do
