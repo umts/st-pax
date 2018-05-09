@@ -13,12 +13,15 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1'
+gem 'prawn'
+gem 'prawn-table'
 
 group :development, :test do
   gem 'capybara'
   gem 'codeclimate-test-reporter'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'pdf-inspector', require: "pdf/inspector"
   gem 'pry-byebug'
   gem 'rack_session_access'
   gem 'rspec-html-matchers'
