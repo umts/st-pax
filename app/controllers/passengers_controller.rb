@@ -27,6 +27,14 @@ class PassengersController < ApplicationController
       @passengers = @passengers.active
       @filters << 'active'
     end
+
+    if params[:print].present?
+      pdf = PassengersPDF.new(@passengers, @filters)
+      name = "#{@filters.map(&:capitalize).join(' ')} Passengers #{Date.today}"
+      send_data pdf.render, filename: name,
+                            type: 'application/pdf',
+                            disposition: :inline
+    end
   end
   # rubocop:enable Style/GuardClause
 
