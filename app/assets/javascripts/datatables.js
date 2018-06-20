@@ -1,4 +1,5 @@
 $( document ).on("turbolinks:load", function() {
+  table.destroy();
   $('#passengers.admin-table').DataTable({
     "aoColumns": [
       null,
@@ -9,12 +10,11 @@ $( document ).on("turbolinks:load", function() {
       null,
       { "bSortable": false },
       { "bSortable": false },
-      { "bSortable": false },
+      { "bSortable": false }
     ],
     "aLengthMenu": [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
-    "iDisplayLength": 100
+    "iDisplayLength": 100,
   });
-
   $('#passengers.dispatch-table').DataTable({
     "aoColumns": [
       null,
@@ -24,7 +24,7 @@ $( document ).on("turbolinks:load", function() {
       { "bSortable": false },
       null,
       { "bSortable": false },
-      { "bSortable": false },
+      { "bSortable": false }
     ],
     "aLengthMenu": [[25, 50, 75, 100, -1], [25, 50, 75, 100, "All"]],
     "iDisplayLength": 100
