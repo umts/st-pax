@@ -4,6 +4,14 @@ class PassengersPDF < Prawn::Document
   # what is the name of this file?
   def initialize(passengers, filters)
     super(page_layout: :landscape, page_size: "TABLOID")
+    binding.pry
+    font_families.update(
+      "DejaVu Sans" => {
+        normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
+        bold: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSansBold.ttf')
+      }
+    )
+    font 'DejaVu Sans'
     header(filters)
     passengers_table(passengers)
   end
@@ -20,6 +28,7 @@ class PassengersPDF < Prawn::Document
       note = passenger.note
       passenger_table << [ name, mobility_device, phone, expiration, note ]
     end
+    table passenger_table, :cell_style => { :font => "DejaVu Sans" }
     table(passenger_table) do
       row(0).font_style = :bold
     end
