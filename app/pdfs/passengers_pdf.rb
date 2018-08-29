@@ -4,7 +4,6 @@ class PassengersPDF < Prawn::Document
   # what is the name of this file?
   def initialize(passengers, filters)
     super(page_layout: :landscape, page_size: "TABLOID")
-    binding.pry
     font_families.update(
       "DejaVu Sans" => {
         normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
