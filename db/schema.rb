@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913210806) do
+ActiveRecord::Schema.define(version: 20180914215234) do
 
   create_table "doctors_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer "passenger_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20170913210806) do
     t.string "email"
     t.string "address"
     t.string "phone"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.boolean "permanent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
