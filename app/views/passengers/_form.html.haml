@@ -9,9 +9,9 @@
 = form_with model: @passenger, local: true do |form|
   .field
     = form.label :permanent
-    - unless @current_user.dispatcher?
-      = form.check_box :permanent,
-        id: :passenger_permanent
+    = form.check_box :permanent,
+      id: :passenger_permanent,
+      disabled: !@current_user.admin?
   .field
     = form.label :name
     = form.text_field :name, id: :passenger_name
@@ -46,16 +46,17 @@
     = form.select :mobility_device_id,
      options_from_collection_for_select(MobilityDevice.order(:name),
       :id, :name), include_blank: 'None'
-  - if @current_user.admin?
-    .field
-      = form.label :active
-      = form.check_box :active, id: :passenger_active
+  .field
+    = form.label :active
+    = form.check_box :active,
+      id: :passenger_active,
+      disabled: !@current_user.admin?
   = form.fields_for :doctors_note, @doctors_note do |d|
     .field
       = d.label :expiration_date
       = d.text_field :expiration_date,
          class: 'datepicker doctors_note_expiration_date',
-          disabled: @passenger.permanent?
+         disabled: @passenger.permanent?
     - if @current_user.admin?
       .field
         = d.label :override_expiration

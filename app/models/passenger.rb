@@ -16,9 +16,9 @@ class Passenger < ApplicationRecord
                           optional: true
 
   scope :permanent, -> { where(permanent: true) }
-  scope :temporary, -> { where(permanent: false) }
+  scope :temporary, -> { where.not(permanent: true) }
   scope :active, -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
+  scope :inactive, -> { where.not(active: true) }
 
   has_one :doctors_note, dependent: :destroy
   accepts_nested_attributes_for :doctors_note
