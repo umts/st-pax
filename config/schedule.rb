@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-env 'PATH', '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+env 'PATH', '/opt/ruby/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 every 1.day, at: '4:30 am' do
   runner 'Passenger.deactivate_expired_doc_note'
