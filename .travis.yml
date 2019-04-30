@@ -6,7 +6,7 @@ before_install:
   - gem install bundler
 before_script:
   - cp config/database.yml.example config/database.yml
-  - bundle exec rake db:reset
+  - bundle exec rake db:create db:schema:load
   - yarn
 script:
   - bundle exec rspec
