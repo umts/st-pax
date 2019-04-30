@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :passenger do
     name { FFaker::Name.name }
     address { FFaker::Address.street_address }
@@ -8,26 +8,26 @@ FactoryGirl.define do
     phone { FFaker::PhoneNumber.short_phone_number }
     mobility_device { MobilityDevice.all.sample }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    active true
+    active { true }
 
     trait :temporary do
-      permanent false
+      permanent { false }
     end
 
     trait :permanent do
-      permanent true
-      doctors_note nil
+      permanent { true }
+      doctors_note { nil }
     end
 
     trait :inactive do
-      active false
+      active { false }
       after :create do |passenger|
         create :doctors_note, :expired, passenger: passenger
       end
     end
 
     trait :no_note do
-      doctors_note nil
+      doctors_note { nil }
     end
 
     trait :with_note do

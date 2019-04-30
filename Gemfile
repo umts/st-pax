@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'haml-rails'
@@ -11,7 +11,7 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'rails', '~> 5.1'
 gem 'rspec-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1'
@@ -19,7 +19,7 @@ gem 'will_paginate', '~> 3.1'
 group :development, :test do
   gem 'capybara'
   gem 'codeclimate-test-reporter'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'pry-byebug'
@@ -48,5 +48,3 @@ end
 group :production do
   gem 'uglifier'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
