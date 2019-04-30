@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'factory_girl'
-include FactoryGirl::Syntax::Methods
+require 'factory_bot'
+include FactoryBot::Syntax::Methods
 require 'timecop'
 
 2.times { create :user, :admin }

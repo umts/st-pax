@@ -19,7 +19,7 @@ gem 'will_paginate', '~> 3.1'
 group :development, :test do
   gem 'capybara'
   gem 'codeclimate-test-reporter'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'pry-byebug'
@@ -48,5 +48,3 @@ end
 group :production do
   gem 'uglifier'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
