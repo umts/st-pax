@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
     end
   end
 
-  def dev_login # route not defined in production
+  # route not defined in production
+  def dev_login
     if request.get?
       @admins = User.admins.order :name
       @dispatchers = User.dispatchers.order :name

@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.6
   Exclude:
     - bin/**/*
     - config/environments/**/*
@@ -10,6 +10,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - lib/tasks/import/**/*
 
 Style/Documentation:
   Enabled: false

@@ -39,6 +39,7 @@ class DoctorsNote < ApplicationRecord
 
   def temporary_passenger
     return if passenger.temporary?
+
     errors.add :base, 'must belong to a temporary passenger'
   end
 end

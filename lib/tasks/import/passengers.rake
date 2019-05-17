@@ -5,7 +5,8 @@ require 'csv'
 desc 'Import passengers from Access CSV at data/paxinfo.csv'
 namespace :import do
   task passengers: :environment do
-    CSV.foreach('data/paxinfo.csv', encoding: 'ISO-8859-1', headers: true).with_index 2 do |row, line|
+    csv_options = { encoding: 'ISO-8859-1', headers: true }
+    CSV.foreach('data/paxinfo.csv', csv_options).with_index 2 do |row, line|
       attrs = {}
       attrs[:name] = [row.fetch('firstName'), row.fetch('lastName')].join ' '
       attrs[:email] = row.fetch('email')
@@ -29,13 +30,15 @@ namespace :import do
       if mobility_device.present?
         attrs[:mobility_device] = mobility_device
       else
-        puts "paxinfo.csv:#{line} : Could not find mobility device #{device_name}"
+        puts "paxinfo.csv:#{line} : " \
+             "Could not find mobility device #{device_name}"
       end
 
       registerer_name = row.fetch('dispatcher')
       if registerer_name.is_a? String
         last_name, first_name = registerer_name.split(', ')
-        attrs[:registerer] = User.find_by name: [first_name, last_name].join(' ')
+        registerer = User.find_by name: [first_name, last_name].join(' ')
+        attrs[:registerer] = registerer
       end
 
       passenger = Passenger.new attrs
