@@ -19,26 +19,28 @@ class PassengersPDF < Prawn::Document
 
   def passengers_table(passengers)
     font_size 14
-    passenger_table = [['Name', 'Mobility Device', 'Phone', 'Expiration Date', 'Notes']]
+    headers = ['Name', 'Mobility Device', 'Phone', 'Expiration Date', 'Notes']
+    passenger_table = passengers.map { |p| passenger_row p }.unshift headers
 
-    passengers.each do |passenger|
-      name = passenger.name
-      mobility_device = passenger.mobility_device.try(:name)
-      phone = passenger.phone
-      expiration = passenger.expiration_display
-      note = passenger.note
-      passenger_table << [name, mobility_device, phone, expiration, note]
-    end
-    table passenger_table, cell_style: { font: 'DejaVu Sans' }
-    table(passenger_table) do
+    table passenger_table, cell_style: { font: 'DejaVu Sans' } do
       row(0).font_style = :bold
     end
+  end
+
+  def passenger_row(passenger)
+    name = passenger.name
+    mobility_device = passenger.mobility_device.try(:name)
+    phone = passenger.phone
+    expiration = passenger.expiration_display
+    note = passenger.note
+    [name, mobility_device, phone, expiration, note]
   end
 
   def header(filters)
     font_size 30
     date = Time.now.strftime('%m/%d/%Y')
-    text (filters + ['Passengers', date]).map(&:capitalize).join(' '), style: :bold, size: 30
+    title = (filters + ['Passengers', date]).map(&:capitalize).join(' ')
+    text title, style: :bold, size: 30
     move_down 20
   end
 end

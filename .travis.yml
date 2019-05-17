@@ -1,5 +1,4 @@
 language: ruby
-rvm: 2.4.1
 env: CODECLIMATE_REPO_TOKEN=4e48b2d3a1dd02664172b2bc5aa4f3a9be039db7f2f159fc0da17924037109e0
 before_install:
   - gem update --system

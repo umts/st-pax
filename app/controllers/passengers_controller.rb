@@ -49,9 +49,13 @@ class PassengersController < ApplicationController
 
   def update
     @passenger.assign_attributes passenger_params
-    if @current_user.admin? && @passenger.doctors_note.try(:override_until_changed?)
+
+    if @current_user.admin? &&
+       @passenger.doctors_note.try(:override_until_changed?)
+
       @passenger.doctors_note.assign_attributes overridden_by: @current_user
     end
+
     if @passenger.save
       redirect_to @passenger, notice: 'Passenger was successfully updated.'
     else
@@ -67,24 +71,32 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    permitted_params = params
-                       .require(:passenger)
-                       .permit :name, :address, :email, :phone,
-                               :wheelchair, :mobility_device_id, :active,
-                               :permanent, :note, :spire, :status,
-                               :has_brochure,
-                               :registered_with_disability_services,
-                               doctors_note_attributes: %i[expiration_date
-                                                           override_expiration
-                                                           override_until]
-    unless @current_user.admin?
-      permitted_params = permitted_params.except(:active, :permanent)
-    end
+    base_passenger_params
+      .then { |p| restrict_admin p }
+      .then { |p| disallow_nonexpiring_note p }
+  end
+
+  def base_passenger_params
+    params
+      .require(:passenger)
+      .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
+              :active, :permanent, :note, :spire, :status, :has_brochure,
+              :registered_with_disability_services,
+              doctors_note_attributes: %i[expiration_date override_expiration
+                                          override_until])
+  end
+
+  def disallow_nonexpiring_note(permitted_params)
     note_params = permitted_params[:doctors_note_attributes]
-    if note_params.try(:[], :expiration_date).blank?
-      permitted_params.delete :doctors_note_attributes
-    end
-    permitted_params
+    return permitted_params unless note_params.try(:[], :expiration_date).blank?
+
+    permitted_params.except :doctors_note_attributes
+  end
+
+  def restrict_admin(permitted_params)
+    return permitted_params if @current_user.admin?
+
+    permitted_params.except :active, :permanent
   end
 
   def find_passenger

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rspec-html-matchers'
 require 'capybara/rails'
 require 'rack_session_access/capybara'

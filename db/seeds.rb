@@ -1,29 +1,46 @@
 # frozen_string_literal: true
 
 require 'factory_bot'
-include FactoryBot::Syntax::Methods
 require 'timecop'
 
-2.times { create :user, :admin }
+module SeedCreator
+  class << self
+    include FactoryBot::Syntax::Methods
 
-5.times { create :user }
+    def create_users
+      create_list :user, 2, :admin
+      create_list :user, 5
+    end
 
-%w[Cane Crutches Wheelchair].each do |name|
-  create :mobility_device, name: name
-end
+    def create_mobility_devices
+      %w[Cane Crutches Wheelchair].each do |name|
+        create :mobility_device, name: name
+      end
+    end
 
-20.times { create :passenger, :permanent }
-20.times { create :passenger, :temporary, :with_note }
+    def create_passengers
+      create_list :passenger, 20, :permanent
+      create_list :passenger, 20, :temporary, :with_note
 
-5.times { create :passenger, :temporary, :expired_within_grace_period }
-5.times { create :passenger, :temporary, :expiring_soon }
-5.times { create :passenger, :temporary, :expiration_overridden }
-5.times { create :passenger, :temporary, :inactive }
-5.times { create :passenger, :temporary, :no_note }
+      create_list :passenger, 5, :temporary, :expired_within_grace_period
+      create_list :passenger, 5, :temporary, :expiring_soon
+      create_list :passenger, 5, :temporary, :expiration_overridden
+      create_list :passenger, 5, :temporary, :inactive
+      create_list :passenger, 5, :temporary, :no_note
+    end
 
-dispatchers = User.dispatchers
-300.times do
-  Timecop.freeze 12.months.ago + rand(12.months) do
-    create :log_entry, user: dispatchers.sample
+    def create_dispatch_logs
+      dispatchers = User.dispatchers
+      300.times do
+        Timecop.freeze 12.months.ago + rand(12.months) do
+          create :log_entry, user: dispatchers.sample
+        end
+      end
+    end
   end
 end
+
+SeedCreator.create_users
+SeedCreator.create_mobility_devices
+SeedCreator.create_passengers
+SeedCreator.create_dispatch_logs
