@@ -32,3 +32,7 @@ This app may later be expanded to serve other ST department needs, as well.
 
 ## Contribution Guidelines
 (Might make Contributing.md later)
+
+## Archived
+
+Found out that the deployed app (https://st-pax.admin.umass.edu/) is no longer being used. Talked to the ST Supervisors, and was told it's not due to bugs or issues with the app, but rather because they determined that a spreadsheet is more suitable for ST's workflow.
