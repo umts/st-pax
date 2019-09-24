@@ -29,14 +29,10 @@
 %p
   %b Permanent:
   %td.yes= yes_no_image @passenger.permanent
-- if @passenger.expiration_display
+- if @passenger.temporary?
   %p
-    %b Expiration Date:
+    %b Doctor's Note Expiration Date:
     = @passenger.expiration_display
-- if @passenger.doctors_note.present? && @passenger.doctors_note.override_until.present?
-  %p
-    %b Override Expiration Date:
-    = @passenger.doctors_note.override_until
 %p
   %b Registering Dispatcher:
   = @passenger.registerer || 'Unknown'
