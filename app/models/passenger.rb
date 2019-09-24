@@ -15,6 +15,8 @@ class Passenger < ApplicationRecord
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
 
+  enum active_status: { pending: 0, active: 1, archived: 2 }
+
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
   scope :active, -> { where(active: true) }
