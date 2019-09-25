@@ -14,7 +14,6 @@ gem 'rails', '~> 5.1'
 gem 'rspec-rails'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
-gem 'whenever', require: false
 gem 'will_paginate', '~> 3.1'
 
 group :development, :test do
