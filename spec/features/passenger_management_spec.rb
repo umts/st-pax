@@ -30,8 +30,14 @@ feature 'Passenger Management' do
     end
     scenario 'deleting an existing passenger' do
       visit passengers_path
-      click_link 'Delete'
+      click_button 'Delete'
       expect(page).to have_text 'Passenger was successfully destroyed.'
+    end
+    scenario 'archiving a passenger do' do
+      visit passengers_path
+      click_button 'Archive'
+      expect(page).to have_text 'Passenger successfully updated'
+      expect(@passenger.reload).to be_archived
     end
     scenario 'creating a temporary passenger without a doctors note' do
       visit new_passenger_path
@@ -70,7 +76,7 @@ feature 'Passenger Management' do
     end
     scenario 'deleting an existing passenger' do
       visit passengers_path
-      expect(page).not_to have_link 'Delete'
+      expect(page).not_to have_button 'Delete'
     end
   end
 end

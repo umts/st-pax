@@ -8,7 +8,7 @@ FactoryBot.define do
     phone { FFaker::PhoneNumber.short_phone_number }
     mobility_device { MobilityDevice.all.sample }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    active { true }
+    active_status { 'active' }
 
     trait :temporary do
       permanent { false }
@@ -20,7 +20,6 @@ FactoryBot.define do
     end
 
     trait :inactive do
-      active { false }
       after :create do |passenger|
         create :doctors_note, :expired, passenger: passenger
       end
