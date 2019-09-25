@@ -23,7 +23,7 @@ a {
   }
 }
 
-table#key, table#passengers {
+table#key, table.passengers {
   .will_expire_soon {
     background-color: #fcf2c0;
   }
@@ -38,8 +38,9 @@ table#key, table#passengers {
   }
 }
 
-.checkbox-inline.key_position {
+.key_position {
   float: right;
+  padding-bottom: 1em;
 }
 
 .passenger-filters{
