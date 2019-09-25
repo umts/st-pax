@@ -24,7 +24,6 @@ module SeedCreator
 
       create_list :passenger, 5, :temporary, :expired_within_grace_period
       create_list :passenger, 5, :temporary, :expiring_soon
-      create_list :passenger, 5, :temporary, :expiration_overridden
       create_list :passenger, 5, :temporary, :inactive
       create_list :passenger, 5, :temporary, :no_note
     end
