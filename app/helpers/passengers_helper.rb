@@ -19,11 +19,9 @@ module PassengersHelper
     doctors_note_row_class(passenger.doctors_note)
   end
 
-  def passengers_table_class
-    if @current_user.admin?
-      'row-border admin-table'
-    else
-      'row-border dispatch-table'
+  def sortable_date(note)
+    if note.present?
+      note.expiration_date.strftime('%Y%m%d%H%M%s')
     end
   end
 end

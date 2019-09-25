@@ -49,7 +49,7 @@
           - unless @filters.include? 'Active'
             %td.yes= yes_no_image passenger.active?
           %td.yes= yes_no_image passenger.permanent?
-          %td.yes= passenger.expiration_display
+          %td.yes{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
