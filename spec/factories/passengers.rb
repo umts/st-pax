@@ -47,11 +47,5 @@ FactoryBot.define do
         create :doctors_note, :expiring_soon, passenger: passenger
       end
     end
-
-    trait :expiration_overridden do
-      after :create do |passenger|
-        create :doctors_note, :overridden, passenger: passenger
-      end
-    end
   end
 end

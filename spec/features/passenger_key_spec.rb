@@ -16,11 +16,6 @@ feature 'Passenger Keys' do
     visit passengers_url
     expect(page).to have_css('tr.expired_within_grace_period')
   end
-  scenario 'overridden expiration' do
-    create :passenger, :expiration_overridden
-    visit passengers_url
-    expect(page).to have_css('tr.overridden')
-  end
   scenario 'Inactive' do
     create :passenger, :inactive
     visit passengers_url(show_inactive: true)

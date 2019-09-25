@@ -42,16 +42,6 @@ feature 'Passenger Management' do
       click_button 'Submit'
       expect(page).to have_text 'Passenger was successfully created.'
     end
-    scenario 'overriding expiration shows done by' do
-      create :doctors_note, passenger: @passenger
-      date = 2.days.since.strftime '%Y-%m-%d'
-      visit passengers_path
-      click_link 'Edit'
-      check 'Override Expiration Date?'
-      fill_in 'Override Until', with: date
-      click_button 'Submit'
-      expect(@passenger.reload.doctors_note.overridden_by).to eql(@user)
-    end
   end
   feature 'as a dispatcher' do
     before :each do
@@ -81,12 +71,6 @@ feature 'Passenger Management' do
     scenario 'deleting an existing passenger' do
       visit passengers_path
       expect(page).not_to have_link 'Delete'
-    end
-    scenario 'overriding expiration date' do
-      create :doctors_note, passenger: @passenger
-      visit passengers_path
-      expect(page).not_to have_checked_field 'Override Expiration Date?'
-      expect(page).not_to have_field 'Override Until'
     end
   end
 end
