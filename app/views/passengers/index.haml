@@ -11,11 +11,9 @@
     = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
     %label{ for: 'filter_'} All
     = radio_button_tag :filter, '', @filters.include?('all')
-    %label{ for: 'show_inactive' } Show Inactive
-    = check_box_tag :show_inactive, true, !@filters.include?('active')
   = submit_tag 'Show Passengers'
   = submit_tag 'Print These Filters', name: "print"
-  .checkbox-inline.key_position
+  .key_position
     %table#key
       %tbody
         %tr
@@ -45,13 +43,12 @@
           %td= passenger.mobility_device.try(:name)
           %td= passenger.email
           %td= passenger.phone
-          - unless @filters.include? 'Active'
-            %td.yes= yes_no_image passenger.active?
           %td.yes= yes_no_image passenger.permanent?
           %td.yes{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
-            %td= link_to 'Delete', passenger, method: :delete,  data: { confirm: 'Are you sure?' }
+            %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
+            %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results

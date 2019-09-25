@@ -9,7 +9,14 @@ Rails.application.routes.draw do
   resources :doctors_notes
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
-  resources :passengers
+  resources :passengers do
+    collection do
+      get :archived
+    end
+    member do
+      post :toggle_archive
+    end
+  end
   resources :users, except: :show
 
   unless Rails.env.production?

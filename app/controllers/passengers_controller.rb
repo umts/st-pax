@@ -1,8 +1,20 @@
 # frozen_string_literal: true
 
 class PassengersController < ApplicationController
-  before_action :find_passenger, only: %i[show edit update destroy]
-  before_action :access_control, only: %i[destroy]
+  before_action :find_passenger, only: %i[show edit update destroy toggle_archive]
+  before_action :access_control, only: %i[destroy archived toggle_archive]
+
+  def archived
+    @passengers = Passenger.archived
+  end
+
+  def toggle_archive
+    if @passenger.archived?
+      @passenger.active!
+    else @passenger.archived!
+    end
+    redirect_to passengers_url, notice: 'Passenger successfully updated'
+  end
 
   def new
     @passenger = Passenger.new
@@ -15,7 +27,7 @@ class PassengersController < ApplicationController
 
   # rubocop:disable Style/GuardClause
   def index
-    @passengers = Passenger.order :name
+    @passengers = Passenger.active.order :name
     @filters = []
     filter = params[:filter]
     if %w[permanent temporary].include? filter
@@ -23,11 +35,6 @@ class PassengersController < ApplicationController
       @filters << filter
     else @filters << 'all'
     end
-    unless params[:show_inactive]
-      @passengers = @passengers.active
-      @filters << 'active'
-    end
-
     if params[:print].present?
       pdf = PassengersPDF.new(@passengers, @filters)
       name = "#{@filters.map(&:capitalize).join(' ')} Passengers #{Date.today}"
@@ -73,7 +80,7 @@ class PassengersController < ApplicationController
     params
       .require(:passenger)
       .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
-              :active, :permanent, :note, :spire, :status, :has_brochure,
+              :permanent, :note, :spire, :status, :has_brochure,
               :registered_with_disability_services,
               doctors_note_attributes: %i[expiration_date])
   end
@@ -88,7 +95,7 @@ class PassengersController < ApplicationController
   def restrict_admin(permitted_params)
     return permitted_params if @current_user.admin?
 
-    permitted_params.except :active, :permanent
+    permitted_params.except :permanent
   end
 
   def find_passenger
