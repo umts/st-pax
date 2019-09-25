@@ -24,7 +24,7 @@
           %td.inactive Inactive
           %td.no_note No Note
 - if @passengers.present?
-  %table#passengers{class: passengers_table_class}
+  %table.passengers
     %thead
       %tr
         %th Name
@@ -35,10 +35,10 @@
           %th.yesno Active
         %th.yesno Permanent
         %th.yesno Expiration Date
-        %th
-        %th
+        %th{data: {orderable: 'false'}}
+        %th{data: {orderable: 'false'}}
         -if @current_user.admin?
-          %th
+          %th{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
