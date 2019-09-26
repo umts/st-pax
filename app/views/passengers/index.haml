@@ -31,9 +31,9 @@
         %th Email
         %th Phone
         - unless @filters.include? 'Active'
-          %th Active
-        %th Permanent
-        %th Expiration Date
+          %th.text-center Active
+        %th.text-center Permanent
+        %th.text-center Expiration Date
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
         -if @current_user.admin?
@@ -46,9 +46,9 @@
           %td= passenger.email
           %td= passenger.phone
           - unless @filters.include? 'Active'
-            %td= yes_no_image passenger.active?
-          %td= yes_no_image passenger.permanent?
-          %td=passenger.expiration_display
+            %td.text-center{data: {sort: passenger.active?.to_s}}= yes_no_image passenger.active?
+          %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
+          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
