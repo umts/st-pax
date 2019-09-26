@@ -38,11 +38,6 @@ table#key, table#passengers {
   }
 }
 
-.key_position {
-  float: right;
-  padding-bottom: 1em;
-}
-
 .passenger-filters{
   label {
     display: inline;
@@ -54,6 +49,8 @@ table#key, table#passengers {
 }
 
 table#key {
+  float: right;
+  margin-bottom: 1em;
   td {
     border-left: 1px solid grey;
     border-right: 1px solid grey;
