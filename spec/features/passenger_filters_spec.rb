@@ -12,7 +12,7 @@ feature 'Passenger Filters' do
     visit passengers_url
     choose 'Permanent Only'
     click_on 'Show Passengers'
-    expect(page).to have_selector 'table.passengers tbody tr', count: 1
+    expect(page).to have_selector 'table#passengers tbody tr', count: 1
     expect(page).to have_content 'Mary Sue'
     expect(page).not_to have_content 'Gary Stue'
   end
@@ -22,7 +22,7 @@ feature 'Passenger Filters' do
     visit passengers_url
     choose 'Temporary Only'
     click_on 'Show Passengers'
-    expect(page).to have_selector 'table.passengers tbody tr', count: 1
+    expect(page).to have_selector 'table#passengers tbody tr', count: 1
     expect(page).not_to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
@@ -32,7 +32,7 @@ feature 'Passenger Filters' do
     visit passengers_url
     choose 'All'
     click_on 'Show Passengers'
-    expect(page).to have_selector 'table.passengers tbody tr', count: 2
+    expect(page).to have_selector 'table#passengers tbody tr', count: 2
     expect(page).to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
@@ -42,7 +42,7 @@ feature 'Passenger Filters' do
     visit passengers_url
     uncheck 'Show Inactive'
     click_on 'Show Passengers'
-    expect(page).to have_selector 'table.passengers tbody tr', count: 1
+    expect(page).to have_selector 'table#passengers tbody tr', count: 1
     expect(page).not_to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
@@ -53,7 +53,7 @@ feature 'Passenger Filters' do
     check 'Show Inactive'
     click_on 'Show Passengers'
     # Shows both active and inactive passengers
-    expect(page).to have_selector 'table.passengers tbody tr', count: 2
+    expect(page).to have_selector 'table#passengers tbody tr', count: 2
     expect(page).to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
