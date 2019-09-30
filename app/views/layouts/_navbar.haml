@@ -6,5 +6,6 @@
     - if @current_user.admin?
       = navbar_link 'Manage Users', users_url
       = navbar_link 'Manage Mobility Devices', mobility_devices_url
+      = navbar_link 'Archived Passengers', archived_passengers_url
     = link_to destroy_session_url do
       %button.btn.btn-default.navbar-btn.navbar-right Logout

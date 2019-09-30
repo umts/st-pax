@@ -35,15 +35,4 @@ describe Passenger do
       expect(passenger).to be_valid
     end
   end
-
-  describe 'self.deactivate_expired_doc_note' do
-    it 'deactivates the expired passenger' do
-      create :doctors_note, passenger: @passenger,
-                            expiration_date: 4.days.ago
-      @passenger.update active: true
-      Passenger.deactivate_expired_doc_note
-      @passenger.reload
-      expect(@passenger).not_to be_active
-    end
-  end
 end

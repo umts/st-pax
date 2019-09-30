@@ -16,11 +16,6 @@ feature 'Passenger Keys' do
     visit passengers_url
     expect(page).to have_css('tr.expired_within_grace_period')
   end
-  scenario 'Inactive' do
-    create :passenger, :inactive
-    visit passengers_url(show_inactive: true)
-    expect(page).to have_css('tr.inactive')
-  end
   scenario 'No Note' do
     create :passenger
     visit passengers_url

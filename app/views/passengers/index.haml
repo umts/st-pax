@@ -11,8 +11,6 @@
     = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
     %label{ for: 'filter_'} All
     = radio_button_tag :filter, '', @filters.include?('all')
-    %label{ for: 'show_inactive' } Show Inactive
-    = check_box_tag :show_inactive, true, !@filters.include?('active')
   = submit_tag 'Show Passengers'
   = submit_tag 'Print These Filters', name: "print"
   %table#key
@@ -23,20 +21,19 @@
         %td.inactive Inactive
         %td.no_note No Note
 - if @passengers.present?
-  %table#passengers
+  %table#passengers{data: {paging: 'false'}}
     %thead
       %tr
         %th Name
         %th Mobility Device
         %th Email
         %th Phone
-        - unless @filters.include? 'Active'
-          %th.text-center Active
         %th.text-center Permanent
-        %th.text-center Expiration Date
+        %th.text-center Doc's Note Expires
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
         -if @current_user.admin?
+          %th{data: {orderable: 'false'}}
           %th{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
@@ -45,13 +42,12 @@
           %td= passenger.mobility_device.try(:name)
           %td= passenger.email
           %td= passenger.phone
-          - unless @filters.include? 'Active'
-            %td.text-center{data: {sort: passenger.active?.to_s}}= yes_no_image passenger.active?
           %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
-            %td= link_to 'Delete', passenger, method: :delete,  data: { confirm: 'Are you sure?' }
+            %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
+            %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results

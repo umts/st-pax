@@ -12,7 +12,6 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
-    return 'inactive' unless passenger.active?
     return if passenger.permanent?
     return 'no_note' if passenger.doctors_note.blank?
 
