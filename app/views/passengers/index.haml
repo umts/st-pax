@@ -15,16 +15,15 @@
     = check_box_tag :show_inactive, true, !@filters.include?('active')
   = submit_tag 'Show Passengers'
   = submit_tag 'Print These Filters', name: "print"
-  .checkbox-inline.key_position
-    %table#key
-      %tbody
-        %tr
-          %td.will_expire_soon Will Expire Within 1 Week
-          %td.expired_within_grace_period Expired Within Grace Period
-          %td.inactive Inactive
-          %td.no_note No Note
+  %table#key
+    %tbody
+      %tr
+        %td.will_expire_soon Will Expire Within 1 Week
+        %td.expired_within_grace_period Expired Within Grace Period
+        %td.inactive Inactive
+        %td.no_note No Note
 - if @passengers.present?
-  %table#passengers{class: passengers_table_class}
+  %table#passengers
     %thead
       %tr
         %th Name
@@ -32,13 +31,13 @@
         %th Email
         %th Phone
         - unless @filters.include? 'Active'
-          %th.yesno Active
-        %th.yesno Permanent
-        %th.yesno Expiration Date
-        %th
-        %th
+          %th.text-center Active
+        %th.text-center Permanent
+        %th.text-center Expiration Date
+        %th{data: {orderable: 'false'}}
+        %th{data: {orderable: 'false'}}
         -if @current_user.admin?
-          %th
+          %th{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
@@ -47,9 +46,9 @@
           %td= passenger.email
           %td= passenger.phone
           - unless @filters.include? 'Active'
-            %td.yes= yes_no_image passenger.active?
-          %td.yes= yes_no_image passenger.permanent?
-          %td.yes= passenger.expiration_display
+            %td.text-center{data: {sort: passenger.active?.to_s}}= yes_no_image passenger.active?
+          %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
+          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
