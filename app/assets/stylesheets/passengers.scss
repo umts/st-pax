@@ -23,7 +23,7 @@ a {
   }
 }
 
-table#key, table.passengers {
+table#key, table#passengers {
   .will_expire_soon {
     background-color: #fcf2c0;
   }
@@ -38,11 +38,6 @@ table#key, table.passengers {
   }
 }
 
-.key_position {
-  float: right;
-  padding-bottom: 1em;
-}
-
 .passenger-filters{
   label {
     display: inline;
@@ -54,6 +49,8 @@ table#key, table.passengers {
 }
 
 table#key {
+  float: right;
+  margin-bottom: 1em;
   td {
     border-left: 1px solid grey;
     border-right: 1px solid grey;
@@ -67,19 +64,11 @@ table#passengers{
   th {
     font-size: 20px;
     padding: 5px 50px 5px 0;
-
-    &.yesno {
-      text-align: center;
-      padding: 5px 25px 5px 25px;
-    }
   }
 
   td {
     font-size: 15px;
     padding: 5px 5px 5px 0;
-    &.no,&.yes{
-      text-align: center;
-    }
   }
 }
 

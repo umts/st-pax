@@ -4,8 +4,8 @@
   "dependencies": {
     "datatables.net": "^1.10.15",
     "datatables.net-dt": "^1.10.15",
-    "jquery": "^3.2.1",
+    "jquery": "^3.4.0",
     "jquery-ui": "^1.12.1",
-    "moment": "^2.18.1"
+    "moment": "^2.19.3"
   }
 }
