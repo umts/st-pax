@@ -13,8 +13,6 @@ set :deploy_to, "/srv/#{fetch :application}"
 
 set :log_level, :info
 
-set :whenever_command, %i[sudo bundle exec whenever]
-
 set :linked_files, fetch(:linked_files, []).push(
   'config/database.yml'
 )
