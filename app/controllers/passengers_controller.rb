@@ -16,6 +16,11 @@ class PassengersController < ApplicationController
     redirect_to passengers_url, notice: 'Passenger successfully updated'
   end
 
+  def check_existing
+    @passenger = User.find_by(spire: params[:spire_id])
+    render partial: 'check_existing'
+  end
+
   def new
     @passenger = Passenger.new
     @doctors_note = DoctorsNote.new
