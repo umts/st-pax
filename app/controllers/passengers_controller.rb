@@ -82,12 +82,17 @@ class PassengersController < ApplicationController
   end
 
   def base_passenger_params
-    params
-      .require(:passenger)
+    passenger_params = params.require(:passenger)
       .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
               :permanent, :note, :spire, :status, :has_brochure,
               :registered_with_disability_services,
               doctors_note_attributes: %i[expiration_date])
+    passenger_params[:active_status] = if params[:passenger][:archived] == '1'
+                                         'archived'
+                                       else
+                                         'active'
+                                       end
+    passenger_params
   end
 
   def disallow_nonexpiring_note(permitted_params)
