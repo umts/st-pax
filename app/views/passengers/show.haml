@@ -37,6 +37,9 @@
   %b Registering Dispatcher:
   = @passenger.registerer || 'Unknown'
 %p
+  %b Registration Date:
+  = @passenger.registration_date
+%p
   %b Other Notes:
   = @passenger.note
 = link_to 'Edit', edit_passenger_path

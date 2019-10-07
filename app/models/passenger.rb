@@ -2,6 +2,7 @@
 
 class Passenger < ApplicationRecord
   validates :name,  presence: true, length: { maximum: 50 }
+  validates :registration_date, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
@@ -24,6 +25,14 @@ class Passenger < ApplicationRecord
   accepts_nested_attributes_for :doctors_note
 
   belongs_to :mobility_device, optional: true
+
+  before_validation do
+    if active_status_changed? && active?
+      assign_attributes(registration_date: Time.zone.today)
+    elsif registration_date.blank?
+      assign_attributes(registration_date: (created_at || Time.zone.today))
+    end
+  end
 
   def expiration_display
     return if permanent?

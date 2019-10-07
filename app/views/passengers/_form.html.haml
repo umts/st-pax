@@ -8,6 +8,9 @@
         %li= message
 = form_with model: @passenger, local: true do |form|
   .field
+    %b Registration date:
+    = @passenger.registration_date
+  .field
     = form.label :permanent
     = form.check_box :permanent, disabled: !@current_user.admin?
   .field
