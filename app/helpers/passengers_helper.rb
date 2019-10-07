@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PassengersHelper
-  def doctors_note_fields_class(passenger)
+  def doctors_note_fields_class
     'hide-view' if @passenger.permanent?
   end
 
@@ -23,8 +23,6 @@ module PassengersHelper
   end
 
   def sortable_date(note)
-    if note.present?
-      note.expiration_date.strftime('%Y%m%d')
-    end
+    note.expiration_date.strftime('%Y%m%d') if note.present?
   end
 end

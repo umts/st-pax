@@ -45,6 +45,7 @@ class Passenger < ApplicationRecord
 
     return doctors_note.expiration_date if doctors_note.present?
     return registration_date + 3.days if persisted?
+
     3.days.since.to_date
   end
 
