@@ -88,11 +88,7 @@ class PassengersController < ApplicationController
               :permanent, :note, :spire, :status, :has_brochure,
               :registered_with_disability_services,
               doctors_note_attributes: %i[expiration_date])
-    passenger_params[:active_status] = if params[:passenger][:archived] == '1'
-                                         'archived'
-                                       else
-                                         'active'
-                                       end
+    passenger_params[:active_status] = params[:passenger][:active]
     passenger_params
   end
 
