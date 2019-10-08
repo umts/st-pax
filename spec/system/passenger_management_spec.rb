@@ -13,7 +13,9 @@ describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        click_link 'Add New Passenger'
+        # links in the navbar cannot receive clickable events since they
+        # wrap button elements. you must use click_button instead.
+        click_button 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
@@ -23,17 +25,18 @@ describe 'Passenger Management', js: true do
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
-        click_link 'Add New Passenger'
-        fill_in 'Passenger Spire', with: "{#@passenger.spire}\n"
+        click_button 'Add New Passenger'
+        fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
         expect(page).to have_text 'A passenger already exists for this spire ID'
-        expect(page).to have_link passenger_edit_path(@passenger)
+        expect(page).to have_button 'Keep adding new'
+        expect(page).to have_link 'Edit existing passenger'
       end
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
         create :doctors_note, passenger: @passenger
         visit passengers_path
-        click_link 'Edit'
+        click_button 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger was successfully updated.'
@@ -76,7 +79,7 @@ describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        click_link 'Add New Passenger'
+        click_button 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Expiration Date', with: date
