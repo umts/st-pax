@@ -18,6 +18,7 @@ class PassengersController < ApplicationController
 
   def check_existing
     @passenger = User.find_by(spire: params[:spire_id])
+    return unless @passenger.present?
     render partial: 'check_existing'
   end
 
