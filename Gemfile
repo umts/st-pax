@@ -11,22 +11,28 @@ gem 'mysql2'
 gem 'prawn'
 gem 'prawn-table'
 gem 'rails', '~> 5.1'
-gem 'rspec-rails'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1'
+gem 'puma'
 
 group :development, :test do
-  gem 'capybara'
   gem 'codeclimate-test-reporter'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'pry-byebug'
-  gem 'rack_session_access'
-  gem 'rspec-html-matchers'
   gem 'rubocop'
   gem 'simplecov', require: false
+end
+
+group :test do
+  gem 'capybara'
+  gem 'webdrivers'
+  gem 'selenium-webdriver'
+  gem 'rack_session_access'
+  gem 'rspec-rails'
+  gem 'rspec-html-matchers'
   gem 'timecop'
 end
 
