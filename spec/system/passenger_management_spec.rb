@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Passenger Management' do
+describe 'Passenger Management', js: true do
   context 'as an admin' do
     before :each do
       @user = create :user, :admin
@@ -20,6 +20,13 @@ describe 'Passenger Management' do
         fill_in 'Expiration Date', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger was successfully created.'
+      end
+      it 'checks for existing passengers if a duplicate spire is found' do
+        visit passengers_path
+        click_link 'Add New Passenger'
+        fill_in 'Passenger Spire', with: "{#@passenger.spire}\n"
+        expect(page).to have_text 'A passenger already exists for this spire ID'
+        expect(page).to have_link passenger_edit_path(@passenger)
       end
     end
     context 'editing an existing passenger successfully' do
