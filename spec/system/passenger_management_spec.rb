@@ -36,7 +36,7 @@ describe 'Passenger Management', js: true do
       it 'updates the passenger' do
         create :doctors_note, passenger: @passenger
         visit passengers_path
-        click_button 'Edit'
+        click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger was successfully updated.'
@@ -46,6 +46,7 @@ describe 'Passenger Management', js: true do
       it 'deletes the passenger' do
         visit passengers_path
         click_button 'Delete'
+        page.driver.browser.switch_to.alert.accept
         expect(page).to have_text 'Passenger was successfully destroyed.'
       end
     end
