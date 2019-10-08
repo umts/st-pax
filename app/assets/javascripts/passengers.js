@@ -4,9 +4,9 @@ $( document ).on("turbolinks:load", function() {
       type: 'GET',
       url: '/passengers/check_existing',
       data: { spire_id: $(this).val() },
-      success: function(response) {
-        if(response == undefined){ return }
-        $('body').append(response)
+      success: function(responseBody) {
+        if(responseBody == undefined){ return }
+        $('body').append(responseBody)
         $('#check-existing').modal()
       }
     });
