@@ -47,7 +47,7 @@
   .field
     = form.label :active
     = form.check_box :active, disabled: !@current_user.admin?
-  .doctors-note-fields{class: doctors_note_fields_class(@passenger)}
+  .doctors-note-fields{class: doctors_note_fields_class}
     = form.label :has_doctors_note
     = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
     = form.fields_for :doctors_note, @doctors_note do |d|
