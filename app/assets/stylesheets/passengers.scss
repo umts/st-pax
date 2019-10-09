@@ -24,14 +24,14 @@ a {
 }
 
 table#key, table#passengers {
-  .will_expire_soon {
-    background-color: #fcf2c0;
+  .expires-soon {
+    background-color: #fffd8a;
   }
-  .expired_within_grace_period {
-    background-color: #ee9b9b;
+  .needs-note {
+    background-color: #ffd1a3;
   }
-  .inactive {
-    background-color: #cfc9c9;
+  .expired {
+    background-color: #db7d7d;
   }
   .no_note {
     background-color: #90C3D4;
