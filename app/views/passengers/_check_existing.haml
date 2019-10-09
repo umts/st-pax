@@ -2,9 +2,9 @@
   .modal-dialog{role: 'document'}
     .modal-content
       .modal-header
-        %h5 A passenger already exists for this Spire ID. Go to edit that passenger?
+        %h5 A passenger already exists for this Spire ID. Edit that passenger?
         %button.close{data: {dismiss: 'modal', 'aria-label':'Close'}}
           %span{'aria-hidden': 'true'} &times;
       .modal-footer
-        %button.btn.btn-default{data: {dismiss: 'modal', 'aria-label':'Close'}} Keep adding new
+        %button.btn.btn-default{data: {dismiss: 'modal', 'aria-label':'Close'}} Add new passenger
         = link_to 'Edit existing passenger', edit_passenger_url(@passenger), class: 'btn btn-primary'
