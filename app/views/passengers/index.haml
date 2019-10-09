@@ -12,7 +12,7 @@
     %label{ for: 'filter_'} All
     = radio_button_tag :filter, '', @filters.include?('all')
   = submit_tag 'Show Passengers'
-  = submit_tag 'Print These Filters', name: "print"
+  = submit_tag 'Print filtered list', name: 'print'
   %table#key
     %tbody
       %tr

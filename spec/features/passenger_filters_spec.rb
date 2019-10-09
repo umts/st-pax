@@ -40,7 +40,7 @@ feature 'Passenger Filters' do
     visit passengers_url
     choose 'Permanent Only'
     create :passenger, :permanent, name: 'Spongebob'
-    click_on 'Print These Filters'
+    click_on 'Print filtered list'
     analysis = PDF::Inspector::Text.analyze(page.body)
     expect(analysis.strings).to include 'Name'
     expect(analysis.strings).to include 'Spongebob'
