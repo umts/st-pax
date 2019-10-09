@@ -36,6 +36,16 @@ table#key, table#passengers {
   .no_note {
     background-color: #90C3D4;
   }
+  .longer_ride {
+    /* font-weight: bold; */
+    background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 20px
+  )
+  }
 }
 
 .passenger-filters{
