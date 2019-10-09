@@ -2,7 +2,9 @@
 
 module PassengersHelper
   def doctors_note_row_class(note)
-    if note.will_expire_within_warning_period?
+    if note.blank?
+      'no_note'
+    elsif note.will_expire_within_warning_period?
       'will_expire_soon'
     elsif note.expired_within_grace_period?
       'expired_within_grace_period'
@@ -18,12 +20,16 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
-    mobility_device(passenger.mobility_device)
-
-    return if passenger.permanent?
-    return 'no_note' if passenger.doctors_note.blank?
-
-    doctors_note_row_class(passenger.doctors_note)
+    if passenger.permanent? && mobility_device(passenger.mobility_device).present?
+        'longer_ride'
+    else
+      doc_note = doctors_note_row_class(passenger.doctors_note)
+      if mobility_device(passenger.mobility_device).present?
+        doc_note.to_s + 'longer_ride'
+      else
+        doc_note.to_s
+      end
+    end
   end
 
 
