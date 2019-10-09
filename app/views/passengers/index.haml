@@ -19,7 +19,7 @@
         %td.expires-soon Expires within one week
         %td.needs-note Within grace period, needs doctor's note
         %td.inactive Inactive
-        %td.no_note No Note
+        %td.no_note No Doctor's Note
 - if @passengers.present?
   %table#passengers{data: {paging: 'false'}}
     %thead
@@ -29,7 +29,7 @@
         %th Needs longer rides?
         %th Phone
         %th.text-center Permanent
-        %th.text-center Doc's Note Expires
+        %th.text-center Rides Expire
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
         - if @current_user.admin?
@@ -43,7 +43,7 @@
           %td{data: {sort: passenger.mobility_device.try(:needs_longer_rides?).to_s}}= yes_image passenger.mobility_device.try(:needs_longer_rides?)
           %td= passenger.phone
           %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
-          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
+          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?

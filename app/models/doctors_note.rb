@@ -22,6 +22,7 @@ class DoctorsNote < ApplicationRecord
   end
 
   def expired_within_grace_period?
+    # expired less than 3 days ago
     expiration_date < Date.today && expiration_date >= DoctorsNote.grace_period
   end
 
