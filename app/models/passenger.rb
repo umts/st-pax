@@ -31,6 +31,12 @@ class Passenger < ApplicationRecord
     doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
+  def needs_doctors_note?
+    return false if permanent?
+    doctors_note.blank? || doctors_note.try(:expired_within_grace_period?)
+    # doctors note blank AND registration date was less than three days ago..
+  end
+
   def temporary?
     !permanent?
   end
