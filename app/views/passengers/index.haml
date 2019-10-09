@@ -32,7 +32,7 @@
         %th.text-center Doc's Note Expires
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
-        -if @current_user.admin?
+        - if @current_user.admin?
           %th{data: {orderable: 'false'}}
           %th{data: {orderable: 'false'}}
     %tbody
