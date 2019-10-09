@@ -26,7 +26,6 @@
       %tr
         %th Name
         %th Mobility Device
-        %th Email
         %th Phone
         %th.text-center Permanent
         %th.text-center Doc's Note Expires
@@ -40,7 +39,6 @@
         %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
           %td= passenger.mobility_device.try(:name)
-          %td= passenger.email
           %td= passenger.phone
           %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.expiration_display
