@@ -13,21 +13,24 @@ module PassengersHelper
     end
   end
 
-  def mobility_device(device)
+  def longer_ride(device)
     if device.try(:needs_longer_rides) == true
       'longer_ride'
     end
   end
 
   def passengers_table_row_class(passenger)
-    if passenger.permanent? && mobility_device(passenger.mobility_device).present?
-        'longer_ride'
-    else
+    if passenger.permanent? && longer_ride(passenger.mobility_device).nil?
+      ''
+    elsif passenger.permanent? && longer_ride(passenger.mobility_device).present?
+      'longer_ride'
+    elsif passenger.permanent? == false
+      #binding.pry
       doc_note = doctors_note_row_class(passenger.doctors_note)
-      if mobility_device(passenger.mobility_device).present?
-        doc_note.to_s + 'longer_ride'
+      if longer_ride(passenger.mobility_device).present?
+        "longer_ride "+doc_note
       else
-        doc_note.to_s
+        doc_note
       end
     end
   end
