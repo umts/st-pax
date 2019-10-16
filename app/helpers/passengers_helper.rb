@@ -12,7 +12,7 @@ module PassengersHelper
     elsif passenger.needs_doctors_note?
       'needs-note'
     elsif passenger.doctors_note.try(:expired?)
-      'inactive'
+      'expired'
     end
   end
 

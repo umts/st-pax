@@ -18,8 +18,7 @@
       %tr
         %td.expires-soon Expires within one week
         %td.needs-note Within grace period, needs doctor's note
-        %td.inactive Inactive
-        %td.no_note No Doctor's Note
+        %td.expired Expired - out of grace period
 - if @passengers.present?
   %table#passengers{data: {paging: 'false'}}
     %thead
