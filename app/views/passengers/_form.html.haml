@@ -42,8 +42,8 @@
      options_from_collection_for_select(MobilityDevice.order(:name),
       :id, :name), include_blank: 'None'
   .field
-    = form.label :active
-    = form.check_box :active, disabled: !@current_user.admin?
+    = form.label :active?
+    = form.check_box :active?, {}, 'active', 'archived'
   = form.fields_for :doctors_note, @doctors_note do |d|
     .field
       = d.label :expiration_date

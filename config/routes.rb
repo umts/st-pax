@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :passengers do
     collection do
       get :archived
+      get :check_existing
     end
     member do
       post :toggle_archive
