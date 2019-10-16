@@ -341,6 +341,7 @@ DEPENDENCIES
   puma
   rack_session_access
   rails (~> 5.1)
+  rake
   rb-fsevent (= 0.9.8)
   rspec-html-matchers
   rspec-rails
