@@ -9,16 +9,16 @@ feature 'Passenger Keys' do
   scenario 'will expire in a week' do
     create :passenger, :expiring_soon
     visit passengers_url
-    expect(page).to have_css('tr.will_expire_soon')
+    expect(page).to have_css('tr.expires-soon')
   end
   scenario 'recently expired' do
     create :passenger, :expired_within_grace_period
     visit passengers_url
-    expect(page).to have_css('tr.expired_within_grace_period')
+    expect(page).to have_css('tr.needs-note')
   end
   scenario 'No Note' do
     create :passenger
     visit passengers_url
-    expect(page).to have_css('tr.no_note')
+    expect(page).to have_css('tr.needs-note')
   end
 end
