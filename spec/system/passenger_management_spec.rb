@@ -27,8 +27,8 @@ describe 'Passenger Management', js: true do
         visit passengers_path
         click_button 'Add New Passenger'
         fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
-        expect(page).to have_text 'A passenger already exists for this spire ID'
-        expect(page).to have_button 'Keep adding new'
+        expect(page).to have_text 'A passenger already exists for this Spire ID'
+        expect(page).to have_button 'Add new passenger'
         expect(page).to have_link 'Edit existing passenger'
       end
     end
