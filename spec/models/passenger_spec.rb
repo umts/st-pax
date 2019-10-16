@@ -30,9 +30,9 @@ describe Passenger do
   end
 
   describe 'not having a SPIRE' do
-    it 'is valid' do
+    it 'is not valid' do
       passenger = build :passenger, spire: ''
-      expect(passenger).to be_valid
+      expect(passenger).not_to be_valid
     end
   end
 
