@@ -1,5 +1,5 @@
 %h1
-  = @filters.join ' '
+  = @filters.join( ' ' ).capitalize
   Passengers
 
 = form_tag passengers_path, method: :get do
