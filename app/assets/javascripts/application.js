@@ -14,6 +14,8 @@
 //= require jquery-ui/ui/widgets/datepicker
 //= require bootstrap-sprockets
 //= require datatables.net/js/jquery.dataTables.js
+//= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
+//= require datatables.net-bs/js/dataTables.bootstrap.js
 //= require rails-ujs
 //= require turbolinks
 //= require moment/moment
