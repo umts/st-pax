@@ -9,6 +9,12 @@ class PassengersController < ApplicationController
     @passengers = Passenger.archived
   end
 
+  def register
+    @registrant.doctors_note = DoctorsNote.new
+    return if request.get?
+    Passenger.new registration_params
+  end
+
   def toggle_archive
     if @passenger.archived?
       @passenger.active!
@@ -104,6 +110,13 @@ class PassengersController < ApplicationController
     return permitted_params if @current_user.admin?
 
     permitted_params.except :permanent
+  end
+
+  def registration_params
+    params.require(:passenger).permit(
+      :preferred_name,
+      :email
+    ).merge(session.slice(:name, :spire))
   end
 
   def find_passenger

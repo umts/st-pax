@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     collection do
       get :archived
       get :check_existing
+      get :register
+      post :register
     end
     member do
       post :toggle_archive

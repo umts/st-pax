@@ -2,7 +2,7 @@
 
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control, :check_primary_account, :set_current_user
+  skip_before_action :access_control, :check_primary_account, :set_current_user, :login_as_passenger
 
   def destroy
     session.clear
