@@ -8,7 +8,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = render 'layouts/navbar'
+    = render 'layouts/navbar' if @render_navbar
     .panel.panel-default
       .panel-body
         %p#notice= notice
