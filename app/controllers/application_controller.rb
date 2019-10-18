@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_user
+  before_action :login_as_passenger
   before_action :access_control
   before_action :check_primary_account
 
@@ -30,10 +31,31 @@ class ApplicationController < ActionController::Base
       end
     if @current_user.present?
       session[:user_id] = @current_user.id
-    else redirect_to unauthenticated_session_path
     end
   end
   # rubocop:enable AbcSize
+  
+  def login_as_passenger
+    return if @current_user.present?
+    @registrant =
+      if session[:passenger_id]
+        Passenger.find_by(id: session[:passenger_id])
+      elsif request.env.key? 'fcIdNumber'
+        Passenger.new(
+          spire: "#{request.env['fcIdNumber']}@umass.edu",
+          name: "#{request.env['givenName']} #{request.env['surName']}",
+          email: request.env['mail']
+        )
+      end
+    # remove this line when done developing
+    @registrant = Passenger.new(spire: '12345678@umass.edu', name: 'karin e', email: 'karin@example.com')
+    session[:spire] = @registrant.spire
+    session[:name] = @registrant.name
+    session[:passenger_id] = @registrant.id
+    unless request.env['REQUEST_PATH'] == register_passengers_path
+      redirect_to register_passengers_path
+    end
+  end
 
   # '... and return' is the correct behavior here, disable rubocop warning
   # rubocop:disable Style/AndOr
