@@ -4,7 +4,6 @@
   "dependencies": {
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^1.10.20",
-    "datatables.net-dt": "^1.10.20",
     "datatables.net-fixedheader-bs": "^3.1.6",
     "jquery": "^3.4.0",
     "jquery-ui": "^1.12.1",
