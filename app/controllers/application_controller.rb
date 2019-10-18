@@ -6,8 +6,13 @@ class ApplicationController < ActionController::Base
   before_action :login_as_passenger
   before_action :access_control
   before_action :check_primary_account
+  before_action :render_navbar
 
   private
+
+  def render_navbar
+    @render_navbar = true
+  end
 
   def deny_access
     if request.xhr?
