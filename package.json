@@ -2,6 +2,7 @@
   "name": "st_pax_tracker",
   "private": true,
   "dependencies": {
+    "datatables.net": "^1.10.15",
     "datatables.net-bs": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
     "datatables.net-fixedheader-bs": "^3.1.6",
