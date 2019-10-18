@@ -34,15 +34,15 @@ en:
   activerecord:
     attributes:
       passenger:
-        name: 'Passenger Name'
         permanent: 'Permanent Passenger'
-        spire: 'Passenger Spire'
         phone: 'Phone Number'
         status: 'UMass Status'
         registered_with_disability_services: 'Registered with Disability Services?'
         has_brochure: 'Has Brochure?'
         active: 'Active?'
         note: 'Additional Notes'
+        address: 'Local Address'
+        needs_assistance: 'I will need additional assistance to/from buildings'
       user:
         active: 'Active?'
         admin:  'Admin?'
