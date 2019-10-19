@@ -13,7 +13,7 @@ class DoctorsNote < ApplicationRecord
   end
 
   def self.expiration_warning
-    7.days.since.to_date
+    7.days.from_now.to_date
   end
 
   def will_expire_within_warning_period?
