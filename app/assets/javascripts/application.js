@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
-//= require jquery-ui/ui/widgets/datepicker
+//= require jquery-datetimepicker/jquery.datetimepicker.js
 //= require bootstrap-sprockets
 //= require datatables.net/js/jquery.dataTables.js
 //= require rails-ujs
