@@ -12,7 +12,14 @@ class PassengersController < ApplicationController
   def register
     @registrant.doctors_note = DoctorsNote.new
     return if request.get?
-    Passenger.new registration_params
+    @registrant = Passenger.new registration_params
+    if @registrant.save
+      redirect_to passengers_brochure_path
+    end
+  end
+
+  def brochure
+
   end
 
   def toggle_archive
