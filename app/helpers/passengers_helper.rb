@@ -5,21 +5,15 @@ module PassengersHelper
     'hide-view' if @passenger.permanent?
   end
 
-  def doctors_note_row_class(note)
-    if note.will_expire_within_warning_period?
-      'will_expire_soon'
-    elsif note.expired_within_grace_period?
-      'expired_within_grace_period'
-    elsif note.expired?
-      'inactive'
-    end
-  end
-
   def passengers_table_row_class(passenger)
     return if passenger.permanent?
-    return 'no_note' if passenger.doctors_note.blank?
-
-    doctors_note_row_class(passenger.doctors_note)
+    if passenger.doctors_note.try(:will_expire_within_warning_period?)
+      'expires-soon'
+    elsif passenger.needs_doctors_note?
+      'needs-note'
+    elsif passenger.doctors_note.try(:expired?)
+      'expired'
+    end
   end
 
   def sortable_date(note)

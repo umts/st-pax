@@ -13,4 +13,9 @@ module ApplicationHelper
     icon_class = value ? 'glyphicon-ok' : 'glyphicon-remove'
     content_tag :span, nil, class: "glyphicon #{icon_class}"
   end
+
+  def yes_image(value)
+    icon_class = value ? 'glyphicon-ok' : ''
+    content_tag :span, nil, class: "glyphicon #{icon_class}"
+  end
 end
