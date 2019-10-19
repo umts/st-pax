@@ -16,14 +16,14 @@
       = f.text_field :preferred_name, class: 'form-control'
     .form-group.col-md-4
       = f.label :email
-      = f.text_field :email, class: 'form-control'
+      = f.text_field :email, class: 'form-control', required: 'required'
     .form-group.col-md-4
       = f.label :phone_number
-      = f.text_field :phone_number, class: 'form-control'
+      = f.text_field :phone_number, class: 'form-control', required: 'required'
   .form-row
     .form-group.col-md-12
       = f.label :address
-      = f.text_field :address, class: 'form-control'
+      = f.text_field :address, class: 'form-control', required: 'required'
       %i 
         Please enter the location at which you will generally be picked up/dropped
         off. If you live on campus, enter the dorm building. If you are a commuter
@@ -68,7 +68,7 @@
         = d.check_box :terms_and_conditions, class: 'form-check-input'
         = d.label :terms_and_conditions,
           'I accept and understand the terms and conditions',
-          class: 'form-check-label'
+          class: 'form-check-label', required: true
 
   .form-group
     = f.submit 'Submit', class: 'btn btn-primary'
