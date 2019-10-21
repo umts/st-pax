@@ -56,9 +56,6 @@ class ApplicationController < ActionController::Base
     session[:spire] = @registrant.spire
     session[:name] = @registrant.name
     session[:passenger_id] = @registrant.id
-    unless request.env['REQUEST_PATH'] == register_passengers_path
-      redirect_to register_passengers_path
-    end
   end
 
   # '... and return' is the correct behavior here, disable rubocop warning
