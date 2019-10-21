@@ -34,14 +34,13 @@ class ApplicationController < ActionController::Base
       elsif request.env.key? 'fcIdNumber'
         User.find_by spire: request.env['fcIdNumber']
       end
-    if @current_user.present?
-      session[:user_id] = @current_user.id
-    end
+    session[:user_id] = @current_user.id if @current_user.present?
   end
   # rubocop:enable AbcSize
-  
+
   def login_as_passenger
     return if @current_user.present?
+
     @registrant =
       if session[:passenger_id]
         Passenger.find_by(id: session[:passenger_id])
@@ -80,10 +79,7 @@ class ApplicationController < ActionController::Base
            layout: false
   end
 
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
   def access_control
-    deny_access and return unless @current_user.present? && @current_user.admin?
+    deny_access && return unless @current_user.present? && @current_user.admin?
   end
-  # rubocop:enable Style/AndOr
 end
