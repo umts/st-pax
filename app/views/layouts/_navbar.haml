@@ -1,11 +1,15 @@
 %nav.navbar.navbar-default
   .container-fluid
-    = navbar_link 'Passengers', passengers_url
-    = navbar_link 'Add New Passenger', new_passenger_url
-    = navbar_link 'Dispatch Log', log_index_url
-    - if @current_user.admin?
+    - if @current_user
+      = navbar_link 'Passengers', passengers_url
+      = navbar_link 'Add New Passenger', new_passenger_url
+      = navbar_link 'Dispatch Log', log_index_url
+    - if @current_user&.admin?
       = navbar_link 'Manage Users', users_url
       = navbar_link 'Manage Mobility Devices', mobility_devices_url
       = navbar_link 'Archived Passengers', archived_passengers_url
+    = navbar_link 'Brochure', brochure_passengers_path
+    - if @registrant.present?
+      = navbar_link 'Registration', register_passengers_path
     = link_to destroy_session_url do
       %button.btn.btn-default.navbar-btn.navbar-right Logout
