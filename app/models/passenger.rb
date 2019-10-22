@@ -41,8 +41,9 @@ class Passenger < ApplicationRecord
 
   def needs_doctors_note?
     return false if permanent?
-    doctors_note.blank? || doctors_note.try(:expired_within_grace_period?)
-    # doctors note blank AND registration date was less than three days ago..
+    recently_registered = registration_date >= 3.days.ago.to_date
+    doctors_note&.expired_within_grace_period? ||
+    (doctors_note.blank? && recently_registered)
   end
 
   def rides_expire
