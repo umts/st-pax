@@ -3,16 +3,18 @@
   Passengers
 
 = form_tag passengers_path, method: :get do
-  = label_tag 'Filter by Type:'
-  .passenger-filters
-    %label{ for: 'filter_permanent' } Permanent Only
-    = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
-    %label{ for: 'filter_temporary' } Temporary Only
-    = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
-    %label{ for: 'filter_'} All
-    = radio_button_tag :filter, '', @filters.include?('all')
-  = submit_tag 'Show Passengers'
-  = submit_tag 'Print filtered list', name: 'print'
+  .form-group
+    = label_tag 'Filter by Type:'
+    .passenger-filters
+      %label{ for: 'filter_permanent' } Permanent Only
+      = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
+      %label{ for: 'filter_temporary' } Temporary Only
+      = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
+      %label{ for: 'filter_'} All
+      = radio_button_tag :filter, '', @filters.include?('all')
+  .form-group
+    = submit_tag 'Show Passengers'
+    = submit_tag 'Print filtered list', name: 'print'
   %table#key
     %tbody
       %tr
@@ -20,7 +22,7 @@
         %td.needs-note Within grace period, needs doctor's note
         %td.expired Expired - out of grace period
 - if @passengers.present?
-  %table#passengers{data: {paging: 'false'}}
+  %table.table#passengers{data: {paging: 'false'}}
     %thead
       %tr
         %th Name
