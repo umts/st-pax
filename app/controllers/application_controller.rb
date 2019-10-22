@@ -46,11 +46,9 @@ class ApplicationController < ActionController::Base
           email: request.env['mail']
         )
       end
-    # remove this line when done developing
-    @registrant = Passenger.new(spire: '12345678@umass.edu', name: 'karin e', email: 'karin@example.com')
-    session[:spire] = @registrant.spire
-    session[:name] = @registrant.name
-    session[:passenger_id] = @registrant.id
+    session[:spire] = @registrant&.spire
+    session[:name] = @registrant&.name
+    session[:passenger_id] = @registrant&.id
   end
 
   # '... and return' is the correct behavior here, disable rubocop warning

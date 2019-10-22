@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'factory_bot'
+
 class SessionsController < ApplicationController
   layout false
-  skip_before_action :access_control, :check_primary_account, :set_current_user, :login_as_passenger
+  skip_before_action :access_control, :check_primary_account, :set_current_user
 
   def destroy
     session.clear
@@ -17,6 +19,7 @@ class SessionsController < ApplicationController
     if request.get?
       @admins = User.admins.order :name
       @dispatchers = User.dispatchers.order :name
+      @passengers = Passenger.temporary.limit(5)
     elsif request.post?
       if find_user
         redirect_to passengers_path and return
@@ -35,14 +38,7 @@ class SessionsController < ApplicationController
 
   def set_passenger
     passenger = Passenger.find_by(id: params[:passenger_id])
-    session[:passenger_id] = passenger.id if passenger.present?
-  end
-
-  def new_spire
-    if Passenger.any?
-      (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0') + '@umass.edu'
-    else
-      '00000000@umass.edu'
-    end
+    passenger ||= FactoryBot.create :passenger
+    session[:passenger_id] = passenger.id
   end
 end

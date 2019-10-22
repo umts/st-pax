@@ -5,11 +5,7 @@ FactoryBot.define do
     name { FFaker::Name.name }
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
-    phone { FFaker::PhoneNumber.short_phone_number }
-    mobility_device { MobilityDevice.all.sample }
-    sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    active_status { 'active' }
-    registration_date { Time.zone.today }
+    spire { new_spire }
 
     trait :temporary do
       permanent { false }
@@ -47,5 +43,13 @@ FactoryBot.define do
         create :doctors_note, :expiring_soon, passenger: passenger
       end
     end
+  end
+end
+
+def new_spire
+  if Passenger.any?
+    (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0') + '@umass.edu'
+  else
+    '00000000@umass.edu'
   end
 end
