@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-feature 'Passenger Filters' do
+describe 'Passenger Filters' do
   before :each do
     when_current_user_is :admin
   end
-  scenario 'permanent filter' do
+  it 'allows filtering by permanent status' do
     create :passenger, :temporary, name: 'Gary Stue'
     create :passenger, :permanent, name: 'Mary Sue'
     visit passengers_url
@@ -16,7 +16,7 @@ feature 'Passenger Filters' do
     expect(page).to have_content 'Mary Sue'
     expect(page).not_to have_content 'Gary Stue'
   end
-  scenario 'temporary filter' do
+  it 'allows filtering by temporary' do
     create :passenger, :permanent, name: 'Mary Sue'
     create :passenger, :temporary, name: 'Gary Stue'
     visit passengers_url
@@ -26,7 +26,7 @@ feature 'Passenger Filters' do
     expect(page).not_to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
-  scenario 'all filter' do
+  it 'allows filtering by everyone' do
     create :passenger, :temporary, name: 'Gary Stue'
     create :passenger, :permanent, name: 'Mary Sue'
     visit passengers_url
@@ -36,7 +36,7 @@ feature 'Passenger Filters' do
     expect(page).to have_content 'Mary Sue'
     expect(page).to have_content 'Gary Stue'
   end
-  scenario 'Printing a PDF' do
+  it 'allows printing a PDF with filters' do
     visit passengers_url
     choose 'Permanent Only'
     create :passenger, :permanent, name: 'Spongebob'

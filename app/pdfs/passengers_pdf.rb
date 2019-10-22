@@ -19,7 +19,7 @@ class PassengersPDF < Prawn::Document
 
   def passengers_table(passengers)
     font_size 14
-    headers = ['Name', 'Mobility Device', 'Phone', 'Expiration Date', 'Notes']
+    headers = ['Name', 'Mobility Device', 'Phone', 'Rides Expire', 'Notes']
     passenger_table = passengers.map { |p| passenger_row p }.unshift headers
 
     table passenger_table, cell_style: { font: 'DejaVu Sans' } do
@@ -31,7 +31,7 @@ class PassengersPDF < Prawn::Document
     name = passenger.name
     mobility_device = passenger.mobility_device.try(:name)
     phone = passenger.phone
-    expiration = passenger.expiration_display
+    expiration = passenger.rides_expire
     note = passenger.note
     [name, mobility_device, phone, expiration, note]
   end
