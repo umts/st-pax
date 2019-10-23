@@ -45,7 +45,7 @@ describe Passenger do
     end
     context 'doctors note present' do
       it 'returns the expiration date of the note' do
-        date = 14.days.since.to_date
+        date = 14.days.from_now.to_date
         create :doctors_note, passenger: @passenger, expiration_date: date
         expect(@passenger.rides_expire).to eq date
       end
