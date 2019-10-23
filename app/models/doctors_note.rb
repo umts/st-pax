@@ -13,7 +13,7 @@ class DoctorsNote < ApplicationRecord
   end
 
   def self.expiration_warning
-    7.days.since.to_date
+    7.days.from_now.to_date
   end
 
   def will_expire_within_warning_period?
@@ -22,6 +22,7 @@ class DoctorsNote < ApplicationRecord
   end
 
   def expired_within_grace_period?
+    # expired less than 3 days ago
     expiration_date < Date.today && expiration_date >= DoctorsNote.grace_period
   end
 

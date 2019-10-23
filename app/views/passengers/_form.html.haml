@@ -8,6 +8,9 @@
         %li= message
 = form_with model: @passenger, local: true do |form|
   .field
+    %b Registration date:
+    = @passenger.registration_date
+  .field
     = form.label :permanent
     = form.check_box :permanent, disabled: !@current_user.admin?
   .field
@@ -44,12 +47,16 @@
   .field
     = form.label :active?
     = form.check_box :active?, {}, 'active', 'archived'
-  = form.fields_for :doctors_note, @doctors_note do |d|
-    .field
-      = d.label :expiration_date
-      = d.text_field :expiration_date,
-         class: 'datepicker doctors_note_expiration_date',
-         disabled: @passenger.permanent?
+  .doctors-note-fields{class: doctors_note_fields_class}
+    = form.label :has_doctors_note
+    = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
+    = form.fields_for :doctors_note, @doctors_note do |d|
+      .form-group
+        = d.label :expiration_date, "Doctor's note expires"
+        = d.text_field :expiration_date,
+          class: 'datepicker doctors_note_expiration_date'
+        - if @passenger.doctors_note.blank? && @passenger.temporary?
+          %i="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
   .field
     = form.label :note
     = form.text_area :note, rows: 20, cols: 100

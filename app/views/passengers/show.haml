@@ -16,26 +16,35 @@
   = @passenger.status
 %p
   %b Registered with disability services?
-  %td.yes= yes_no_image @passenger.registered_with_disability_services?
+  = yes_no_image @passenger.registered_with_disability_services?
 %p
   %b Has brochure?
-  %td.yes= yes_no_image @passenger.has_brochure?
+  = yes_no_image @passenger.has_brochure?
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
   %b Active:
-  %td.yes= yes_no_image @passenger.active?
+  = yes_no_image @passenger.active?
 %p
   %b Permanent:
-  %td.yes= yes_no_image @passenger.permanent
+  = yes_no_image @passenger.permanent
 - if @passenger.temporary?
   %p
-    %b Doctor's Note Expiration Date:
-    = @passenger.expiration_display
+    %b Has Doctor's Note?
+    = yes_no_image @passenger.doctors_note.present?
+  %p
+    - if @passenger.doctors_note.present?
+      %b Doctor's Note Expiration Date:
+    - else
+      %b Rides Expire:
+    = @passenger.rides_expire.strftime('%m/%d/%Y')
 %p
   %b Registering Dispatcher:
   = @passenger.registerer || 'Unknown'
+%p
+  %b Registration Date:
+  = @passenger.registration_date
 %p
   %b Other Notes:
   = @passenger.note
