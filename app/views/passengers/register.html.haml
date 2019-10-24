@@ -1,74 +1,68 @@
-- @render_navbar = false
-%h1 Register with Special Transportation Services
-= form_with model: @registrant do |f|
-  .form-row
-    .form-group.col-md-6
-      = f.label :name
-      = f.text_field :name, class: 'form-control',
-        disabled: 'disabled'
-    .form-group.col-md-6
-      = f.label :spire
-      = f.text_field :spire, class: 'form-control',
-        disabled: 'disabled'
-  .form-row
-    .form-group.col-md-4
-      = f.label :preferred_name, 'Preferred name (optional)'
-      = f.text_field :preferred_name, class: 'form-control'
-    .form-group.col-md-4
-      = f.label :email
-      = f.text_field :email, class: 'form-control', required: 'required'
-    .form-group.col-md-4
-      = f.label :phone_number
-      = f.text_field :phone_number, class: 'form-control', required: 'required'
-  .form-row
-    .form-group.col-md-12
-      = f.label :address
-      = f.text_field :address, class: 'form-control', required: 'required'
-      %i 
-        Please enter the location at which you will generally be picked up/dropped
-        off. If you live on campus, enter the dorm building. If you are a commuter
-        and park in a parking lot, enter the lot where you will be picked up.
-  .form-row
-    .form-group.col-md-4
-      = f.label :mobility_device_id
-      = f.select :mobility_device_id,
-       options_from_collection_for_select(MobilityDevice.order(:name),
-         :id, :name), { include_blank: 'None' }, {class: 'form-control'}
-    .form-group.col-md-4
-      = f.check_box :needs_assistance, class: 'form-check-input'
-      = f.label :needs_assistance, class: 'form-check-label'
-    = f.fields_for :doctors_note, @registrant.doctors_note do |d|
-      .form-group.col-md-4
+= render 'registration_status'
+= form_with scope: @registrant, url: register_passengers_path do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control', disabled: 'disabled'
+  .form-group
+    = f.label :spire
+    = f.text_field :spire, class: 'form-control', disabled: 'disabled'
+  .form-group
+    = f.label :preferred_name, 'Preferred name (optional)'
+    = f.text_field :preferred_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control', required: 'required'
+  .form-group
+    = f.label :phone
+    = f.text_field :phone, class: 'form-control', required: 'required'
+  .form-group
+    = f.label :address
+    = f.text_field :address, class: 'form-control', required: 'required'
+    %i 
+      Please enter the location at which you will generally be picked up/dropped
+      off. If you live on campus, enter the dorm building. If you are a commuter
+      and park in a parking lot, enter the lot where you will be picked up.
+  .form-group
+    = f.label :mobility_device_id
+    = f.select :mobility_device_id,
+     options_from_collection_for_select(MobilityDevice.order(:name),
+       :id, :name), { include_blank: 'None' }, {class: 'form-control'}
+  .form-group
+    = f.check_box :needs_assistance, class: 'form-check-input'
+    = f.label :needs_assistance, class: 'form-check-label'
+  .form-group
+    = f.fields_for :doctors_note, @doctors_note do |d|
+      .form-group
         = d.label :expiration_date, 'How long will you be with us?'
-        = d.text_field :expiration_date, class: 'registration-datepicker form-control'
+        = d.text_field :expiration_date, class: 'registration-datepicker form-control',
+          disabled: @registrant.active?
         %i 
           If you need us longer than 6 weeks, you will need to register with UHS,
           Disability Services, or Accessible Workplace.
-      .form-row
-        .col-md-12
-          %i 
-            Only one of the following two fields are required: your doctor's phone
-            number or doctor's full address.
-        .form-group.col-md-6
-          = d.label :doctors_name
-          = d.text_field :doctors_name, class: 'form-control'
-        .form-group.col-md-6
-          = d.label :doctors_phone
-          = d.text_field :doctors_phone, class: 'form-control'
-      .form-row
-        .form-group.col-md-12
-          = d.label :doctors_address
-          = d.text_field :doctors_address, class: 'form-control'
-        %b Terms and conditions
-      %p
-        Welcome to UMass Special Transportation! Now that you have started the
-        registration process, please read through the following information:
-      = render 'terms_and_conditions'
-      .form-check.form-check-inline
-        = d.check_box :terms_and_conditions, class: 'form-check-input'
-        = d.label :terms_and_conditions,
-          'I accept and understand the terms and conditions',
-          class: 'form-check-label', required: true
-
-  .form-group
-    = f.submit 'Submit', class: 'btn btn-primary'
+      .form-group
+        = d.label :doctors_name
+        = d.text_field :doctors_name, class: 'form-control'
+      .form-group
+        %i 
+          Only one of the following two fields are required: your doctor's phone
+          number or doctor's full address.
+      .form-group
+        = d.label :doctors_phone
+        = d.text_field :doctors_phone, class: 'form-control'
+      .form-group
+        = d.label :doctors_address
+        = d.text_field :doctors_address, class: 'form-control'
+      .form-group
+        %h2 Terms and conditions
+        %p
+          Welcome to UMass Special Transportation! Now that you have started the
+          registration process, please read through the following information:
+        = render 'terms_and_conditions'
+      .form-group
+        .form-check.form-check-inline
+          = f.check_box :terms_and_conditions, class: 'form-check-input'
+          = f.label :terms_and_conditions,
+            'I accept and understand the terms and conditions',
+            class: 'form-check-label', required: true
+    .form-group
+      = f.submit 'Submit', class: 'btn btn-primary'
