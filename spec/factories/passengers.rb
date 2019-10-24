@@ -9,6 +9,7 @@ FactoryBot.define do
     mobility_device { MobilityDevice.all.sample }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
     active_status { 'active' }
+    registration_date { Time.zone.today }
 
     trait :temporary do
       permanent { false }

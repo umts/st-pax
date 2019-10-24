@@ -19,7 +19,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        fill_in 'Expiration Date', with: date
+        fill_in "Doctor's note expires", with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger was successfully created.'
       end
@@ -83,7 +83,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_button 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Expiration Date', with: date
+        fill_in "Doctor's note expires", with: date
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         click_button 'Submit'
         expect(page).to have_text 'Passenger was successfully created.'

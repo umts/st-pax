@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class PassengersController < ApplicationController
-  before_action :find_passenger, only: %i[show edit update destroy toggle_archive]
+  before_action :find_passenger,
+                only: %i[show edit update destroy toggle_archive]
   before_action :access_control, only: %i[destroy archived toggle_archive]
 
   def archived
