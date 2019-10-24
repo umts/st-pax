@@ -50,6 +50,13 @@ class Passenger < ApplicationRecord
     (doctors_note.blank? && recently_registered)
   end
 
+  def rides_expired?
+    return false if permanent?
+
+    registration_expired = registration_date < 3.days.ago.to_date
+    registration_expired && (doctors_note.nil? || doctors_note&.expired?)
+  end
+
   def rides_expire
     return if permanent?
 

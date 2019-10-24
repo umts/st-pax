@@ -10,7 +10,7 @@ module PassengersHelper
       'expires-soon'
     elsif passenger.needs_doctors_note?
       'needs-note'
-    elsif passenger.doctors_note.try(:expired?)
+    elsif passenger.rides_expired?
       'expired'
     end
   end
