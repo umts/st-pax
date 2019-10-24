@@ -1,0 +1,15 @@
+%h1 Register with Special Transportation Services
+- if @registrant.persisted?
+  - if @registrant.pending?
+    %p 
+      Your registration with Special Transportation Services has not been
+      approved. You can still edit your information.
+  - if @registrant.active?
+    %p
+      Your registration with Special Transportation Services has been
+      approved. Please call the dispatcher at (413) 545-2086 to schedule
+      rides or edit the ride expiration date.
+  - if @registrant.archived?
+    %p
+      You are no longer registered with Special Transportation Services.
+      Please call the dispatcher at (413) 545-2086 to re-register.
