@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Passenger Management', js: true do
+RSpec.describe 'Passenger Management', js: true do
   context 'as an admin' do
     before :each do
       @user = create :user, :admin

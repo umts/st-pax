@@ -12,7 +12,7 @@ require 'rails_helper'
 #     end
 #   end
 # end
-describe PassengersHelper do
+RSpec.describe PassengersHelper do
   describe 'passengers_table_row_class' do
     before :each do
       @passenger = create :passenger, :temporary, :with_note

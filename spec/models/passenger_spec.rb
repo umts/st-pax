@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Passenger do
+RSpec.describe Passenger do
   before :each do
     @passenger = create :passenger
   end

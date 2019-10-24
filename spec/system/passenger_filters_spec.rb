@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Passenger Filters' do
+RSpec.describe 'Passenger Filters' do
   before :each do
     when_current_user_is :admin
   end
