@@ -37,6 +37,7 @@ class PassengersPDF < Prawn::Document
   def passenger_row(passenger)
     name = passenger.name
     needs_longer_ride = if passenger.mobility_device&.needs_longer_rides?
+                          # unicode for checkmark
                           "\u2714"
                         else ''
                         end
