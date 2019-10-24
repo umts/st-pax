@@ -9,13 +9,8 @@ module ApplicationHelper
     end
   end
 
-  def yes_no_image(value)
-    icon_class = value ? 'glyphicon-ok' : 'glyphicon-remove'
-    content_tag :span, nil, class: "glyphicon #{icon_class}"
-  end
-
-  def yes_image(value)
-    icon_class = value ? 'glyphicon-ok' : ''
+  def checkmark_glyph(value, yes: 'glyphicon-ok', no: 'glyphicon-remove')
+    icon_class = value ? yes : no
     content_tag :span, nil, class: "glyphicon #{icon_class}"
   end
 end
