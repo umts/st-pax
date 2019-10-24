@@ -25,6 +25,14 @@ class Passenger < ApplicationRecord
 
   belongs_to :mobility_device, optional: true
 
+  attr_accessor :needs_assistance
+
+  before_save do
+    if needs_assistance
+      self.note = 'Needs additional assistance getting to/from buildings'
+    end
+  end
+
   before_validation do
     if active_status_changed? && active?
       assign_attributes(registration_date: Time.zone.today)

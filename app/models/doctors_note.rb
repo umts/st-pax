@@ -7,8 +7,6 @@ class DoctorsNote < ApplicationRecord
   validate :temporary_passenger
   validates :expiration_date, presence: true
 
-  attr_accessor :terms_and_conditions
-
   def self.grace_period
     3.days.ago.to_date
   end
