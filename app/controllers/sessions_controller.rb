@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
 
   def set_passenger
     passenger = Passenger.find_by(id: params[:passenger_id])
-    passenger ||= FactoryBot.create :passenger
+    passenger ||= FactoryBot.create :passenger, :temporary
     session[:passenger_id] = passenger.id
   end
 end
