@@ -57,6 +57,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     builder (3.2.3)
+    business_time (0.9.3)
+      activesupport (>= 3.2.0)
+      tzinfo
     byebug (11.0.1)
     capistrano (3.9.1)
       airbrussh (>= 1.0.0)
@@ -318,6 +321,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.4.1)
+  business_time
   capistrano (~> 3.9.0)
   capistrano-bundler
   capistrano-passenger

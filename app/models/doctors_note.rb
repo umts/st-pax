@@ -9,7 +9,7 @@ class DoctorsNote < ApplicationRecord
   validates :expiration_date, presence: true
 
   def self.grace_period
-    3.days.ago.to_date
+    3.business_days.ago
   end
 
   def self.expiration_warning
