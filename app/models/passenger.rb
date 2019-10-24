@@ -45,6 +45,7 @@ class Passenger < ApplicationRecord
 
   def needs_doctors_note?
     return false if permanent?
+
     recently_registered = registration_date >= 3.days.ago.to_date
     doctors_note&.expired_within_grace_period? ||
     (doctors_note.blank? && recently_registered)
