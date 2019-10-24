@@ -9,8 +9,8 @@ class Passenger < ApplicationRecord
   STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
   validates :spire, uniqueness: true,
-            format: { with: /\A\d{8}@umass.edu\z/,
-                      message: 'must be 8 digits followed by @umass.edu' }
+                    format: { with: /\A\d{8}@umass.edu\z/,
+                              message: 'must be 8 digits followed by @umass.edu' }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
@@ -49,6 +49,7 @@ class Passenger < ApplicationRecord
 
   def needs_doctors_note?
     return false if permanent?
+
     doctors_note.blank? || doctors_note.try(:expired_within_grace_period?)
     # doctors note blank AND registration date was less than three days ago..
   end
