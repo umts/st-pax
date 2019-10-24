@@ -10,16 +10,24 @@ class PassengersController < ApplicationController
   end
 
   def register
-    @registrant.doctors_note = DoctorsNote.new
+    @doctors_note = @registrant.doctors_note || DoctorsNote.new
     return if request.get?
+    unless params[:terms_and_conditions]
+      flash[:errors] = 'Please accept the terms and conditions' 
+      render :register and return
+    end
     @registrant = Passenger.new registration_params
     if @registrant.save
+      flash[:success] = 'Registration request successfully submitted. '\
+        'Please read the policies and ride scheduling information below.'
       redirect_to passengers_brochure_path
+    else
+      flash[:errors] = @registrant.errors.full_messages
+      render :register
     end
   end
 
   def brochure
-
   end
 
   def toggle_archive
@@ -122,8 +130,13 @@ class PassengersController < ApplicationController
   def registration_params
     params.require(:passenger).permit(
       :preferred_name,
-      :email
-    ).merge(session.slice(:name, :spire))
+      :email,
+      :phone,
+      :address,
+      :mobility_device_id,
+      :needs_assistance,
+      doctors_note_attributes: %i[expiration_date doctors_name doctors_address]
+    ).merge! name: session[:name], spire: session[:spire]
   end
 
   def find_passenger
