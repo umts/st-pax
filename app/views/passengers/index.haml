@@ -41,7 +41,7 @@
         %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
           %td= passenger.mobility_device.try(:name)
-          %td{data: {sort: passenger.mobility_device.try(:needs_longer_rides?).to_s}}= checkmark_glyph(passenger.mobility_device.try(:needs_longer_rides?), no: '')
+          %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
           %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')

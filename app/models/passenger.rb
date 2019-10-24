@@ -39,6 +39,10 @@ class Passenger < ApplicationRecord
     doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
+  def needs_longer_rides?
+    mobility_device&.needs_longer_rides?.present?
+  end
+
   def needs_doctors_note?
     return false if permanent?
     recently_registered = registration_date >= 3.days.ago.to_date
