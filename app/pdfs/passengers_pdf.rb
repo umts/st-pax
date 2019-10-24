@@ -3,7 +3,6 @@
 require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
-  # what is the name of this file?
   def initialize(passengers, filters)
     super(page_layout: :landscape, page_size: 'TABLOID')
     font_families.update(
