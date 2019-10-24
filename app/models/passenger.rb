@@ -61,9 +61,14 @@ class Passenger < ApplicationRecord
   def rides_expire
     return if permanent?
 
-    return doctors_note.expiration_date if doctors_note.present?
-    return 3.days.since(registration_date) if persisted?
-
+    if doctors_note.present?
+      if doctors_note.expired_within_grace_period?
+        return 3.days.since(doctors_note.expiration_date)
+      else return doctors_note.expiration_date
+      end
+    else
+      return 3.days.since(registration_date) if persisted?
+    end
     3.days.from_now.to_date
   end
 
