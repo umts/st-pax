@@ -43,7 +43,7 @@
     = form.label :mobility_device_id
     = form.select :mobility_device_id,
      options_from_collection_for_select(MobilityDevice.order(:name),
-      :id, :name), include_blank: 'None'
+      :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
   .field
     = form.label :active?
     = form.check_box :active?, {}, 'active', 'archived'
