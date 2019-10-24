@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_171722) do
+ActiveRecord::Schema.define(version: 2019_10_24_161928) do
 
   create_table "doctors_notes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "passenger_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_171722) do
     t.boolean "has_brochure"
     t.integer "active_status", default: 0
     t.date "registration_date"
+    t.string "preferred_name"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
