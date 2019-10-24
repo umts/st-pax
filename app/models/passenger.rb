@@ -25,17 +25,7 @@ class Passenger < ApplicationRecord
 
   belongs_to :mobility_device, optional: true
 
-  before_validation do
-    assign_registration_date
-  end
-
-  def assign_registration_date
-    if active_status_changed? && active?
-      assign_attributes(registration_date: Time.zone.today)
-    elsif registration_date.blank?
-      assign_attributes(registration_date: (created_at || Time.zone.today))
-    end
-  end
+  before_validation :assign_registration_date
 
   def expiration_display
     return if permanent?
@@ -54,5 +44,15 @@ class Passenger < ApplicationRecord
 
   def temporary?
     !permanent?
+  end
+
+  private
+
+  def assign_registration_date
+    if active_status_changed? && active?
+      assign_attributes(registration_date: Time.zone.today)
+    elsif registration_date.blank?
+      assign_attributes(registration_date: (created_at || Time.zone.today))
+    end
   end
 end
