@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+require 'pathname'
 require 'simplecov'
 
-SimpleCov.start do
+Pathname(__dir__).join('support').glob('**/*.rb').each { |f| require f }
+
+SimpleCov.start 'rails' do
   refuse_coverage_drop
 end
 
@@ -14,20 +17,20 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
+
+  config.filter_run :focus
+  config.run_all_when_everything_filtered = true
+
+  config.disable_monkey_patching!
+
+  if config.files_to_run.one?
+    config.default_formatter = 'doc'
+  else
+    config.default_formatter = 'progress'
+  end
+
+  config.order = :random
+  Kernel.srand config.seed
+
   config.shared_context_metadata_behavior = :apply_to_host_groups
-end
-
-def when_current_user_is(user)
-  current_user =
-    case user
-    when Symbol then create :user, user
-    when User then user
-    when nil then nil
-    else raise ArgumentError, 'Invalid user type'
-    end
-  login_as current_user
-end
-
-def login_as(user)
-  page.set_rack_session(user_id: user.id)
 end

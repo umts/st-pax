@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe DoctorsNote do
+RSpec.describe DoctorsNote do
   before :each do
     @doctors_note = create :doctors_note
   end

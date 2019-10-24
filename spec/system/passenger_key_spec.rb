@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Passenger Keys' do
+RSpec.describe 'Passenger Keys' do
   before :each do
     when_current_user_is :admin
   end
