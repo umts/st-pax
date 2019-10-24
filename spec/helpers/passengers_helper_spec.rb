@@ -19,14 +19,14 @@ describe PassengersHelper do
       @doctors_note = @passenger.doctors_note
     end
     context 'will expire within warning period' do
-      it "returns 'will_expire_soon'" do
+      it "returns the correct class" do
         @doctors_note.update expiration_date: 5.days.since
         expect(helper.passengers_table_row_class(@passenger))
           .to eql 'expires-soon'
       end
     end
     context 'expired withing graced period' do
-      it "returns 'expired_within_grace_period'" do
+      it "returns the correct class" do
         @doctors_note.update expiration_date: 1.day.ago
         expect(helper.passengers_table_row_class(@passenger))
           .to eql 'needs-note'
