@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Archived Passenger Management' do
+RSpec.describe 'Archived Passenger Management' do
   before :each do
     @user = create :user, :admin
     when_current_user_is(@user)
