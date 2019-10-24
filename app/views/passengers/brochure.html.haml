@@ -30,20 +30,20 @@
       %caption Semester Hours of Operation
       %thead
         %tr
-          %th
+          %th{ 'aria-label': 'Days' }
           %th Dispatch
           %th Van Hours
       %tbody
         %tr
-          %th Monday Through Friday
+          %th{ scope: 'row'} Monday Through Friday
           %td 7:00 AM to 5:00 PM
           %td 7:15 AM to 8:15 PM
         %tr
-          %th Saturday
+          %th{ scope: 'row' } Saturday
           %td closed
           %td 10:00 AM to 8:00 PM
         %tr
-          %th Sunday
+          %th{ scope: 'row' } Sunday
           %td closed
           %td 10:00 AM to 8:00 PM
 .row
@@ -52,21 +52,19 @@
       %caption Reducted Service (Holidays, Summer, Intersession) Hours
       %thead
         %tr
-          %th
+          %th{ 'aria-label': 'Days' }
           %th Dispatch
           %th Van Hours
       %tbody
         %tr
-          %th Monday Through Friday
+          %th{ scope: 'row'} Monday Through Friday
           %td 8:00 AM to 5:00 PM
           %td 7:15 AM to 7:15 PM
         %tr
-          %th Saturday
+          %th{ scope: 'row' } Saturday
           %td closed
           %td 11:15 AM to 4:45 PM
         %tr
-          %th Sunday
+          %th{ scope: 'row' } Sunday
           %td closed
           %td closed
-
-
