@@ -37,7 +37,7 @@ class Passenger < ApplicationRecord
     return if permanent?
 
     if doctors_note.present?
-      return Time.first_business_day(doctors_note.expiration_date.to_time)
+      return Time.first_business_day(doctors_note.expiration_date)
     end
     return 3.business_days.since(registration_date) if persisted?
 
