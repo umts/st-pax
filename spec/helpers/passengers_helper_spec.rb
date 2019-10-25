@@ -28,10 +28,6 @@ RSpec.describe PassengersHelper do
         @passenger.update registration_date: 10.days.ago
         expect(helper.passengers_table_row_class(@passenger)).to eql 'expired'
       end
-      it "returns the correct class" do
-        @doctors_note.update expiration_date: 10.business_days.ago
-        expect(helper.passengers_table_row_class(@passenger)).to eql 'inactive'
-      end
     end
     context 'the passenger needs a doctors note' do
       it 'returns the correct class' do
