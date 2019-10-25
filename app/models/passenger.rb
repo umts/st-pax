@@ -40,7 +40,7 @@ class Passenger < ApplicationRecord
   def needs_doctors_note?
     return false if permanent?
 
-    recently_registered = registration_date >= 3.days.ago.to_date
+    recently_registered = registration_date >= 3.business_days.ago
     doctors_note&.expired_within_grace_period? ||
     (doctors_note.blank? && recently_registered)
   end
@@ -48,7 +48,7 @@ class Passenger < ApplicationRecord
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < 3.days.ago.to_date
+    registration_expired = registration_date < DoctorsNote.grace_period
     registration_expired && (doctors_note.nil? || doctors_note&.expired?)
   end
 
@@ -56,11 +56,11 @@ class Passenger < ApplicationRecord
     return if permanent?
 
     if doctors_note.present?
-      return 3.days.after(doctors_note.expiration_date)
+      return 3.business_days.after(doctors_note.expiration_date)
     end
+    return 3.business_days.since(registration_date) if persisted?
 
-    return 3.days.since(registration_date) if persisted?
-    3.days.from_now.to_date
+    3.business_days.from_now
   end
 
   def temporary?

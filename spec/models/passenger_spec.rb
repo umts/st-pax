@@ -15,8 +15,8 @@ RSpec.describe Passenger do
       end
     end
     context 'temporary passenger' do
-      it 'returns the expiration date' do
-        date = 14.days.since
+      it 'returns the expiration date of the doctors note' do
+        date = 14.days.from_now
         create :doctors_note, passenger: @passenger, expiration_date: date
         expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
       end
@@ -37,7 +37,7 @@ RSpec.describe Passenger do
   end
 
   describe 'rides_expire' do
-    context 'permaent passenger' do
+    context 'permanent passenger' do
       it 'returns nil' do
         @passenger.update permanent: true
         expect(@passenger.rides_expire).to be nil
@@ -48,26 +48,26 @@ RSpec.describe Passenger do
         it 'returns 3 days from the doctors note expiry' do
           date = 2.days.ago.to_date
           create :doctors_note, passenger: @passenger, expiration_date: date
-          expect(@passenger.rides_expire).to eq 3.days.since(date)
+          expect(@passenger.rides_expire).to eq 3.business_days.since(date)
         end
       end
       context 'the doctors note is not expired' do
-        it 'returns the expiration date of the note' do
-          date = 14.days.from_now.to_date
-          create :doctors_note, passenger: @passenger, expiration_date: date
-          expect(@passenger.rides_expire).to eq date
+        it 'returns three business days after the expiration date of the note' do
+          date = 14.days.from_now
+          note = create :doctors_note, passenger: @passenger, expiration_date: date
+          expect(@passenger.rides_expire).to eq 3.business_days.after(note.expiration_date)
         end
       end
     end
-    context 'temporary, no docs note, but not new' do
-      it 'returns 3 days after the registration date' do
-        date = @passenger.registration_date + 3.days
-        expect(@passenger.rides_expire).to eq date
+    context 'temporary passenger has no doctors note' do
+      it 'returns 3 business days after the registration date' do
+        date = @passenger.registration_date
+        expect(@passenger.rides_expire).to eq 3.business_days.after(date)
       end
     end
     context 'passenger is a new record' do
       it 'returns 3 days from now' do
-        expect(Passenger.new.rides_expire).to eq 3.days.since.to_date
+        expect(Passenger.new.rides_expire.to_date).to eq 3.business_days.from_now.to_date
       end
     end
   end
