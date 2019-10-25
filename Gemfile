@@ -5,9 +5,11 @@ ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'coffee-rails', '~> 4.2'
+gem 'figaro'
 gem 'haml'
 gem 'haml-rails'
 gem 'mysql2'
+gem 'octokit'
 gem 'prawn'
 gem 'prawn-table'
 gem 'rails', '~> 5.1'
