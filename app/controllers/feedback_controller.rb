@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedbackController < ApplicationController
   def new
     @feedback = Feedback.new
@@ -11,10 +13,10 @@ class FeedbackController < ApplicationController
         @feedback.submit!
       rescue Octokit::Error => e
         @feedback.errors.add(:base, e.message)
-        render :new and return
+        render(:new) && return
       end
       redirect_to feedback_path(@feedback.issue.number),
-        notice: 'Feedback was successfully submitted.'
+                  notice: 'Feedback was successfully submitted.'
     else
       render :new
     end

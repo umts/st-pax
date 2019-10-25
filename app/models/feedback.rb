@@ -1,4 +1,6 @@
-require 'issue_logger'
+# frozen_string_literal: true
+
+require 'mock_github_client'
 
 class Feedback
   include ActiveModel::Model
@@ -17,7 +19,7 @@ class Feedback
 
   def submit!
     @issue =
-      client.create_issue Feedback.repo, title, description, { labels: labels }
+      client.create_issue Feedback.repo, title, description, labels: labels
   end
 
   def load(issue_number)
@@ -43,7 +45,7 @@ class Feedback
   end
 
   def labels
-    categories = Feedback::DEFAULT_CATEGORIES + [ category ]
+    categories = Feedback::DEFAULT_CATEGORIES + [category]
     categories.join(',')
   end
 end

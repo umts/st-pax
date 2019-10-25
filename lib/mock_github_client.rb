@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'ostruct'
-class IssueLogger
+
+class MockGithubClient
   def initialize(logger: nil)
     @logger = logger || Rails.logger
   end
@@ -11,7 +14,7 @@ class IssueLogger
       Repo: #{repo}
       Title: #{title}
       Body:
-      #{body.to_s.lines.map { |line| "  " + line }.join('')}
+      #{body.to_s.lines.map { |line| '  ' + line }.join('')}
       Options: #{options.inspect}
     LOG
     dummy
@@ -28,7 +31,7 @@ class IssueLogger
       number: 1,
       title: 'Dummy Issue',
       body: '',
-      labels: [ OpenStruct.new(name: 'bug') ]
+      labels: [OpenStruct.new(name: 'bug')]
     )
   end
 end
