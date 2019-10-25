@@ -47,7 +47,7 @@ RSpec.describe Passenger do
       it 'returns the first business day after the expiration date of the note' do
         date = 14.days.from_now
         note = create :doctors_note, passenger: @passenger, expiration_date: date
-        expect(@passenger.rides_expire).to eq Time.first_business_day(note.expiration_date)
+        expect(@passenger.rides_expire).to eq 3.business_days.after(note.expiration_date)
       end
     end
     context 'temporary, no docs note, but not new' do
