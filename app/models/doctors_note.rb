@@ -9,7 +9,7 @@ class DoctorsNote < ApplicationRecord
   validates :expiration_date, presence: true
 
   def self.grace_period
-    3.days.ago.to_date
+    3.business_days.ago
   end
 
   def self.expiration_warning
@@ -22,8 +22,8 @@ class DoctorsNote < ApplicationRecord
   end
 
   def expired_within_grace_period?
-    # expired less than 3 days ago
-    expiration_date < Date.today && expiration_date >= DoctorsNote.grace_period
+    return false if expiration_date >= Time.zone.today
+    expiration_date > DoctorsNote.grace_period
   end
 
   def expired?
