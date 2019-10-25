@@ -23,10 +23,6 @@ module PassengersHelper
   end
 
   def sortable_date(note)
-    if note.present?
-      note.expiration_date.strftime('%Y%m%d') if note.present?
-    else
-      ''
-    end
+    note.expiration_date.strftime('%Y%m%d') if note.present?
   end
 end
