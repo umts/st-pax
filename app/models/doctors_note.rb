@@ -27,7 +27,6 @@ class DoctorsNote < ApplicationRecord
   end
 
   def expired?
-    return false if expiration_date >= Time.zone.today
     expiration_date < DoctorsNote.grace_period
   end
 
