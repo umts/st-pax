@@ -17,6 +17,10 @@ class Feedback
     Figaro.env.github_repo
   end
 
+  def self.token
+    Figaro.env.github_token
+  end
+
   def submit!
     @issue =
       client.create_issue Feedback.repo, title, description, labels: labels
@@ -34,15 +38,11 @@ class Feedback
       if Feedback.token.present?
         Octokit::Client.new(access_token: Feedback.token)
       else
-        IssueLogger.new
+        MockGithubClient.new
       end
   end
 
   private
-
-  def self.token
-    Figaro.env.github_token
-  end
 
   def labels
     categories = Feedback::DEFAULT_CATEGORIES + [category]

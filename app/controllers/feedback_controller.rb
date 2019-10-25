@@ -7,19 +7,16 @@ class FeedbackController < ApplicationController
 
   def create
     @feedback = Feedback.new(feedback_params)
+    render(:new) && return unless @feedback.valid?
 
-    if @feedback.valid?
-      begin
-        @feedback.submit!
-      rescue Octokit::Error => e
-        @feedback.errors.add(:base, e.message)
-        render(:new) && return
-      end
-      redirect_to feedback_path(@feedback.issue.number),
-                  notice: 'Feedback was successfully submitted.'
-    else
-      render :new
+    begin
+      @feedback.submit!
+    rescue Octokit::Error => e
+      @feedback.errors.add(:base, e.message)
+      render(:new) && return
     end
+    redirect_to feedback_path(@feedback.issue.number),
+                notice: 'Feedback was successfully submitted.'
   end
 
   def show
