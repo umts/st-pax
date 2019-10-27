@@ -1,6 +1,6 @@
 - if @passengers.present?
   %h1 Archived Passengers
-  %table#passengers
+  %table.table#passengers
     %thead
       %tr
         %th Name
@@ -20,7 +20,7 @@
           %td= passenger.mobility_device.try(:name)
           %td= passenger.email
           %td= passenger.phone
-          %td.yes= yes_no_image passenger.permanent?
+          %td.yes= checkmark_glyph passenger.permanent?
           %td.yes= passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)

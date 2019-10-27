@@ -3,36 +3,37 @@
   Passengers
 
 = form_tag passengers_path, method: :get do
-  = label_tag 'Filter by Type:'
-  .passenger-filters
-    %label{ for: 'filter_permanent' } Permanent Only
-    = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
-    %label{ for: 'filter_temporary' } Temporary Only
-    = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
-    %label{ for: 'filter_'} All
-    = radio_button_tag :filter, '', @filters.include?('all')
-  = submit_tag 'Show Passengers'
-  = submit_tag 'Print These Filters', name: "print"
+  .form-group
+    = label_tag 'Filter by Type:'
+    .passenger-filters
+      %label{ for: 'filter_permanent' } Permanent Only
+      = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
+      %label{ for: 'filter_temporary' } Temporary Only
+      = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
+      %label{ for: 'filter_'} All
+      = radio_button_tag :filter, '', @filters.include?('all')
+  .form-group
+    = submit_tag 'Show Passengers'
+    = submit_tag 'Print filtered list', name: 'print'
   %table#key
     %tbody
       %tr
-        %td.will_expire_soon Will Expire Within 1 Week
-        %td.expired_within_grace_period Expired Within Grace Period
-        %td.inactive Inactive
-        %td.no_note No Doctor's Note
+        %td.expires-soon Expires within one week
+        %td.needs-note Within grace period, needs doctor's note
+        %td.expired Expired - out of grace period
 - if @passengers.present?
-  %table#passengers{data: {paging: 'false'}}
+  %table.table#passengers{data: {paging: 'false'}}
     %thead
       %tr
         %th Name
         %th Mobility Device
-        %th Email
+        %th Needs longer rides?
         %th Phone
         %th.text-center Permanent
         %th.text-center Rides Expire
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
-        -if @current_user.admin?
+        - if @current_user.admin?
           %th{data: {orderable: 'false'}}
           %th{data: {orderable: 'false'}}
     %tbody
@@ -40,9 +41,9 @@
         %tr{class: passengers_table_row_class(passenger)}
           %td= passenger.name
           %td= passenger.mobility_device.try(:name)
-          %td= passenger.email
+          %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
-          %td.text-center{data: {sort: passenger.permanent?.to_s}}= yes_no_image passenger.permanent?
+          %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)

@@ -9,29 +9,30 @@ RSpec.describe PassengersHelper do
       @doctors_note = @passenger.doctors_note
     end
     context 'will expire within warning period' do
-      it "returns 'will_expire_soon'" do
+      it 'returns the correct class' do
         @doctors_note.update expiration_date: 5.days.since
         expect(helper.passengers_table_row_class(@passenger))
-          .to eql 'will_expire_soon'
+          .to eql 'expires-soon'
       end
     end
     context 'expired within grace period' do
-      it "returns 'expired_within_grace_period'" do
+      it 'returns the correct class' do
         @doctors_note.update expiration_date: 1.day.ago
         expect(helper.passengers_table_row_class(@passenger))
-          .to eql 'expired_within_grace_period'
+          .to eql 'needs-note'
       end
     end
     context 'expired' do
-      it "returns 'inactive'" do
-        @doctors_note.update expiration_date: 10.business_days.ago
-        expect(helper.passengers_table_row_class(@passenger)).to eql 'inactive'
+      it 'returns the correct class' do
+        @doctors_note.update expiration_date: 10.days.ago
+        @passenger.update registration_date: 10.days.ago
+        expect(helper.passengers_table_row_class(@passenger)).to eql 'expired'
       end
     end
-    context 'no note' do
-      it "returns 'no_note'" do
+    context 'the passenger needs a doctors note' do
+      it 'returns the correct class' do
         @passenger = create :passenger, :temporary, :no_note
-        expect(helper.passengers_table_row_class(@passenger)).to eql 'no_note'
+        expect(helper.passengers_table_row_class(@passenger)).to eql 'needs-note'
       end
     end
   end

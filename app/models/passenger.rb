@@ -33,6 +33,25 @@ class Passenger < ApplicationRecord
     doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
+  def needs_longer_rides?
+    mobility_device&.needs_longer_rides?.present?
+  end
+
+  def needs_doctors_note?
+    return false if permanent?
+
+    recently_registered = registration_date >= 3.business_days.ago
+    doctors_note&.expired_within_grace_period? ||
+    (doctors_note.blank? && recently_registered)
+  end
+
+  def rides_expired?
+    return false if permanent?
+
+    registration_expired = registration_date < DoctorsNote.grace_period
+    registration_expired && (doctors_note.nil? || doctors_note.expired?)
+  end
+
   def rides_expire
     return if permanent?
 
