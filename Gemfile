@@ -6,6 +6,7 @@ ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
+gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'
 gem 'mysql2'
