@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe LogEntry do
+RSpec.describe LogEntry do
   describe 'entry_time' do
     it 'returns a string of created_at date and time' do
       time = 'Thursday, March 16, 2017 — 10:30 am'

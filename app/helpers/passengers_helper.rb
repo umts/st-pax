@@ -6,12 +6,11 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
-    return if passenger.permanent?
-    if passenger.doctors_note.try(:will_expire_within_warning_period?)
+    if passenger.doctors_note&.will_expire_within_warning_period?
       'expires-soon'
     elsif passenger.needs_doctors_note?
       'needs-note'
-    elsif passenger.doctors_note.try(:expired?)
+    elsif passenger.rides_expired?
       'expired'
     end
   end

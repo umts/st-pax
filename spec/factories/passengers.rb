@@ -6,6 +6,7 @@ FactoryBot.define do
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
     spire { new_spire }
+    active_status { 'active' }
 
     trait :temporary do
       permanent { false }

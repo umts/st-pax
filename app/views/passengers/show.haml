@@ -16,23 +16,23 @@
   = @passenger.status
 %p
   %b Registered with disability services?
-  %td.yes= yes_no_image @passenger.registered_with_disability_services?
+  = checkmark_glyph @passenger.registered_with_disability_services?
 %p
   %b Has brochure?
-  %td.yes= yes_no_image @passenger.has_brochure?
+  = checkmark_glyph @passenger.has_brochure?
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
   %b Active:
-  %td.yes= yes_no_image @passenger.active?
+  = checkmark_glyph @passenger.active?
 %p
   %b Permanent:
-  %td.yes= yes_no_image @passenger.permanent
+  = checkmark_glyph @passenger.permanent
 - if @passenger.temporary?
   %p
     %b Has Doctor's Note?
-    %td.yes= yes_no_image @passenger.doctors_note.present?
+    = checkmark_glyph @passenger.doctors_note.present?
   %p
     - if @passenger.doctors_note.present?
       %b Doctor's Note Expiration Date:

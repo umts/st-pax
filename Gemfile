@@ -4,7 +4,9 @@ source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootstrap-sass', '~> 3.4.1'
+gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
+gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'
 gem 'mysql2'
@@ -12,22 +14,28 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'rails', '~> 5.1'
 gem 'rake'
-gem 'rspec-rails'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1'
+gem 'puma'
 
 group :development, :test do
-  gem 'capybara'
   gem 'codeclimate-test-reporter'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'pry-byebug'
-  gem 'rack_session_access'
-  gem 'rspec-html-matchers'
   gem 'rubocop'
   gem 'simplecov', require: false
+end
+
+group :test do
+  gem 'capybara'
+  gem 'webdrivers'
+  gem 'selenium-webdriver'
+  gem 'rack_session_access'
+  gem 'rspec-rails'
+  gem 'rspec-html-matchers'
   gem 'timecop'
 end
 

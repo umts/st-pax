@@ -11,7 +11,7 @@
       - @devices.each do |device|
         %tr
           %td= device.name
-          %td= yes_no_image device.needs_longer_rides?
+          %td= checkmark_glyph device.needs_longer_rides?
           %td= link_to 'Edit', edit_mobility_device_url(device)
           %td= button_to 'Destroy', device, method: :delete
     - else
