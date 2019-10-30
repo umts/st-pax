@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      flash[:success] = 'User was successfully destroyed.'
+      flash[:success] = 'User successfully destroyed.'
       redirect_to users_url
     else
       flash[:danger] = @user.errors.full_messages

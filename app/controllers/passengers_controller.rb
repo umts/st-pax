@@ -59,7 +59,7 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new(passenger_params)
     @passenger.registered_by = @current_user
     if @passenger.save
-      flash[:success] = 'Passenger was successfully created.'
+      flash[:success] = 'Passenger successfully created.'
       redirect_to @passenger
     else
       flash.now[:danger] = @passenger.errors.full_messages
@@ -70,7 +70,7 @@ class PassengersController < ApplicationController
   def update
     @passenger.assign_attributes passenger_params
     if @passenger.save
-      flash[:success] = 'Passenger was successfully updated.'
+      flash[:success] = 'Passenger successfully updated.'
       redirect_to @passenger
     else
       flash[:danger] = @passenger.errors.full_messages
