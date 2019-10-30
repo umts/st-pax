@@ -79,13 +79,9 @@ class PassengersController < ApplicationController
   end
 
   def destroy
-    if @passenger.destroy
-      flash[:success] = 'Passenger was successfully destroyed.'
-      redirect_to passengers_url
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      redirect_to passengers_url
-    end
+    @passenger.destroy
+    flash[:success] = 'Passenger successfully destroyed.'
+    redirect_to passengers_url
   end
 
   private
