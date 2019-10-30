@@ -12,17 +12,17 @@ class PassengersController < ApplicationController
   def register
     @doctors_note = @registrant.doctors_note || DoctorsNote.new
     return if request.get?
+    @registrant = Passenger.new registration_params
     unless params[:terms_and_conditions]
-      flash[:errors] = 'Please accept the terms and conditions' 
+      flash.now[:danger] = 'Please accept the terms and conditions'
       render :register and return
     end
-    @registrant = Passenger.new registration_params
     if @registrant.save
       flash[:success] = 'Registration request successfully submitted. '\
         'Please read the policies and ride scheduling information below.'
       redirect_to passengers_brochure_path
     else
-      flash[:errors] = @registrant.errors.full_messages
+      flash.now[:danger] = @registrant.errors.full_messages
       render :register
     end
   end
