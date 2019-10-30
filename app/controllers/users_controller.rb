@@ -56,10 +56,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    if @current_user.admin?
-      params.require(:user).permit(:name, :spire, :active, :admin)
-    else
-      params.require(:user).permit(:name, :spire)
-    end
+    params.require(:user).permit(:name, :spire, :active, :admin)
   end
 end
