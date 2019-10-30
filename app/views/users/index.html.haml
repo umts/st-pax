@@ -14,8 +14,8 @@
         %tr
           %td= user.name
           %td= user.spire
-          %td= yes_no_image user.active?
-          %td= yes_no_image user.admin?
+          %td= checkmark_glyph user.active?
+          %td= checkmark_glyph user.admin?
           %td= link_to 'Edit', edit_user_path(user)
           %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
     - else

@@ -12,7 +12,9 @@ class PassengersController < ApplicationController
   def toggle_archive
     if @passenger.archived?
       @passenger.active!
-    else @passenger.archived!
+    else
+      # skip validations on archival
+      @passenger.update_attribute(:active_status, 'archived')
     end
     redirect_to passengers_url, notice: 'Passenger successfully updated'
   end

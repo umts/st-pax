@@ -25,13 +25,7 @@ class Passenger < ApplicationRecord
 
   belongs_to :mobility_device, optional: true
 
-  before_validation do
-    if active_status_changed? && active?
-      assign_attributes(registration_date: Time.zone.today)
-    elsif registration_date.blank?
-      assign_attributes(registration_date: (created_at || Time.zone.today))
-    end
-  end
+  before_validation :assign_registration_date
 
   def expiration_display
     return if permanent?
@@ -39,16 +33,47 @@ class Passenger < ApplicationRecord
     doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
   end
 
+  def needs_longer_rides?
+    mobility_device&.needs_longer_rides?.present?
+  end
+
+  def needs_doctors_note?
+    return false if permanent?
+
+    recently_registered = registration_date >= 3.business_days.ago
+    doctors_note&.expired_within_grace_period? ||
+    (doctors_note.blank? && recently_registered)
+  end
+
+  def rides_expired?
+    return false if permanent?
+
+    registration_expired = registration_date < DoctorsNote.grace_period
+    registration_expired && (doctors_note.nil? || doctors_note.expired?)
+  end
+
   def rides_expire
     return if permanent?
 
-    return doctors_note.expiration_date if doctors_note.present?
-    return 3.days.since(registration_date) if persisted?
+    if doctors_note.present?
+      return 3.business_days.after(doctors_note.expiration_date)
+    end
+    return 3.business_days.since(registration_date) if persisted?
 
-    3.days.from_now.to_date
+    3.business_days.from_now
   end
 
   def temporary?
     !permanent?
+  end
+
+  private
+
+  def assign_registration_date
+    if active_status_changed? && active?
+      assign_attributes(registration_date: Time.zone.today)
+    elsif registration_date.blank?
+      assign_attributes(registration_date: (created_at || Time.zone.today))
+    end
   end
 end
