@@ -34,13 +34,32 @@
   }
 }
 
-@include ui-sprite("444444", '', '.ui-widget-content', '.ui-widget-header');
-@include ui-sprite("555555", '.ui-state-hover', '.ui-state-focus', '.ui-button:hover', '.ui-button:focus');
-@include ui-sprite("ffffff", '.ui-state-active', '.ui-button:active');
-@include ui-sprite("777620", '.ui-state-highlight');
-@include ui-sprite("cc0000", '.ui-state-error', '.ui-state-error-text');
-@include ui-sprite("777777", '.ui-button');
+@include ui-sprite(
+  '444444',
+  '', '.ui-widget-content', '.ui-widget-header'
+);
+@include ui-sprite(
+  '555555',
+  '.ui-state-hover', '.ui-state-focus', '.ui-button:hover', '.ui-button:focus'
+);
+@include ui-sprite(
+  'ffffff',
+  '.ui-state-active', '.ui-button:active'
+);
+@include ui-sprite(
+  '777620',
+  '.ui-state-highlight'
+);
+@include ui-sprite(
+  'cc0000',
+  '.ui-state-error', '.ui-state-error-text'
+);
+@include ui-sprite(
+  '777777',
+  '.ui-button'
+);
 
 .ui-button .ui-state-highlight.ui-icon {
-  background-image: image-url("jquery-ui/themes/base/images/ui-icons_777620_256x240.png");
+  background-image:
+    image-url("jquery-ui/themes/base/images/ui-icons_777620_256x240.png");
 }
