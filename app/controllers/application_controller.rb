@@ -39,15 +39,13 @@ class ApplicationController < ActionController::Base
     @registrant =
       if session[:passenger_id]
         Passenger.find_by(id: session[:passenger_id])
-      elsif request.env.key? 'fcIdNumber'
+      elsif request.env.key?('fcIdNumber')
         Passenger.new(
           spire: "#{request.env['fcIdNumber']}@umass.edu",
           name: "#{request.env['givenName']} #{request.env['surName']}",
           email: request.env['mail']
         )
       end
-    session[:spire] = @registrant&.spire
-    session[:name] = @registrant&.name
     session[:passenger_id] = @registrant&.id
   end
 

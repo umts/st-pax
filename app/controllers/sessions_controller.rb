@@ -38,7 +38,18 @@ class SessionsController < ApplicationController
 
   def set_passenger
     passenger = Passenger.find_by(id: params[:passenger_id])
-    passenger ||= FactoryBot.create :passenger, :temporary
-    session[:passenger_id] = passenger.id
+    session[:passenger_id] = passenger&.id
+    session[:spire] = new_spire
+    session[:first_name] = FFaker::Name.first_name
+    session[:last_name] = FFaker::Name.last_name
+  end
+
+
+  def new_spire
+    if Passenger.any?
+      (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0')
+    else
+      '00000000'
+    end
   end
 end

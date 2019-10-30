@@ -144,8 +144,11 @@ class PassengersController < ApplicationController
       :address,
       :mobility_device_id,
       :needs_assistance,
-      doctors_note_attributes: %i[expiration_date doctors_name doctors_address]
-    ).merge! name: session[:name], spire: session[:spire]
+      doctors_note_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
+    ).merge!(
+      spire: "#{request.env['fcIdNumber']}@umass.edu",
+      name: "#{request.env['givenName']} #{request.env['surName']}",
+    )
   end
 
   def find_passenger
