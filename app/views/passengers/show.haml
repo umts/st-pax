@@ -18,9 +18,6 @@
   %b Registered with disability services?
   = checkmark_glyph @passenger.registered_with_disability_services?
 %p
-  %b Has brochure?
-  = checkmark_glyph @passenger.has_brochure?
-%p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
