@@ -3,12 +3,12 @@ $( document ).on("turbolinks:load", function() {
     dateFormat: 'yy-mm-dd'
   });
 
-  $('.registration-datepicker').datetimepicker({
+  $('.registration-datepicker').datepicker({
     dateFormat: 'm/d/yy',
     maxDate: monthLimit()
   });
 
   function monthLimit(){
-    return moment().add(6, 'months').calendar()
+    return moment().add(6, 'weeks').calendar()
   }
 });
