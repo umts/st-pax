@@ -42,9 +42,11 @@ en:
         active: 'Active?'
         note: 'Additional Notes'
         address: 'Local Address'
-        needs_assistance: 'I will need additional assistance to/from buildings'
       user:
         active: 'Active?'
         admin:  'Admin?'
       doctors_note:
         expiration_date: 'Expiration Date'
+        doctors_name: "Doctor's Name"
+        doctors_address: "Doctor's Full Address"
+        doctors_phone: "Doctor's Phone Number"
