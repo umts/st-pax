@@ -3,7 +3,9 @@
 class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
-  before_action :access_control, only: %i[destroy archived toggle_archive]
+  before_action :restrict_to_admin, only: %i[destroy archived toggle_archive]
+  before_action :restrict_to_employee, except: %i[register brochure create]
+  # add edit/update to allowed actions for passenger after question is answered
 
   def archived
     @passengers = Passenger.archived

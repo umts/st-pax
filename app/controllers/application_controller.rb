@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_user
   before_action :login_as_passenger
-  before_action :access_control
+  before_action :restrict_to_admin
+  before_action :restrict_to_employee
   before_action :check_primary_account
 
   private
@@ -67,7 +68,11 @@ class ApplicationController < ActionController::Base
            layout: false
   end
 
-  def access_control
+  def restrict_to_admin
     deny_access && return unless @current_user&.admin?
+  end
+
+  def restrict_to_employee
+    deny_access && return unless @current_user.present?
   end
 end
