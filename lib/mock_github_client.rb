@@ -30,7 +30,7 @@ class MockGithubClient
     OpenStruct.new(
       number: 1,
       title: 'Dummy Issue',
-      body: '',
+      body: 'Issue description',
       labels: [OpenStruct.new(name: 'bug')]
     )
   end
