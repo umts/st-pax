@@ -34,8 +34,7 @@
     = f.fields_for :doctors_note, @doctors_note do |d|
       .form-group
         = d.label :expiration_date, 'How long will you be with us?'
-        = d.text_field :expiration_date, class: 'registration-datepicker form-control',
-          disabled: @registrant.active?
+        = d.text_field :expiration_date, class: 'registration-datepicker form-control'
         %i 
           If you need us longer than 6 weeks, you will need to register with UHS,
           Disability Services, or Accessible Workplace.
