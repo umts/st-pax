@@ -1,15 +1,22 @@
-%h1 Register with Special Transportation Services
-- if @registrant.persisted?
-  - if @registrant.pending?
+- if registrant.persisted?
+  - if registrant.pending?
+    %h1 Edit Registration
     %p 
       Your registration with Special Transportation Services has not been
-      approved.
-  - if @registrant.active?
+      approved. You can still edit all of your information.
+  - if registrant.active?
+    %h1 Edit Registration
+    %label Registration Expires 
+    = registrant.rides_expire.try(:strftime, '%m/%d/%Y')
+    %p This is the last day on which you can receive rides.
     %p
       Your registration with Special Transportation Services has been
       approved. Please call the dispatcher at (413) 545-2086 to schedule
-      rides.
-  - if @registrant.archived?
+      rides or edit your doctor's information.
+  - if registrant.archived?
+    %h1 Register with Special Transportation Services
     %p
       You are no longer registered with Special Transportation Services.
-      Please call the dispatcher at (413) 545-2086 to re-register.
+      You may re-register below. Your registration must be re-approved.
+- else
+  %h1 Register with Special Transportation Services

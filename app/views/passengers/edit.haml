@@ -1,6 +1,6 @@
 %h1 Edit Passenger Form
 
 .container
-  = render 'form'
+  = render partial: 'form', locals: { passenger: @passenger }
 
 = link_to "Back", passengers_path

@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   def login_as_passenger
     return if @current_user.present?
 
-    @passenger =
+    @registrant =
       if session[:passenger_id]
         Passenger.find_by(id: session[:passenger_id])
       elsif request.env.key?('fcIdNumber')
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
           email: request.env['mail']
         )
       end
-    session[:passenger_id] = @passenger&.id
+    session[:passenger_id] = @registrant&.id
   end
 
   # '... and return' is the correct behavior here, disable rubocop warning

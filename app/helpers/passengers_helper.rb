@@ -18,22 +18,4 @@ module PassengersHelper
   def sortable_date(note)
     note.expiration_date.strftime('%Y%m%d') if note.present?
   end
-
-  def needs_assistance_label
-    subject = if @current_user
-                'The passenger'
-              else
-                'I'
-              end
-    "#{subject} will need assistance getting to and from buildings"
-  end
-
-  def expiration_date_label
-    subject = if @current_user
-                'the passenger'
-              else
-                'you'
-              end
-    "How long will #{subject} be with us?"
-  end
 end

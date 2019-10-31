@@ -14,7 +14,7 @@ class PassengersController < ApplicationController
   def register
     @doctors_note = @registrant.doctors_note || DoctorsNote.new
     return if request.get?
-    @registrant = Passenger.new registration_params
+    @registrant = Passenger.new passenger_params
     unless params[:terms_and_conditions]
       flash.now[:danger] = 'Please accept the terms and conditions'
       render :register and return
