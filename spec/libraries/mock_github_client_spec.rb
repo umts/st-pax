@@ -18,7 +18,7 @@ RSpec.describe MockGithubClient do
 
     it 'logs the would-be issue' do
       call
-      expect(log).to match(%r{^Repo: acme\/widgets$})
+      expect(log).to match(%r{^Repo: acme/widgets$})
       expect(log).to match(/^Title: It broke$/)
       expect(log).to match(/^  \* This is broken$/)
       expect(log).to match(/^Options: {:labels=>"[^"]*"}$/)
