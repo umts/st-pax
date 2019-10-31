@@ -109,44 +109,33 @@ class PassengersController < ApplicationController
 
   private
 
-  def passenger_params
-    base_passenger_params
-      .then { |p| restrict_admin p }
-      .then { |p| disallow_nonexpiring_note p }
-  end
-
-  def base_passenger_params
-    passenger_params = params.require(:passenger)
-      .permit(:name, :address, :email, :phone, :mobility_device_id,
-              :permanent, :note, :spire, :status,
-              :registered_with_disability_services,
-              doctors_note_attributes: %i[expiration_date])
-    passenger_params[:active_status] = params[:passenger][:active]
-    passenger_params
-  end
-
-  def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:doctors_note_attributes]
-    return permitted_params unless note_params.try(:[], :expiration_date).blank?
-
-    permitted_params.except :doctors_note_attributes
-  end
-
-  def restrict_admin(permitted_params)
-    return permitted_params if @current_user.admin?
-
-    permitted_params.except :permanent
-  end
-
-  def registration_params
-    params.require(:passenger).permit(
+  def all_params
+    base_params = params.require(:passenger).permit(
+      :name,
       :preferred_name,
       :email,
       :phone,
       :address,
       :mobility_device_id,
       :needs_assistance,
+      :note,
+      :status,
+      :registered_with_disability_services,
+      :permanent,
+      :spire,
       doctors_note_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
+    )
+    base_params[:active_status] = params[:passenger][:active]
+    base_params
+  end
+
+  def passenger_params
+    return all_params if @current_user.admin?
+    return all_params.except(:permanent) if @current_user.present?
+    all_params.except(
+      :spire,
+      :name,
+      :permanent
     ).merge!(
       spire: "#{request.env['fcIdNumber']}@umass.edu",
       name: "#{request.env['givenName']} #{request.env['surName']}",
