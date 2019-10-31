@@ -1,55 +1,95 @@
-= form_with model: @passenger, local: true do |form|
-  .form-group
-    %b Registration date:
-    = @passenger.registration_date
-  .form-group
-    = form.label :permanent, class: 'form-check-label'
-    = form.check_box :permanent, class: 'form-check-input', disabled: !@current_user.admin?
-  .form-group
-    = form.label :name
-    = form.text_field :name, class: 'form-control'
-  .form-group
-    = form.label :spire
-    = form.text_field :spire, class: 'form-control', placeholder: '12345678@umass.edu'
-  .form-group
-    = form.label :address
-    = form.text_field :address, class: 'form-control'
-  .form-group
-    = form.label :email
-    = form.text_field :email, class: 'form-control'
-  .form-group
-    = form.label :phone
-    = form.phone_field :phone, class: 'form-control'
-  .form-group
-    = form.label :status
-    = form.select :status, Passenger::STATUSES, { include_blank: true }, { class: 'form-control' }
-  .form-group
+= form_with model: @passenger, local: true do |f|
+  - if @current_user.present?
+    .form-group
+      %b Registration date:
+      = @passenger.registration_date
+    .form-group
+      = f.label :permanent, class: 'form-check-label'
+      = f.check_box :permanent, class: 'form-check-input no-doctors-info', disabled: !@current_user.admin?
+    .form-group
+      = f.label :active?
+      = f.check_box :active?, {checked: true}, 'active', 'archived'
     - unless @passenger.permanent?
-      = form.label :registered_with_disability_services, class: 'form-check-label'
-      = form.check_box :registered_with_disability_services, class: 'form-check-input'
-  .form-group
-    - unless @passenger.permanent?
-      = form.label :has_brochure, class: 'form-check-label'
-      = form.check_box :has_brochure, class: 'form-check-input'
-  .form-group
-    = form.label :mobility_device_id
-    = form.select :mobility_device_id,
-     options_from_collection_for_select(MobilityDevice.order(:name),
-       :id, :name, @passenger.mobility_device&.id), { include_blank: 'None' }, { class: 'form-control' }
-  .form-group
-    = form.label :active?
-    = form.check_box :active?, {checked: true}, 'active', 'archived'
-  .doctors-note-fields{class: doctors_note_fields_class}
-    = form.label :has_doctors_note
-    = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
-    = form.fields_for :doctors_note, @doctors_note do |d|
       .form-group
-        = d.label :expiration_date, "Doctor's note expires"
-        = d.text_field :expiration_date,
-          class: 'form-control datepicker doctors_note_expiration_date'
-        - if @passenger.doctors_note.blank? && @passenger.temporary?
-          %i="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+        = f.label :registered_with_disability_services,
+          'Registered with Disability Services/UHS/Accessible Workplace?',
+          class: 'form-check-label'
+        = f.check_box :registered_with_disability_services,
+          class: 'form-check-input no-doctors-info'
   .form-group
-    = form.label :note
-    = form.text_area :note, class: 'form-control'
-  = form.submit 'Submit', class: 'btn btn-primary'
+    = f.label :name
+    = f.text_field :name, class: 'form-control', disabled: !@current_user
+  .form-group
+    = f.label :spire
+    = f.text_field :spire, class: 'form-control',
+      placeholder: "12345678@umass.edu", disabled: !@current_user
+  .form-group
+    = f.label :preferred_name, 'Preferred name (optional)'
+    = f.text_field :preferred_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control', required: 'required'
+  .form-group
+    = f.label :phone
+    = f.text_field :phone, class: 'form-control', required: 'required'
+  .form-group
+    = f.label :address
+    = f.text_field :address, class: 'form-control', required: 'required'
+    - unless @current_user
+      %i 
+        Please enter the location at which you will generally be picked up/dropped
+        off. If you live on campus, enter the dorm building. If you are a commuter
+        and park in a parking lot, enter the lot where you will be picked up.
+  .form-group
+    = f.label :status
+    = f.select :status, Passenger::STATUSES, { include_blank: true }, { class: 'form-control' }
+  .form-group
+    = f.label :mobility_device_id
+    = f.select :mobility_device_id,
+     options_from_collection_for_select(MobilityDevice.order(:name),
+       :id, :name), { include_blank: 'None' }, {class: 'form-control'}
+  .form-group
+    = f.check_box :needs_assistance, class: 'form-check-input'
+    = f.label :needs_assistance, needs_assistance_label, class: 'form-check-label'
+  .form-group
+    = f.fields_for :doctors_note, @doctors_note do |d|
+      .doctors-note-fields
+        .form-group
+          = d.label :expiration_date, expiration_date_label
+          = d.text_field :expiration_date, class: 'registration-datepicker form-control'
+          - unless @current_user
+            %i 
+              If you need us longer than 6 weeks, you will need to register with UHS,
+              Disability Services, or Accessible Workplace.
+          %i
+            Rides will currently expire
+            =@passenger.rides_expire.try(:strftime, '%m/%d/%Y')
+        .form-group
+          = d.label :doctors_name
+          = d.text_field :doctors_name, class: 'form-control'
+        .form-group
+          = d.label :doctors_phone
+          = d.text_field :doctors_phone, class: 'form-control'
+          %i required if doctor's address is blank
+        .form-group
+          = d.label :doctors_address
+          = d.text_field :doctors_address, class: 'form-control'
+          %i required if doctor's phone number is blank
+    .form-group
+      = f.label :note
+      = f.text_area :note, class: 'form-control'
+      %i These notes will be available to all dispatchers
+      .form-group
+        %h2 Terms and conditions
+        %p
+          Welcome to UMass Special Transportation! Now that you have started the
+          registration process, please read through the following information:
+        = render 'terms_and_conditions'
+      .form-group
+        .form-check.form-check-inline
+          = check_box_tag :terms_and_conditions, class: 'form-check-input'
+          = label_tag :terms_and_conditions,
+            'I accept and understand the terms and conditions',
+            class: 'form-check-label', required: true
+    .form-group
+      = f.submit 'Submit', class: 'btn btn-primary'
