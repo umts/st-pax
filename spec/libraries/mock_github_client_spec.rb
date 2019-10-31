@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'logger'
-require 'pry'
 require 'mock_github_client'
 
 RSpec.describe MockGithubClient do
@@ -13,13 +12,13 @@ RSpec.describe MockGithubClient do
     let :call do
       client.create_issue 'acme/widgets',
                           'It broke',
-                          "* This is broken\n*That is broken\n*Those are broken",
+                          "* This is broken\n*That is broken\n",
                           labels: 'bug,test'
     end
 
     it 'logs the would-be issue' do
       call
-      expect(log).to match(/^Repo: acme\/widgets$/)
+      expect(log).to match(%r{^Repo: acme\/widgets$})
       expect(log).to match(/^Title: It broke$/)
       expect(log).to match(/^  \* This is broken$/)
       expect(log).to match(/^Options: {:labels=>"[^"]*"}$/)
