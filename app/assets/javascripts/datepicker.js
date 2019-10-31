@@ -1,8 +1,6 @@
 $( document ).on("turbolinks:load", function() {
-  $.datetimepicker.setDateFormatter('moment');
-  $('.datepicker').datetimepicker({
-    timepicker: false,
-    format: 'dddd, MMMM D, YYYY'
+  $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd'
   });
 
   $('.registration-datepicker').datetimepicker({
