@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FeedbackController < ApplicationController
+  skip_before_action :access_control
+
   def new
     @feedback = Feedback.new
   end
