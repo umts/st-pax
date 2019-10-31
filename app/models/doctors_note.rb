@@ -6,6 +6,17 @@ class DoctorsNote < ApplicationRecord
   validates :passenger, uniqueness: true
   validate :temporary_passenger
   validates :expiration_date, presence: true
+  validates :doctors_name, presence: { unless: -> { :skip_doctors_info } }
+  validates :doctors_phone,
+    presence: { unless: -> { :skip_doctors_info || doctors_address.blank? },
+                message: "must be entered if doctor's address is blank" }
+  validates :doctors_address,
+    presence: { unless: -> { :skip_doctors_info || doctors_phone.blank? },
+                message: "must be entered if doctor's phone number is blank" }
+
+  def skip_doctors_info
+    passenger.registered_with_disability_services?
+  end
 
   def self.grace_period
     3.business_days.ago
