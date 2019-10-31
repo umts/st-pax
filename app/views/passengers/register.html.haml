@@ -1,5 +1,5 @@
 = render 'registration_status'
-= form_with scope: @registrant, url: register_passengers_path do |f|
+= form_with scope: @registrant, url: register_passengers_path, local: true do |f|
   .form-group
     = f.label :name
     = f.text_field :name, class: 'form-control', disabled: 'disabled'
