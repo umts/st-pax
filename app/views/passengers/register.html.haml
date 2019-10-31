@@ -1,3 +1,3 @@
-%h1 Register with Special Transportation Services
 .container
-  = render 'form'
+  = render partial: 'registration_status', locals: { registrant: @registrant }
+  = render partial: 'registration_form', locals: { passenger: @registrant }

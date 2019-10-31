@@ -44,12 +44,16 @@ class DoctorsNote < ApplicationRecord
 
   def doctors_information
     return if passenger.registered_with_disability_services?
-    errors.add(:doctors_name, 'must be present') if doctors_name.blank?
+    error_message = 'If not registered with disability services, '
+    if doctors_name.blank?
+      error_message += "doctor's name must be entered."
+      errors.add(:base, error_message)
+    end
     if doctors_phone.blank? && doctors_address.blank?
+      error_message += "either the doctor's phone or address must be present"
       errors.add(
-        :base, "either the doctor's phone number or address must be present."
+        :base, error_message
       )
     end
   end
-
 end
