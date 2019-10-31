@@ -6,13 +6,7 @@ class DoctorsNote < ApplicationRecord
   validates :passenger, uniqueness: true
   validate :temporary_passenger
   validates :expiration_date, presence: true
-  validates :doctors_name, presence: { unless: -> { :skip_doctors_info } }
-  validates :doctors_phone,
-    presence: { unless: -> { :skip_doctors_info || doctors_address.blank? },
-                message: "must be entered if doctor's address is blank" }
-  validates :doctors_address,
-    presence: { unless: -> { :skip_doctors_info || doctors_phone.blank? },
-                message: "must be entered if doctor's phone number is blank" }
+  validate :doctors_information
 
   def skip_doctors_info
     passenger.registered_with_disability_services?
@@ -47,4 +41,15 @@ class DoctorsNote < ApplicationRecord
 
     errors.add :base, 'must belong to a temporary passenger'
   end
+
+  def doctors_information
+    return if passenger.registered_with_disability_services?
+    errors.add(:doctors_name, 'must be present') if doctors_name.blank?
+    if doctors_phone.blank? && doctors_address.blank?
+      errors.add(
+        :base, "either the doctor's phone number or address must be present."
+      )
+    end
+  end
+
 end
