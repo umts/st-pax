@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
     if request.get?
       @admins = User.admins.order :name
       @dispatchers = User.dispatchers.order :name
-      @passengers = Passenger.temporary.limit(5)
+      @passengers = Passenger.temporary
     elsif request.post?
       if find_user
         redirect_to passengers_path and return
