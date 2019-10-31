@@ -1,4 +1,5 @@
-github_repo: 'umts/st-pax'
+development:
+  github_repo: 'umts/st-pax'
 
-# Leave this blank to log to Rails.logger instead of actually opening issues
-github_token:
+  # Leave this blank to log to Rails.logger instead of actually opening issues
+  github_token:
