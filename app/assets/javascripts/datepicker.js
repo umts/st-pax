@@ -4,7 +4,7 @@ $( document ).on("turbolinks:load", function() {
   });
 
   $('.registration-datepicker').datepicker({
-    dateFormat: 'm/d/yy',
+    dateFormat: 'yy-mm-dd',
     maxDate: monthLimit()
   });
 
