@@ -130,7 +130,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    return all_params if @current_user.admin?
+    return all_params if @current_user&.admin?
     return all_params.except(:permanent) if @current_user.present?
     all_params.except(
       :spire,
