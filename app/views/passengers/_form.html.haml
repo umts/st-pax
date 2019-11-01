@@ -21,23 +21,24 @@
       =passenger.rides_expire.try(:strftime, '%m/%d/%Y')
   .form-group
     = f.label :name
-    = f.text_field :name, class: 'form-control'
+    = f.text_field :name, class: 'form-control', required: true
   .form-group
     = f.label :spire
     = f.text_field :spire, class: 'form-control',
-      placeholder: '12345678@umass.edu'
+      placeholder: '12345678@umass.edu',
+      required: true
   .form-group
     = f.label :preferred_name, 'Preferred name (optional)'
     = f.text_field :preferred_name, class: 'form-control'
   .form-group
     = f.label :email
-    = f.text_field :email, class: 'form-control', required: 'required'
+    = f.text_field :email, class: 'form-control', required: true
   .form-group
     = f.label :phone
-    = f.text_field :phone, class: 'form-control', required: 'required'
+    = f.text_field :phone, class: 'form-control', required: true
   .form-group
     = f.label :address
-    = f.text_field :address, class: 'form-control', required: 'required'
+    = f.text_field :address, class: 'form-control', required: true
   .form-group
     = f.label :status
     = f.select :status, Passenger::STATUSES, { include_blank: true }, { class: 'form-control' }
@@ -48,16 +49,18 @@
        :id, :name), { include_blank: 'None' }, {class: 'form-control'}
   .form-group
     = f.check_box :needs_assistance, class: 'form-check-input'
-    = f.label :needs_assistance, needs_assistance_label, class: 'form-check-label'
+    = f.label :needs_assistance, class: 'form-check-label'
   .form-group
     = f.fields_for :doctors_note, @doctors_note do |d|
       .doctors-note-fields
         .form-group
           = d.label :expiration_date, 'How long will the passenger be with us?'
-          = d.text_field :expiration_date, class: 'registration-datepicker form-control'
+          = d.text_field :expiration_date,
+            class: 'registration-datepicker form-control',
+            required: true
         .form-group
           = d.label :doctors_name
-          = d.text_field :doctors_name, class: 'form-control'
+          = d.text_field :doctors_name, class: 'form-control', required: true
         .form-group
           = d.label :doctors_phone
           = d.text_field :doctors_phone, class: 'form-control'
@@ -80,7 +83,7 @@
         .form-check.form-check-inline
           = check_box_tag :terms_and_conditions, class: 'form-check-input'
           = label_tag :terms_and_conditions,
-            'I accept and understand the terms and conditions',
+            'I have read the terms and conditions to the passenger',
             class: 'form-check-label', required: true
     .form-group
       = f.submit 'Submit', class: 'btn btn-primary'

@@ -39,8 +39,8 @@
     = f.fields_for :doctors_note, @doctors_note do |d|
       .doctors-note-fields{class: ('hidden' if @registrant&.active? )}
         .form-group
-          = d.label :expiration_date, 'You long will you be with us?'
-          = d.text_field :expiration_date, class: 'registration-datepicker form-control'
+          = d.label :expiration_date, 'How long will you be with us?'
+          = d.text_field :expiration_date, class: 'registration-datepicker form-control', required: true
           %i 
             If you need us longer than 6 weeks, you will need to register with
             =link_to 'UHS', 'https://www.umass.edu/uhs/accesstocare'
