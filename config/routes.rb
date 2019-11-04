@@ -16,9 +16,10 @@ Rails.application.routes.draw do
       get :check_existing
       get :register
       post :register
+      get :pending
     end
     member do
-      post :toggle_archive
+      post :toggle_status
     end
   end
   resources :users, except: :show

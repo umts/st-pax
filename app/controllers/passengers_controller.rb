@@ -2,8 +2,8 @@
 
 class PassengersController < ApplicationController
   before_action :find_passenger,
-                only: %i[show edit update destroy toggle_archive]
-  before_action :restrict_to_admin, only: %i[destroy archived toggle_archive]
+                only: %i[show edit update destroy toggle_status]
+  before_action :restrict_to_admin, only: %i[destroy archived toggle_status]
   before_action :restrict_to_employee, except: %i[register brochure create]
   # add edit/update to allowed actions for passenger after question is answered
 
@@ -32,13 +32,9 @@ class PassengersController < ApplicationController
   def brochure
   end
 
-  def toggle_archive
-    if @passenger.archived?
-      @passenger.active!
-    else
-      # skip validations on archival
-      @passenger.update_attribute(:active_status, 'archived')
-    end
+  def toggle_status
+    desired_status = params[:status]
+    @passenger.toggle_status(desired_status)
     flash[:success] = 'Passenger successfully updated'
     redirect_to passengers_url
   end

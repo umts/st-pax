@@ -75,6 +75,14 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
+  def toggle_status(desired_status)
+    case desired_status
+    when 'active' then active!
+    when 'archived' then update_attribute(:active_status, 'archived')
+    when 'pending' then pending!
+    end
+  end
+
   private
 
   def assign_registration_date
