@@ -11,6 +11,8 @@ class Passenger < ApplicationRecord
   validates :spire, uniqueness: true,
                     format: { with: /\A\d{8}@umass.edu\z/,
                               message: 'must be 8 digits followed by @umass.edu' }
+  validates :terms_and_conditions, on: :create,
+    presence: { message: 'Terms and conditions must be accepted and understood' }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
@@ -25,7 +27,7 @@ class Passenger < ApplicationRecord
 
   belongs_to :mobility_device, optional: true
 
-  attr_accessor :needs_assistance
+  attr_accessor :needs_assistance, :terms_and_conditions
 
   before_save do
     if needs_assistance

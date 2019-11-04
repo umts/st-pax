@@ -7,10 +7,9 @@ class DoctorsNote < ApplicationRecord
   validate :temporary_passenger
   validates :expiration_date, presence: true
   validate :doctors_information
-
-  def skip_doctors_info
-    passenger.registered_with_disability_services?
-  end
+  validates :doctors_name,
+    presence: true,
+    if: :needs_doctors_information?
 
   def self.grace_period
     3.business_days.ago
@@ -42,13 +41,13 @@ class DoctorsNote < ApplicationRecord
     errors.add :base, 'must belong to a temporary passenger'
   end
 
+  def needs_doctors_information?
+    !passenger&.registered_with_disability_services?
+  end
+
   def doctors_information
-    return if passenger.registered_with_disability_services?
+    return unless needs_doctors_information?
     error_message = 'If not registered with disability services, '
-    if doctors_name.blank?
-      error_message += "doctor's name must be entered."
-      errors.add(:base, error_message)
-    end
     if doctors_phone.blank? && doctors_address.blank?
       error_message += "either the doctor's phone or address must be present"
       errors.add(
