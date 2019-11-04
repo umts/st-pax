@@ -9,8 +9,8 @@ module ApplicationHelper
     end
   end
 
-  def checkmark_glyph(value, yes: 'glyphicon-ok', no: 'glyphicon-remove')
-    icon_class = value ? yes : no
-    content_tag :span, nil, class: "glyphicon #{icon_class}"
+  def checkmark_glyph(value, yes: 'fa-check', no: 'fa-times')
+    icon_class = value ? ['yes-glyph', yes] : ['no-glyph', no]
+    content_tag :span, nil, class: icon_class << 'fas'
   end
 end
