@@ -1,0 +1,8 @@
+%h1= link_to @feedback.title, @feedback.issue&.url
+%p
+  %b Category:
+  = @feedback.category
+%p
+  %b Description:
+%p= @feedback.description
+=link_to 'Back', feedback_index_path

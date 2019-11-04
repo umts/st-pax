@@ -2,6 +2,7 @@
   = navbar_link 'Passengers', passengers_path
   = navbar_link 'Add New Passenger', new_passenger_path
   = navbar_link 'Dispatch Log', log_index_path
+  = navbar_link 'Site Feedback', feedback_index_path
   - if @current_user.admin?
     = navbar_link 'Manage Users', users_path
     = navbar_link 'Manage Mobility Devices', mobility_devices_path

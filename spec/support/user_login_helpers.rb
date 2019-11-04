@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def when_current_user_is(user)
   current_user =
     case user
