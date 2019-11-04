@@ -1,5 +1,4 @@
 $maroon: #881c1c;
-$body-bg: $maroon;
 $font-family-sans-serif: verdana, arial, helvetica, sans-serif;
 
 $link-color: #000;
@@ -9,7 +8,8 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
 @import "@fortawesome/fontawesome-free/scss/solid";
 
-@import "datatables.net-fixedheader-bs/css/fixedHeader.bootstrap";
+@import "datatables.net-bs4/css/dataTables.bootstrap4";
+@import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
 
 @import "jquery-ui";
 @import "log";
@@ -24,10 +24,6 @@ h1{
 
 label {
   display: block;
-}
-
-#outer-container {
-  background: theme-color("light");
 }
 
 span.yes-glyph {
