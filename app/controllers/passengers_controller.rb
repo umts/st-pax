@@ -11,6 +11,10 @@ class PassengersController < ApplicationController
     @passengers = Passenger.archived
   end
 
+  def pending
+    @passengers = Passenger.pending
+  end
+
   def register
     @doctors_note = @registrant.doctors_note || DoctorsNote.new
     return if request.get?
