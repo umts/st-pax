@@ -1,9 +1,6 @@
 $maroon: #881c1c;
-$slightly-maroon: #eacccc;
-
 $body-bg: $maroon;
 $font-family-sans-serif: verdana, arial, helvetica, sans-serif;
-$navbar-padding-horizontal: 20px;
 
 $link-color: #000;
 @import "bootstrap";
@@ -29,32 +26,10 @@ label {
   display: block;
 }
 
-.navbar{
-  button{
-    margin-left: 3px;
-
-    &.navbar-right{
-      margin-right: 5px;
-    }
-
-    &.current{
-      background: $slightly-maroon;
-    }
-  }
+#outer-container {
+  background: theme-color("light");
 }
 
-.panel{
-  margin: 1em;
-  border: 2px solid grey;
-}
-
-a {
-  text-decoration: underline;
-
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
 span.yes-glyph {
   color: theme-color("success");
 }
