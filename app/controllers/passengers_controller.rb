@@ -16,17 +16,15 @@ class PassengersController < ApplicationController
   end
 
   def register
-    @doctors_note = @registrant.doctors_note || DoctorsNote.new
-    return if request.get?
-    @registrant = Passenger.new passenger_params
-    unless params[:terms_and_conditions]
-      flash.now[:danger] = 'Please accept the terms and conditions'
-      render :register and return
+    if request.get?
+      @doctors_note = @registrant.doctors_note || DoctorsNote.new
+      return
     end
+    @registrant = Passenger.new passenger_params
     if @registrant.save
       flash[:success] = 'Registration request successfully submitted. '\
         'Please read the policies and ride scheduling information below.'
-      redirect_to passengers_brochure_path
+      redirect_to brochure_passengers_url
     else
       flash.now[:danger] = @registrant.errors.full_messages
       render :register
@@ -123,6 +121,7 @@ class PassengersController < ApplicationController
       :registered_with_disability_services,
       :permanent,
       :spire,
+      :terms_and_conditions,
       doctors_note_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
     )
     base_params[:active_status] = params[:passenger][:active]
