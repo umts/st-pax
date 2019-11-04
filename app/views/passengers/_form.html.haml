@@ -7,58 +7,58 @@
       - @passenger.errors.full_messages.each do |message|
         %li= message
 = form_with model: @passenger, local: true do |form|
-  .field
+  .form-group
     %b Registration date:
     = @passenger.registration_date
-  .field
-    = form.label :permanent
-    = form.check_box :permanent, disabled: !@current_user.admin?
-  .field
+  .form-group.form-check
+    = form.check_box :permanent, disabled: !@current_user.admin?, class: 'form-check-input'
+    = form.label :permanent, class: 'form-check-label'
+  .form-group
     = form.label :name
-    = form.text_field :name
-  .field
+    = form.text_field :name, class: 'form-control'
+  .form-group
     = form.label :spire
-    = form.text_field :spire, placeholder: '12345678@umass.edu'
-  .field
+    = form.text_field :spire, placeholder: '12345678@umass.edu', class: 'form-control'
+  .form-group
     = form.label :address
-    = form.text_field :address
-  .field
+    = form.text_field :address, class: 'form-control'
+  .form-group
     = form.label :email
-    = form.text_field :email
-  .field
+    = form.text_field :email, class: 'form-control'
+  .form-group
     = form.label :phone
-    = form.phone_field :phone
-  .field
+    = form.phone_field :phone, class: 'form-control'
+  .form-group
     = form.label :status
-    = form.select :status, Passenger::STATUSES, include_blank: true
-  .field
-    - unless @passenger.permanent?
-      = form.label :registered_with_disability_services
-      = form.check_box :registered_with_disability_services
-  .field
-    - unless @passenger.permanent?
-      = form.label :has_brochure
-      = form.check_box :has_brochure
-  .field
+    = form.select :status, Passenger::STATUSES, {include_blank: true}, {class: 'custom-select'}
+  - unless @passenger.permanent?
+    .form-group.form-check
+      = form.check_box :registered_with_disability_services, class: 'form-check-input'
+      = form.label :registered_with_disability_services, class: 'form-check-label'
+    .form-group.form-check
+      = form.check_box :has_brochure, class: 'form-check-input'
+      = form.label :has_brochure, class: 'form-check-label'
+  .form-group
     = form.label :mobility_device_id
     = form.select :mobility_device_id,
      options_from_collection_for_select(MobilityDevice.order(:name),
-      :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
-  .field
-    = form.label :active?
-    = form.check_box :active?, {checked: true}, 'active', 'archived'
+       :id, :name, @passenger.mobility_device&.id), {include_blank: 'None'}, {class: 'custom-select'}
+  .form-group.form-check
+    = form.check_box :active?, {checked: true, class: 'form-check-input'}, 'active', 'archived'
+    = form.label :active?, class: 'form-check-label'
   .doctors-note-fields{class: doctors_note_fields_class}
-    = form.label :has_doctors_note
-    = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
+    .form-group.form-check
+      = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?, class: 'form-check-input'
+      = form.label :has_doctors_note, class: 'form-check-label'
     = form.fields_for :doctors_note, @doctors_note do |d|
       .form-group
         = d.label :expiration_date, "Doctor's note expires"
         = d.text_field :expiration_date,
-          class: 'datepicker doctors_note_expiration_date'
+          class: 'form-control datepicker doctors_note_expiration_date'
         - if @passenger.doctors_note.blank? && @passenger.temporary?
-          %i="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
-  .field
+          %small.form-text="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+  .form-group
     = form.label :note
-    = form.text_area :note, rows: 20, cols: 100
-  .actions
-    = form.submit 'Submit'
+    = form.text_area :note, rows: 20, class: 'form-control'
+  .form-group.actions
+    = form.submit 'Submit', class: 'btn btn-primary'
