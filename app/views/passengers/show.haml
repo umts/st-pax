@@ -29,9 +29,9 @@
 - if @passenger.temporary?
   %p
     %b Has Doctor's Note?
-    = checkmark_glyph @passenger.doctors_note.present?
+    = checkmark_glyph @passenger.verification.present?
   %p
-    - if @passenger.doctors_note.present?
+    - if @passenger.verification.present?
       %b Doctor's Note Expiration Date:
     - else
       %b Rides Expire:

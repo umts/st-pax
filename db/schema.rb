@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_205313) do
-
-  create_table "doctors_notes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "passenger_id"
-    t.date "expiration_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "doctors_address"
-    t.text "doctors_phone"
-    t.string "doctors_name"
-  end
+ActiveRecord::Schema.define(version: 2019_11_04_205730) do
 
   create_table "log_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -61,6 +51,16 @@ ActiveRecord::Schema.define(version: 2019_11_04_205313) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "passenger_id"
+    t.date "expiration_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "doctors_address"
+    t.text "doctors_phone"
+    t.string "doctors_name"
   end
 
 end

@@ -36,7 +36,7 @@
       'I will need assistance getting to and from buildings',
       class: 'form-check-label'
   .form-group
-    = f.fields_for :doctors_note, @doctors_note do |d|
+    = f.fields_for :verification, @verification do |d|
       .doctors-note-fields{class: ('hidden' if @registrant&.active? )}
         .form-group
           = d.label :expiration_date, 'How long will you be with us?'

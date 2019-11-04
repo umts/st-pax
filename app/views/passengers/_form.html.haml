@@ -51,7 +51,7 @@
     = f.check_box :needs_assistance, class: 'form-check-input'
     = f.label :needs_assistance, class: 'form-check-label'
   .form-group
-    = f.fields_for :doctors_note, @doctors_note do |d|
+    = f.fields_for :verification, @verification do |d|
       .doctors-note-fields
         .form-group
           = d.label :expiration_date, 'How long will the passenger be with us?'

@@ -17,7 +17,7 @@ class PassengersController < ApplicationController
 
   def register
     if request.get?
-      @doctors_note = @registrant.doctors_note || DoctorsNote.new
+      @verification = @registrant.verification || Verification.new
       return
     end
     @registrant = Passenger.new passenger_params
@@ -49,11 +49,11 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @doctors_note = DoctorsNote.new
+    @verification = Verification.new
   end
 
   def edit
-    @doctors_note = @passenger.doctors_note || DoctorsNote.new
+    @verification = @passenger.verification || Verification.new
   end
 
   # rubocop:disable Style/GuardClause
@@ -122,7 +122,7 @@ class PassengersController < ApplicationController
       :permanent,
       :spire,
       :terms_and_conditions,
-      doctors_note_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
+      verification_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
     )
     base_params[:active_status] = params[:passenger][:active]
     base_params

@@ -44,7 +44,7 @@
           %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
           %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
-          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
+          %td.text-center{data: {sort: sortable_date(passenger.verification)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
