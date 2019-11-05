@@ -11,6 +11,13 @@ class Verification < ApplicationRecord
     presence: true,
     if: :needs_doctors_information?
 
+  enum source: {
+    'UHS': 0,
+    'Disability Services': 1,
+    'Accessible Workplace': 2,
+    'Other': 3
+  }
+
   def self.grace_period
     3.business_days.ago
   end
@@ -42,12 +49,13 @@ class Verification < ApplicationRecord
   end
 
   def needs_doctors_information?
-    !passenger&.registered_with_disability_services?
+    source == 'Other'
   end
 
   def doctors_information
     return unless needs_doctors_information?
-    error_message = 'If not registered with disability services, '
+    error_message = 'If not registered with disability services, ' \
+      'UHS, or Accessible Workplace, '
     if doctors_phone.blank? && doctors_address.blank?
       error_message += "either the doctor's phone or address must be present"
       errors.add(

@@ -11,12 +11,6 @@
     = f.check_box :active?, {checked: true}, 'active', 'archived'
   - unless passenger.permanent?
     .form-group
-      = f.label :registered_with_disability_services,
-        'Registered with Disability Services/UHS/Accessible Workplace?',
-        class: 'form-check-label'
-      = f.check_box :registered_with_disability_services,
-        class: 'form-check-input no-doctors-info'
-    .form-group
       %label Registration Expires:
       =passenger.rides_expire.try(:strftime, '%m/%d/%Y')
   .form-group
@@ -53,6 +47,11 @@
   .form-group
     = f.fields_for :verification, @verification do |d|
       .doctors-note-fields
+        .form-group
+          = d.label :source, 'Registered with'
+          = d.select :source,
+            options_for_select(@sources, @verification.source),
+            {include_blank: true}, class: 'form-control', required: true
         .form-group
           = d.label :expiration_date, 'How long will the passenger be with us?'
           = d.text_field :expiration_date,
