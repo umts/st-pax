@@ -1,7 +1,16 @@
-$maroon: #881c1c;
 $font-family-sans-serif: verdana, arial, helvetica, sans-serif;
 
-$link-color: #000;
+$theme-colors: (
+  "primary": #881c1c,
+  "secondary": #63666a,
+  "success": #76881d,
+  "danger": #a8431e,
+  "warning": #c69214,
+  "info": #71b2c9,
+  "light": #eeeeee,
+  "dark": #333333
+);
+
 @import "bootstrap";
 
 $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
