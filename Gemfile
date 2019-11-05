@@ -20,6 +20,7 @@ gem 'rake'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1'
+gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'codeclimate-test-reporter'
