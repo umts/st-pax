@@ -7,17 +7,19 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
 gem 'exception_notification'
+gem 'figaro'
 gem 'haml'
 gem 'haml-rails'
 gem 'mysql2'
+gem 'octokit'
 gem 'prawn'
 gem 'prawn-table'
+gem 'puma'
 gem 'rails', '~> 5.1'
 gem 'rake'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1'
-gem 'puma'
 
 group :development, :test do
   gem 'codeclimate-test-reporter'
@@ -31,12 +33,12 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'webdrivers'
-  gem 'selenium-webdriver'
   gem 'rack_session_access'
-  gem 'rspec-rails'
   gem 'rspec-html-matchers'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'timecop'
+  gem 'webdrivers'
 end
 
 group :development do

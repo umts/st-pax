@@ -27,3 +27,6 @@ coverage/*
 data/*.csv
 
 config/database.yml
+
+# Ignore application configuration
+/config/application.yml
