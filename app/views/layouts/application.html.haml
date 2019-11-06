@@ -10,6 +10,10 @@
   %body
     = render 'layouts/navbar'
     #main.container-fluid
-      %p#notice= notice
-      %p#alert= alert
+      - flash.each do |name, messages|
+        .alert.alert-dismissible{class: "alert-#{name}"}
+          %button.close{data: {dismiss: 'alert'}, aria: {label: 'Close'}}
+            %span{aria: {hidden: true}}
+              &times;
+          = list_messages(messages)
       = yield

@@ -35,14 +35,6 @@ class ApplicationController < ActionController::Base
   end
   # rubocop:enable AbcSize
 
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def show_errors(object)
-    flash[:errors] = object.errors.full_messages
-    redirect_back(fallback_location: 'public/404.html') and return
-  end
-  # rubocop:enable Style/AndOr
-
   def check_primary_account
     return if request.env['UMAPrimaryAccount'] == request.env['uid']
 

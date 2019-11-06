@@ -19,7 +19,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         fill_in "Doctor's note expires", with: date
         click_button 'Submit'
-        expect(page).to have_text 'Passenger was successfully created.'
+        expect(page).to have_text 'Passenger successfully created.'
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
@@ -30,6 +30,15 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_link 'Edit existing passenger'
       end
     end
+    context 'creating a new passenger unsuccessfully' do
+      it 'renders an error in the flash' do
+        visit passengers_path
+        click_on 'Add New Passenger'
+        fill_in 'Passenger Spire', with: 'invalid spire'
+        click_button 'Submit'
+        expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
+      end
+    end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
         create :doctors_note, passenger: @passenger
@@ -37,7 +46,16 @@ RSpec.describe 'Passenger Management', js: true do
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger was successfully updated.'
+        expect(page).to have_text 'Passenger successfully updated.'
+      end
+    end
+    context 'editing an existing passenger unsuccessfully' do
+      it 'puts the error in the flash' do
+        visit passengers_path
+        click_link 'Edit'
+        fill_in 'Passenger Spire', with: 'not a valid spire'
+        click_button 'Submit'
+        expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
     end
     context 'deleting an existing passenger successfully' do
@@ -45,7 +63,7 @@ RSpec.describe 'Passenger Management', js: true do
         visit passengers_path
         click_button 'Delete'
         page.driver.browser.switch_to.alert.accept
-        expect(page).to have_text 'Passenger was successfully destroyed.'
+        expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
     context 'archiving a passenger successfully' do
@@ -64,7 +82,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Email', with: 'jfonda@umass.edu'
         select 'Student', from: 'UMass Status'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger was successfully created.'
+        expect(page).to have_text 'Passenger successfully created.'
       end
     end
   end
@@ -84,7 +102,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in "Doctor's note expires", with: date
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger was successfully created.'
+        expect(page).to have_text 'Passenger successfully created.'
       end
     end
     context 'editing an existing passenger successfully' do
@@ -94,7 +112,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger was successfully updated.'
+        expect(page).to have_text 'Passenger successfully updated.'
       end
     end
     context 'wanting to delete a passenger' do

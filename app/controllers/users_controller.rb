@@ -21,24 +21,31 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to users_url, notice: 'User was successfully created.'
-    else render :new
+      flash[:success] = 'User successfully created'
+      redirect_to users_url
+    else 
+      flash.now[:danger] = @user.errors.full_messages
+      render :new
     end
   end
 
   def update
     if @user.update(user_params)
-      redirect_to users_url, notice: 'User was successfully updated.'
+      flash[:success] = 'User successfully updated'
+      redirect_to users_url
     else
+      flash.now[:danger] = @user.errors.full_messages
       render :edit
     end
   end
 
   def destroy
     if @user.destroy
-      redirect_to users_url, notice: 'User was successfully destroyed.'
-    else redirect_to users_url,
-                     alert: 'Cannot delete users who have made log entries.'
+      flash[:success] = 'User successfully destroyed.'
+      redirect_to users_url
+    else
+      flash[:danger] = @user.errors.full_messages
+      redirect_to users_url
     end
   end
 
@@ -49,10 +56,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    if @current_user.admin?
-      params.require(:user).permit(:name, :spire, :active, :admin)
-    else
-      params.require(:user).permit(:name, :spire)
-    end
+    params.require(:user).permit(:name, :spire, :active, :admin)
   end
 end

@@ -9,16 +9,24 @@ class LogController < ApplicationController
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
     if @entry.save
-      redirect_to log_index_path, notice: 'Log entry was successfully created.'
-    else render log_index_path
+      flash[:success] = 'Log entry was successfully created.'
+      redirect_to log_index_path
+    else
+      flash[:danger] = @entry.errors.full_messages
+      render :index
     end
   end
 
   # rubocop:disable Style/AndOr
   def destroy
     deny_access and return unless @current_user.can_delete? @entry
-    @entry.destroy
-    redirect_to log_index_path, notice: 'Log entry was successfully deleted.'
+    if @entry.destroy
+      flash[:success] = 'Log entry was successfully deleted.'
+      redirect_to log_index_path
+    else
+      flash[:danger] = @log.errors.full_messages
+      redirect_to log_index_path
+    end
   end
   # rubocop:enable Style/AndOr
 
@@ -28,8 +36,11 @@ class LogController < ApplicationController
 
   def update
     if @entry.update entry_params
-      redirect_to log_index_path, notice: 'Log entry was successfully changed.'
-    else render log_index_path
+      flash[:success] = 'Log entry was successfully changed.'
+      redirect_to log_index_path
+    else
+      flash[:danger] = @entry.errors.full_messages
+      render log_index_path
     end
   end
 
