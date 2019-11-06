@@ -19,7 +19,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end
@@ -43,7 +43,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
@@ -76,7 +76,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(@passenger.reload).to be_archived
       end
     end
-    context 'creating a temporary passenger without a doctors note' do
+    context 'creating a temporary passenger without a verification' do
       it 'creates the passenger' do
         visit new_passenger_path
         fill_in 'Name', with: 'Jane Fonda'
@@ -101,7 +101,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_button 'Add New Passenger'
         fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'How long will the passenger be with us?', with: date
         fill_in 'Spire', with: '12345678@umass.edu'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -109,7 +109,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'

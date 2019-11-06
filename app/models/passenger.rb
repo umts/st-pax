@@ -58,7 +58,7 @@ class Passenger < ApplicationRecord
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < DoctorsNote.grace_period
+    registration_expired = registration_date < Verification.grace_period
     registration_expired && (verification.nil? || verification.expired?)
   end
 

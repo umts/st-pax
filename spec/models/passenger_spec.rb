@@ -15,9 +15,9 @@ RSpec.describe Passenger do
       end
     end
     context 'temporary passenger' do
-      it 'returns the expiration date of the doctors note' do
+      it 'returns the expiration date of the verification' do
         date = 14.days.from_now
-        create :doctors_note, passenger: @passenger, expiration_date: date
+        create :verification, passenger: @passenger, expiration_date: date
         expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
       end
     end
@@ -43,23 +43,23 @@ RSpec.describe Passenger do
         expect(@passenger.rides_expire).to be nil
       end
     end
-    context 'doctors note present' do
-      context 'doctors note is expired within grace period' do
-        it 'returns 3 days from the doctors note expiry' do
+    context 'verification is present' do
+      context 'verification is expired within grace period' do
+        it 'returns 3 days from the verification expiry' do
           date = 2.days.ago.to_date
-          create :doctors_note, passenger: @passenger, expiration_date: date
+          create :verification, passenger: @passenger, expiration_date: date
           expect(@passenger.rides_expire).to eq 3.business_days.since(date)
         end
       end
-      context 'the doctors note is not expired' do
+      context 'the verification is not expired' do
         it 'returns three business days after the expiration date of the note' do
           date = 14.days.from_now
-          note = create :doctors_note, passenger: @passenger, expiration_date: date
+          note = create :verification, passenger: @passenger, expiration_date: date
           expect(@passenger.rides_expire).to eq 3.business_days.after(note.expiration_date)
         end
       end
     end
-    context 'temporary passenger has no doctors note' do
+    context 'temporary passenger has no verification' do
       it 'returns 3 business days after the registration date' do
         date = @passenger.registration_date
         expect(@passenger.rides_expire).to eq 3.business_days.after(date)

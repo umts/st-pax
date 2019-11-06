@@ -15,8 +15,10 @@
   %b UMass Status:
   = @passenger.status
 %p
-  %b Registered with disability services?
-  = checkmark_glyph @passenger.registered_with_disability_services?
+  %b Verifying agency:
+  = @passenger.verification.try(:name)
+  You have to make a helper that displays their registering entity
+  or their doctor's information.
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
