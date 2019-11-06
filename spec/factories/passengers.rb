@@ -3,13 +3,9 @@
 FactoryBot.define do
   factory :passenger do
     name { FFaker::Name.name }
-    address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
-    phone { FFaker::PhoneNumber.short_phone_number }
-    mobility_device { MobilityDevice.all.sample }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
     active_status { 'active' }
-    registration_date { Time.zone.today }
 
     trait :temporary do
       permanent { false }
