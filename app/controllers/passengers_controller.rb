@@ -120,7 +120,6 @@ class PassengersController < ApplicationController
       :needs_assistance,
       :note,
       :status,
-      :registered_with_disability_services,
       :permanent,
       :spire,
       :terms_and_conditions,
