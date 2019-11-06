@@ -9,7 +9,7 @@
       %label{ for: 'filter_temporary' } Temporary Only
       = radio_button_tag :filter, 'temporary', @filter == 'temporary'
       %label{ for: 'filter_'} All
-      = radio_button_tag :filter, '', @filter.blank?
+      = radio_button_tag :filter, '', @filter == 'all'
   .form-group
     = submit_tag 'Print'
   %table#key

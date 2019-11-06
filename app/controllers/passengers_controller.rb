@@ -37,8 +37,8 @@ class PassengersController < ApplicationController
 
   def index
     @passengers = Passenger.active.order :name
-    params.permit(filter: %w[permanent temporary])
-    @filter = params[:filter]
+    allowed_filters = %w[permanent temporary]
+    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
 
     respond_to do |format|
       format.html
@@ -100,7 +100,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_pdf
-    @passengers = @passengers.send(@filter) if @filter.present?
+    @passengers = @passengers.send(@filter)
     pdf = PassengersPDF.new(@passengers, @filter)
     name = "#{@filter} Passengers #{Date.today}".capitalize
     send_data pdf.render, filename: name,
