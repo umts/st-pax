@@ -1,11 +1,3 @@
-- if @passenger.errors.any?
-  #error_explanation
-    %h2
-      = pluralize @passenger.errors.count, 'error'
-      prohibited this passenger from being saved:
-    %ul
-      - @passenger.errors.full_messages.each do |message|
-        %li= message
 = form_with model: @passenger, local: true do |form|
   .field
     %b Registration date:

@@ -16,7 +16,8 @@ class PassengersController < ApplicationController
       # skip validations on archival
       @passenger.update_attribute(:active_status, 'archived')
     end
-    redirect_to passengers_url, notice: 'Passenger successfully updated'
+    flash[:success] = 'Passenger successfully updated'
+    redirect_to passengers_url
   end
 
   def check_existing
@@ -50,23 +51,29 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new(passenger_params)
     @passenger.registered_by = @current_user
     if @passenger.save
-      redirect_to @passenger, notice: 'Passenger was successfully created.'
-    else render :new
+      flash[:success] = 'Passenger successfully created.'
+      redirect_to @passenger
+    else
+      flash.now[:danger] = @passenger.errors.full_messages
+      render :new
     end
   end
 
   def update
     @passenger.assign_attributes passenger_params
     if @passenger.save
-      redirect_to @passenger, notice: 'Passenger was successfully updated.'
+      flash[:success] = 'Passenger successfully updated.'
+      redirect_to @passenger
     else
+      flash[:danger] = @passenger.errors.full_messages
       render :edit
     end
   end
 
   def destroy
     @passenger.destroy
-    redirect_to passengers_url, notice: 'Passenger was successfully destroyed.'
+    flash[:success] = 'Passenger successfully destroyed.'
+    redirect_to passengers_url
   end
 
   private

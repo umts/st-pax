@@ -7,19 +7,21 @@ class MobilityDevicesController < ApplicationController
     @device = MobilityDevice.new(device_params)
 
     if @device.save
-      redirect_to mobility_devices_url,
-                  notice: 'Mobility device was successfully created.'
-    else render :new
+      flash[:success] = 'Mobility device was successfully created.'
+      redirect_to mobility_devices_url
+    else
+      flash.now[:danger] = @device.errors.full_messages
+      render :new
     end
   end
 
   def destroy
     if @device.destroy
-      redirect_to mobility_devices_url,
-                  notice: 'Mobility device was successfully destroyed.'
+      flash[:success] = 'Mobility device was successfully destroyed.'
+      redirect_to mobility_devices_url
     else
-      alert = 'Cannot delete devices which have been assigned to a passenger.'
-      redirect_to mobility_devices_url, alert: alert
+      flash[:danger] = @device.errors.full_messages
+      redirect_to mobility_devices_url
     end
   end
 
@@ -33,9 +35,11 @@ class MobilityDevicesController < ApplicationController
 
   def update
     if @device.update(device_params)
-      redirect_to mobility_devices_url,
-                  notice: 'Mobility device was successfully updated.'
-    else render :edit
+      flash[:success] = 'Mobility device was successfully updated.'
+      redirect_to mobility_devices_url
+    else
+      flash.now[:danger] = @device.errors.full_messages
+      render :edit
     end
   end
 

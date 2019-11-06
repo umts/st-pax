@@ -19,7 +19,7 @@ RSpec.describe 'Feedback Submission' do
   it 'renders the form again if feedback is invalid' do
     click_on 'Submit'
     expect(page).to have_text 'New Feedback'
-    expect(page).to have_text 'prohibited this feedback from being saved'
+    expect(page).to have_text "Title can't be blank"
   end
 
   it 'submits the feedback' do
@@ -36,7 +36,7 @@ RSpec.describe 'Feedback Submission' do
     click_on 'Submit'
 
     expect(page).to have_text 'New Feedback'
-    expect(page).to have_text 'prohibited this feedback from being saved'
+    expect(page).to have_text 'external error occurred'
   end
 
   it 'displays the GitHub content if submission succeeds' do
