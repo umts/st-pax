@@ -31,11 +31,11 @@
   = checkmark_glyph @passenger.permanent
 - if @passenger.temporary?
   %p
-    %b Has Doctor's Note?
-    = checkmark_glyph @passenger.doctors_note.present?
+    %b Is Verified as Needing Rides?
+    = checkmark_glyph @passenger.verification.present?
   %p
-    - if @passenger.doctors_note.present?
-      %b Doctor's Note Expiration Date:
+    - if @passenger.verification.present?
+      %b Verification Expiration Date:
     - else
       %b Rides Expire:
     = @passenger.rides_expire.strftime('%m/%d/%Y')

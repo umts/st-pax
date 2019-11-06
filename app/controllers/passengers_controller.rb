@@ -28,11 +28,11 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @doctors_note = DoctorsNote.new
+    @verification = Verification.new
   end
 
   def edit
-    @doctors_note = @passenger.doctors_note || DoctorsNote.new
+    @verification = @passenger.verification || Verification.new
   end
 
   # rubocop:disable Style/GuardClause
@@ -97,16 +97,16 @@ class PassengersController < ApplicationController
       .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
               :permanent, :note, :spire, :status, :has_brochure,
               :registered_with_disability_services,
-              doctors_note_attributes: %i[expiration_date])
+              verification_attributes: %i[expiration_date])
     passenger_params[:active_status] = params[:passenger][:active]
     passenger_params
   end
 
   def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:doctors_note_attributes]
+    note_params = permitted_params[:verification_attributes]
     return permitted_params unless note_params.try(:[], :expiration_date).blank?
 
-    permitted_params.except :doctors_note_attributes
+    permitted_params.except :verification_attributes
   end
 
   def restrict_admin(permitted_params)

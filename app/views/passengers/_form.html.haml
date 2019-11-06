@@ -39,15 +39,15 @@
   .field
     = form.label :active?
     = form.check_box :active?, {checked: true}, 'active', 'archived'
-  .doctors-note-fields{class: doctors_note_fields_class}
-    = form.label :has_doctors_note
-    = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
-    = form.fields_for :doctors_note, @doctors_note do |d|
+  .verification-fields{class: verification_fields_class}
+    = form.label :has_verification
+    = form.check_box :has_verification, checked: @passenger.verification.present?
+    = form.fields_for :verification, @verification do |d|
       .form-group
-        = d.label :expiration_date, "Doctor's note expires"
+        = d.label :expiration_date, 'How long will the passenger be with us?'
         = d.text_field :expiration_date,
-          class: 'datepicker doctors_note_expiration_date'
-        - if @passenger.doctors_note.blank? && @passenger.temporary?
+          class: 'datepicker verification_expiration_date'
+        - if @passenger.verification.blank? && @passenger.temporary?
           %i="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
   .field
     = form.label :note

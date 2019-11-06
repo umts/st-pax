@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DoctorsNote < ApplicationRecord
+class Verification < ApplicationRecord
   belongs_to :passenger
 
   validates :passenger, uniqueness: true
@@ -17,17 +17,17 @@ class DoctorsNote < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
-    expiration_date < DoctorsNote.expiration_warning &&
+    expiration_date < Verification.expiration_warning &&
       expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
     return false if expiration_date >= Time.zone.today
-    expiration_date > DoctorsNote.grace_period
+    expiration_date > Verification.grace_period
   end
 
   def expired?
-    expiration_date < DoctorsNote.grace_period
+    expiration_date < Verification.grace_period
   end
 
   private

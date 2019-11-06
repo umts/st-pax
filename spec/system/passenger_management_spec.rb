@@ -16,17 +16,17 @@ RSpec.describe 'Passenger Management', js: true do
         # links in the navbar cannot receive clickable events since they
         # wrap button elements. you must use click_button instead.
         click_button 'Add New Passenger'
-        fill_in 'Passenger Name', with: 'Foo Bar'
+        fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'Spire', with: '12345678@umass.edu'
+        fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
         click_button 'Add New Passenger'
-        fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
+        fill_in 'Spire', with: "#{@passenger.spire}\t"
         expect(page).to have_text 'A passenger already exists for this Spire ID'
         expect(page).to have_button 'Add new passenger'
         expect(page).to have_link 'Edit existing passenger'
@@ -43,10 +43,10 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
-        fill_in 'Passenger Name', with: 'Bar Foo'
+        fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully updated.'
       end
@@ -76,11 +76,11 @@ RSpec.describe 'Passenger Management', js: true do
         expect(@passenger.reload).to be_archived
       end
     end
-    context 'creating a temporary passenger without a doctors note' do
+    context 'creating a temporary passenger without a verification' do
       it 'creates the passenger' do
         visit new_passenger_path
-        fill_in 'Passenger Name', with: 'Jane Fonda'
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
+        fill_in 'Name', with: 'Jane Fonda'
+        fill_in 'Spire', with: '12345678@umass.edu'
         fill_in 'Email', with: 'jfonda@umass.edu'
         select 'Student', from: 'UMass Status'
         click_button 'Submit'
@@ -99,20 +99,20 @@ RSpec.describe 'Passenger Management', js: true do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
         click_button 'Add New Passenger'
-        fill_in 'Passenger Name', with: 'Foo Bar'
+        fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in "Doctor's note expires", with: date
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
+        fill_in 'How long will the passenger be with us?', with: date
+        fill_in 'Spire', with: '12345678@umass.edu'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
-        fill_in 'Passenger Name', with: 'Bar Foo'
+        fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully updated.'
       end
