@@ -54,6 +54,7 @@ class PassengersController < ApplicationController
   end
 
   def edit
+    @sources = Verification.sources.keys
     @verification = @passenger.verification || Verification.new
   end
 
