@@ -11,9 +11,9 @@
     = render 'layouts/navbar'
     .panel.panel-default
       .panel-body
-        - flash.each do |name, message|
+        - flash.each do |name, messages|
           .alert{class: "alert-#{name}"}
-            = message.try(:join, '. ') || message
+            = list_messages(messages)
             %button.close{'data-dismiss': 'alert', 'aria-label':'Close'}
               %span{'aria-hidden':'true'}
                 &times;
