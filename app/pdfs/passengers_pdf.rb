@@ -3,8 +3,7 @@
 require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
-  # what is the name of this file?
-  def initialize(passengers, filters)
+  def initialize(passengers, filter)
     super(page_layout: :landscape, page_size: 'TABLOID')
     font_families.update(
       'DejaVu Sans' => {
@@ -13,7 +12,7 @@ class PassengersPDF < Prawn::Document
       }
     )
     font 'DejaVu Sans'
-    header(filters)
+    header(filter)
     passengers_table(passengers)
   end
 
@@ -48,10 +47,10 @@ class PassengersPDF < Prawn::Document
     [name, needs_longer_ride, mobility_device, phone, expiration, note]
   end
 
-  def header(filters)
+  def header(filter)
     font_size 30
     date = Time.now.strftime('%m/%d/%Y')
-    title = (filters + ['Passengers', date]).map(&:capitalize).join(' ')
+    title = [filter, 'Passengers', date].compact.map(&:capitalize).join(' ')
     text title, style: :bold, size: 30
     move_down 20
   end

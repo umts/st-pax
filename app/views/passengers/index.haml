@@ -1,20 +1,17 @@
-%h1
-  = @filters.join( ' ' ).capitalize
-  Passengers
+%h1 Passengers
 
-= form_tag passengers_path, method: :get do
+= form_tag passengers_path(format: 'pdf'), method: :get do
   .form-group
     = label_tag 'Filter by Type:'
     .passenger-filters
       %label{ for: 'filter_permanent' } Permanent Only
-      = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
+      = radio_button_tag :filter, 'permanent', @filter == 'permanent'
       %label{ for: 'filter_temporary' } Temporary Only
-      = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
+      = radio_button_tag :filter, 'temporary', @filter == 'temporary'
       %label{ for: 'filter_'} All
-      = radio_button_tag :filter, '', @filters.include?('all')
+      = radio_button_tag :filter, '', @filter.blank?
   .form-group
-    = submit_tag 'Show Passengers'
-    = submit_tag 'Print filtered list', name: 'print'
+    = submit_tag 'Print'
   %table#key
     %tbody
       %tr
@@ -29,7 +26,7 @@
         %th Mobility Device
         %th Needs longer rides?
         %th Phone
-        %th.text-center Permanent
+        %th.permanent.text-center Permanent
         %th.text-center Rides Expire
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
@@ -43,7 +40,8 @@
           %td= passenger.mobility_device.try(:name)
           %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
-          %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
+          - permanent_data = {sort: passenger.permanent_or_temporary, filter: passenger.permanent_or_temporary}
+          %td.text-center{data: permanent_data}= checkmark_glyph passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
