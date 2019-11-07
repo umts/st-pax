@@ -40,7 +40,7 @@
     = form.label :active?
     = form.check_box :active?, {checked: true}, 'active', 'archived'
   .verification-fields{class: verification_fields_class}
-    = form.label :has_verification
+    = form.label :has_verification, "Has doctor's note?"
     = form.check_box :has_verification, checked: @passenger.verification.present?
     = form.fields_for :verification, @verification do |d|
       .form-group
