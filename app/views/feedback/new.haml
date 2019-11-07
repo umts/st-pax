@@ -2,19 +2,11 @@
 
 .row
   .col-md-6.offset-md-3
-    = form_for @feedback do |f|
-      .form-group
-        = f.label :title
-        = f.text_field :title, required: true, class: 'form-control'
-      .form-group
-        = f.label :description
-        = f.text_area :description, class: 'form-control', rows: 10
-      .form-group
-        = f.label :category
-        = f.select :category,
-          Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] }, {},
-          class: 'form-control'
-      .form-group
-        = f.submit 'Submit', class: 'btn btn-primary'
+    = bootstrap_form_with model: @feedback, local: true do |f|
+      = f.text_field :title, required: true
+      = f.text_area :description, rows: 10
+      = f.select :category,
+        Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] }
+      = f.primary 'Submit'
 
     = link_to 'Back', feedback_index_path
