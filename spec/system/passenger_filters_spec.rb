@@ -10,7 +10,7 @@ RSpec.describe 'Passenger Filters' do
     create :passenger, :temporary, name: 'Gary Stue'
     create :passenger, :permanent, name: 'Mary Sue'
     visit passengers_url
-    choose 'Permanent Only'
+    choose 'Permanent'
     click_on 'Show Passengers'
     expect(page).to have_selector 'table#passengers tbody tr', count: 1
     expect(page).to have_content 'Mary Sue'
@@ -20,7 +20,7 @@ RSpec.describe 'Passenger Filters' do
     create :passenger, :permanent, name: 'Mary Sue'
     create :passenger, :temporary, name: 'Gary Stue'
     visit passengers_url
-    choose 'Temporary Only'
+    choose 'Temporary'
     click_on 'Show Passengers'
     expect(page).to have_selector 'table#passengers tbody tr', count: 1
     expect(page).not_to have_content 'Mary Sue'
@@ -38,7 +38,7 @@ RSpec.describe 'Passenger Filters' do
   end
   it 'allows printing a PDF with filters' do
     visit passengers_url
-    choose 'Permanent Only'
+    choose 'Permanent'
     create :passenger, :permanent, name: 'Spongebob'
     click_on 'Print filtered list'
     analysis = PDF::Inspector::Text.analyze(page.body)

@@ -3,23 +3,18 @@
   Passengers
 
 .row.align-items-end.justify-content-between
-  = form_tag passengers_path, method: :get, class: 'col-lg-4 my-3' do
-    .form-row
-      .form-check.form-check-inline
-        = radio_button_tag :filter, 'permanent', @filters.include?('permanent'),
-          class: 'form-check-input'
-        %label.form-check-label{ for: 'filter_permanent' } Permanent Only
-      .form-check.form-check-inline
-        = radio_button_tag :filter, 'temporary', @filters.include?('temporary'),
-          class: 'form-check-input'
-        %label.form-check-label{ for: 'filter_temporary' } Temporary Only
-      .form-check.form-check-inline
-        = radio_button_tag :filter, '', @filters.include?('all'),
-          class: 'form-check-input'
-        %label.form-check-label{ for: 'filter_'} All
-    .form-row
-      = submit_tag 'Show Passengers', class: 'btn btn-secondary mr-5'
-      = submit_tag 'Print filtered list', name: 'print', class: 'btn btn-secondary'
+  .passenger-filters.col-lg-4.my-3
+    = bootstrap_form_tag url: passengers_path, method: :get do |f|
+      .form-row
+        = f.form_group do
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filters.include?(filter),
+              inline: true
+      .form-row
+        = f.submit 'Show Passengers'
+        = f.submit 'Print filtered list', name: 'print'
   %table#key.col-lg-4.my-3
     %tbody
       %tr
