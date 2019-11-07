@@ -63,8 +63,9 @@ RSpec.describe 'Passenger Management', js: true do
     context 'deleting an existing passenger successfully' do
       it 'deletes the passenger' do
         visit passengers_path
-        click_button 'Delete'
-        page.driver.browser.switch_to.alert.accept
+        page.accept_confirm 'Are you sure?' do
+          click_button 'Delete'
+        end
         expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
