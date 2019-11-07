@@ -3,20 +3,24 @@
   Passengers
 
 .row.align-items-end.justify-content-between
-  = form_tag passengers_path, method: :get, class: 'col-lg-4' do
-    .form-group
-      = label_tag 'Filter by Type:'
-      .passenger-filters
-        %label{ for: 'filter_permanent' } Permanent Only
-        = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
-        %label{ for: 'filter_temporary' } Temporary Only
-        = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
-        %label{ for: 'filter_'} All
-        = radio_button_tag :filter, '', @filters.include?('all')
-    .form-group
-      = submit_tag 'Show Passengers'
-      = submit_tag 'Print filtered list', name: 'print'
-  %table#key.col-lg-4
+  = form_tag passengers_path, method: :get, class: 'col-lg-4 my-3' do
+    .form-row
+      .form-check.form-check-inline
+        = radio_button_tag :filter, 'permanent', @filters.include?('permanent'),
+          class: 'form-check-input'
+        %label.form-check-label{ for: 'filter_permanent' } Permanent Only
+      .form-check.form-check-inline
+        = radio_button_tag :filter, 'temporary', @filters.include?('temporary'),
+          class: 'form-check-input'
+        %label.form-check-label{ for: 'filter_temporary' } Temporary Only
+      .form-check.form-check-inline
+        = radio_button_tag :filter, '', @filters.include?('all'),
+          class: 'form-check-input'
+        %label.form-check-label{ for: 'filter_'} All
+    .form-row
+      = submit_tag 'Show Passengers', class: 'btn btn-secondary mr-5'
+      = submit_tag 'Print filtered list', name: 'print', class: 'btn btn-secondary'
+  %table#key.col-lg-4.my-3
     %tbody
       %tr
         %td.expires-soon Expires within one week
