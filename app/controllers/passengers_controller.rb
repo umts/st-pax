@@ -97,7 +97,7 @@ class PassengersController < ApplicationController
       .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
               :permanent, :note, :spire, :status, :has_brochure,
               :registered_with_disability_services,
-              verification_attributes: %i[expiration_date])
+              verification_attributes: %i[expiration_date verification_source_id])
     passenger_params[:active_status] = params[:passenger][:active]
     passenger_params
   end

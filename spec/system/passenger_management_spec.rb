@@ -3,6 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Passenger Management', js: true do
+  before :each do
+    create :verification_source
+  end
   context 'as an admin' do
     before :each do
       @user = create :user, :admin
@@ -19,6 +22,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
+        select 'UHS', from: 'Which agency verifies that this passenger needs rides?'
         fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -101,8 +105,9 @@ RSpec.describe 'Passenger Management', js: true do
         click_button 'Add New Passenger'
         fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'How long will the passenger be with us?', with: date
         fill_in 'Spire', with: '12345678@umass.edu'
+        select 'UHS', from: 'Which agency verifies that this passenger needs rides?'
+        fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end

@@ -40,9 +40,14 @@
     = form.label :active?
     = form.check_box :active?, {checked: true}, 'active', 'archived'
   .verification-fields{class: verification_fields_class}
-    = form.label :has_verification, "Has doctor's note?"
-    = form.check_box :has_verification, checked: @passenger.verification.present?
     = form.fields_for :verification, @verification do |d|
+      .form-group
+        = d.label :verification_source_id,
+          'Which agency verifies that this passenger needs rides?'
+        = d.select :verification_source_id,
+          options_from_collection_for_select(VerificationSource.all,
+          :id, :name, @passenger.verification&.verification_source&.id),
+          include_blank: true
       .form-group
         = d.label :expiration_date, 'How long will the passenger be with us?'
         = d.text_field :expiration_date,
