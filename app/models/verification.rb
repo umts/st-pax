@@ -2,6 +2,7 @@
 
 class Verification < ApplicationRecord
   belongs_to :passenger
+  belongs_to :verification_source
 
   validates :passenger, uniqueness: true
   validate :temporary_passenger
