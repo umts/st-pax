@@ -5,7 +5,6 @@ class Verification < ApplicationRecord
   belongs_to :verification_source
 
   validates :passenger, uniqueness: true
-  validate :temporary_passenger
 
   validates :expiration_date, presence: true
 
@@ -33,9 +32,4 @@ class Verification < ApplicationRecord
 
   private
 
-  def temporary_passenger
-    return if passenger.temporary?
-
-    errors.add :base, 'must belong to a temporary passenger'
-  end
 end
