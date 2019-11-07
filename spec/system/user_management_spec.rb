@@ -13,10 +13,10 @@ RSpec.describe 'User Management', js: true do
     end
     it 'puts the errors in the flash' do
       visit users_url
-      # Find destroy link by href because there are 2 users by necessity.
-      # Although you definitely _can_ delete yourself.
-      find(:xpath, "//form[@action='/users/#{@user.id}']/input[@type='submit']").click
-      page.driver.browser.switch_to.alert.accept
+      # Click the 'destroy' link in the user's row
+      page.accept_confirm 'Are you sure?' do
+        within('tr', text: @user.name) { click_on 'Destroy' }
+      end
       expect(page).to have_text(
         'Cannot delete record because dependent log entries exist'
       )
@@ -25,8 +25,9 @@ RSpec.describe 'User Management', js: true do
   context 'deleting a user successfully' do
     it 'deletes the user and says it did' do
       visit users_url
-      find(:xpath, "//form[@action='/users/#{@user.id}']/input[@type='submit']").click
-      page.driver.browser.switch_to.alert.accept
+      page.accept_confirm 'Are you sure?' do
+        within('tr', text: @user.name) { click_on 'Destroy' }
+      end
       expect(page).to have_text(
         'User successfully destroyed'
       )
@@ -35,7 +36,7 @@ RSpec.describe 'User Management', js: true do
   context 'editing an existing user successfully' do
     it 'updates the user' do
       visit users_path
-      find(:xpath, "//a[@href='/users/#{@user.id}/edit']").click
+      within('tr', text: @user.name) { click_on 'Edit' }
       fill_in 'Name', with: 'Bar Foo'
       click_button 'Save'
       expect(page).to have_text 'User successfully updated'
@@ -44,7 +45,7 @@ RSpec.describe 'User Management', js: true do
   context 'editing an existing user unsuccessfully' do
     it 'puts the error in the flash' do
       visit users_path
-      find(:xpath, "//a[@href='/users/#{@user.id}/edit']").click
+      within('tr', text: @user.name) { click_on 'Edit' }
       fill_in 'Spire', with: 'not a valid spire'
       click_button 'Save'
       expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
