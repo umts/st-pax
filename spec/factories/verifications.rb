@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :verification do
+    verification_source
     passenger
     expiration_date { 1.month.from_now }
   end
