@@ -2,9 +2,9 @@
 
 .row
   .col-md-6.offset-md-3
-    = form_with model: @entry, url: log_index_path do |f|
-      .form-group= f.text_area :text, required: true, rows: 8, class: 'form-control'
-      .form-group.actions= f.submit 'Create log entry', class: 'btn btn-primary'
+    = bootstrap_form_with model: @entry, url: log_index_path do |f|
+      = f.text_area :text, required: true, rows: 8, hide_label: true
+      = f.primary 'Create log entry'
 
 = will_paginate @entries, list_classes: %w[pagination justify-content-end]
 
@@ -18,9 +18,9 @@
           %p= entry.text
           - if @current_user.admin?
             .edit-form
-              = form_with model: entry, url: log_url(entry) do |f|
-                .form-group= f.text_area :text, rows: 8, class: 'form-control'
-                .form-group.actions= f.submit 'Change log entry', class: 'btn btn-primary'
+              = bootstrap_form_with model: entry, url: log_url(entry) do |f|
+                = f.text_area :text, rows: 8, hide_label: true
+                = f.primary 'Change log entry'
         .actions.col-xl-1.form-inline
           - if @current_user.admin?
             %button.btn.btn-primary.mr-1.edit-entry Edit
