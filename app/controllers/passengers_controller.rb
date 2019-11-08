@@ -4,6 +4,7 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
   before_action :access_control, only: %i[destroy archived toggle_archive]
+  before_action :set_verification, only: %i[new edit create update]
 
   def archived
     @passengers = Passenger.archived
@@ -28,12 +29,9 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @verification = Verification.new
   end
 
-  def edit
-    @verification = @passenger.verification || Verification.new
-  end
+  def edit; end
 
   # rubocop:disable Style/GuardClause
   def index
@@ -85,6 +83,10 @@ class PassengersController < ApplicationController
   end
 
   private
+
+  def set_verification
+    @verification = @passenger&.verification || Verification.new
+  end
 
   def passenger_params
     base_passenger_params
