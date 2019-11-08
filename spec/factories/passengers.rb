@@ -5,7 +5,11 @@ FactoryBot.define do
     name { FFaker::Name.name }
     email { FFaker::Internet.email }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    active_status { 'active' }
+
+    trait :active do
+      active_status { 'active' }
+      association :verification
+    end
 
     trait :temporary do
       permanent { false }

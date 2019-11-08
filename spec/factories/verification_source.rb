@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :verification_source do
-    name { 'UHS' }
+    sequence(:name) { |n| "Service #{n}" }
   end
 end
