@@ -7,8 +7,8 @@ RSpec.describe 'Passenger Filters' do
     when_current_user_is :admin
   end
   it 'allows filtering by permanent status' do
-    create :passenger, :temporary, name: 'Gary Stue'
-    create :passenger, :permanent, name: 'Mary Sue'
+    create :passenger, :temporary, :active, name: 'Gary Stue'
+    create :passenger, :permanent, :active, name: 'Mary Sue'
     visit passengers_url
     choose 'Permanent Only'
     click_on 'Show Passengers'
@@ -17,8 +17,8 @@ RSpec.describe 'Passenger Filters' do
     expect(page).not_to have_content 'Gary Stue'
   end
   it 'allows filtering by temporary' do
-    create :passenger, :permanent, name: 'Mary Sue'
-    create :passenger, :temporary, name: 'Gary Stue'
+    create :passenger, :temporary, :active, name: 'Gary Stue'
+    create :passenger, :permanent, :active, name: 'Mary Sue'
     visit passengers_url
     choose 'Temporary Only'
     click_on 'Show Passengers'
@@ -27,8 +27,8 @@ RSpec.describe 'Passenger Filters' do
     expect(page).to have_content 'Gary Stue'
   end
   it 'allows filtering by everyone' do
-    create :passenger, :temporary, name: 'Gary Stue'
-    create :passenger, :permanent, name: 'Mary Sue'
+    create :passenger, :temporary, :active, name: 'Gary Stue'
+    create :passenger, :permanent, :active, name: 'Mary Sue'
     visit passengers_url
     choose 'All'
     click_on 'Show Passengers'
@@ -39,7 +39,7 @@ RSpec.describe 'Passenger Filters' do
   it 'allows printing a PDF with filters' do
     visit passengers_url
     choose 'Permanent Only'
-    create :passenger, :permanent, name: 'Spongebob'
+    create :passenger, :permanent, :active, name: 'Spongebob'
     click_on 'Print filtered list'
     analysis = PDF::Inspector::Text.analyze(page.body)
     expect(analysis.strings).to include 'Name'
