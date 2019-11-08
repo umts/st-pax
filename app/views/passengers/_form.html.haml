@@ -37,8 +37,13 @@
      options_from_collection_for_select(MobilityDevice.order(:name),
       :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
   .field
-    = form.label :active?
-    = form.check_box :active?, {checked: true}, 'active', 'archived'
+    %b Registration Status
+    = form.label :active_status_pending, 'Pending', class: 'form-check-label'
+    = form.radio_button :active_status, 'pending', class: 'form-check-input'
+    = form.label :active_status_active, 'Active', class: 'form-check-label'
+    = form.radio_button :active_status, 'active', class: 'form-check-input'
+    = form.label :active_status_archived, 'Archived', class: 'form-check-label'
+    = form.radio_button :active_status, 'archived', class: 'form-check-input'
   .verification-fields{class: verification_fields_class}
     = form.fields_for :verification, @verification do |d|
       .form-group
