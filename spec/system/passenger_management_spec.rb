@@ -81,7 +81,7 @@ RSpec.describe 'Passenger Management', js: true do
       end
     end
     context 'creating a temporary passenger without a verification' do
-      it 'creates the passenger' do
+      it 'creates a pending passenger' do
         visit new_passenger_path
         fill_in 'Name', with: 'Jane Fonda'
         fill_in 'Spire', with: '12345678@umass.edu'
