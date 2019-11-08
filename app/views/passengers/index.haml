@@ -2,8 +2,8 @@
   = @filters.join( ' ' ).capitalize
   Passengers
 
-.row.align-items-end.justify-content-between
-  .passenger-filters.col-lg-4.my-3
+.row.align-items-end.justify-content-between.my-3
+  .passenger-filters.col-lg-4
     = bootstrap_form_tag url: passengers_path, method: :get do |f|
       .form-row
         = f.form_group do
@@ -15,12 +15,13 @@
       .form-row
         = f.submit 'Show Passengers'
         = f.submit 'Print filtered list', name: 'print'
-  %table#key.col-lg-4.my-3
-    %tbody
-      %tr
-        %td.expires-soon Expires within one week
-        %td.needs-note Within grace period, needs doctor's note
-        %td.expired Expired - out of grace period
+  .col-lg-4
+    %table#key
+      %tbody
+        %tr.text-center
+          %td.p-3.expires-soon Expires within one week
+          %td.p-3.needs-note Within grace period, needs doctor's note
+          %td.p-3.expired Expired - out of grace period
 
 - if @passengers.present?
   %table.table#passengers{data: {paging: 'false'}}

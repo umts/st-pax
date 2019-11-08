@@ -15,7 +15,7 @@
               %td= device.name
               %td.text-center= checkmark_glyph device.needs_longer_rides?
               %td= link_to 'Edit', edit_mobility_device_url(device)
-              %td= button_to 'Destroy', device, method: :delete, class: 'btn btn-primary'
+              %td.text-right= button_to 'Destroy', device, method: :delete, class: 'btn btn-danger'
         - else
           %tr
             %td{colspan: 4} No devices to show.

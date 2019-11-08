@@ -23,6 +23,7 @@
                 = f.primary 'Change log entry'
         .actions.col-xl-1.form-inline
           - if @current_user.admin?
-            %button.btn.btn-primary.mr-1.edit-entry Edit
+            =link_to 'Edit', '#', class: 'edit-entry mr-5'
           - if @current_user.can_delete? entry
-            = button_to 'Delete', log_url(entry), method: :delete, class: 'btn btn-primary'
+            = button_to 'Delete', log_url(entry), method: :delete,
+              class: 'btn btn-danger', form_class: 'ml-auto ml-xl-0'
