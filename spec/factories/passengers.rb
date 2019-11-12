@@ -8,7 +8,6 @@ FactoryBot.define do
 
     trait :active do
       active_status { 'active' }
-      association :verification
     end
 
     trait :temporary do
@@ -17,7 +16,6 @@ FactoryBot.define do
 
     trait :permanent do
       permanent { true }
-      verification { nil }
     end
 
     trait :inactive do
@@ -30,14 +28,14 @@ FactoryBot.define do
       verification { nil }
     end
 
-    trait :with_verification do
+    trait :verified do
       after :create do |passenger|
         create :verification, passenger: passenger
       end
     end
 
     trait :expired_within_grace_period do
-      after :create do |passenger|
+      after :build do |passenger|
         create :verification, :expired_within_grace_period, passenger: passenger
       end
     end
