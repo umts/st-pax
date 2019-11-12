@@ -16,10 +16,8 @@ RSpec.describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        # links in the navbar cannot receive clickable events since they
-        # wrap button elements. you must use click_button instead.
-        click_button 'Add New Passenger'
-        fill_in 'Name', with: 'Foo Bar'
+        click_on 'Add New Passenger'
+        fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
         select @source.name, from: 'Which agency verifies that this passenger needs rides?'
@@ -29,8 +27,8 @@ RSpec.describe 'Passenger Management', js: true do
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
-        click_button 'Add New Passenger'
-        fill_in 'Spire', with: "#{@passenger.spire}\t"
+        click_on 'Add New Passenger'
+        fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
         expect(page).to have_text 'A passenger already exists for this Spire ID'
         expect(page).to have_button 'Add new passenger'
         expect(page).to have_link 'Edit existing passenger'
@@ -39,7 +37,7 @@ RSpec.describe 'Passenger Management', js: true do
     context 'creating a new passenger unsuccessfully' do
       it 'renders an error in the flash' do
         visit passengers_path
-        click_button 'Add New Passenger'
+        click_on 'Add New Passenger'
         fill_in 'Passenger Spire', with: 'invalid spire'
         click_button 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
@@ -67,8 +65,9 @@ RSpec.describe 'Passenger Management', js: true do
     context 'deleting an existing passenger successfully' do
       it 'deletes the passenger' do
         visit passengers_path
-        click_button 'Delete'
-        page.driver.browser.switch_to.alert.accept
+        page.accept_confirm 'Are you sure?' do
+          click_button 'Delete'
+        end
         expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
@@ -102,8 +101,8 @@ RSpec.describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        click_button 'Add New Passenger'
-        fill_in 'Name', with: 'Foo Bar'
+        click_on 'Add New Passenger'
+        fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
         select @source.name, from: 'Which agency verifies that this passenger needs rides?'

@@ -1,26 +1,28 @@
 %h1 Dispatch Log
 
-= form_with model: @entry, url: log_index_url do |f|
-  .field= f.text_area :text, size: '80x8'
-  .actions= f.submit 'Create log entry'
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @entry, url: log_index_path do |f|
+      = f.text_area :text, required: true, rows: 8, hide_label: true
+      = f.primary 'Create log entry'
 
-= will_paginate @entries
+= will_paginate @entries, list_classes: %w[pagination justify-content-end]
 
 %ul.dispatch-log
   - @entries.each do |entry|
-    %li
-      .content
-        .name= entry.user.try(:name) || 'Unknown'
-        .time= entry.entry_time
-        .text
+    %li.card.mb-3.p-3
+      .row
+        .name.col-xl-1.font-weight-bold= entry.user.try(:name) || 'Unknown'
+        .time.col-xl-2.font-italic= entry.entry_time
+        .text.col-xl-8.my-3.my-xl-0.py-3.bg-light.rounded
           %p= entry.text
           - if @current_user.admin?
             .edit-form
-              = form_with model: entry, url: log_url(entry) do |f|
-                .field= f.text_area :text, size: '80x8'
-                .actions= f.submit 'Change log entry', class: 'btn btn-primary'
-      .actions
-        - if @current_user.admin?
-          %button.btn.btn-primary.edit-entry Edit
-        - if @current_user.can_delete? entry
-          = button_to 'Delete', log_url(entry), method: :delete, class: 'btn btn-primary'
+              = bootstrap_form_with model: entry, url: log_url(entry) do |f|
+                = f.text_area :text, rows: 8, hide_label: true
+                = f.primary 'Change log entry'
+        .actions.col-xl-1.form-inline
+          - if @current_user.admin?
+            %button.btn.btn-primary.mr-1.edit-entry Edit
+          - if @current_user.can_delete? entry
+            = button_to 'Delete', log_url(entry), method: :delete, class: 'btn btn-primary'

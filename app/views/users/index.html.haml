@@ -1,29 +1,34 @@
 %h1 Users
-%table#users
-  %thead
-    %tr
-      %th Name
-      %th Spire ID
-      %th Active?
-      %th STSPV?
-      %th
-      %th
-  %tbody
-    - if @users.present?
-      - @users.each do |user|
+.row
+  .col-md-6.offset-md-3
+    %table.table.table-sm
+      %thead.thead-dark
         %tr
-          %td= user.name
-          %td= user.spire
-          %td= checkmark_glyph user.active?
-          %td= checkmark_glyph user.admin?
-          %td= link_to 'Edit', edit_user_path(user)
-          %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
-    - else
-      %tr
-        %td{colspan: 7} No users to show.
-- if @show_inactive
-  = link_to 'Show active users only', users_url
-- else
-  = link_to 'Also show inactive users', users_url(show_inactive: true)
-%br
-= link_to 'New User', new_user_path
+          %th Name
+          %th Spire ID
+          %th.text-center Active?
+          %th.text-center STSPV?
+          %th
+          %th
+      %tbody
+        - if @users.present?
+          - @users.each do |user|
+            %tr
+              %td= user.name
+              %td= user.spire
+              %td.text-center= checkmark_glyph user.active?
+              %td.text-center= checkmark_glyph user.admin?
+              %td= link_to 'Edit', edit_user_path(user)
+              %td= button_to 'Destroy', user, method: :delete,
+                class: 'btn btn-primary', data: { confirm: 'Are you sure?' }
+        - else
+          %tr
+            %td{colspan: 7} No users to show.
+    .row
+      .col
+        - if @show_inactive
+          = link_to 'Show active users only', users_url
+        - else
+          = link_to 'Also show inactive users', users_url(show_inactive: true)
+      .col.text-right
+        = link_to 'New User', new_user_path

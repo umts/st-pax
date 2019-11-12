@@ -1,48 +1,13 @@
-ul.dispatch-log{
-  list-style-type: none;
+ul.dispatch-log {
+  padding: 0;
 
-  li{
-    background: lightgrey;
-    border: 2px solid grey;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: row;
-    margin: 5px;
-    padding: 5px;
-
-    .content{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 90%;
-
-      .name{
-        font-weight: bold;
-        width: 12%;
-      }
-
-      .time{
-        font-style: italic;
-        width: 28%;
-      }
-
-      .text{
-        background: white;
-        border-radius: 6px;
-        padding: 3px 10px;
-        width: 60%;
-        .edit-form{
-          display: none;
-        }
-      }
+  li {
+    background: $gray-500;
+    .text p {
+      white-space: pre-line;
     }
-
-    .actions{
-      padding: 5px;
-      width: 10%;
-      button{
-        margin: 2px;
-      }
+    .edit-form {
+      display: none;
     }
   }
 }

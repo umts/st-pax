@@ -7,8 +7,8 @@
         %th Mobility Device
         %th Email
         %th Phone
-        %th.yesno Permanent
-        %th.yesno Doc's Note Expires
+        %th Permanent
+        %th Doc's Note Expires
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
@@ -20,8 +20,8 @@
           %td= passenger.mobility_device.try(:name)
           %td= passenger.email
           %td= passenger.phone
-          %td.yes= checkmark_glyph passenger.permanent?
-          %td.yes= passenger.expiration_display
+          %td= checkmark_glyph passenger.permanent?
+          %td= passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           %td= button_to 'Reactivate', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'

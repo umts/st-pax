@@ -2,25 +2,26 @@
   = @filters.join( ' ' ).capitalize
   Passengers
 
-= form_tag passengers_path, method: :get do
-  .form-group
-    = label_tag 'Filter by Type:'
-    .passenger-filters
-      %label{ for: 'filter_permanent' } Permanent Only
-      = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
-      %label{ for: 'filter_temporary' } Temporary Only
-      = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
-      %label{ for: 'filter_'} All
-      = radio_button_tag :filter, '', @filters.include?('all')
-  .form-group
-    = submit_tag 'Show Passengers'
-    = submit_tag 'Print filtered list', name: 'print'
-  %table#key
+.row.align-items-end.justify-content-between
+  .passenger-filters.col-lg-4.my-3
+    = bootstrap_form_tag url: passengers_path, method: :get do |f|
+      .form-row
+        = f.form_group do
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filters.include?(filter),
+              inline: true
+      .form-row
+        = f.submit 'Show Passengers'
+        = f.submit 'Print filtered list', name: 'print'
+  %table#key.col-lg-4.my-3
     %tbody
       %tr
         %td.expires-soon Expires within one week
         %td.needs-verification Within grace period, needs verification
         %td.expired Expired - out of grace period
+
 - if @passengers.present?
   %table.table#passengers{data: {paging: 'false'}}
     %thead
