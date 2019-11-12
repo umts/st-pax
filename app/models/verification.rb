@@ -6,7 +6,7 @@ class Verification < ApplicationRecord
 
   validates :passenger, uniqueness: true
 
-  validates :expiration_date, presence: true
+  validates :expiration_date, presence: true, if: :passenger_requires_validation
 
   def self.grace_period
     3.business_days.ago
@@ -31,5 +31,9 @@ class Verification < ApplicationRecord
   end
 
   private
+
+  def passenger_requires_validation
+    passenger&.active? && passenger&.temporary?
+  end
 
 end
