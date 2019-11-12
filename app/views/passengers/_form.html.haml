@@ -14,11 +14,8 @@
       = form.select :status, Passenger::STATUSES, include_blank: true
       %b Registration Status
       = form.form_group do
-        = form.label :active_status_pending, 'Pending', class: 'form-check-label'
         = form.radio_button :active_status, 'pending', class: 'form-check-input'
-        = form.label :active_status_active, 'Active', class: 'form-check-label'
         = form.radio_button :active_status, 'active', class: 'form-check-input'
-        = form.label :active_status_archived, 'Archived', class: 'form-check-label'
         = form.radio_button :active_status, 'archived', class: 'form-check-input'
 
       - unless @passenger.permanent?
