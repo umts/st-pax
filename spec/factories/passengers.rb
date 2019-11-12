@@ -19,8 +19,10 @@ FactoryBot.define do
     end
 
     trait :expired do
-      registration_date { 1.month.ago }
       association :verification, :expired
+      after :create do |passenger|
+        passenger.update_attributes(registration_date: 1.month.ago)
+      end
     end
 
     trait :unverified do
@@ -32,12 +34,10 @@ FactoryBot.define do
     end
 
     trait :expired_within_grace_period do
-      registration_date { 3.days.ago }
       association :verification, :expired_within_grace_period
     end
 
     trait :expiring_soon do
-      registration_date { 1.month.ago }
       association :verification, :expiring_soon
     end
   end

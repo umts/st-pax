@@ -24,8 +24,8 @@ module SeedCreator
       create_list :passenger, 5, :temporary, :unverified
       create_list :passenger, 5, :temporary, :active, :verified
       create_list :passenger, 5, :temporary, :active, :expired_within_grace_period
-      create_list :passenger, 5, :temporary, :active, :expiring_soon
       create_list :passenger, 5, :temporary, :active, :expired
+      create_list :passenger, 5, :temporary, :active, :expiring_soon
     end
 
     def create_dispatch_logs
