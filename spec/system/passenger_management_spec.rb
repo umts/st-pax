@@ -13,9 +13,7 @@ RSpec.describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        # links in the navbar cannot receive clickable events since they
-        # wrap button elements. you must use click_button instead.
-        click_button 'Add New Passenger'
+        click_on 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
@@ -25,7 +23,7 @@ RSpec.describe 'Passenger Management', js: true do
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
-        click_button 'Add New Passenger'
+        click_on 'Add New Passenger'
         fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
         expect(page).to have_text 'A passenger already exists for this Spire ID'
         expect(page).to have_button 'Add new passenger'
@@ -35,7 +33,7 @@ RSpec.describe 'Passenger Management', js: true do
     context 'creating a new passenger unsuccessfully' do
       it 'renders an error in the flash' do
         visit passengers_path
-        click_button 'Add New Passenger'
+        click_on 'Add New Passenger'
         fill_in 'Passenger Spire', with: 'invalid spire'
         click_button 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
@@ -99,7 +97,7 @@ RSpec.describe 'Passenger Management', js: true do
       it 'creates the passenger' do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
-        click_button 'Add New Passenger'
+        click_on 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in "Doctor's note expires", with: date

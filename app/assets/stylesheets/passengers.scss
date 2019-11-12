@@ -2,27 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-strong.filter_description_emphasis {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 18px;
-  background-color: #e0dbfa;
-  text-decoration: underline;
-  margin-right: 15px;
-}
-
-a {
-  .radioDiv {
-   width:200px;
-  }
-  .leftRadio {
-   float:left;
-  }
-  .rightRadio {
-   float:right;
-  }
-}
-
 table#key, table#passengers {
   .expires-soon {
     background-color: #fffd8a;
@@ -35,37 +14,8 @@ table#key, table#passengers {
   }
 }
 
-.passenger-filters{
-  label {
-    display: inline;
-  }
-
-  input{
-    margin-right: 15px;
-  }
-}
-
-table#key {
-  float: right;
-  margin-bottom: 1em;
-  td {
-    border-left: 1px solid grey;
-    border-right: 1px solid grey;
-    font-size: 13px;
-    padding: 5px;
-  }
-}
-
-div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
-}
-
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+.passenger-filters input[type='submit'] {
+  margin-right: $spacer;
 }
 
 .hide-view {

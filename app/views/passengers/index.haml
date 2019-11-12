@@ -1,23 +1,25 @@
 %h1 Passengers
 
-= form_tag passengers_path(format: 'pdf'), method: :get do
-  .form-group
-    = label_tag 'Filter by Type:'
-    .passenger-filters
-      %label{ for: 'filter_permanent' } Permanent Only
-      = radio_button_tag :filter, 'permanent', @filter == 'permanent'
-      %label{ for: 'filter_temporary' } Temporary Only
-      = radio_button_tag :filter, 'temporary', @filter == 'temporary'
-      %label{ for: 'filter_'} All
-      = radio_button_tag :filter, '', @filter == 'all'
-  .form-group
-    = submit_tag 'Print'
-  %table#key
-    %tbody
-      %tr
-        %td.expires-soon Expires within one week
-        %td.needs-note Within grace period, needs doctor's note
-        %td.expired Expired - out of grace period
+.row.align-items-end.justify-content-between.my-3
+  .passenger-filters.col-lg-4
+    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
+      .form-row
+        = f.form_group do
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filter == filter,
+              inline: true
+      .form-row
+        = f.submit 'Print'
+  .col-lg-4
+    %table#key
+      %tbody
+        %tr.text-center
+          %td.p-3.expires-soon Expires within one week
+          %td.p-3.needs-note Within grace period, needs doctor's note
+          %td.p-3.expired Expired - out of grace period
+
 - if @passengers.present?
   %table.table#passengers{data: {paging: 'false'}}
     %thead

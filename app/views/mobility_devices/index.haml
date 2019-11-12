@@ -1,21 +1,22 @@
 %h1 Mobility Devices
-%table#mobility-devices
-  %thead
-    %tr
-      %th Device
-      %th Needs Longer Rides?
-      %th
-      %th
-  %tbody
-    - if @devices.present?
-      - @devices.each do |device|
+.row
+  .col-md-6.offset-md-3
+    %table.table.table-sm
+      %thead.thead-dark
         %tr
-          %td= device.name
-          %td= checkmark_glyph device.needs_longer_rides?
-          %td= link_to 'Edit', edit_mobility_device_url(device)
-          %td= button_to 'Destroy', device, method: :delete
-    - else
-      %tr
-        %td{colspan: 4} No devices to show.
-%br
-= link_to 'New mobility device', new_mobility_device_url
+          %th Device
+          %th.text-center Needs Longer Rides?
+          %th
+          %th
+      %tbody
+        - if @devices.present?
+          - @devices.each do |device|
+            %tr
+              %td= device.name
+              %td.text-center= checkmark_glyph device.needs_longer_rides?
+              %td= link_to 'Edit', edit_mobility_device_url(device)
+              %td.text-right= button_to 'Destroy', device, method: :delete, class: 'btn btn-danger'
+        - else
+          %tr
+            %td{colspan: 4} No devices to show.
+    = link_to 'New mobility device', new_mobility_device_url

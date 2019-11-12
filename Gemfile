@@ -3,7 +3,8 @@
 source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
-gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap_form'
 gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
 gem 'exception_notification'
@@ -20,6 +21,7 @@ gem 'rake'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
 gem 'will_paginate', '~> 3.1'
+gem 'will_paginate-bootstrap4'
 
 group :development, :test do
   gem 'codeclimate-test-reporter'
