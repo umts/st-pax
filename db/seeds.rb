@@ -19,13 +19,26 @@ module SeedCreator
     end
 
     def create_passengers
-      create_list :passenger, 20, :permanent
-      create_list :passenger, 20, :temporary, :with_note
+      create_list :passenger, 5, :permanent,
+        active_status: ['active', 'pending'].sample,
+        verification: nil
+      create_list :passenger, 5, :permanent,
+        active_status:['active', 'pending'].sample,
+        verification: create_verification
+      create_list :passenger, 5, :temporary, active_status: 'pending',
+        verification: nil
+      create_list :passenger, 5, :temporary, verification: create_verification
+      create_list :passenger, 5, :temporary, :active,
+        verification: create_verification(expires: 2.business_days.ago)
+      create_list :passenger, 5, :temporary, :active,
+        verification: create_verification(expires: 6.days.from_now)
+      create_list :passenger, 3, :temporary, :active,
+        verification: create_verification(expires: 1.month.ago)
+    end
 
-      create_list :passenger, 5, :temporary, :expired_within_grace_period
-      create_list :passenger, 5, :temporary, :expiring_soon
-      create_list :passenger, 5, :temporary, :inactive
-      create_list :passenger, 5, :temporary, :no_note
+    def create_verification(expires: nil)
+      source = VerificationSource.all.sample || create(:verification_source)
+      create :verification, verification_source: source, expiration_date: expires
     end
 
     def create_dispatch_logs
