@@ -1,56 +1,41 @@
-= form_with model: @passenger, local: true do |form|
-  .field
-    %b Registration date:
-    = @passenger.registration_date
-  .field
-    = form.label :permanent
-    = form.check_box :permanent, disabled: !@current_user.admin?
-  .field
-    = form.label :name
-    = form.text_field :name
-  .field
-    = form.label :spire
-    = form.text_field :spire, placeholder: '12345678@umass.edu'
-  .field
-    = form.label :address
-    = form.text_field :address
-  .field
-    = form.label :email
-    = form.text_field :email
-  .field
-    = form.label :phone
-    = form.phone_field :phone
-  .field
-    = form.label :status
-    = form.select :status, Passenger::STATUSES, include_blank: true
-  .field
-    - unless @passenger.permanent?
-      = form.label :registered_with_disability_services
-      = form.check_box :registered_with_disability_services
-  .field
-    - unless @passenger.permanent?
-      = form.label :has_brochure
-      = form.check_box :has_brochure
-  .field
-    = form.label :mobility_device_id
-    = form.select :mobility_device_id,
-     options_from_collection_for_select(MobilityDevice.order(:name),
-      :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
-  .field
-    = form.label :active?
-    = form.check_box :active?, {checked: true}, 'active', 'archived'
-  .doctors-note-fields{class: doctors_note_fields_class}
-    = form.label :has_doctors_note
-    = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
-    = form.fields_for :doctors_note, @doctors_note do |d|
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @passenger, local: true do |form|
       .form-group
-        = d.label :expiration_date, "Doctor's note expires"
-        = d.text_field :expiration_date,
-          class: 'datepicker doctors_note_expiration_date'
-        - if @passenger.doctors_note.blank? && @passenger.temporary?
-          %i="Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
-  .field
-    = form.label :note
-    = form.text_area :note, rows: 20, cols: 100
-  .actions
-    = form.submit 'Submit'
+        %b Registration date:
+        = @passenger.registration_date
+      = form.form_group do
+        = form.check_box :permanent, disabled: !@current_user.admin?
+      = form.text_field :name
+      = form.text_field :spire, placeholder: '12345678@umass.edu'
+      = form.text_field :address
+      = form.text_field :email
+      = form.phone_field :phone
+      = form.select :status, Passenger::STATUSES, include_blank: true
+
+      - unless @passenger.permanent?
+        = form.form_group do
+          = form.check_box :registered_with_disability_services
+        = form.form_group do
+          = form.check_box :has_brochure
+
+      = form.select :mobility_device_id,
+        options_from_collection_for_select(MobilityDevice.order(:name),
+          :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
+
+      = form.form_group do
+        = form.check_box :active?, {checked: true}, 'active', 'archived'
+
+      .doctors-note-fields{class: doctors_note_fields_class}
+        = form.form_group do
+          = form.check_box :has_doctors_note, checked: @passenger.doctors_note.present?
+        = form.fields_for :doctors_note, @doctors_note do |d|
+          - if @passenger.doctors_note.blank? && @passenger.temporary?
+            - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+          = d.text_field :expiration_date,
+            label: "Doctor's note expires",
+            class: 'datepicker doctors_note_expiration_date',
+            help: expiration_help
+
+      = form.text_area :note, rows: 20
+      = form.primary 'Submit'

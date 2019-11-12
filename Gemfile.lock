@@ -53,9 +53,13 @@ GEM
     autoprefixer-rails (9.6.4)
       execjs
     bindex (0.8.1)
-    bootstrap-sass (3.4.1)
-      autoprefixer-rails (>= 5.2.1)
-      sassc (>= 2.0.0)
+    bootstrap (4.3.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
+    bootstrap_form (4.3.0)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     builder (3.2.3)
     business_time (0.9.3)
       activesupport (>= 3.2.0)
@@ -179,6 +183,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    popper_js (1.14.5)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
@@ -326,6 +331,8 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
     will_paginate (3.1.8)
+    will_paginate-bootstrap4 (0.2.2)
+      will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -333,7 +340,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass (~> 3.4.1)
+  bootstrap (~> 4.3.1)
+  bootstrap_form
   business_time
   capistrano (~> 3.9.0)
   capistrano-bundler
@@ -377,6 +385,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   will_paginate (~> 3.1)
+  will_paginate-bootstrap4
 
 RUBY VERSION
    ruby 2.6.1p33

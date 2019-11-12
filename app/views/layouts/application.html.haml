@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title ST Passengers
     = favicon_link_tag
     = csrf_meta_tags
@@ -9,12 +9,12 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render 'layouts/navbar'
-    .panel.panel-default
-      .panel-body
+    #main.container-fluid
+      .container
         - flash.each do |name, messages|
           .alert.alert-dismissible{class: "alert-#{name}"}
-            %button.close{'data-dismiss': 'alert', 'aria-label':'Close'}
-              %span{'aria-hidden':'true'}
+            %button.close{data: {dismiss: 'alert'}, aria: {label: 'Close'}}
+              %span{aria: {hidden: true}}
                 &times;
             = list_messages(messages)
-        = yield
+      = yield

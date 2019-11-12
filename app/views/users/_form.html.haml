@@ -1,15 +1,10 @@
-= form_for @user do |f|
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :spire
-    = f.text_field :spire, placeholder: '12345678@umass.edu'
-  .field
-    = f.label :active
-    = f.check_box :active
-  .field
-    = f.label :admin
-    = f.check_box :admin
-  .actions
-    = f.submit 'Save'
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @user, local: true do |f|
+      = f.text_field :name
+      = f.text_field :spire, placeholder: '12345678@umass.edu'
+      = f.form_group do
+        = f.check_box :active
+      =f.form_group do
+        = f.check_box :admin
+      = f.primary 'Save'
