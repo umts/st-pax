@@ -18,10 +18,9 @@ FactoryBot.define do
       permanent { true }
     end
 
-    trait :inactive do
-      after :create do |passenger|
-        create :verification, :expired, passenger: passenger
-      end
+    trait :expired do
+      registration_date { 1.month.ago }
+      association :verification, :expired
     end
 
     trait :unverified do
@@ -29,21 +28,17 @@ FactoryBot.define do
     end
 
     trait :verified do
-      after :create do |passenger|
-        create :verification, passenger: passenger
-      end
+      verification
     end
 
     trait :expired_within_grace_period do
-      after :build do |passenger|
-        create :verification, :expired_within_grace_period, passenger: passenger
-      end
+      registration_date { 3.days.ago }
+      association :verification, :expired_within_grace_period
     end
 
     trait :expiring_soon do
-      after :create do |passenger|
-        create :verification, :expiring_soon, passenger: passenger
-      end
+      registration_date { 1.month.ago }
+      association :verification, :expiring_soon
     end
   end
 end
