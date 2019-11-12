@@ -35,7 +35,8 @@ class PassengersController < ApplicationController
 
   # rubocop:disable Style/GuardClause
   def index
-    @passengers = Passenger.active.order :name
+    @passengers = Passenger.where(active_status: ['active', 'pending'])
+      .order :name
     @filters = []
     filter = params[:filter]
     if %w[permanent temporary].include? filter
