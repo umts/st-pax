@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_07_165318) do
+ActiveRecord::Schema.define(version: 2019_11_12_180258) do
 
   create_table "log_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -65,6 +65,9 @@ ActiveRecord::Schema.define(version: 2019_11_07_165318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "verification_source_id"
+    t.string "name"
+    t.text "address"
+    t.string "phone"
   end
 
 end
