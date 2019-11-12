@@ -18,8 +18,4 @@ FactoryBot.define do
   trait :expired do
     expiration_date { Verification.grace_period - 3.days }
   end
-
-  trait :for_permanent_passenger do
-    expiration_date { nil }
-  end
 end
