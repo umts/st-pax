@@ -19,3 +19,8 @@ FactoryBot.define do
     expiration_date { Verification.grace_period - 3.days }
   end
 end
+
+def find_or_create_source
+  VerificationSource.where.not(name: 'Other').sample ||
+    FactoryBot.create(:verification_source)
+end
