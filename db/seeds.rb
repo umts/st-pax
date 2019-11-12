@@ -19,26 +19,13 @@ module SeedCreator
     end
 
     def create_passengers
-      create_list :passenger, 5, :permanent,
-        active_status: ['active', 'pending'].sample,
-        verification: nil
-      create_list :passenger, 5, :permanent,
-        active_status:['active', 'pending'].sample,
-        verification: create_verification
-      create_list :passenger, 5, :temporary, active_status: 'pending',
-        verification: nil
-      create_list :passenger, 5, :temporary, verification: create_verification
-      create_list :passenger, 5, :temporary, :active,
-        verification: create_verification(expires: 2.business_days.ago)
-      create_list :passenger, 5, :temporary, :active,
-        verification: create_verification(expires: 6.days.from_now)
-      create_list :passenger, 3, :temporary, :active,
-        verification: create_verification(expires: 1.month.ago)
-    end
-
-    def create_verification(expires: nil)
-      source = VerificationSource.all.sample || create(:verification_source)
-      create :verification, verification_source: source, expiration_date: expires
+      create_list :passenger, 5, :permanent
+      create_list :passenger, 5, :permanent, :unverified, :active
+      create_list :passenger, 5, :temporary, :unverified
+      create_list :passenger, 5, :temporary, :active, :verified
+      create_list :passenger, 5, :temporary, :active, :expired_within_grace_period
+      create_list :passenger, 5, :temporary, :active, :expiring_soon
+      create_list :passenger, 5, :temporary, :active, :expired
     end
 
     def create_dispatch_logs
@@ -50,6 +37,10 @@ module SeedCreator
       end
     end
   end
+end
+
+%w[UHS Disability\ Services Accessible\ Workplace].each do |name|
+  VerificationSource.find_or_create_by(name: name)
 end
 
 SeedCreator.create_users
