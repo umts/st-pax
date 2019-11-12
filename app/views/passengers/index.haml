@@ -1,21 +1,18 @@
 %h1
-  = @filters.join( ' ' ).capitalize
+  %span.filter-name
   Passengers
 
-.row.align-items-end.justify-content-between.my-3
-  .passenger-filters.col-lg-4
-    = bootstrap_form_tag url: passengers_path, method: :get do |f|
-      .form-row
-        = f.form_group do
-          - %w[permanent temporary all].each do |filter|
-            =f.radio_button :filter, filter,
-              label: filter.capitalize,
-              checked: @filters.include?(filter),
-              inline: true
-      .form-row
-        = f.submit 'Show Passengers'
-        = f.submit 'Print filtered list', name: 'print'
-  .col-lg-4
+.row.align-items-end.justify-content-between
+  .passenger-filters.col-lg-4.my-3
+    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
+      = f.form_group do
+        - %w[permanent temporary all].each do |filter|
+          =f.radio_button :filter, filter,
+            label: filter.capitalize,
+            checked: @filter == filter,
+            inline: true
+      = f.submit 'Print'
+  .col-lg-4.my-3
     %table#key
       %tbody
         %tr.text-center
@@ -31,7 +28,7 @@
         %th Mobility Device
         %th Needs longer rides?
         %th Phone
-        %th.text-center Permanent
+        %th.permanent.text-center Permanent
         %th.text-center Rides Expire
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
@@ -45,7 +42,8 @@
           %td= passenger.mobility_device.try(:name)
           %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
-          %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
+          - permanent_data = {sort: passenger.permanent_or_temporary, filter: passenger.permanent_or_temporary}
+          %td.text-center{data: permanent_data}= checkmark_glyph passenger.permanent?
           %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
