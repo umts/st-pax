@@ -58,7 +58,7 @@ class Passenger < ApplicationRecord
   def rides_expire
     return if permanent?
 
-    if verification.present?
+    if verification&.expiration_date.present?
       return 3.business_days.after(verification.expiration_date)
     end
     return 3.business_days.since(registration_date) if persisted?
