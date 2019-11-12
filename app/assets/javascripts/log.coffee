@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  $('.dispatch-log button.edit-entry').click (e) ->
+  $('.dispatch-log .edit-entry').click (e) ->
     e.preventDefault()
     li = $(this).parents('li')
     li.find('.text p').hide()

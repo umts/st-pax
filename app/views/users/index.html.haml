@@ -19,8 +19,8 @@
               %td.text-center= checkmark_glyph user.active?
               %td.text-center= checkmark_glyph user.admin?
               %td= link_to 'Edit', edit_user_path(user)
-              %td= button_to 'Destroy', user, method: :delete,
-                class: 'btn btn-primary', data: { confirm: 'Are you sure?' }
+              %td.text-right= button_to 'Destroy', user, method: :delete,
+                class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
         - else
           %tr
             %td{colspan: 7} No users to show.
