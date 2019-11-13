@@ -20,8 +20,6 @@
 
       - unless @passenger.permanent?
         = form.form_group do
-          = form.check_box :registered_with_disability_services
-        = form.form_group do
           = form.check_box :has_brochure
 
       = form.select :mobility_device_id,
