@@ -4,7 +4,7 @@ $( document ).on("turbolinks:load", function() {
   });
 
   $('#passenger_permanent').on('change', function(){
-    $('.verification-fields').toggle(!$(this).prop('checked'));
+    $('.verification_expiration_date').prop('disabled', $(this).prop('checked'))
   });
 
   $('#passenger_spire').change(function(){

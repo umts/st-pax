@@ -4,8 +4,6 @@
       .form-group
         %b Registration date:
         = @passenger.registration_date
-      = form.form_group do
-        = form.check_box :permanent, disabled: !@current_user.admin?
       = form.text_field :name
       = form.text_field :spire, placeholder: '12345678@umass.edu'
       = form.text_field :address
@@ -26,20 +24,22 @@
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
 
-      .verification-fields{class: verification_fields_class}
-        = form.fields_for :verification, @verification do |d|
-          = d.label :verification_source_id,
-            'Which agency verifies that this passenger needs rides?'
-          = d.select :verification_source_id,
-            options_from_collection_for_select(VerificationSource.all,
-            :id, :name, @passenger.verification&.verification_source&.id),
-            include_blank: true
-          - if @passenger.verification.blank? && @passenger.temporary?
-            - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
-          = d.text_field :expiration_date,
-            label: 'How long will the passenger be with us?',
-            class: 'datepicker verification_expiration_date',
-            help: expiration_help
+      = form.fields_for :verification, @verification do |d|
+        = d.label :verification_source_id,
+          'Which agency verifies that this passenger needs rides?'
+        = d.select :verification_source_id,
+          options_from_collection_for_select(VerificationSource.all,
+          :id, :name, @passenger.verification&.verification_source&.id),
+          include_blank: true
+        - if @passenger.verification.blank? && @passenger.temporary?
+          - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+        = d.text_field :expiration_date,
+          label: 'How long will the passenger be with us?',
+          class: 'datepicker verification_expiration_date',
+          help: expiration_help,
+          disabled: @passenger.permanent?
+        = form.form_group do
+          = form.check_box :permanent, disabled: !@current_user.admin?
 
       = form.text_area :note, rows: 20
       = form.primary 'Submit'
