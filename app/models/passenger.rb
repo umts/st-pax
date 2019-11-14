@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Passenger < ApplicationRecord
+  validates :active_status, presence: true
   validates :name,  presence: true, length: { maximum: 50 }
   validates :registration_date, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
