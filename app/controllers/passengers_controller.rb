@@ -90,9 +90,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    base_passenger_params
-      .then { |p| restrict_admin p }
-      .then { |p| disallow_nonexpiring_note p }
+    base_passenger_params.then { |p| restrict_admin p }
   end
 
   def base_passenger_params
@@ -101,13 +99,6 @@ class PassengersController < ApplicationController
               :permanent, :note, :spire, :status, :has_brochure, :active_status,
               verification_attributes: %i[expiration_date verification_source_id])
     passenger_params
-  end
-
-  def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:verification_attributes]
-    return permitted_params unless note_params.try(:[], :expiration_date).blank?
-
-    permitted_params.except :verification_attributes
   end
 
   def restrict_admin(permitted_params)
