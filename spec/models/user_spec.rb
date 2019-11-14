@@ -3,46 +3,41 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  before :each do
-    @user = create :user, :admin
-  end
-
-  describe 'dispatcher?' do
-    it 'gets the not of admin' do
-      expect(@user.dispatcher?).to be false
+  describe '#dispatcher?' do
+    it 'is the inverse of admin?' do
+      expect(create(:user, :admin).dispatcher?).to be false
     end
   end
 
-  describe 'can_delete?' do
-    context 'when admin' do
+  describe '#can_modify?' do
+    let(:call) { user.can_modify? @item }
+
+    context 'when user is an admin' do
+      let(:user) { create :user, :admin }
+
       it 'returns true' do
-        item = create :log_entry
-        expect(@user.can_delete?(item)).to be true
+        @item = create :log_entry
+        expect(call).to be true
       end
     end
-    context 'when dispatcher' do
-      before :each do
-        @user = create :user
-      end
+
+    context 'when user is a dispatcher' do
+      let(:user) { create :user }
+
       context 'with a log entry' do
-        context 'associated to the user' do
-          it 'returns false' do
-            item = create :log_entry
-            expect(@user.can_delete?(item)).to be false
-          end
+        it 'returns false if it is not associated with the user' do
+          @item = create :log_entry
+          expect(call).to be false
         end
-        context 'not associated to the user' do
-          it 'returns true' do
-            item = create :log_entry, user: @user
-            expect(@user.can_delete?(item)).to be true
-          end
+        it 'returns true if it is associated with the user' do
+          @item = create :log_entry, user: user
+          expect(call).to be true
         end
       end
-      context 'without a log entry' do
-        it 'returns false' do
-          item = create :passenger
-          expect(@user.can_delete?(item)).to be false
-        end
+
+      it 'returns false with something other than a log entry' do
+        @item = create :passenger
+        expect(call).to be false
       end
     end
   end

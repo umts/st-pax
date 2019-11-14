@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class LogController < ApplicationController
-  skip_before_action :access_control, except: :update
+  skip_before_action :access_control
 
-  before_action :find_entry, only: %i[destroy update]
-  before_action :set_entries
+  before_action :find_modifiable_entry, only: %i[destroy update]
 
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
@@ -17,21 +16,19 @@ class LogController < ApplicationController
     end
   end
 
-  # rubocop:disable Style/AndOr
   def destroy
-    deny_access and return unless @current_user.can_delete? @entry
     if @entry.destroy
       flash[:success] = 'Log entry was successfully deleted.'
-      redirect_to log_index_path
     else
       flash[:danger] = @log.errors.full_messages
-      redirect_to log_index_path
     end
+    redirect_to log_index_path
   end
-  # rubocop:enable Style/AndOr
 
   def index
     @entry = LogEntry.new
+    @entries = LogEntry.includes(:user).order('created_at desc')
+                       .page(params[:page] || 1)
   end
 
   def update
@@ -46,16 +43,14 @@ class LogController < ApplicationController
 
   private
 
-  def find_entry
+  # rubocop:disable Style/AndOr
+  def find_modifiable_entry
     @entry = LogEntry.find_by id: params.require(:id)
+    deny_access and return unless @current_user.can_modify? @entry
   end
+  # rubocop:enable Style/AndOr
 
   def entry_params
     params.require(:log_entry).permit(:text)
-  end
-
-  def set_entries
-    @entries = LogEntry.includes(:user).order('created_at desc')
-                       .page(params[:page] || 1)
   end
 end
