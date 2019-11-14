@@ -7,6 +7,9 @@ class Verification < ApplicationRecord
   validates :passenger, uniqueness: true
 
   validates :expiration_date, presence: true, if: :passenger_requires_validation
+  validates :expiration_date,
+    absence: { if: -> { passenger.permanent? },
+               message: 'may not exist for a permanent passenger' }
 
   def self.grace_period
     3.business_days.ago
