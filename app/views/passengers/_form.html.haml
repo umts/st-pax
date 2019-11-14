@@ -10,8 +10,7 @@
       = form.text_field :email
       = form.phone_field :phone
       = form.select :status, Passenger::STATUSES, include_blank: true
-      %b Registration Status
-      = form.form_group do
+      = form.form_group :registration_status, label: { text: 'Registration Status' } do
         = form.radio_button :active_status, 'pending', class: 'form-check-input'
         = form.radio_button :active_status, 'active', class: 'form-check-input'
         = form.radio_button :active_status, 'archived', class: 'form-check-input'
@@ -25,11 +24,10 @@
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
 
       = form.fields_for :verification, @verification do |d|
-        = d.label :verification_source_id,
-          'Which agency verifies that this passenger needs rides?'
         = d.select :verification_source_id,
           options_from_collection_for_select(VerificationSource.all,
           :id, :name, @passenger.verification&.verification_source&.id),
+          label: 'Which agency verifies that this passenger needs rides?',
           include_blank: true
         - if @passenger.verification.blank? && @passenger.temporary?
           - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
