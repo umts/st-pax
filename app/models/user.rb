@@ -12,7 +12,7 @@ class User < ApplicationRecord
   scope :dispatchers, -> { where.not admin: true }
   scope :active, -> { where active: true }
 
-  def can_delete?(item)
+  def can_modify?(item)
     admin? || (item.is_a?(LogEntry) && item.user == self)
   end
 

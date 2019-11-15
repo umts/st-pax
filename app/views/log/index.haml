@@ -16,14 +16,13 @@
         .time.col-xl-2.font-italic= entry.entry_time
         .text.col-xl-8.my-3.my-xl-0.py-3.bg-light.rounded
           %p= entry.text
-          - if @current_user.admin?
+          - if @current_user.can_modify? entry
             .edit-form
               = bootstrap_form_with model: entry, url: log_url(entry) do |f|
                 = f.text_area :text, rows: 8, hide_label: true
                 = f.primary 'Change log entry'
         .actions.col-xl-1.form-inline
-          - if @current_user.admin?
-            =link_to 'Edit', '#', class: 'edit-entry mr-5'
-          - if @current_user.can_delete? entry
+          - if @current_user.can_modify? entry
+            = link_to 'Edit', '#', class: 'edit-entry mr-5'
             = button_to 'Delete', log_url(entry), method: :delete,
               class: 'btn btn-danger', form_class: 'ml-auto ml-xl-0'

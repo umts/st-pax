@@ -71,6 +71,10 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
+  def permanent_or_temporary
+    permanent? ? 'permanent' : 'temporary'
+  end
+
   private
 
   def assign_registration_date
