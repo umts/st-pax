@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :verification do
-    verification_source { find_or_create_source }
+  factory :eligibility_verification do
+    verifying_agency { find_or_create_agency }
     passenger
     expiration_date { 1.month.from_now }
   end
@@ -16,11 +16,11 @@ FactoryBot.define do
   end
 
   trait :expired do
-    expiration_date { Verification.grace_period - 3.days }
+    expiration_date { EligibilityVerification.grace_period - 3.days }
   end
 end
 
-def find_or_create_source
+def find_or_create_agency
   VerificationSource.where.not(name: 'Other').sample ||
-    FactoryBot.create(:verification_source)
+    FactoryBot.create(:verifying_agency)
 end

@@ -6,7 +6,7 @@ RSpec.describe PassengersHelper do
   describe 'passengers_table_row_class' do
     before :each do
       @passenger = create :passenger, :temporary, :verified
-      @verification = @passenger.verification
+      @verification = @passenger.eligibility_verification
     end
     context 'will expire within warning period' do
       it 'returns the correct class' do

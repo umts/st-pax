@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Passenger Management', js: true do
   before :each do
-    @source = create :verification_source
+    @agency = create :verifying_agency
   end
   context 'as an admin' do
     before :each do
@@ -20,7 +20,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
-        select @source.name, from: 'Which agency verifies that this passenger needs rides?'
+        select @agency.name, from: 'Which agency verifies that this passenger needs rides?'
         fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -45,7 +45,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :verification, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
@@ -79,7 +79,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(@passenger.reload).to be_archived
       end
     end
-    context 'creating a temporary passenger without a verification' do
+    context 'creating a temp passenger without a verification of eligibility' do
       it 'creates a pending passenger' do
         visit new_passenger_path
         fill_in 'Name', with: 'Jane Fonda'
@@ -105,7 +105,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Spire', with: '12345678@umass.edu'
-        select @source.name, from: 'Which agency verifies that this passenger needs rides?'
+        select @agency.name, from: 'Which agency verifies that this passenger needs rides?'
         fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -113,7 +113,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :verification, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'

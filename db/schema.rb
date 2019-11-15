@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_170739) do
+ActiveRecord::Schema.define(version: 2019_11_15_162543) do
+
+  create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "passenger_id"
+    t.date "expiration_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "verifying_agency_id"
+    t.string "name"
+    t.text "address"
+    t.string "phone"
+  end
 
   create_table "log_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -53,20 +64,9 @@ ActiveRecord::Schema.define(version: 2019_11_13_170739) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "verification_sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "verifying_agencies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "needs_contact_info", default: false
-  end
-
-  create_table "verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "passenger_id"
-    t.date "expiration_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "verification_source_id"
-    t.string "name"
-    t.text "address"
-    t.string "phone"
   end
 
 end

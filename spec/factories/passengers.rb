@@ -19,26 +19,26 @@ FactoryBot.define do
     end
 
     trait :expired do
-      association :verification, :expired
+      association :eligibility_verification, :expired
       after :create do |passenger|
         passenger.update_attributes(registration_date: 1.month.ago)
       end
     end
 
     trait :unverified do
-      verification { nil }
+      eligibility_verification { nil }
     end
 
     trait :verified do
-      verification
+      eligibility_verification
     end
 
     trait :expired_within_grace_period do
-      association :verification, :expired_within_grace_period
+      association :eligibility_verification, :expired_within_grace_period
     end
 
     trait :expiring_soon do
-      association :verification, :expiring_soon
+      association :eligibility_verification, :expiring_soon
     end
   end
 end

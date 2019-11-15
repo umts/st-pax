@@ -26,12 +26,10 @@
 %p
   %b Permanent:
   = checkmark_glyph @passenger.permanent
+%p
+  %b Verification of Ride Eligibility:
+  = verification_information(@passenger)
 - if @passenger.temporary?
-  - if @passenger.verification.present?
-    %b Verified by:
-    = verification_source(@passenger.verification)
-  - else
-    %b Passenger unverified.
   %p 
     %b Rides expire:
     = @passenger.rides_expire.strftime('%m/%d/%Y')

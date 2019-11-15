@@ -86,7 +86,8 @@ class PassengersController < ApplicationController
   private
 
   def set_verification
-    @verification = @passenger&.verification || Verification.new
+    @verification = @passenger&.eligibility_verification ||
+      EligibilityVerification.new
   end
 
   def passenger_params
@@ -97,7 +98,7 @@ class PassengersController < ApplicationController
     passenger_params = params.require(:passenger)
       .permit(:name, :address, :email, :phone, :wheelchair, :mobility_device_id,
               :permanent, :note, :spire, :status, :has_brochure, :active_status,
-              verification_attributes: %i[expiration_date verification_source_id])
+              eligibility_verification_attributes: %i[expiration_date verifying_agency_id])
     passenger_params
   end
 

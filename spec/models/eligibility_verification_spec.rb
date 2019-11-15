@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Verification do
+RSpec.describe EligibilityVerification do
   before :each do
-    @verification = create :verification
+    @verification = create :eligibility_verification
   end
 
   describe 'will_expire_within_warning_period?' do

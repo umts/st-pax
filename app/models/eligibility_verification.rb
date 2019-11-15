@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class Verification < ApplicationRecord
+class EligibilityVerification < ApplicationRecord
   belongs_to :passenger
-  belongs_to :verification_source
+  belongs_to :verifying_agency
 
   validates :passenger, uniqueness: true
 
@@ -21,18 +21,18 @@ class Verification < ApplicationRecord
 
   def will_expire_within_warning_period?
     return false if expiration_date.blank?
-    expiration_date < Verification.expiration_warning &&
+    expiration_date < EligibilityVerification.expiration_warning &&
       expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
     return false if expiration_date.blank? || expiration_date  >= Time.zone.today
-    expiration_date > Verification.grace_period
+    expiration_date > EligibilityVerification.grace_period
   end
 
   def expired?
     return false if expiration_date.blank?
-    expiration_date < Verification.grace_period
+    expiration_date < EligibilityVerification.grace_period
   end
 
   private
@@ -40,5 +40,4 @@ class Verification < ApplicationRecord
   def passenger_requires_validation
     passenger&.active? && passenger&.temporary?
   end
-
 end

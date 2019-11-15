@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class VerificationSource < ApplicationRecord
-  has_many :verifications
+class VerifyingAgency < ApplicationRecord
+  has_many :eligibility_verifications
 
   validates :name, presence: true, uniqueness: true
 end

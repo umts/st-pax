@@ -23,13 +23,13 @@
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
 
-      = form.fields_for :verification, @verification do |d|
-        = d.select :verification_source_id,
-          options_from_collection_for_select(VerificationSource.all,
-          :id, :name, @passenger.verification&.verification_source&.id),
+      = form.fields_for :eligibility_verification, @verification do |d|
+        = d.select :verifying_agency_id,
+          options_from_collection_for_select(VerifyingAgency.all,
+          :id, :name, @passenger.eligibility_verification&.verifying_agency&.id),
           label: 'Which agency verifies that this passenger needs rides?',
           include_blank: true
-        - if @passenger.verification.blank? && @passenger.temporary?
+        - if @passenger.eligibility_verification.blank? && @passenger.temporary?
           - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
         = d.text_field :expiration_date,
           label: 'How long will the passenger be with us?',
