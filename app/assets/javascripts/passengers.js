@@ -1,8 +1,4 @@
 $( document ).on("turbolinks:load", function() {
-  $('#passenger_has_verification').on('change', function(){
-    $('#passenger_verification_attributes_expiration_date').prop('required', $(this).prop('checked'));
-  });
-
   $('#passenger_permanent').on('change', function(){
     $('.verification_expiration_date').prop('disabled', $(this).prop('checked'))
   });
