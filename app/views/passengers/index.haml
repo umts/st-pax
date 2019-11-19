@@ -29,7 +29,7 @@
         %th Needs longer rides?
         %th Phone
         %th.permanent.text-center Permanent
-        %th.text-center Rides Expire
+        %th.text-center{data: {type: 'date'}} Rides Expire
         %th{data: {orderable: 'false'}}
         %th{data: {orderable: 'false'}}
         - if @current_user.admin?
@@ -44,7 +44,7 @@
           %td= passenger.phone
           - permanent_data = {sort: passenger.permanent_or_temporary, filter: passenger.permanent_or_temporary}
           %td.text-center{data: permanent_data}= checkmark_glyph passenger.permanent?
-          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
+          %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           - if @current_user.admin?
