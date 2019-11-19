@@ -32,15 +32,15 @@
         %th Phone
         %th.permanent.text-center Permanent
         %th.text-center Rides Expire
-        %th{data: {orderable: 'false'}}
-        %th{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
         - if @current_user.admin?
-          %th{data: {orderable: 'false'}}
-          %th{data: {orderable: 'false'}}
+          %td{data: {orderable: 'false'}}
+          %td{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
-          %td= passenger.name
+          %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
           %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
