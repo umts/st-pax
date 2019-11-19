@@ -12,7 +12,7 @@ module PassengersHelper
   end
 
   def sortable_date(verification)
-    eligibility_verification.try(:expiration_date).try(:strftime, '%Y%m%d')
+    verification.try(:expiration_date).try(:strftime, '%Y%m%d')
   end
 
   def verification_information(passenger)
