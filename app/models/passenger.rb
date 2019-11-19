@@ -52,7 +52,7 @@ class Passenger < ApplicationRecord
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < Verification.grace_period
+    registration_expired = registration_date < EligibilityVerification.grace_period
     registration_expired && (eligibility_verification.nil? || eligibility_verification.expired?)
   end
 
