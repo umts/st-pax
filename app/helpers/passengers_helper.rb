@@ -14,8 +14,4 @@ module PassengersHelper
       'expired'
     end
   end
-
-  def sortable_date(note)
-    note.expiration_date.strftime('%Y%m%d') if note.present?
-  end
 end
