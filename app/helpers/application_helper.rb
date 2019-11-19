@@ -14,7 +14,7 @@ module ApplicationHelper
     capture do
       concat content_tag :span, nil,
         class: ['fas', "#{word}-glyph", options.fetch(word.to_sym)],
-        aria: {hidden: true}, title: word
+        aria: {hidden: 'true'}, title: word
       concat content_tag :span, word, class: 'sr-only'
     end
   end
