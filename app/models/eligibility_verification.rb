@@ -2,7 +2,10 @@
 
 class EligibilityVerification < ApplicationRecord
   belongs_to :passenger
-  belongs_to :verifying_agency
+  belongs_to :verifying_agency, optional: true
+
+  # need this redundancy because of bootstrap validations
+  validates :verifying_agency_id, presence: true
 
   validates :passenger, uniqueness: true
 
