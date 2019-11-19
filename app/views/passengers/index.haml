@@ -6,11 +6,13 @@
   .passenger-filters.col-lg-4.my-3
     = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
       = f.form_group do
-        - %w[permanent temporary all].each do |filter|
-          =f.radio_button :filter, filter,
-            label: filter.capitalize,
-            checked: @filter == filter,
-            inline: true
+        %fieldset
+          %legend.sr-only Filter Passengers
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filter == filter,
+              inline: true
       = f.submit 'Print'
   .col-lg-4.my-3
     %table#key
