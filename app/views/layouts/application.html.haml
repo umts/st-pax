@@ -14,7 +14,7 @@
         - flash.each do |name, messages|
           .alert.alert-dismissible{class: "alert-#{name}"}
             %button.close{data: {dismiss: 'alert'}, aria: {label: 'Close'}}
-              %span{aria: {hidden: true}}
+              %span{aria: {hidden: 'true'}}
                 &times;
             = list_messages(messages)
       = yield
