@@ -24,6 +24,10 @@ h1{
   margin: 15px 0;
 }
 
+th[scope="row"] {
+  font-weight: normal;
+}
+
 span.yes-glyph {
   color: theme-color("success");
 }

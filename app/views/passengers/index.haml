@@ -6,11 +6,13 @@
   .passenger-filters.col-lg-4.my-3
     = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
       = f.form_group do
-        - %w[permanent temporary all].each do |filter|
-          =f.radio_button :filter, filter,
-            label: filter.capitalize,
-            checked: @filter == filter,
-            inline: true
+        %fieldset
+          %legend.sr-only Filter Passengers
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filter == filter,
+              inline: true
       = f.submit 'Print'
   .col-lg-4.my-3
     %table#key
@@ -30,15 +32,15 @@
         %th Phone
         %th.permanent.text-center Permanent
         %th.text-center{data: {type: 'date'}} Rides Expire
-        %th{data: {orderable: 'false'}}
-        %th{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
         - if @current_user.admin?
-          %th{data: {orderable: 'false'}}
-          %th{data: {orderable: 'false'}}
+          %td{data: {orderable: 'false'}}
+          %td{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger)}
-          %td= passenger.name
+          %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
           %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone

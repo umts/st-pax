@@ -1,5 +1,5 @@
 !!!
-%html
+%html{lang: 'en'}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title ST Passengers
@@ -9,12 +9,12 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render 'layouts/navbar'
-    #main.container-fluid
+    %main.container-fluid
       .container
         - flash.each do |name, messages|
           .alert.alert-dismissible{class: "alert-#{name}"}
             %button.close{data: {dismiss: 'alert'}, aria: {label: 'Close'}}
-              %span{aria: {hidden: true}}
+              %span{aria: {hidden: 'true'}}
                 &times;
             = list_messages(messages)
       = yield
