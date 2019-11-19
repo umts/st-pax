@@ -11,10 +11,6 @@ module PassengersHelper
     end
   end
 
-  def sortable_date(verification)
-    verification.try(:expiration_date).try(:strftime, '%Y%m%d')
-  end
-
   def verification_information(passenger)
     agency = passenger.eligibility_verification&.verifying_agency
     if agency&.needs_contact_info?
