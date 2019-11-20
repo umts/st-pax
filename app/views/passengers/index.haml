@@ -42,10 +42,9 @@
         %tr{class: passengers_table_row_class(passenger)}
           %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
-          %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
+          %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
-          - permanent_data = {sort: passenger.permanent_or_temporary, filter: passenger.permanent_or_temporary}
-          %td.text-center{data: permanent_data}= checkmark_glyph passenger.permanent?
+          %td.text-center{data: {filter: passenger.permanent_or_temporary}}= checkmark_glyph passenger.permanent?
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)

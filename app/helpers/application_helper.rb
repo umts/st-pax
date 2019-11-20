@@ -7,9 +7,16 @@ module ApplicationHelper
     link_to text, url, class: button_classes
   end
 
-  def checkmark_glyph(value, yes: 'fa-check', no: 'fa-times')
-    icon_class = value ? ['yes-glyph', yes] : ['no-glyph', no]
-    content_tag :span, nil, class: icon_class << 'fas'
+  def checkmark_glyph(value, options = {})
+    options.reverse_merge!({yes: 'fa-check', no: 'fa-times'})
+    word = value ? 'yes' : 'no'
+
+    capture do
+      concat content_tag :span, nil,
+        class: ['fas', "#{word}-glyph", options.fetch(word.to_sym)],
+        aria: {hidden: 'true'}, title: word
+      concat content_tag :span, word, class: 'sr-only'
+    end
   end
 
   def list_messages(messages)
