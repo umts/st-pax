@@ -46,3 +46,5 @@ en:
       user:
         active: 'Active?'
         admin:  'Admin?'
+      eligibility_verification:
+        expiration_date: 'How long will the passenger be with us?'

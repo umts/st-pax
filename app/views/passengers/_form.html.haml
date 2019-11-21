@@ -34,7 +34,6 @@
           - if @passenger.eligibility_verification.blank? && @passenger.temporary?
             - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
           = d.text_field :expiration_date,
-            label: 'How long will the passenger be with us?',
             class: 'datepicker verification-expires',
             help: expiration_help
 
