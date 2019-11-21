@@ -46,5 +46,3 @@ en:
       user:
         active: 'Active?'
         admin:  'Admin?'
-      doctors_note:
-        expiration_date: 'Expiration Date'
