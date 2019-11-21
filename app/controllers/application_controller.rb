@@ -24,9 +24,9 @@ class ApplicationController < ActionController::Base
   def set_current_user
     @current_user =
       if session.key? :user_id
-        User.find_by id: session[:user_id]
+        User.active.find_by id: session[:user_id]
       elsif request.env.key? 'fcIdNumber'
-        User.find_by spire: request.env['fcIdNumber']
+        User.active.find_by spire: request.env['fcIdNumber']
       end
     if @current_user.present?
       session[:user_id] = @current_user.id
