@@ -20,4 +20,9 @@ class User < ApplicationRecord
   def dispatcher?
     !admin?
   end
+
+  def url
+    Rails.application.routes.url_helpers.user_url self,
+      Rails.application.config.action_mailer.default_url_options
+  end
 end

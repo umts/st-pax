@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       post :toggle_archive
     end
   end
-  resources :users, except: :show
+  resources :users
 
   unless Rails.env.production?
     get  'sessions/dev_login',

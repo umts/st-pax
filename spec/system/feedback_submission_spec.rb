@@ -7,6 +7,7 @@ RSpec.describe 'Feedback Submission' do
   let(:title) { 'The site is broken' }
   let(:client) { MockGithubClient.new(logger: Logger.new(nil)) }
   let(:issue) { client.issue('repo', -999) }
+  let(:sig_pattern) { /^\[\d+\]\([^)]+\)$/ }
 
   before :each do
     allow(MockGithubClient).to receive(:new).and_return client
@@ -24,7 +25,8 @@ RSpec.describe 'Feedback Submission' do
 
   it 'submits the feedback' do
     expect(client).to receive(:create_issue)
-      .with(anything, title, '', hash_including(:labels)).and_call_original
+      .with(anything, title, sig_pattern, hash_including(:labels))
+      .and_call_original
 
     fill_in 'Title', with: title
     click_on 'Submit'
@@ -41,7 +43,8 @@ RSpec.describe 'Feedback Submission' do
 
   it 'displays the GitHub content if submission succeeds' do
     allow(client).to receive(:create_issue)
-      .with(anything, title, '', hash_including(:labels)).and_call_original
+      .with(anything, title, sig_pattern, hash_including(:labels))
+      .and_call_original
 
     fill_in 'Title', with: title
     click_on 'Submit'
