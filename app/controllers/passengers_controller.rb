@@ -29,11 +29,11 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @doctors_note = DoctorsNote.new
+    @verification = EligibilityVerification.new
   end
 
   def edit
-    @doctors_note = @passenger.doctors_note || DoctorsNote.new
+    @verification = @passenger.eligibility_verification || EligibilityVerification.new
   end
 
   def index
@@ -84,16 +84,16 @@ class PassengersController < ApplicationController
             .permit(:name, :address, :email, :phone, :wheelchair,
                     :mobility_device_id, :permanent, :note, :spire, :status,
                     :has_brochure, :registered_with_disability_services,
-                    doctors_note_attributes: %i[expiration_date])
+                    eligibility_verification_attributes: %i[expiration_date])
     passenger_params[:active_status] = params[:passenger][:active]
     passenger_params
   end
 
   def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:doctors_note_attributes]
+    note_params = permitted_params[:eligibility_verification_attributes]
     return permitted_params unless note_params.try(:[], :expiration_date).blank?
 
-    permitted_params.except :doctors_note_attributes
+    permitted_params.except :eligibility_verification_attributes
   end
 
   def find_passenger

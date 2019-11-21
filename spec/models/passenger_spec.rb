@@ -17,7 +17,7 @@ RSpec.describe Passenger do
     context 'temporary passenger' do
       it 'returns the expiration date of the doctors note' do
         date = 14.days.from_now
-        create :doctors_note, passenger: @passenger, expiration_date: date
+        create :eligibility_verification, passenger: @passenger, expiration_date: date
         expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
       end
     end
@@ -47,15 +47,15 @@ RSpec.describe Passenger do
       context 'doctors note is expired within grace period' do
         it 'returns 3 days from the doctors note expiry' do
           date = 2.days.ago.to_date
-          create :doctors_note, passenger: @passenger, expiration_date: date
+          create :eligibility_verification, passenger: @passenger, expiration_date: date
           expect(@passenger.rides_expire).to eq 3.business_days.since(date)
         end
       end
       context 'the doctors note is not expired' do
         it 'returns three business days after the expiration date of the note' do
           date = 14.days.from_now
-          note = create :doctors_note, passenger: @passenger, expiration_date: date
-          expect(@passenger.rides_expire).to eq 3.business_days.after(note.expiration_date)
+          verification = create :eligibility_verification, passenger: @passenger, expiration_date: date
+          expect(@passenger.rides_expire).to eq 3.business_days.after(verification.expiration_date)
         end
       end
     end

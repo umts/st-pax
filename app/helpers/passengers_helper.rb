@@ -6,9 +6,9 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
-    if passenger.doctors_note&.will_expire_within_warning_period?
+    if passenger.eligibility_verification&.will_expire_within_warning_period?
       'expires-soon'
-    elsif passenger.needs_doctors_note?
+    elsif passenger.needs_verification?
       'needs-note'
     elsif passenger.rides_expired?
       'expired'

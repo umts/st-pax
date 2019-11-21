@@ -17,34 +17,34 @@ FactoryBot.define do
 
     trait :permanent do
       permanent { true }
-      doctors_note { nil }
+      eligibility_verification { nil }
     end
 
     trait :inactive do
       after :create do |passenger|
-        create :doctors_note, :expired, passenger: passenger
+        create :eligibility_verification, :expired, passenger: passenger
       end
     end
 
     trait :no_note do
-      doctors_note { nil }
+      eligibility_verification { nil }
     end
 
     trait :with_note do
       after :create do |passenger|
-        create :doctors_note, passenger: passenger
+        create :eligibility_verification, passenger: passenger
       end
     end
 
     trait :expired_within_grace_period do
       after :create do |passenger|
-        create :doctors_note, :expired_within_grace_period, passenger: passenger
+        create :eligibility_verification, :expired_within_grace_period, passenger: passenger
       end
     end
 
     trait :expiring_soon do
       after :create do |passenger|
-        create :doctors_note, :expiring_soon, passenger: passenger
+        create :eligibility_verification, :expiring_soon, passenger: passenger
       end
     end
   end

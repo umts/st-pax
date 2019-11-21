@@ -17,7 +17,7 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end
@@ -41,7 +41,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
@@ -100,7 +100,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_on 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'How long will the passenger be with us?', with: date
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -108,7 +108,7 @@ RSpec.describe 'Passenger Management', js: true do
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
