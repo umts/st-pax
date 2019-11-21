@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   else root 'passengers#index'
   end
 
-  resources :doctors_notes
   resources :feedback, only: %i[index show new create]
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
