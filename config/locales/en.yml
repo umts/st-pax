@@ -32,6 +32,10 @@
 
 en:
   activerecord:
+    errors:
+      models:
+        eligibility_verification:
+          blank: "must be entered for temporary passengers with active status"
     attributes:
       passenger:
         name: 'Passenger Name'

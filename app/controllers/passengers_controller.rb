@@ -89,21 +89,12 @@ class PassengersController < ApplicationController
     passenger_params
   end
 
-  def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:eligibility_verification_attributes]
-    return permitted_params unless note_params.try(:[], :expiration_date).blank?
-
-    permitted_params.except :eligibility_verification_attributes
-  end
-
   def find_passenger
     @passenger = Passenger.find(params[:id])
   end
 
   def passenger_params
-    base_passenger_params
-      .then { |p| restrict_admin p }
-      .then { |p| disallow_nonexpiring_note p }
+    base_passenger_params.then { |p| restrict_admin p }
   end
 
   def passenger_pdf

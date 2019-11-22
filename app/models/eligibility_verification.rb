@@ -7,9 +7,8 @@ class EligibilityVerification < ApplicationRecord
   belongs_to :verifying_agency, optional: true
 
   validates :passenger, uniqueness: true
-  validate :temporary_passenger
-  validates :verifying_agency_id, presence: true
-  validates :expiration_date, presence: true
+  validates :expiration_date, presence: true, if: :passenger_requires_validation
+  validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
 
   def self.grace_period
     3.business_days.ago
@@ -35,9 +34,7 @@ class EligibilityVerification < ApplicationRecord
 
   private
 
-  def temporary_passenger
-    return if passenger.temporary?
-
-    errors.add :base, 'must belong to a temporary passenger'
+  def passenger_requires_validation
+    passenger&.active? && passenger&.temporary?
   end
 end
