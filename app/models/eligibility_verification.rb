@@ -9,6 +9,9 @@ class EligibilityVerification < ApplicationRecord
   validates :passenger, uniqueness: true
   validates :expiration_date, presence: true, if: :passenger_requires_validation
   validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
+  validates :expiration_date,
+    absence: { if: -> { passenger.permanent? },
+               message: 'may not be entered for permanent passengers.' }
 
   def self.grace_period
     3.business_days.ago

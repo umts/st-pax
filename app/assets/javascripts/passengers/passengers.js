@@ -3,10 +3,6 @@ $( document ).on("turbolinks:load", function() {
     $('#passenger_eligibility_verification_attributes_expiration_date').prop('required', $(this).prop('checked'));
   });
 
-  $('#passenger_permanent').on('change', function(){
-    $('.verification-fields').toggle(!$(this).prop('checked'));
-  });
-
   $('#passenger_spire').change(function(){
     $.ajax({
       type: 'GET',
