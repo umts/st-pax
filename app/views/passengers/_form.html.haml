@@ -4,8 +4,6 @@
       .form-group
         %b Registration date:
         = @passenger.registration_date
-      = form.form_group do
-        = form.check_box :permanent, disabled: !@current_user.admin?
       = form.text_field :name
       = form.text_field :spire, placeholder: '12345678@umass.edu'
       = form.text_field :address
@@ -25,6 +23,9 @@
 
       = form.form_group do
         = form.check_box :active?, {checked: true}, 'active', 'archived'
+
+      = form.form_group do
+        = form.check_box :permanent, disabled: !@current_user.admin?
 
       .verification-fields{class: doctors_note_fields_class}
         = form.fields_for :eligibility_verification, @verification do |d|
