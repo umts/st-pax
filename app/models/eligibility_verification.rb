@@ -2,10 +2,13 @@
 
 class EligibilityVerification < ApplicationRecord
   belongs_to :passenger
+  # belongs_to set to optional true with presence validation in order to
+  # make bootstrap validations work nicely.
+  belongs_to :verifying_agency, optional: true
 
   validates :passenger, uniqueness: true
   validate :temporary_passenger
-
+  validates :verifying_agency_id, presence: true
   validates :expiration_date, presence: true
 
   def self.grace_period

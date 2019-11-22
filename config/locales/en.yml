@@ -48,3 +48,4 @@ en:
         admin:  'Admin?'
       eligibility_verification:
         expiration_date: 'How long will the passenger be with us?'
+        verifying_agency_id: 'Which agency verifies that this passenger needs rides?'

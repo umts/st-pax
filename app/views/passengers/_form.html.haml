@@ -27,10 +27,11 @@
         = form.check_box :active?, {checked: true}, 'active', 'archived'
 
       .verification-fields{class: doctors_note_fields_class}
-        = form.form_group do
-          = form.check_box :has_doctors_note,
-            checked: @passenger.eligibility_verification.present?
         = form.fields_for :eligibility_verification, @verification do |d|
+          = d.select :verifying_agency_id,
+            options_from_collection_for_select(VerifyingAgency.all,
+            :id, :name, @passenger.eligibility_verification&.verifying_agency&.id),
+            include_blank: true
           - if @passenger.eligibility_verification.blank? && @passenger.temporary?
             - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
           = d.text_field :expiration_date,
