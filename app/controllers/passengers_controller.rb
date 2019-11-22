@@ -4,6 +4,7 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
   before_action :access_control, only: %i[destroy archived toggle_archive]
+  before_action :set_verification, only: %i[new edit create update]
 
   def archived
     @passengers = Passenger.archived
@@ -29,12 +30,9 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @verification = EligibilityVerification.new
   end
 
-  def edit
-    @verification = @passenger.eligibility_verification || EligibilityVerification.new
-  end
+  def edit; end
 
   def index
     @passengers = Passenger.active.order :name
@@ -109,5 +107,10 @@ class PassengersController < ApplicationController
     return permitted_params if @current_user.admin?
 
     permitted_params.except :permanent
+  end
+
+  def set_verification
+    @verification = @passenger&.eligibility_verification ||
+      EligibilityVerification.new
   end
 end
