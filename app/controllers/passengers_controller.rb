@@ -35,7 +35,8 @@ class PassengersController < ApplicationController
   def edit; end
 
   def index
-    @passengers = Passenger.active.order :name
+    @passengers = Passenger.where(active_status: ['active', 'pending'])
+      .order :name
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
 
