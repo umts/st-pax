@@ -3,7 +3,6 @@ $(document).on('turbolinks:load', function(){
     var expirationField = $('.verification-expires');
     if($(this).is(':checked')){
       expirationField.prop('disabled', true);
-      expirationField.prop("checked", false);
       expirationField.val('');
     }
     else expirationField.prop('disabled', false);
