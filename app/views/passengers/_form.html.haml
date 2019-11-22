@@ -11,6 +11,11 @@
       = form.phone_field :phone
       = form.select :status, Passenger::STATUSES, include_blank: true
 
+      = form.form_group :registration_status, label: { text: 'Registration Status' } do
+        = form.radio_button :active_status, 'pending', class: 'form-check-input'
+        = form.radio_button :active_status, 'active', class: 'form-check-input'
+        = form.radio_button :active_status, 'archived', class: 'form-check-input'
+
       - unless @passenger.permanent?
         = form.form_group do
           = form.check_box :registered_with_disability_services
