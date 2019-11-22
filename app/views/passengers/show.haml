@@ -26,10 +26,10 @@
 %p
   %b Permanent:
   = checkmark_glyph @passenger.permanent
+%p
+  %b Verification of Ride Eligibility:
+  = verification_information(@passenger)
 - if @passenger.temporary?
-  %p
-    %b Has Doctor's Note?
-    = checkmark_glyph @passenger.eligibility_verification.present?
   %p
     - if @passenger.eligibility_verification.present?
       %b Doctor's Note Expiration Date:
