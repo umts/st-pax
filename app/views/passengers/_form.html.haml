@@ -27,9 +27,6 @@
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
 
       = form.form_group do
-        = form.check_box :active?, {checked: true}, 'active', 'archived'
-
-      = form.form_group do
         = form.check_box :permanent, disabled: !@current_user.admin?
 
       .verification-fields{class: doctors_note_fields_class}
