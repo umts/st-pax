@@ -81,11 +81,10 @@ class PassengersController < ApplicationController
   def base_passenger_params
     passenger_params =
       params.require(:passenger)
-            .permit(:name, :address, :email, :phone, :wheelchair,
+            .permit(:name, :address, :email, :phone, :active_status,
                     :mobility_device_id, :permanent, :note, :spire, :status,
                     :has_brochure, :registered_with_disability_services,
                     eligibility_verification_attributes: %i[expiration_date verifying_agency_id])
-    passenger_params[:active_status] = params[:passenger][:active]
     passenger_params
   end
 
