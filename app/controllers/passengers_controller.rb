@@ -83,7 +83,7 @@ class PassengersController < ApplicationController
       params.require(:passenger)
             .permit(:name, :address, :email, :phone, :active_status,
                     :mobility_device_id, :permanent, :note, :spire, :status,
-                    :has_brochure, :registered_with_disability_services,
+                    :has_brochure,
                     eligibility_verification_attributes: %i[expiration_date verifying_agency_id])
     passenger_params
   end
