@@ -21,8 +21,8 @@
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
-  %b Active:
-  = checkmark_glyph @passenger.active?
+  %b Registration Status:
+  = @passenger.active_status.capitalize
 %p
   %b Permanent:
   = checkmark_glyph @passenger.permanent
