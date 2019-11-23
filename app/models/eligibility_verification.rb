@@ -22,16 +22,22 @@ class EligibilityVerification < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
+    return if expiration_date.blank?
+
     expiration_date < EligibilityVerification.expiration_warning &&
       expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
+    return if expiration_date.blank?
+
     return false if expiration_date >= Time.zone.today
     expiration_date > EligibilityVerification.grace_period
   end
 
   def expired?
+    return if expiration_date.blank?
+
     expiration_date < EligibilityVerification.grace_period
   end
 
