@@ -37,7 +37,8 @@
             - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
           = d.text_field :expiration_date,
             class: 'datepicker verification-expires',
-            help: expiration_help
+            help: expiration_help,
+            disabled: @passenger.permanent?
 
       = form.text_area :note, rows: 20
       = form.primary 'Submit'
