@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_233508) do
+ActiveRecord::Schema.define(version: 2019_11_23_001718) do
 
   create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "passenger_id"
@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(version: 2019_11_22_233508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "verifying_agency_id"
+    t.string "name"
+    t.text "address"
+    t.string "phone"
   end
 
   create_table "log_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
