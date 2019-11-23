@@ -29,16 +29,16 @@ class EligibilityVerification < ApplicationRecord
   end
 
   def expired_within_grace_period?
-    return if expiration_date.blank?
+    return true if expiration_date.blank?
 
     return false if expiration_date >= Time.zone.today
     expiration_date > EligibilityVerification.grace_period
   end
 
   def expired?
-    return if expiration_date.blank?
+    date = expiration_date || passenger.registration_date
 
-    expiration_date < EligibilityVerification.grace_period
+    date < EligibilityVerification.grace_period
   end
 
   private
