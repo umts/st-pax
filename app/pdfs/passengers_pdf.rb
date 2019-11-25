@@ -4,7 +4,7 @@ require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
   def initialize(passengers, filter)
-    super(page_layout: :landscape, page_size: 'TABLOID')
+    super(page_layout: :landscape)
     font_families.update(
       'DejaVu Sans' => {
         normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
@@ -27,8 +27,7 @@ class PassengersPDF < Prawn::Document
       'Notes'
     ]
     passenger_table = passengers.map { |p| passenger_row p }.unshift headers
-
-    table passenger_table, cell_style: { font: 'DejaVu Sans' } do
+    table passenger_table, header: true, cell_style: { font: 'DejaVu Sans' } do
       row(0).font_style = :bold
     end
   end
