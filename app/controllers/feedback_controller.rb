@@ -9,6 +9,7 @@ class FeedbackController < ApplicationController
 
   def create
     @feedback = Feedback.new(feedback_params)
+    @feedback.user = @current_user
     unless @feedback.valid?
       flash.now[:danger] = @feedback.errors.full_messages
       render(:new) && return

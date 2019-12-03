@@ -5,7 +5,7 @@ require 'mock_github_client'
 class Feedback
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :category, :issue
+  attr_accessor :title, :description, :category, :issue, :user
 
   CATEGORIES = %w[bug enhancement addition].freeze
   DEFAULT_CATEGORIES = %w[unconfirmed].freeze
@@ -22,8 +22,10 @@ class Feedback
   end
 
   def submit!
-    @issue =
-      client.create_issue Feedback.repo, title, description, labels: labels
+    @issue = client.create_issue Feedback.repo,
+                                 title,
+                                 signed_description,
+                                 labels: labels
   end
 
   def load(issue_number)
@@ -47,5 +49,11 @@ class Feedback
   def labels
     categories = Feedback::DEFAULT_CATEGORIES + [category]
     categories.join(',')
+  end
+
+  def signed_description
+    return description unless user.present?
+
+    "#{description}\n\n[#{user.id}](#{user.url})"
   end
 end

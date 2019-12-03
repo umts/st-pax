@@ -8,6 +8,7 @@ RSpec.describe Feedback do
   let(:feedback) { build :feedback }
 
   describe '#submit!' do
+    let(:sig_pattern) { /^\[\d+\]\([^)]+\)$/ }
     let(:call) { feedback.submit! }
     before :each do
       allow(feedback).to receive(:client).and_return(client)
@@ -20,6 +21,14 @@ RSpec.describe Feedback do
         feedback.description,
         hash_including(labels: /#{feedback.category}/)
       )
+      call
+    end
+
+    it 'signs the feedback if the user is set' do
+      expect(client).to receive(:create_issue).with(
+        anything, anything, sig_pattern, any_args
+      )
+      feedback.user = create :user
       call
     end
   end
