@@ -45,9 +45,12 @@ class Passenger < ApplicationRecord
   def needs_verification?
     return false if permanent?
 
-    recently_registered = registration_date >= 3.business_days.ago
     eligibility_verification&.expired_within_grace_period? ||
-    (eligibility_verification.blank? && recently_registered)
+    (eligibility_verification.blank? && recently_registered?)
+  end
+
+  def recently_registered?
+    registration_date >= 3.business_days.ago
   end
 
   def rides_expired?
