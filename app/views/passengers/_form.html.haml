@@ -11,7 +11,9 @@
       = form.phone_field :phone
       = form.select :status, Passenger::STATUSES, include_blank: true
 
-      = form.form_group :registration_status, label: { text: 'Registration Status' } do
+      = form.form_group :registration_status,
+        label: { text: 'Registration Status' },
+        help: "You can select 'pending' if the passenger is temporary but has no verifying information yet" do
         = form.radio_button :active_status, 'pending', class: 'form-check-input'
         = form.radio_button :active_status, 'active', class: 'form-check-input'
         = form.radio_button :active_status, 'archived', class: 'form-check-input'
@@ -32,6 +34,7 @@
           = d.select :verifying_agency_id,
             options_from_collection_for_select(VerifyingAgency.all,
             :id, :name, @passenger.eligibility_verification&.verifying_agency&.id),
+            help: 'required only for temporary passengers',
             include_blank: true
           - if @passenger.eligibility_verification.blank? && @passenger.temporary?
             - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
