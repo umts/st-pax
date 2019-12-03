@@ -28,7 +28,7 @@ class PassengersController < ApplicationController
   end
 
   def new
-    @passenger = Passenger.new
+    @passenger = Passenger.new(active_status: 'active')
     @verification = EligibilityVerification.new
   end
 
