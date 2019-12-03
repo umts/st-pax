@@ -13,7 +13,7 @@ class Passenger < ApplicationRecord
             format: { with: /\A\d{8}@umass.edu\z/,
                       message: 'must be 8 digits followed by @umass.edu' }
   validates :eligibility_verification,
-    presence: { if: -> { needs_verification? },
+    presence: { if: -> { requires_verification? },
                 message: 'required for temporary passengers with active registration' }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
@@ -78,7 +78,7 @@ class Passenger < ApplicationRecord
 
   private
 
-  def needs_verification?
+  def requires_verification?
     temporary? && active?
   end
 
