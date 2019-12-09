@@ -19,8 +19,10 @@ module SeedCreator
     end
 
     def create_passengers
-      create_list :passenger, 20, :permanent
-      create_list :passenger, 20, :temporary, :with_note
+      create_list :passenger, 10, :permanent
+      create_list :passenger, 10, :permanent, :with_mobility_device
+      create_list :passenger, 10, :temporary, :with_note
+      create_list :passenger, 10, :temporary, :with_note, :with_mobility_device
 
       create_list :passenger, 5, :temporary, :expired_within_grace_period
       create_list :passenger, 5, :temporary, :expiring_soon

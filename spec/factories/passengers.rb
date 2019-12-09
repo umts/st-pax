@@ -6,10 +6,13 @@ FactoryBot.define do
     address { FFaker::Address.street_address }
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
-    mobility_device { MobilityDevice.all.sample }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
     active_status { 'active' }
     registration_date { Time.zone.today }
+
+    trait :with_mobility_device do
+      mobility_device { MobilityDevice.all.sample }
+    end
 
     trait :temporary do
       permanent { false }
@@ -21,9 +24,7 @@ FactoryBot.define do
     end
 
     trait :inactive do
-      after :create do |passenger|
-        create :eligibility_verification, :expired, passenger: passenger
-      end
+      association :eligibility_verification, :expired
     end
 
     trait :no_note do
@@ -31,21 +32,15 @@ FactoryBot.define do
     end
 
     trait :with_note do
-      after :create do |passenger|
-        create :eligibility_verification, passenger: passenger
-      end
+      association :eligibility_verification
     end
 
     trait :expired_within_grace_period do
-      after :create do |passenger|
-        create :eligibility_verification, :expired_within_grace_period, passenger: passenger
-      end
+      association :eligibility_verification, :expired_within_grace_period
     end
 
     trait :expiring_soon do
-      after :create do |passenger|
-        create :eligibility_verification, :expiring_soon, passenger: passenger
-      end
+      association :eligibility_verification, :expiring_soon
     end
   end
 end
