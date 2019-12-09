@@ -7,7 +7,6 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    registration_date { Time.zone.today }
 
     trait :with_mobility_device do
       mobility_device { MobilityDevice.all.sample }
