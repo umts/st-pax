@@ -11,7 +11,11 @@ class PassengersController < ApplicationController
 
   def toggle_archive
     if @passenger.archived?
-      @passenger.active!
+      @passenger.assign_attributes(active_status: 'active')
+      unless @passenger.save
+        flash[:danger] = @passenger.errors.full_messages
+        redirect_to archived_passengers_url and return
+      end
     else
       # skip validations on archival
       @passenger.update_attribute(:active_status, 'archived')
