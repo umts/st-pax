@@ -16,6 +16,8 @@ RSpec.describe 'Passenger Management', js: true do
         click_on 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
+        fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
@@ -81,6 +83,8 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Passenger Name', with: 'Jane Fonda'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         fill_in 'Email', with: 'jfonda@umass.edu'
+        fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
         select 'Student', from: 'UMass Status'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
@@ -100,6 +104,8 @@ RSpec.describe 'Passenger Management', js: true do
         click_on 'Add New Passenger'
         fill_in 'Passenger Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
+        fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
         fill_in 'How long will the passenger be with us?', with: date
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
         click_button 'Submit'
