@@ -11,4 +11,10 @@ $( document ).on("turbolinks:load", function() {
       }
     });
   });
+  $('#passenger_permanent').change(function(){
+    var expirationField = $('.verification-expires');
+    var permanent = $(this).is(':checked')
+    expirationField.prop('disabled', permanent);
+    if(permanent) { expirationField.val('') }
+  });
 });
