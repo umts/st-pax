@@ -14,6 +14,9 @@
               checked: @filter == filter,
               inline: true
       = f.submit 'Print'
+      -if @current_user.admin?
+        .btn.btn-secondary.pull-right#copybtn Copy Emails
+
   .col-lg-4.my-3
     %table#key
       %tbody
@@ -39,7 +42,7 @@
           %td{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
-        %tr{class: passengers_table_row_class(passenger)}
+        %tr{class: passengers_table_row_class(passenger), data: {email: passenger.email} }
           %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
           %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')

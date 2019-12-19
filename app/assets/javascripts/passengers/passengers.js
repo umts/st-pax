@@ -7,6 +7,17 @@ $( document ).on("turbolinks:load", function() {
     $('.doctors-note-fields').toggle(!$(this).prop('checked'));
   });
 
+  new ClipboardJS('#copybtn', {
+    text: function() {
+      var arr = $("tbody tr")
+      arr = jQuery.map( arr, function( n, i ) {
+        return arr.eq(i).attr("data-email");
+      });
+      ;
+      return arr.join(";");
+    }
+  });
+
   $('#passenger_spire').change(function(){
     $.ajax({
       type: 'GET',

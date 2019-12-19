@@ -19,4 +19,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require moment/moment
+//= require clipboard/dist/clipboard
 //= require_tree .
