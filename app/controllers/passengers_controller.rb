@@ -89,7 +89,9 @@ class PassengersController < ApplicationController
             .permit(:name, :address, :email, :phone, :active_status,
                     :mobility_device_id, :permanent, :note, :spire, :status,
                     :has_brochure,
-                    eligibility_verification_attributes: %i[expiration_date verifying_agency_id])
+                    eligibility_verification_attributes: %i[
+                      expiration_date verifying_agency_id name address phone
+                    ])
     passenger_params
   end
 

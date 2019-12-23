@@ -32,8 +32,9 @@
       .verification-fields
         = form.fields_for :eligibility_verification, @verification do |d|
           = d.select :verifying_agency_id,
-            options_from_collection_for_select(VerifyingAgency.all,
-            :id, :name, @passenger.eligibility_verification&.verifying_agency&.id),
+            options_for_select(VerifyingAgency.all.map { |agency| [agency.name,
+            agency.id, { 'data-needs-contact-info': agency.needs_contact_info? } ] },
+            @passenger.eligibility_verification&.verifying_agency&.id),
             help: 'required only for temporary passengers',
             include_blank: true
           - if @passenger.eligibility_verification.blank? && @passenger.temporary?
@@ -42,6 +43,13 @@
             class: 'datepicker verification-expires',
             help: expiration_help,
             disabled: @passenger.permanent?
+          = d.form_group :contact_information,
+            label: { text: 'This verifying agency requires contact information to be entered' },
+            class: contact_information_class(@verification),
+            help: 'either phone or address is required' do
+            = d.text_field :name
+            = d.text_field :phone
+            = d.text_area :address
 
       = form.text_area :note, rows: 20
       = form.primary 'Submit'
