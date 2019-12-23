@@ -35,7 +35,15 @@ en:
     errors:
       models:
         eligibility_verification:
-          blank: 'must be entered for temporary passengers with an active registration status'
+          attributes:
+            verifying_agency_id:
+              blank: 'must be entered for temporary passengers with an active registration status'
+            expiration_date:
+              blank: 'must be entered for temporary passengers with an active registration status'
+            phone:
+              blank: 'must be entered if address is blank'
+            address:
+              blank: 'must be entered if phone is blank'
     attributes:
       passenger:
         name: 'Passenger Name'
