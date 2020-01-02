@@ -46,5 +46,5 @@ en:
       user:
         active: 'Active?'
         admin:  'Admin?'
-      doctors_note:
-        expiration_date: 'Expiration Date'
+      eligibility_verification:
+        expiration_date: 'How long will the passenger be with us?'
