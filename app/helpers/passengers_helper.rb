@@ -21,7 +21,7 @@ module PassengersHelper
   def verification_information(passenger)
     agency = passenger.eligibility_verification&.verifying_agency
     if agency&.needs_contact_info?
-      render partial: 'contact_information',
+      render partial: 'verifying_agency_contact_info',
         locals: { verification: passenger.eligibility_verification }
     else
       agency&.name ||
