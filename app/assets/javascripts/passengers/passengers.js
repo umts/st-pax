@@ -9,7 +9,7 @@ $( document ).on("turbolinks:load", function() {
 
   new ClipboardJS('#copybtn', {
     text: function() {
-      var arr = $("tbody tr")
+      var arr = $("#passengers body tr")
       arr = jQuery.map( arr, function( n, i ) {
         return arr.eq(i).attr("data-email");
       });
