@@ -14,8 +14,9 @@
               checked: @filter == filter,
               inline: true
       = f.submit 'Print'
-      -if @current_user.admin?
-        .btn.btn-secondary.pull-right#copybtn Copy Emails
+    -if @current_user.admin?
+      %br
+      .btn.btn-secondary#copybtn Copy Emails
 
   .col-lg-4.my-3
     %table#key
