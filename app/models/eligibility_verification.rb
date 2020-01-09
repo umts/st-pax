@@ -19,7 +19,7 @@ class EligibilityVerification < ApplicationRecord
   validates :phone,
     presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
 
-  before_save :wipe_contact_info
+  before_save :reset_contact_info
 
   def self.grace_period
     3.business_days.ago
@@ -55,7 +55,7 @@ class EligibilityVerification < ApplicationRecord
     passenger&.active? && passenger&.temporary?
   end
 
-  def wipe_contact_info
+  def reset_contact_info
     unless verifying_agency&.needs_contact_info?
       assign_attributes(
         name: nil,
