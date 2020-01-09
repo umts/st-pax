@@ -76,12 +76,12 @@ class Passenger < ApplicationRecord
   end
 
   def toggle_archived_status
-    if passenger.archived?
+    if archived?
       assign_attributes(active_status: 'active')
-      passenger.save
+      save
     else
       # skip validations on archival
-      passenger.update_attribute(:active_status, 'archived')
+      update_attribute(:active_status, 'archived')
     end
   end
 
