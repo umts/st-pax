@@ -2,11 +2,24 @@
 
 class EligibilityVerification < ApplicationRecord
   belongs_to :passenger
+  # belongs_to set to optional true with presence validation in order to
+  # make bootstrap validations work nicely.
+  belongs_to :verifying_agency, optional: true
 
   validates :passenger, uniqueness: true
-  validate :temporary_passenger
+  validates :expiration_date, presence: true, if: :passenger_requires_validation
+  validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
+  validates :expiration_date,
+    absence: { if: -> { passenger&.permanent? },
+               message: 'may not be entered for permanent passengers.' }
+  validates :name,
+    presence: { if: -> { verifying_agency&.needs_contact_info? } }
+  validates :address,
+    presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
+  validates :phone,
+    presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
 
-  validates :expiration_date, presence: true
+  before_save :reset_contact_info
 
   def self.grace_period
     3.business_days.ago
@@ -17,24 +30,38 @@ class EligibilityVerification < ApplicationRecord
   end
 
   def will_expire_within_warning_period?
+    return false if expiration_date.blank?
+
     expiration_date < EligibilityVerification.expiration_warning &&
       expiration_date >= Date.today
   end
 
   def expired_within_grace_period?
+    return true if expiration_date.blank?
+
     return false if expiration_date >= Time.zone.today
     expiration_date > EligibilityVerification.grace_period
   end
 
   def expired?
-    expiration_date < EligibilityVerification.grace_period
+    date = expiration_date || passenger.registration_date
+
+    date < EligibilityVerification.grace_period
   end
 
   private
 
-  def temporary_passenger
-    return if passenger.temporary?
+  def passenger_requires_validation
+    passenger&.active? && passenger&.temporary?
+  end
 
-    errors.add :base, 'must belong to a temporary passenger'
+  def reset_contact_info
+    unless verifying_agency&.needs_contact_info?
+      assign_attributes(
+        name: nil,
+        address: nil,
+        phone: nil
+      )
+    end
   end
 end

@@ -1,12 +1,4 @@
 $( document ).on("turbolinks:load", function() {
-  $('#passenger_has_doctors_note').on('change', function(){
-    $('#passenger_eligibility_verification_attributes_expiration_date').prop('required', $(this).prop('checked'));
-  });
-
-  $('#passenger_permanent').on('change', function(){
-    $('.verification-fields').toggle(!$(this).prop('checked'));
-  });
-
   $('#passenger_spire').change(function(){
     $.ajax({
       type: 'GET',
@@ -18,5 +10,17 @@ $( document ).on("turbolinks:load", function() {
         $('#check-existing').modal()
       }
     });
+  });
+
+  $('#passenger_permanent').change(function(){
+    var expirationField = $('.verification-expires');
+    var permanent = $(this).is(':checked')
+    expirationField.prop('disabled', permanent);
+    if(permanent) { expirationField.val('') }
+  });
+
+  $('#passenger_eligibility_verification_attributes_verifying_agency_id').change(function(){
+    var needsContactInfo = $(this).children("option:selected").data('needs-contact-info');
+    $('.contact-information').toggle(needsContactInfo);
   });
 });

@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_203158) do
+ActiveRecord::Schema.define(version: 2019_11_23_001718) do
 
   create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "verifying_agency_id"
+    t.string "name"
+    t.text "address"
+    t.string "phone"
   end
 
   create_table "log_entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -46,7 +50,6 @@ ActiveRecord::Schema.define(version: 2019_11_20_203158) do
     t.string "spire"
     t.string "status"
     t.integer "registered_by"
-    t.boolean "registered_with_disability_services"
     t.boolean "has_brochure"
     t.integer "active_status", default: 0
     t.date "registration_date"
@@ -59,6 +62,11 @@ ActiveRecord::Schema.define(version: 2019_11_20_203158) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "verifying_agencies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.boolean "needs_contact_info", default: false
   end
 
 end
