@@ -75,6 +75,16 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
+  def toggle_archived_status
+    if passenger.archived?
+      assign_attributes(active_status: 'active')
+      passenger.save
+    else
+      # skip validations on archival
+      passenger.update_attribute(:active_status, 'archived')
+    end
+  end
+
   def permanent_or_temporary
     permanent? ? 'permanent' : 'temporary'
   end
