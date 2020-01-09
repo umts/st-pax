@@ -7,6 +7,7 @@ RSpec.describe 'Passenger Management', js: true do
     before :each do
       @user = create :user, :admin
       @passenger = create :passenger, name: 'Foo Bar'
+      @verifying_agency = create :verifying_agency
       when_current_user_is(@user)
     end
     context 'creating a new passenger successfully' do
@@ -19,7 +20,8 @@ RSpec.describe 'Passenger Management', js: true do
         fill_in 'Address', with: '123 turkey lane'
         fill_in 'Phone', with: '123'
         fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        fill_in "Doctor's note expires", with: date
+        fill_in 'How long will the passenger be with us?', with: date
+        select @verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully created.'
       end
@@ -33,17 +35,28 @@ RSpec.describe 'Passenger Management', js: true do
       end
     end
     context 'creating a new passenger unsuccessfully' do
-      it 'renders an error in the flash' do
+      it 'renders spire errors in the flash' do
         visit passengers_path
         click_on 'Add New Passenger'
         fill_in 'Passenger Spire', with: 'invalid spire'
         click_button 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
+      it 'renders verification errors in the flash' do
+        date = 2.days.since.strftime '%Y-%m-%d'
+        visit passengers_path
+        click_on 'Add New Passenger'
+        fill_in 'Passenger Name', with: 'Foo Bar'
+        fill_in 'Email', with: 'foobar@invalid.com'
+        fill_in 'Passenger Spire', with: '12345678@umass.edu'
+        fill_in 'How long will the passenger be with us?', with: date
+        click_button 'Submit'
+        expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
+      end
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'
@@ -78,16 +91,33 @@ RSpec.describe 'Passenger Management', js: true do
       end
     end
     context 'creating a temporary passenger without a doctors note' do
-      it 'creates the passenger' do
-        visit new_passenger_path
-        fill_in 'Passenger Name', with: 'Jane Fonda'
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        fill_in 'Email', with: 'jfonda@umass.edu'
-        fill_in 'Address', with: '123 turkey lane'
-        fill_in 'Phone', with: '123'
-        select 'Student', from: 'UMass Status'
-        click_button 'Submit'
-        expect(page).to have_text 'Passenger successfully created.'
+      context 'with pending registration status' do
+        it 'creates the passenger' do
+          visit new_passenger_path
+          fill_in 'Passenger Name', with: 'Jane Fonda'
+          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Email', with: 'jfonda@umass.edu'
+          fill_in 'Address', with: '123 turkey lane'
+          fill_in 'Phone', with: '123'
+          select 'Student', from: 'UMass Status'
+          choose 'Pending'
+          click_button 'Submit'
+          expect(page).to have_text 'Passenger successfully created.'
+        end
+      end
+      context 'with active registration status' do
+        it 'does not allow creation' do
+          visit new_passenger_path
+          fill_in 'Passenger Name', with: 'Jane Fonda'
+          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Email', with: 'jfonda@umass.edu'
+          fill_in 'Address', with: '123 turkey lane'
+          fill_in 'Phone', with: '123'
+          select 'Student', from: 'UMass Status'
+          click_button 'Submit'
+          expect(page).to have_text 'How long will the passenger be with us?'\
+            ' must be entered for temporary passengers with an active registration status'
+        end
       end
     end
   end
@@ -98,23 +128,36 @@ RSpec.describe 'Passenger Management', js: true do
       when_current_user_is(@user)
     end
     context 'creating a new passenger successfully' do
-      it 'creates the passenger' do
-        date = 2.days.since.strftime '%Y-%m-%d'
-        visit passengers_path
-        click_on 'Add New Passenger'
-        fill_in 'Passenger Name', with: 'Foo Bar'
-        fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Address', with: '123 turkey lane'
-        fill_in 'Phone', with: '123'
-        fill_in "Doctor's note expires", with: date
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
-        click_button 'Submit'
-        expect(page).to have_text 'Passenger successfully created.'
+      context 'with pending registration status' do
+        it 'creates the passenger' do
+          visit new_passenger_path
+          fill_in 'Passenger Name', with: 'Jane Fonda'
+          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Email', with: 'jfonda@umass.edu'
+          fill_in 'Address', with: '123 turkey lane'
+          fill_in 'Phone', with: '123'
+          select 'Student', from: 'UMass Status'
+          choose 'Pending'
+          click_button 'Submit'
+          expect(page).to have_text 'Passenger successfully created.'
+        end
+      end
+      context 'with active registration status' do
+        it 'does not allow creation' do
+          visit new_passenger_path
+          fill_in 'Passenger Name', with: 'Jane Fonda'
+          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Email', with: 'jfonda@umass.edu'
+          select 'Student', from: 'UMass Status'
+          click_button 'Submit'
+          expect(page).to have_text 'How long will the passenger be with us?'\
+            ' must be entered for temporary passengers with an active registration status'
+        end
       end
     end
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :doctors_note, passenger: @passenger
+        create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
         fill_in 'Passenger Name', with: 'Bar Foo'

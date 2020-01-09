@@ -7,8 +7,6 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    active_status { 'active' }
-    registration_date { Time.zone.today }
 
     trait :with_mobility_device do
       mobility_device { MobilityDevice.all.sample }
@@ -16,31 +14,33 @@ FactoryBot.define do
 
     trait :temporary do
       permanent { false }
+      after(:create) do |passenger|
+        create :eligibility_verification,
+          :for_temporary_passenger,
+          passenger: passenger
+        passenger.active!
+      end
     end
 
     trait :permanent do
       permanent { true }
-      doctors_note { nil }
+      eligibility_verification { nil }
     end
 
     trait :inactive do
-      association :doctors_note, :expired
+      association :eligibility_verification, :expired
     end
 
     trait :no_note do
-      doctors_note { nil }
-    end
-
-    trait :with_note do
-      association :doctors_note
+      eligibility_verification { nil }
     end
 
     trait :expired_within_grace_period do
-      association :doctors_note, :expired_within_grace_period
+      association :eligibility_verification, :expired_within_grace_period
     end
 
     trait :expiring_soon do
-      association :doctors_note, :expiring_soon
+      association :eligibility_verification, :expiring_soon
     end
   end
 end

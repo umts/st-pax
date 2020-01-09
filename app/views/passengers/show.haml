@@ -15,26 +15,23 @@
   %b UMass Status:
   = @passenger.status
 %p
-  %b Registered with disability services?
-  = checkmark_glyph @passenger.registered_with_disability_services?
-%p
   %b Has brochure?
   = checkmark_glyph @passenger.has_brochure?
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
-  %b Active:
-  = checkmark_glyph @passenger.active?
+  %b Registration Status:
+  = @passenger.active_status.capitalize
 %p
   %b Permanent:
   = checkmark_glyph @passenger.permanent
+%p
+  %b Verification of Ride Eligibility:
+  = verification_information(@passenger)
 - if @passenger.temporary?
   %p
-    %b Has Doctor's Note?
-    = checkmark_glyph @passenger.doctors_note.present?
-  %p
-    - if @passenger.doctors_note.present?
+    - if @passenger.eligibility_verification.present?
       %b Doctor's Note Expiration Date:
     - else
       %b Rides Expire:

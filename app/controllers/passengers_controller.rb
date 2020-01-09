@@ -10,14 +10,13 @@ class PassengersController < ApplicationController
   end
 
   def toggle_archive
-    if @passenger.archived?
-      @passenger.active!
+    if @passenger.toggle_archived_status
+      flash[:success] = 'Passenger successfully updated'
+      redirect_to passengers_url
     else
-      # skip validations on archival
-      @passenger.update_attribute(:active_status, 'archived')
+      flash[:danger] = @passenger.errors.full_messages
+      redirect_to archived_passengers_url
     end
-    flash[:success] = 'Passenger successfully updated'
-    redirect_to passengers_url
   end
 
   def check_existing
@@ -28,16 +27,17 @@ class PassengersController < ApplicationController
   end
 
   def new
-    @passenger = Passenger.new
-    @doctors_note = DoctorsNote.new
+    @passenger = Passenger.new(active_status: 'active')
+    @verification = EligibilityVerification.new
   end
 
   def edit
-    @doctors_note = @passenger.doctors_note || DoctorsNote.new
+    @verification = @passenger.eligibility_verification || EligibilityVerification.new
   end
 
   def index
-    @passengers = Passenger.active.order :name
+    @passengers = Passenger.where(active_status: ['active', 'pending'])
+      .order :name
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
 
@@ -81,19 +81,13 @@ class PassengersController < ApplicationController
   def base_passenger_params
     passenger_params =
       params.require(:passenger)
-            .permit(:name, :address, :email, :phone, :wheelchair,
+            .permit(:name, :address, :email, :phone, :active_status,
                     :mobility_device_id, :permanent, :note, :spire, :status,
-                    :has_brochure, :registered_with_disability_services,
-                    doctors_note_attributes: %i[expiration_date])
-    passenger_params[:active_status] = params[:passenger][:active]
+                    :has_brochure,
+                    eligibility_verification_attributes: %i[
+                      expiration_date verifying_agency_id name address phone
+                    ])
     passenger_params
-  end
-
-  def disallow_nonexpiring_note(permitted_params)
-    note_params = permitted_params[:doctors_note_attributes]
-    return permitted_params unless note_params.try(:[], :expiration_date).blank?
-
-    permitted_params.except :doctors_note_attributes
   end
 
   def find_passenger
@@ -101,9 +95,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    base_passenger_params
-      .then { |p| restrict_admin p }
-      .then { |p| disallow_nonexpiring_note p }
+    base_passenger_params.then { |p| restrict_admin p }
   end
 
   def passenger_pdf
