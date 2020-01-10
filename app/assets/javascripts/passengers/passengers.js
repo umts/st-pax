@@ -7,16 +7,21 @@ $( document ).on("turbolinks:load", function() {
     $('.doctors-note-fields').toggle(!$(this).prop('checked'));
   });
 
-  new ClipboardJS('#copybtn', {
+  var clipboard = new ClipboardJS('#copybtn', {
     text: function() {
-      var arr = $("#passengers body tr")
-      arr = jQuery.map( arr, function( n, i ) {
-        return arr.eq(i).attr("data-email");
-      });
-      ;
-      return arr.join(";");
+      return $("#passengers tbody tr").map(function(){
+        return $(this).data("email")
+      }).get().join(";")
     }
   });
+  clipboard.on('success', function() {
+    $('#copybtn').tooltip('show');
+  });
+
+  clipboard.on('error', function() {
+    $('#copybtn').tooltip({title: "Failed to copy!", trigger: "click"});
+  });
+
   $('#passenger_spire').change(function(){
     $.ajax({
       type: 'GET',

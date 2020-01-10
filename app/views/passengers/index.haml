@@ -13,10 +13,9 @@
               label: filter.capitalize,
               checked: @filter == filter,
               inline: true
-      = f.submit 'Print'
+      .media-left= f.submit 'Print'
     -if @current_user.admin?
-      %br
-      .btn.btn-secondary#copybtn Copy Emails
+      .btn.btn-secondary#copybtn{title: 'Copied!'} Copy Emails
 
   .col-lg-4.my-3
     %table#key
