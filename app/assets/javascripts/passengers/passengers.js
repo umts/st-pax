@@ -15,11 +15,11 @@ $( document ).on("turbolinks:load", function() {
     }
   });
   clipboard.on('success', function() {
-    $('#copybtn').tooltip('show');
+    $('#copybtn').tooltip({title: "Copied"}).tooltip('show');
   });
 
   clipboard.on('error', function() {
-    $('#copybtn').tooltip({title: "Failed to copy!", trigger: "click"});
+    $('#copybtn').tooltip({title: "Failed to copy!"}).tooltip('show');
   });
 
   $('#passenger_spire').change(function(){
