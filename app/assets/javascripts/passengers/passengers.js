@@ -1,4 +1,19 @@
 $( document ).on("turbolinks:load", function() {
+  var clipboard = new ClipboardJS('#copybtn', {
+    text: function() {
+      return $("#passengers tbody tr").map(function(){
+        return $(this).data("email")
+      }).get().join(";")
+    }
+  });
+  clipboard.on('success', function() {
+    $('#copybtn').tooltip({title: "Copied"}).tooltip('show');
+  });
+
+  clipboard.on('error', function() {
+    $('#copybtn').tooltip({title: "Failed to copy!"}).tooltip('show');
+  });
+
   $('#passenger_spire').change(function(){
     $.ajax({
       type: 'GET',

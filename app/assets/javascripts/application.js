@@ -12,6 +12,7 @@
 //
 //= require jquery/dist/jquery
 //= require jquery-ui/ui/widgets/datepicker
+//= require popper.js/dist/umd/popper
 //= require bootstrap-sprockets
 //= require datatables.net/js/jquery.dataTables.js
 //= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
@@ -19,4 +20,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require moment/moment
+//= require clipboard/dist/clipboard
 //= require_tree .
