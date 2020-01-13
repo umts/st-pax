@@ -6,7 +6,8 @@ class PassengersController < ApplicationController
   before_action :access_control, only: %i[destroy archived toggle_archive]
 
   def archived
-    @passengers = Passenger.archived
+    @passengers =
+      Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
   def toggle_archive
@@ -37,7 +38,7 @@ class PassengersController < ApplicationController
 
   def index
     @passengers = Passenger.where(active_status: ['active', 'pending'])
-      .order :name
+      .includes(:eligibility_verification, :mobility_device).order :name
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
 
