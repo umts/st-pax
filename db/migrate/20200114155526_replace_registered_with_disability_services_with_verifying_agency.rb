@@ -1,6 +1,6 @@
 class ReplaceRegisteredWithDisabilityServicesWithVerifyingAgency < ActiveRecord::Migration[5.2]
   def up
-   Passenger.where(registered_with_disability_services: true).each do |passenger|
+    Passenger.where(registered_with_disability_services: true).each do |passenger|
       agent = VerifyingAgency.find_by(name: 'Disability Services')
       if passenger.eligibility_verification.present?
         passenger.eligibility_verification.assign_attributes(
