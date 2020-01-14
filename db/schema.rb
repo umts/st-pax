@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_001718) do
     t.boolean "has_brochure"
     t.integer "active_status", default: 0
     t.date "registration_date"
+    t.boolean "registered_with_disability_services"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
