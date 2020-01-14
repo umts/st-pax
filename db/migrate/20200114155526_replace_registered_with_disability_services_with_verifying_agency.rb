@@ -16,6 +16,7 @@ class ReplaceRegisteredWithDisabilityServicesWithVerifyingAgency < ActiveRecord:
       end
     end
   end
+
   def down
     EligibilityVerification.joins(:verifying_agency).where(
       verifying_agencies: { name: 'Disability Services' }

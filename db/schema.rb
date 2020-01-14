@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_001718) do
+ActiveRecord::Schema.define(version: 2020_01_14_155857) do
 
   create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "passenger_id"
