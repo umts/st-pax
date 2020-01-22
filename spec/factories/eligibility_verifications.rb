@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :eligibility_verification do
+    expiration_date { 1.month.from_now }
     passenger
   end
 
-  trait :for_temporary_passenger do
-    expiration_date { 1.month.from_now }
-    verifying_agency
+  trait :with_agency do
+    association :verifying_agency
   end
 
   trait :expired_within_grace_period do

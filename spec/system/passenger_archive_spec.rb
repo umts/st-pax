@@ -14,7 +14,7 @@ RSpec.describe 'Archived Passenger Management' do
     context 'having filled in the correct data' do
       before :each do
         create :eligibility_verification,
-          :for_temporary_passenger,
+          :with_agency,
           passenger: @passenger
       end
       it 'successfully reactivates the passenger' do

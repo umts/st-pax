@@ -7,40 +7,55 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
+    # active_status { 'active' }
+
+    factory :temporary_passenger do
+      permanent { false }
+
+      trait :with_note do
+        after(:create) do |passenger|
+          create :eligibility_verification,
+            :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+
+      trait :inactive do
+        after(:create) do |passenger|
+          create :eligibility_verification, :expired, passenger: passenger
+        end
+      end
+
+      trait :no_note do
+        eligibility_verification { nil} 
+      end
+
+      trait :expired_within_grace_period do
+        after(:create) do |passenger|
+          create :eligibility_verification,
+            :expired_within_grace_period, :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+
+      trait :expiring_soon do
+        after :create do |passenger|
+          create :eligibility_verification,
+            :expiring_soon, :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+    end
 
     trait :with_mobility_device do
       mobility_device { MobilityDevice.all.sample }
     end
 
-    trait :temporary do
-      permanent { false }
-      after(:create) do |passenger|
-        create :eligibility_verification,
-          :for_temporary_passenger,
-          passenger: passenger
-        passenger.active!
-      end
-    end
-
     trait :permanent do
       permanent { true }
-      eligibility_verification { nil }
-    end
-
-    trait :inactive do
-      association :eligibility_verification, :expired
-    end
-
-    trait :no_note do
-      eligibility_verification { nil }
-    end
-
-    trait :expired_within_grace_period do
-      association :eligibility_verification, :expired_within_grace_period
-    end
-
-    trait :expiring_soon do
-      association :eligibility_verification, :expiring_soon
     end
   end
 end

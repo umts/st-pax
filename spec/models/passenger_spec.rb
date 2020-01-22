@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Passenger do
   before :each do
-    @passenger = create :passenger, :temporary
+    @passenger = create :temporary_passenger, :with_note
   end
 
   describe 'expiration_display' do
