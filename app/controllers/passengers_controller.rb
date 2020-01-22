@@ -16,7 +16,7 @@ class PassengersController < ApplicationController
       redirect_to passengers_url
     else
       flash[:danger] = @passenger.errors.full_messages
-      redirect_to archived_passengers_url
+      redirect_to edit_passenger_path(@passenger)
     end
   end
 
