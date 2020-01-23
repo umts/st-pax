@@ -7,7 +7,6 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     phone { FFaker::PhoneNumber.short_phone_number }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
-    # active_status { 'active' }
 
     factory :temporary_passenger do
       permanent { false }
