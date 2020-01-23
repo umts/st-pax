@@ -3,7 +3,7 @@
 class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
-  before_action :access_control, only: %i[destroy archived toggle_archive]
+  before_action :access_control, only: %i[destroy]
 
   def archived
     @passengers =
@@ -16,7 +16,7 @@ class PassengersController < ApplicationController
       redirect_to passengers_url
     else
       flash[:danger] = @passenger.errors.full_messages
-      redirect_to archived_passengers_url
+      redirect_to edit_passenger_path(@passenger)
     end
   end
 

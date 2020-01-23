@@ -36,8 +36,8 @@
         %th.text-center{data: {type: 'date'}} Rides Expire
         %td{data: {orderable: 'false'}}
         %td{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
         - if @current_user.admin?
-          %td{data: {orderable: 'false'}}
           %td{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
@@ -50,8 +50,8 @@
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
+          %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
           - if @current_user.admin?
-            %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
             %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results
