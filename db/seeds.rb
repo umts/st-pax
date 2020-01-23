@@ -21,13 +21,12 @@ module SeedCreator
     def create_passengers
       create_list :passenger, 10, :permanent
       create_list :passenger, 10, :permanent, :with_mobility_device
-      create_list :passenger, 10, :temporary, :with_note
-      create_list :passenger, 10, :temporary, :with_note, :with_mobility_device
-
-      create_list :passenger, 5, :temporary, :expired_within_grace_period
-      create_list :passenger, 5, :temporary, :expiring_soon
-      create_list :passenger, 5, :temporary, :inactive
-      create_list :passenger, 5, :temporary, :no_note
+      create_list :temporary_passenger, 10, :with_note
+      create_list :temporary_passenger, 10, :with_note, :with_mobility_device
+      create_list :temporary_passenger, 5, :expired_within_grace_period
+      create_list :temporary_passenger, 5, :expiring_soon
+      create_list :temporary_passenger, 5, :inactive
+      create_list :temporary_passenger, 5, :no_note
     end
 
     def create_dispatch_logs

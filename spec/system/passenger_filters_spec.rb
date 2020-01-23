@@ -9,7 +9,7 @@ RSpec.describe 'Passenger Filters' do
 
   context 'html view', js: true do
     it 'allows filtering by permanent status' do
-      create :passenger, :temporary, name: 'Gary Stue'
+      create :temporary_passenger, name: 'Gary Stue'
       create :passenger, :permanent, name: 'Mary Sue'
       visit passengers_url
       choose 'Permanent'
@@ -20,7 +20,7 @@ RSpec.describe 'Passenger Filters' do
 
     it 'allows filtering by temporary' do
       create :passenger, :permanent, name: 'Mary Sue'
-      create :passenger, :temporary, name: 'Gary Stue'
+      create :temporary_passenger, name: 'Gary Stue'
       visit passengers_url
       choose 'Temporary'
       expect(page).to have_selector 'table#passengers tbody tr', count: 1
@@ -29,7 +29,7 @@ RSpec.describe 'Passenger Filters' do
     end
 
     it 'allows filtering by everyone' do
-      create :passenger, :temporary, name: 'Gary Stue'
+      create :temporary_passenger, name: 'Gary Stue'
       create :passenger, :permanent, name: 'Mary Sue'
       visit passengers_url
       choose 'All'

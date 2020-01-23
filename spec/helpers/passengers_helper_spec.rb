@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe PassengersHelper do
   describe 'passengers_table_row_class' do
     before :each do
-      @passenger = create :passenger, :temporary
+      @passenger = create :temporary_passenger, :with_note
       @verification = @passenger.eligibility_verification
     end
     context 'will expire within warning period' do
@@ -31,7 +31,7 @@ RSpec.describe PassengersHelper do
     end
     context 'the passenger needs a doctors note' do
       it 'returns the correct class' do
-        @passenger = create :passenger, :no_note
+        @passenger = create :temporary_passenger, :no_note
         expect(helper.passengers_table_row_class(@passenger)).to eql 'needs-note'
       end
     end
