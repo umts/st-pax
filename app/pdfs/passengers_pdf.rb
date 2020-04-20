@@ -3,8 +3,13 @@
 require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
+<<<<<<< HEAD
   def initialize(passengers, filters)
     super(page_layout: :landscape, page_size: 'TABLOID')
+=======
+  def initialize(passengers, filter)
+    super(page_layout: :landscape)
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
     font_families.update(
       'DejaVu Sans' => {
         normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
@@ -12,7 +17,7 @@ class PassengersPDF < Prawn::Document
       }
     )
     font 'DejaVu Sans'
-    header(filters)
+    header(filter)
     passengers_table(passengers)
   end
 
@@ -27,8 +32,7 @@ class PassengersPDF < Prawn::Document
       'Notes'
     ]
     passenger_table = passengers.map { |p| passenger_row p }.unshift headers
-
-    table passenger_table, cell_style: { font: 'DejaVu Sans' } do
+    table passenger_table, header: true, cell_style: { font: 'DejaVu Sans' } do
       row(0).font_style = :bold
     end
   end
@@ -47,10 +51,10 @@ class PassengersPDF < Prawn::Document
     [name, needs_longer_ride, mobility_device, phone, expiration, note]
   end
 
-  def header(filters)
+  def header(filter)
     font_size 30
     date = Time.now.strftime('%m/%d/%Y')
-    title = (filters + ['Passengers', date]).map(&:capitalize).join(' ')
+    title = [filter, 'Passengers', date].compact.map(&:capitalize).join(' ')
     text title, style: :bold, size: 30
     move_down 20
   end

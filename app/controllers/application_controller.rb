@@ -26,14 +26,15 @@ class ApplicationController < ActionController::Base
   def set_current_user
     @current_user =
       if session.key? :user_id
-        User.find_by id: session[:user_id]
+        User.active.find_by id: session[:user_id]
       elsif request.env.key? 'fcIdNumber'
-        User.find_by spire: request.env['fcIdNumber']
+        User.active.find_by spire: request.env['fcIdNumber']
       end
     session[:user_id] = @current_user.id if @current_user.present?
   end
   # rubocop:enable AbcSize
 
+<<<<<<< HEAD
   def login_as_passenger
     return if @current_user.present?
 
@@ -58,6 +59,8 @@ class ApplicationController < ActionController::Base
   end
   # rubocop:enable Style/AndOr
 
+=======
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   def check_primary_account
     return if request.env['UMAPrimaryAccount'] == request.env['uid']
 

@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :doctors_note do
-    passenger
+  factory :eligibility_verification do
     expiration_date { 1.month.from_now }
+    passenger
+  end
+
+  trait :with_agency do
+    association :verifying_agency
   end
 
   trait :expired_within_grace_period do
@@ -15,6 +19,6 @@ FactoryBot.define do
   end
 
   trait :expired do
-    expiration_date { DoctorsNote.grace_period - 3.days }
+    expiration_date { EligibilityVerification.grace_period - 3.days }
   end
 end

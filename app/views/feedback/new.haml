@@ -1,0 +1,12 @@
+%h1 New Feedback
+
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @feedback, local: true do |f|
+      = f.text_field :title, required: true
+      = f.text_area :description, rows: 10
+      = f.select :category,
+        Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] }
+      = f.primary 'Submit'
+
+    = link_to 'Back', feedback_index_path

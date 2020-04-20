@@ -2,15 +2,22 @@
 
 class PassengersController < ApplicationController
   before_action :find_passenger,
+<<<<<<< HEAD
                 only: %i[show edit update destroy toggle_status]
   before_action :restrict_to_admin, only: %i[destroy archived toggle_status]
   before_action :restrict_to_employee, except: %i[register brochure create]
   # add edit/update to allowed actions for passenger after question is answered
+=======
+                only: %i[show edit update destroy toggle_archive]
+  before_action :access_control, only: %i[destroy]
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 
   def archived
-    @passengers = Passenger.archived
+    @passengers =
+      Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
+<<<<<<< HEAD
   def pending
     @passengers = Passenger.pending
   end
@@ -39,42 +46,45 @@ class PassengersController < ApplicationController
     @passenger.toggle_status(desired_status)
     flash[:success] = 'Passenger successfully updated'
     redirect_to passengers_url
+=======
+  def toggle_archive
+    if @passenger.toggle_archived_status
+      flash[:success] = 'Passenger successfully updated'
+      redirect_to passengers_url
+    else
+      flash[:danger] = @passenger.errors.full_messages
+      redirect_to edit_passenger_path(@passenger)
+    end
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   end
 
   def check_existing
     @passenger = Passenger.find_by(spire: params[:spire_id])
     return unless @passenger.present?
+
     render partial: 'check_existing'
   end
 
   def new
-    @passenger = Passenger.new
-    @doctors_note = DoctorsNote.new
+    @passenger = Passenger.new(active_status: 'active')
+    @verification = EligibilityVerification.new
   end
 
   def edit
-    @doctors_note = @passenger.doctors_note || DoctorsNote.new
+    @verification = @passenger.eligibility_verification || EligibilityVerification.new
   end
 
-  # rubocop:disable Style/GuardClause
   def index
-    @passengers = Passenger.active.order :name
-    @filters = []
-    filter = params[:filter]
-    if %w[permanent temporary].include? filter
-      @passengers = @passengers.send filter.downcase
-      @filters << filter
-    else @filters << 'all'
-    end
-    if params[:print].present?
-      pdf = PassengersPDF.new(@passengers, @filters)
-      name = "#{@filters.map(&:capitalize).join(' ')} Passengers #{Date.today}"
-      send_data pdf.render, filename: name,
-                            type: 'application/pdf',
-                            disposition: :inline
+    @passengers = Passenger.where(active_status: ['active', 'pending'])
+      .includes(:eligibility_verification, :mobility_device).order :name
+    allowed_filters = %w[permanent temporary]
+    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
+
+    respond_to do |format|
+      format.html
+      format.pdf { passenger_pdf }
     end
   end
-  # rubocop:enable Style/GuardClause
 
   def create
     @passenger = Passenger.new(passenger_params)
@@ -107,6 +117,7 @@ class PassengersController < ApplicationController
 
   private
 
+<<<<<<< HEAD
   def all_params
     base_params = params.require(:passenger).permit(
       :name,
@@ -139,9 +150,40 @@ class PassengersController < ApplicationController
       spire: "#{request.env['fcIdNumber']}@umass.edu",
       name: "#{request.env['givenName']} #{request.env['surName']}",
     )
+=======
+  def base_passenger_params
+    passenger_params =
+      params.require(:passenger)
+            .permit(:name, :address, :email, :phone, :active_status,
+                    :mobility_device_id, :permanent, :note, :spire, :status,
+                    :has_brochure,
+                    eligibility_verification_attributes: %i[
+                      expiration_date verifying_agency_id name address phone
+                    ])
+    passenger_params
   end
 
   def find_passenger
     @passenger = Passenger.find(params[:id])
+  end
+
+  def passenger_params
+    base_passenger_params.then { |p| restrict_admin p }
+  end
+
+  def passenger_pdf
+    @passengers = @passengers.send(@filter)
+    pdf = PassengersPDF.new(@passengers, @filter)
+    name = "#{@filter} Passengers #{Date.today}".capitalize
+    send_data pdf.render, filename: name,
+                          type: 'application/pdf',
+                          disposition: :inline
+  end
+
+  def restrict_admin(permitted_params)
+    return permitted_params if @current_user.admin?
+
+    permitted_params.except :permanent
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   end
 end

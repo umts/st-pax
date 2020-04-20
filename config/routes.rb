@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   else root 'passengers#index'
   end
 
-  resources :doctors_notes
+  resources :feedback, only: %i[index show new create]
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
   resources :passengers do
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       post :toggle_status
     end
   end
-  resources :users, except: :show
+  resources :users
 
   unless Rails.env.production?
     get  'sessions/dev_login',

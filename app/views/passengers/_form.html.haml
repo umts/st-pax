@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 = form_with model: passenger, local: true do |f|
   .form-group
     %label Registration Date:
@@ -87,3 +88,60 @@
             class: 'form-check-label', required: true
     .form-group
       = f.submit 'Submit', class: 'btn btn-primary'
+=======
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @passenger, local: true do |form|
+      .form-group
+        %b Registration date:
+        = @passenger.registration_date
+      = form.text_field :name
+      = form.text_field :spire, placeholder: '12345678@umass.edu'
+      = form.text_field :address
+      = form.text_field :email
+      = form.phone_field :phone
+      = form.select :status, Passenger::STATUSES, include_blank: true
+
+      = form.form_group :registration_status,
+        label: { text: 'Registration Status' },
+        help: "You can select 'pending' if the passenger is temporary but has no verifying information yet" do
+        = form.radio_button :active_status, 'pending', class: 'form-check-input'
+        = form.radio_button :active_status, 'active', class: 'form-check-input'
+        = form.radio_button :active_status, 'archived', class: 'form-check-input'
+
+      - unless @passenger.permanent?
+        = form.form_group do
+          = form.check_box :has_brochure
+
+      = form.select :mobility_device_id,
+        options_from_collection_for_select(MobilityDevice.order(:name),
+          :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
+
+      = form.form_group do
+        = form.check_box :permanent, disabled: !@current_user.admin?
+
+      .verification-fields
+        = form.fields_for :eligibility_verification, @verification do |d|
+          = d.select :verifying_agency_id,
+            options_for_select(VerifyingAgency.all.map { |agency| [agency.name,
+            agency.id, { 'data-needs-contact-info': agency.needs_contact_info? } ] },
+            @passenger.eligibility_verification&.verifying_agency&.id),
+            help: 'required only for temporary passengers',
+            include_blank: true
+          - if @passenger.eligibility_verification.blank? && @passenger.temporary?
+            - expiration_help = "Rides expire #{@passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+          = d.text_field :expiration_date,
+            class: 'datepicker verification-expires',
+            help: expiration_help,
+            disabled: @passenger.permanent?
+          = d.form_group :contact_information,
+            label: { text: 'This verifying agency requires contact information to be entered' },
+            class: contact_information_class(@verification),
+            help: 'either phone or address is required' do
+            = d.text_field :name
+            = d.text_field :phone
+            = d.text_area :address
+
+      = form.text_area :note, rows: 20
+      = form.primary 'Submit'
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167

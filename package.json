@@ -2,11 +2,14 @@
   "name": "st_pax_tracker",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "clipboard": "^2.0.4",
     "datatables.net": "^1.10.15",
-    "datatables.net-bs": "^1.10.20",
-    "datatables.net-fixedheader-bs": "^3.1.6",
+    "datatables.net-bs4": "^1.10.20",
+    "datatables.net-fixedheader-bs4": "^3.1.6",
     "jquery": "^3.4.0",
     "jquery-ui": "^1.12.1",
-    "moment": "^2.19.3"
+    "moment": "^2.19.3",
+    "popper.js": "^1.16.0"
   }
 }

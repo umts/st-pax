@@ -7,42 +7,55 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
     active_status { 'active' }
+    phone { FFaker::PhoneNumber.short_phone_number }
 
-    trait :temporary do
+    factory :temporary_passenger do
       permanent { false }
+
+      trait :with_note do
+        after(:create) do |passenger|
+          create :eligibility_verification,
+            :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+
+      trait :inactive do
+        after(:create) do |passenger|
+          create :eligibility_verification, :expired, passenger: passenger
+        end
+      end
+
+      trait :no_note do
+        eligibility_verification { nil} 
+      end
+
+      trait :expired_within_grace_period do
+        after(:create) do |passenger|
+          create :eligibility_verification,
+            :expired_within_grace_period, :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+
+      trait :expiring_soon do
+        after :create do |passenger|
+          create :eligibility_verification,
+            :expiring_soon, :with_agency,
+            passenger: passenger
+          passenger.active!
+        end
+      end
+    end
+
+    trait :with_mobility_device do
+      mobility_device { MobilityDevice.all.sample }
     end
 
     trait :permanent do
       permanent { true }
-      doctors_note { nil }
-    end
-
-    trait :inactive do
-      after :create do |passenger|
-        create :doctors_note, :expired, passenger: passenger
-      end
-    end
-
-    trait :no_note do
-      doctors_note { nil }
-    end
-
-    trait :with_note do
-      after :create do |passenger|
-        create :doctors_note, passenger: passenger
-      end
-    end
-
-    trait :expired_within_grace_period do
-      after :create do |passenger|
-        create :doctors_note, :expired_within_grace_period, passenger: passenger
-      end
-    end
-
-    trait :expiring_soon do
-      after :create do |passenger|
-        create :doctors_note, :expiring_soon, passenger: passenger
-      end
     end
   end
 end

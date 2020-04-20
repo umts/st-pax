@@ -1,26 +1,29 @@
 %h1
-  = @filters.join( ' ' ).capitalize
+  %span.filter-name
   Passengers
 
-= form_tag passengers_path, method: :get do
-  .form-group
-    = label_tag 'Filter by Type:'
-    .passenger-filters
-      %label{ for: 'filter_permanent' } Permanent Only
-      = radio_button_tag :filter, 'permanent', @filters.include?('permanent')
-      %label{ for: 'filter_temporary' } Temporary Only
-      = radio_button_tag :filter, 'temporary', @filters.include?('temporary')
-      %label{ for: 'filter_'} All
-      = radio_button_tag :filter, '', @filters.include?('all')
-  .form-group
-    = submit_tag 'Show Passengers'
-    = submit_tag 'Print filtered list', name: 'print'
-  %table#key
-    %tbody
-      %tr
-        %td.expires-soon Expires within one week
-        %td.needs-note Within grace period, needs doctor's note
-        %td.expired Expired - out of grace period
+.row.align-items-end.justify-content-between
+  .passenger-filters.col-lg-4.my-3
+    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
+      = f.form_group do
+        %fieldset
+          %legend.sr-only Filter Passengers
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filter == filter,
+              inline: true
+      = f.submit 'Print'
+      -if @current_user.admin?
+        %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
+  .col-lg-4.my-3
+    %table#key
+      %tbody
+        %tr.text-center
+          %td.p-3.expires-soon Expires within one week
+          %td.p-3.needs-note Within grace period, needs doctor's note
+          %td.p-3.expired Expired - out of grace period
+
 - if @passengers.present?
   %table.table#passengers{data: {paging: 'false'}}
     %thead
@@ -29,26 +32,30 @@
         %th Mobility Device
         %th Needs longer rides?
         %th Phone
-        %th.text-center Permanent
-        %th.text-center Rides Expire
-        %th{data: {orderable: 'false'}}
-        %th{data: {orderable: 'false'}}
+        %th.permanent.text-center Permanent
+        %th.text-center{data: {type: 'date'}} Rides Expire
+        %td{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
+        %td{data: {orderable: 'false'}}
         - if @current_user.admin?
-          %th{data: {orderable: 'false'}}
-          %th{data: {orderable: 'false'}}
+          %td{data: {orderable: 'false'}}
     %tbody
       - @passengers.each do |passenger|
-        %tr{class: passengers_table_row_class(passenger)}
-          %td= passenger.name
+        %tr{class: passengers_table_row_class(passenger), data: {email: passenger.email} }
+          %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
-          %td{data: {sort: passenger.needs_longer_rides?.to_s}}= checkmark_glyph(passenger.needs_longer_rides?, no: '')
+          %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
-          %td.text-center{data: {sort: passenger.permanent?.to_s}}= checkmark_glyph passenger.permanent?
-          %td.text-center{data: {sort: sortable_date(passenger.doctors_note)}}=passenger.rides_expire.try(:strftime, '%m/%d/%Y')
+          %td.text-center{data: {filter: passenger.permanent_or_temporary}}= checkmark_glyph passenger.permanent?
+          %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
+          %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
           - if @current_user.admin?
+<<<<<<< HEAD
             %td= button_to 'Archive', toggle_status_passenger_url(passenger, status: 'archive'), class: 'btn btn-warning'
+=======
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
             %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results

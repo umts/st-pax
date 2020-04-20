@@ -14,7 +14,8 @@ set :deploy_to, "/srv/#{fetch :application}"
 set :log_level, :info
 
 set :linked_files, fetch(:linked_files, []).push(
-  'config/database.yml'
+  'config/database.yml',
+  'config/application.yml'
 )
 
 set :linked_dirs, fetch(:linked_dirs, []).push(

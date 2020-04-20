@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %nav.navbar.navbar-default
   .container-fluid
     - if @current_user
@@ -18,3 +19,15 @@
       = navbar_link 'Registration', register_passengers_path
     = link_to destroy_session_url do
       %button.btn.btn-default.navbar-btn.navbar-right Logout
+=======
+%nav.navbar.navbar-expand-lg.mb-2.bg-light{aria: {label: 'Main'}}
+  = navbar_link 'Passengers', passengers_path
+  = navbar_link 'Add New Passenger', new_passenger_path
+  = navbar_link 'Dispatch Log', log_index_path
+  = navbar_link 'Site Feedback', feedback_index_path
+  = navbar_link 'Archived Passengers', archived_passengers_path
+  - if @current_user.admin?
+    = navbar_link 'Manage Users', users_path
+    = navbar_link 'Manage Mobility Devices', mobility_devices_path
+  = link_to 'Logout', destroy_session_path, class: 'ml-auto mr-2 nav-link btn btn-secondary'
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167

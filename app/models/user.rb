@@ -2,7 +2,6 @@
 
 class User < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
-  has_many :doctors_notes
 
   validates :name, :spire, presence: true
   validates :spire,
@@ -13,11 +12,16 @@ class User < ApplicationRecord
   scope :dispatchers, -> { where.not admin: true }
   scope :active, -> { where active: true }
 
-  def can_delete?(item)
+  def can_modify?(item)
     admin? || (item.is_a?(LogEntry) && item.user == self)
   end
 
   def dispatcher?
     !admin?
+  end
+
+  def url
+    Rails.application.routes.url_helpers.user_url self,
+      Rails.application.config.action_mailer.default_url_options
   end
 end

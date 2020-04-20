@@ -1,18 +1,27 @@
 # frozen_string_literal: true
 
 class Passenger < ApplicationRecord
+  validates :active_status, presence: true
   validates :name,  presence: true, length: { maximum: 50 }
-  validates :registration_date, presence: true
+  validates :registration_date, :phone, :address, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
   validates :spire, uniqueness: true,
+<<<<<<< HEAD
                     format: { with: /\A\d{8}@umass.edu\z/,
                               message: 'must be 8 digits followed by @umass.edu' }
   validates :terms_and_conditions, on: :create,
     presence: { message: 'Terms and conditions must be accepted and understood' }
+=======
+            format: { with: /\A\d{8}@umass.edu\z/,
+                      message: 'must be 8 digits followed by @umass.edu' }
+  validates :eligibility_verification,
+    presence: { if: -> { requires_verification? },
+                message: 'required for temporary passengers with active registration' }
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
@@ -22,8 +31,8 @@ class Passenger < ApplicationRecord
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
 
-  has_one :doctors_note, dependent: :destroy
-  accepts_nested_attributes_for :doctors_note
+  has_one :eligibility_verification, dependent: :destroy
+  accepts_nested_attributes_for :eligibility_verification
 
   belongs_to :mobility_device, optional: true
 
@@ -40,33 +49,37 @@ class Passenger < ApplicationRecord
   def expiration_display
     return if permanent?
 
-    doctors_note.try(:expiration_date).try :strftime, '%m/%d/%Y' || 'No Note'
+    eligibility_verification.try(:expiration_date).try(:strftime, '%m/%d/%Y') ||
+      'No Note'
   end
 
   def needs_longer_rides?
     mobility_device&.needs_longer_rides?.present?
   end
 
-  def needs_doctors_note?
+  def needs_verification?
     return false if permanent?
 
-    recently_registered = registration_date >= 3.business_days.ago
-    doctors_note&.expired_within_grace_period? ||
-    (doctors_note.blank? && recently_registered)
+    eligibility_verification&.expired_within_grace_period? ||
+    (eligibility_verification.blank? && recently_registered?)
+  end
+
+  def recently_registered?
+    registration_date >= 3.business_days.ago
   end
 
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < DoctorsNote.grace_period
-    registration_expired && (doctors_note.nil? || doctors_note.expired?)
+    registration_expired = registration_date < EligibilityVerification.grace_period
+    registration_expired && (eligibility_verification.nil? || eligibility_verification.expired?)
   end
 
   def rides_expire
     return if permanent?
 
-    if doctors_note.present?
-      return 3.business_days.after(doctors_note.expiration_date)
+    if eligibility_verification&.expiration_date.present?
+      return 3.business_days.after(eligibility_verification.expiration_date)
     end
     return 3.business_days.since(registration_date) if persisted?
 
@@ -77,6 +90,7 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
+<<<<<<< HEAD
   def toggle_status(desired_status)
     case desired_status
     when 'active' then active!
@@ -85,7 +99,27 @@ class Passenger < ApplicationRecord
     end
   end
 
+=======
+  def toggle_archived_status
+    if archived?
+      assign_attributes(active_status: 'active')
+      save
+    else
+      # skip validations on archival
+      update_attribute(:active_status, 'archived')
+    end
+  end
+
+  def permanent_or_temporary
+    permanent? ? 'permanent' : 'temporary'
+  end
+
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   private
+
+  def requires_verification?
+    temporary? && active?
+  end
 
   def assign_registration_date
     if active_status_changed? && active?

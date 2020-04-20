@@ -1,0 +1,12 @@
+%h1= @user.name
+%p
+  %b Spire:
+  = @user.spire
+%p
+  %b Active:
+  = checkmark_glyph @user.active?
+%p
+  %b Admin:
+  = checkmark_glyph @user.admin?
+= link_to 'Edit', edit_user_path
+= link_to 'Back', users_path

@@ -32,6 +32,18 @@
 
 en:
   activerecord:
+    errors:
+      models:
+        eligibility_verification:
+          attributes:
+            verifying_agency_id:
+              blank: 'must be entered for temporary passengers with an active registration status'
+            expiration_date:
+              blank: 'must be entered for temporary passengers with an active registration status'
+            phone:
+              blank: 'must be entered if address is blank'
+            address:
+              blank: 'must be entered if phone is blank'
     attributes:
       passenger:
         permanent: 'Permanent Passenger'
@@ -45,8 +57,14 @@ en:
       user:
         active: 'Active?'
         admin:  'Admin?'
+<<<<<<< HEAD
       doctors_note:
         expiration_date: 'Expiration Date'
         doctors_name: "Doctor's Name"
         doctors_address: "Doctor's Full Address"
         doctors_phone: "Doctor's Phone Number"
+=======
+      eligibility_verification:
+        expiration_date: 'How long will the passenger be with us?'
+        verifying_agency_id: 'Which agency verifies that this passenger needs rides?'
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167

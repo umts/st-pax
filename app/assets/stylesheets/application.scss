@@ -1,38 +1,30 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.css
- *= require_tree .
- *= require_self
- */
-$maroon: #881c1c;
-$slightly-maroon: #eacccc;
+$theme-colors: (
+  "primary": #881c1c,
+  "secondary": #63666a,
+  "success": #76881d,
+  "danger": #a8431e,
+  "warning": #c69214,
+  "info": #71b2c9,
+  "light": #eeeeee,
+  "dark": #333333
+);
 
-$body-bg: $maroon;
-$font-family-sans-serif: verdana, arial, helvetica, sans-serif;
-$font-size-base: 13px;
-
-$navbar-padding-horizontal: 20px;
-
-$link-color: #000;
-
-@import "bootstrap-sprockets";
 @import "bootstrap";
+
+@import "datatables.net-bs4/css/dataTables.bootstrap4";
+@import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
+
+@import "font-awesome";
+@import "jquery-ui";
+@import "log";
+@import "passengers";
 
 h1{
   text-align: center;
   margin: 15px 0;
 }
 
+<<<<<<< HEAD
 .navbar{
   button{
     margin-left: 3px;
@@ -45,24 +37,15 @@ h1{
       background: $slightly-maroon;
     }
   }
+=======
+th[scope="row"] {
+  font-weight: normal;
 }
 
-.panel{
-  margin: 1em;
-  border: 2px solid grey;
+span.yes-glyph {
+  color: theme-color("success");
+>>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 }
-
-a {
-  text-decoration: underline;
-
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
-}
-
-span.glyphicon{
-  font-size: large;
-  &.glyphicon-ok{ color: green; }
-  &.glyphicon-remove{ color: red; }
+span.no-glyph {
+  color: theme-color("danger");
 }

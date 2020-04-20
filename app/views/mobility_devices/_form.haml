@@ -1,17 +1,7 @@
-= form_for @device do |f|
-  - if @device.errors.any?
-    #error_explanation
-      %h2 
-        = pluralize @device.errors.count, 'error'
-        prohibited this user from being saved:
-      %ul
-        - @device.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :needs_longer_rides
-    = f.check_box :needs_longer_rides
-  .actions
-    = f.submit 'Save'
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @device, local: true do |f|
+      = f.text_field :name, required: true
+      = f.form_group do
+        = f.check_box :needs_longer_rides
+      = f.primary 'Save'
