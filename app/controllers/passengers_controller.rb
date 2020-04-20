@@ -103,20 +103,12 @@ class PassengersController < ApplicationController
 
   def all_params
     base_params = params.require(:passenger).permit(
-      :name,
-      :preferred_name,
-      :email,
-      :phone,
-      :address,
-      :mobility_device_id,
-      :needs_assistance,
-      :note,
-      :status,
-      :registered_with_disability_services,
-      :permanent,
-      :spire,
-      :terms_and_conditions,
-      doctors_note_attributes: %i[expiration_date doctors_name doctors_address doctors_phone]
+      :name, :preferred_name, :email, :phone, :address, :mobility_device_id,
+      :needs_assistance, :note, :status, :permanent, :spire,
+      :terms_and_conditions, doctors_note_attributes: %i[expiration_date
+                                                         doctors_name
+                                                         doctors_address
+                                                         doctors_phone]
     )
     base_params[:active_status] = params[:passenger][:active]
     base_params
