@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
   end
   # rubocop:enable AbcSize
 
-<<<<<<< HEAD
   def login_as_passenger
     return if @current_user.present?
 
@@ -51,16 +50,6 @@ class ApplicationController < ActionController::Base
     session[:passenger_id] = @registrant&.id
   end
 
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def show_errors(object)
-    flash[:errors] = object.errors.full_messages
-    redirect_back(fallback_location: 'public/404.html') and return
-  end
-  # rubocop:enable Style/AndOr
-
-=======
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   def check_primary_account
     return if request.env['UMAPrimaryAccount'] == request.env['uid']
 

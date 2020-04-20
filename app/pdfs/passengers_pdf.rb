@@ -3,13 +3,8 @@
 require 'prawn/table'
 
 class PassengersPDF < Prawn::Document
-<<<<<<< HEAD
   def initialize(passengers, filters)
     super(page_layout: :landscape, page_size: 'TABLOID')
-=======
-  def initialize(passengers, filter)
-    super(page_layout: :landscape)
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
     font_families.update(
       'DejaVu Sans' => {
         normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),

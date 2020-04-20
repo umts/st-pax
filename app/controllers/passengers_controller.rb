@@ -2,22 +2,16 @@
 
 class PassengersController < ApplicationController
   before_action :find_passenger,
-<<<<<<< HEAD
                 only: %i[show edit update destroy toggle_status]
   before_action :restrict_to_admin, only: %i[destroy archived toggle_status]
   before_action :restrict_to_employee, except: %i[register brochure create]
-  # add edit/update to allowed actions for passenger after question is answered
-=======
-                only: %i[show edit update destroy toggle_archive]
   before_action :access_control, only: %i[destroy]
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 
   def archived
     @passengers =
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
-<<<<<<< HEAD
   def pending
     @passengers = Passenger.pending
   end
@@ -46,16 +40,6 @@ class PassengersController < ApplicationController
     @passenger.toggle_status(desired_status)
     flash[:success] = 'Passenger successfully updated'
     redirect_to passengers_url
-=======
-  def toggle_archive
-    if @passenger.toggle_archived_status
-      flash[:success] = 'Passenger successfully updated'
-      redirect_to passengers_url
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      redirect_to edit_passenger_path(@passenger)
-    end
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   end
 
   def check_existing
@@ -117,7 +101,6 @@ class PassengersController < ApplicationController
 
   private
 
-<<<<<<< HEAD
   def all_params
     base_params = params.require(:passenger).permit(
       :name,
@@ -150,17 +133,6 @@ class PassengersController < ApplicationController
       spire: "#{request.env['fcIdNumber']}@umass.edu",
       name: "#{request.env['givenName']} #{request.env['surName']}",
     )
-=======
-  def base_passenger_params
-    passenger_params =
-      params.require(:passenger)
-            .permit(:name, :address, :email, :phone, :active_status,
-                    :mobility_device_id, :permanent, :note, :spire, :status,
-                    :has_brochure,
-                    eligibility_verification_attributes: %i[
-                      expiration_date verifying_agency_id name address phone
-                    ])
-    passenger_params
   end
 
   def find_passenger
@@ -184,6 +156,5 @@ class PassengersController < ApplicationController
     return permitted_params if @current_user.admin?
 
     permitted_params.except :permanent
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   end
 end

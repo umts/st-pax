@@ -24,7 +24,6 @@ h1{
   margin: 15px 0;
 }
 
-<<<<<<< HEAD
 .navbar{
   button{
     margin-left: 3px;
@@ -37,14 +36,13 @@ h1{
       background: $slightly-maroon;
     }
   }
-=======
+}
 th[scope="row"] {
   font-weight: normal;
 }
 
 span.yes-glyph {
   color: theme-color("success");
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 }
 span.no-glyph {
   color: theme-color("danger");

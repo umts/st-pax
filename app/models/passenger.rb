@@ -10,18 +10,13 @@ class Passenger < ApplicationRecord
   STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
   validates :spire, uniqueness: true,
-<<<<<<< HEAD
-                    format: { with: /\A\d{8}@umass.edu\z/,
-                              message: 'must be 8 digits followed by @umass.edu' }
-  validates :terms_and_conditions, on: :create,
-    presence: { message: 'Terms and conditions must be accepted and understood' }
-=======
             format: { with: /\A\d{8}@umass.edu\z/,
                       message: 'must be 8 digits followed by @umass.edu' }
+  validates :terms_and_conditions, on: :create,
+    presence: { message: 'Terms and conditions must be accepted and understood' }
   validates :eligibility_verification,
     presence: { if: -> { requires_verification? },
                 message: 'required for temporary passengers with active registration' }
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
@@ -90,7 +85,6 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
-<<<<<<< HEAD
   def toggle_status(desired_status)
     case desired_status
     when 'active' then active!
@@ -99,22 +93,10 @@ class Passenger < ApplicationRecord
     end
   end
 
-=======
-  def toggle_archived_status
-    if archived?
-      assign_attributes(active_status: 'active')
-      save
-    else
-      # skip validations on archival
-      update_attribute(:active_status, 'archived')
-    end
-  end
-
   def permanent_or_temporary
     permanent? ? 'permanent' : 'temporary'
   end
 
->>>>>>> 120c70ea487769cfc99cf44fad2948405335c167
   private
 
   def requires_verification?
