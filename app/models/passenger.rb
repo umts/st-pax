@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class Passenger < ApplicationRecord
+  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
+                          optional: true
+  has_one :eligibility_verification, dependent: :destroy
+  accepts_nested_attributes_for :eligibility_verification
+  belongs_to :mobility_device, optional: true
+
   validates :active_status, presence: true
   validates :name, presence: true, length: { maximum: 50 }
   validates :registration_date, :phone, :address, presence: true
@@ -15,18 +21,10 @@ class Passenger < ApplicationRecord
   validates :eligibility_verification,
             presence: { if: -> { requires_verification? } }
 
-  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
-                          optional: true
-
   enum active_status: { pending: 0, active: 1, archived: 2 }
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
-
-  has_one :eligibility_verification, dependent: :destroy
-  accepts_nested_attributes_for :eligibility_verification
-
-  belongs_to :mobility_device, optional: true
 
   before_validation :assign_registration_date
 
