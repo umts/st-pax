@@ -29,7 +29,8 @@ RSpec.describe 'Archived Passenger Management' do
         visit archived_passengers_path
         expect(page).to have_text 'Zim'
         click_button 'Reactivate'
-        expect(page).to have_text 'Eligibility verification required for temporary passengers with active registration'
+        message = 'Eligibility verification is required for temporary passengers with active registration'
+        expect(page).to have_text message
       end
     end
   end

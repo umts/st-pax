@@ -2,19 +2,18 @@
 
 class Passenger < ApplicationRecord
   validates :active_status, presence: true
-  validates :name,  presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }
   validates :registration_date, :phone, :address, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: true
   STATUSES = %w[Alumni Faculty Staff Student].freeze
   validates :status, inclusion: { in: STATUSES, allow_blank: true }
   validates :spire, uniqueness: true,
-            format: { with: /\A\d{8}@umass.edu\z/,
-                      message: 'must be 8 digits followed by @umass.edu' }
+                    format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification,
-    presence: { if: -> { requires_verification? },
-                message: 'required for temporary passengers with active registration' }
+            presence: { if: -> { requires_verification? } }
 
   belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
                           optional: true
@@ -46,7 +45,7 @@ class Passenger < ApplicationRecord
     return false if permanent?
 
     eligibility_verification&.expired_within_grace_period? ||
-    (eligibility_verification.blank? && recently_registered?)
+      (eligibility_verification.blank? && recently_registered?)
   end
 
   def recently_registered?
@@ -56,8 +55,10 @@ class Passenger < ApplicationRecord
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < EligibilityVerification.grace_period
-    registration_expired && (eligibility_verification.nil? || eligibility_verification.expired?)
+    grace_period = EligibilityVerification.grace_period
+    registration_expired = registration_date < grace_period
+    registration_expired && (eligibility_verification.nil? ||
+                             eligibility_verification.expired?)
   end
 
   def rides_expire
