@@ -1,31 +1,29 @@
 # frozen_string_literal: true
 
 class Passenger < ApplicationRecord
+  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
+                          optional: true
+  has_one :eligibility_verification, dependent: :destroy
+  accepts_nested_attributes_for :eligibility_verification
+  belongs_to :mobility_device, optional: true
+
   validates :active_status, presence: true
-  validates :name,  presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }
   validates :registration_date, :phone, :address, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+  STATUSES = %w[Alumni Faculty Staff Student].freeze
+  validates :status, inclusion: { in: STATUSES, allow_blank: true }
   validates :spire, uniqueness: true,
-            format: { with: /\A\d{8}@umass.edu\z/,
-                      message: 'must be 8 digits followed by @umass.edu' }
+                    format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification,
-    presence: { if: -> { requires_verification? },
-                message: 'required for temporary passengers with active registration' }
-
-  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
-                          optional: true
+            presence: { if: -> { requires_verification? } }
 
   enum active_status: { pending: 0, active: 1, archived: 2 }
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
-
-  has_one :eligibility_verification, dependent: :destroy
-  accepts_nested_attributes_for :eligibility_verification
-
-  belongs_to :mobility_device, optional: true
 
   before_validation :assign_registration_date
 
@@ -44,7 +42,7 @@ class Passenger < ApplicationRecord
     return false if permanent?
 
     eligibility_verification&.expired_within_grace_period? ||
-    (eligibility_verification.blank? && recently_registered?)
+      (eligibility_verification.blank? && recently_registered?)
   end
 
   def recently_registered?
@@ -54,8 +52,10 @@ class Passenger < ApplicationRecord
   def rides_expired?
     return false if permanent?
 
-    registration_expired = registration_date < EligibilityVerification.grace_period
-    registration_expired && (eligibility_verification.nil? || eligibility_verification.expired?)
+    grace_period = EligibilityVerification.grace_period
+    registration_expired = registration_date < grace_period
+    registration_expired && (eligibility_verification.nil? ||
+                             eligibility_verification.expired?)
   end
 
   def rides_expire
