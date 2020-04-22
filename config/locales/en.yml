@@ -34,6 +34,12 @@ en:
   activerecord:
     errors:
       models:
+        passenger:
+          attributes:
+            eligibility_verification:
+              blank: 'is required for temporary passengers with active registration'
+            spire:
+              invalid: 'must be 8 digits followed by @umass.edu'
         eligibility_verification:
           attributes:
             verifying_agency_id:
