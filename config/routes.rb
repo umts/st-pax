@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get :check_existing
     end
     member do
-      post :toggle_status
+      post :switch_status
     end
   end
   resources :users

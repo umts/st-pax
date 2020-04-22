@@ -74,7 +74,7 @@ class Passenger < ApplicationRecord
     !permanent?
   end
 
-  def toggle_status(desired_status)
+  def switch_status(desired_status)
     # skip validations on archival
     if desired_status == 'archived'
       update_attribute(:active_status, 'archived')
