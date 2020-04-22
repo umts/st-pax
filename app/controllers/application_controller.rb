@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_user
-  before_action :access_control
+  before_action :restrict_to_employee
   before_action :check_primary_account
 
   private
@@ -45,10 +45,11 @@ class ApplicationController < ActionController::Base
            layout: false
   end
 
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def access_control
-    deny_access and return unless @current_user.present? && @current_user.admin?
+  def restrict_to_admin
+    deny_access && return unless @current_user&.admin?
   end
-  # rubocop:enable Style/AndOr
+
+  def restrict_to_employee
+    deny_access && return unless @current_user.present?
+  end
 end
