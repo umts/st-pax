@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       head :unauthorized
     else
-      render file: 'public/401.html',
-             status: :unauthorized,
-             layout: false
+      render 'sessions/unauthenticated', status: :unauthorized
     end
   end
 
