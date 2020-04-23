@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class LogController < ApplicationController
-  skip_before_action :access_control
-
   before_action :find_modifiable_entry, only: %i[destroy update]
 
   def create

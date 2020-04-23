@@ -2,9 +2,9 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :set_current_user
-  before_action :access_control
   before_action :check_primary_account
+  before_action :set_current_user
+  before_action :restrict_to_employee
 
   private
 
@@ -28,10 +28,7 @@ class ApplicationController < ActionController::Base
       elsif request.env.key? 'fcIdNumber'
         User.active.find_by spire: request.env['fcIdNumber']
       end
-    if @current_user.present?
-      session[:user_id] = @current_user.id
-    else redirect_to unauthenticated_session_path
-    end
+    session[:user_id] = @current_user.id if @current_user.present?
   end
   # rubocop:enable AbcSize
 
@@ -45,10 +42,11 @@ class ApplicationController < ActionController::Base
            layout: false
   end
 
-  # '... and return' is the correct behavior here, disable rubocop warning
-  # rubocop:disable Style/AndOr
-  def access_control
-    deny_access and return unless @current_user.present? && @current_user.admin?
+  def restrict_to_admin
+    deny_access && return unless @current_user&.admin?
   end
-  # rubocop:enable Style/AndOr
+
+  def restrict_to_employee
+    deny_access && return unless @current_user.present?
+  end
 end
