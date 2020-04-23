@@ -2,7 +2,7 @@
 
 class PassengersController < ApplicationController
   before_action :find_passenger,
-                only: %i[show edit update destroy switch_status]
+                only: %i[show edit update destroy set_status]
   before_action :access_control, only: %i[destroy]
 
   def archived
@@ -10,8 +10,8 @@ class PassengersController < ApplicationController
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
-  def switch_status
-    if @passenger.switch_status(params[:status])
+  def set_status
+    if @passenger.set_status(params[:status])
       flash[:success] = 'Passenger successfully updated'
       redirect_to passengers_url
     else
