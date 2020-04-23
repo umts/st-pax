@@ -2,9 +2,9 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :check_primary_account
   before_action :set_current_user
   before_action :restrict_to_employee
-  before_action :check_primary_account
 
   private
 
