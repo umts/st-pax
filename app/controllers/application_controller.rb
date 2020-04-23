@@ -28,10 +28,7 @@ class ApplicationController < ActionController::Base
       elsif request.env.key? 'fcIdNumber'
         User.active.find_by spire: request.env['fcIdNumber']
       end
-    if @current_user.present?
-      session[:user_id] = @current_user.id
-    else redirect_to unauthenticated_session_path
-    end
+    session[:user_id] = @current_user.id if @current_user.present?
   end
   # rubocop:enable AbcSize
 
