@@ -1,7 +1,5 @@
 %h1 Development login
 
-= form_tag '/sessions/dev_login' do
-  = submit_tag 'Log in with no user record (should fail)'
 - [@admins, @dispatchers].each_with_index do |group, index|
   %h2 Login as #{%w[Admin Dispatcher][index]}:
   %ul
