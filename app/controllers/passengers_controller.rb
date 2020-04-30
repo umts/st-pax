@@ -3,7 +3,7 @@
 class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy set_status]
-  before_action :access_control, only: %i[destroy]
+  before_action :restrict_to_admin, only: %i[destroy]
 
   def archived
     @passengers =

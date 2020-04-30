@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FeedbackController < ApplicationController
-  skip_before_action :access_control
+  skip_before_action :restrict_to_employee
 
   def new
     @feedback = Feedback.new
