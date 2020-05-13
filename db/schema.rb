@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_155857) do
+ActiveRecord::Schema.define(version: 2020_04_21_183705) do
 
   create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "passenger_id"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2020_01_14_155857) do
     t.text "note"
     t.integer "mobility_device_id"
     t.string "spire"
-    t.string "status"
     t.integer "registered_by"
     t.boolean "has_brochure"
     t.integer "active_status", default: 0
