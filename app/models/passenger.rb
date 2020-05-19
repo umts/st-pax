@@ -77,7 +77,9 @@ class Passenger < ApplicationRecord
       save
     else
       # skip validations on archival
-      update_attribute(:active_status, 'archived')
+      success = update_attribute(:active_status, 'archived')
+      PassengerMailer.notify_archived(self).deliver_now if success
+      success
     end
   end
 
