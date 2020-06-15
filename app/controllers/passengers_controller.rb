@@ -50,7 +50,7 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.registered_by = @current_user
+    @passenger.registerer = @current_user
     if @passenger.save
       flash[:success] = 'Passenger successfully created.'
       redirect_to @passenger

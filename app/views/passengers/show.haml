@@ -35,7 +35,7 @@
     = @passenger.rides_expire.strftime('%m/%d/%Y')
 %p
   %b Registering Dispatcher:
-  = @passenger.registerer || 'Unknown'
+  = @passenger.registerer&.name
 %p
   %b Registration Date:
   = @passenger.registration_date
