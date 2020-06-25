@@ -24,7 +24,8 @@ class Passenger < ApplicationRecord
   scope :temporary, -> { where.not(permanent: true) }
 
   before_validation :assign_registration_date
-  after_save do
+
+  before_save do
     if active_status_changed? && archived?
       PassengerMailer.notify_archived(self).deliver_now
     end
