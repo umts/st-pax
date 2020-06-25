@@ -7,11 +7,10 @@ class LogController < ApplicationController
     @entry = LogEntry.new entry_params.merge(user: @current_user)
     if @entry.save
       flash[:success] = 'Log entry was successfully created.'
-      redirect_to log_index_path
     else
       flash[:danger] = @entry.errors.full_messages
-      render :index
     end
+    redirect_to log_index_path
   end
 
   def destroy
@@ -32,11 +31,10 @@ class LogController < ApplicationController
   def update
     if @entry.update entry_params
       flash[:success] = 'Log entry was successfully changed.'
-      redirect_to log_index_path
     else
       flash[:danger] = @entry.errors.full_messages
-      render log_index_path
     end
+    redirect_to log_index_path
   end
 
   private

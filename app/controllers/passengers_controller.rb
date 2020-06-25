@@ -50,7 +50,7 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.registered_by = @current_user
+    @passenger.registerer = @current_user
     if @passenger.save
       flash[:success] = 'Passenger successfully created.'
       redirect_to @passenger
@@ -83,7 +83,7 @@ class PassengersController < ApplicationController
     passenger_params =
       params.require(:passenger)
             .permit(:name, :address, :email, :phone, :active_status,
-                    :mobility_device_id, :permanent, :note, :spire, :status,
+                    :mobility_device_id, :permanent, :note, :spire,
                     :has_brochure,
                     eligibility_verification_attributes: %i[
                       expiration_date verifying_agency_id name address phone

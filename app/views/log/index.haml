@@ -19,7 +19,7 @@
           - if @current_user.can_modify? entry
             .edit-form
               = bootstrap_form_with namespace: entry.id, model: entry, url: log_url(entry) do |f|
-                = f.text_area :text, rows: 8, hide_label: true
+                = f.text_area :text, required: true, rows: 8, hide_label: true
                 = f.primary 'Change log entry'
         .actions.col-xl-1.form-inline
           - if @current_user.can_modify? entry

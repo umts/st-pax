@@ -99,7 +99,6 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
-          select 'Student', from: 'UMass Status'
           choose 'Pending'
           click_button 'Submit'
           expect(page).to have_text 'Passenger successfully created.'
@@ -113,7 +112,6 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
-          select 'Student', from: 'UMass Status'
           click_button 'Submit'
           expect(page).to have_text 'How long will the passenger be with us?'\
             ' must be entered for temporary passengers with an active registration status'
@@ -136,7 +134,6 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
-          select 'Student', from: 'UMass Status'
           choose 'Pending'
           click_button 'Submit'
           expect(page).to have_text 'Passenger successfully created.'
@@ -148,7 +145,6 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Passenger Name', with: 'Jane Fonda'
           fill_in 'Passenger Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
-          select 'Student', from: 'UMass Status'
           click_button 'Submit'
           expect(page).to have_text 'How long will the passenger be with us?'\
             ' must be entered for temporary passengers with an active registration status'

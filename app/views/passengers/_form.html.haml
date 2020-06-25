@@ -9,7 +9,6 @@
       = form.text_field :address
       = form.text_field :email
       = form.phone_field :phone
-      = form.select :status, Passenger::STATUSES, include_blank: true
 
       = form.form_group :registration_status,
         label: { text: 'Registration Status' },
