@@ -12,10 +12,7 @@ class Passenger < ApplicationRecord
   validates :registration_date, :phone, :address, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: true
-  STATUSES = %w[Alumni Faculty Staff Student].freeze
-  validates :status, inclusion: { in: STATUSES, allow_blank: true }
+                    format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :spire, uniqueness: true,
                     format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification,
@@ -80,7 +77,9 @@ class Passenger < ApplicationRecord
       save
     else
       # skip validations on archival
-      update_attribute(:active_status, 'archived')
+      success = update_attribute(:active_status, 'archived')
+      PassengerMailer.notify_archived(self).deliver_now if success
+      success
     end
   end
 

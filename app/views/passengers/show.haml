@@ -12,9 +12,6 @@
   %b Phone:
   = @passenger.phone
 %p
-  %b UMass Status:
-  = @passenger.status
-%p
   %b Has brochure?
   = checkmark_glyph @passenger.has_brochure?
 %p
@@ -38,7 +35,7 @@
     = @passenger.rides_expire.strftime('%m/%d/%Y')
 %p
   %b Registering Dispatcher:
-  = @passenger.registerer || 'Unknown'
+  = @passenger.registerer&.name
 %p
   %b Registration Date:
   = @passenger.registration_date
