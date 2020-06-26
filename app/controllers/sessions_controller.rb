@@ -17,16 +17,19 @@ class SessionsController < ApplicationController
     if request.get?
       @admins = User.admins.order :name
       @dispatchers = User.dispatchers.order :name
+      @passengers = Passenger.temporary
     elsif request.post?
-      find_user
-      redirect_to passengers_path
+      if find_user
+        redirect_to passengers_path and return
+      end
+      redirect_to brochure_passengers_path
     end
   end
 
   private
 
   def find_user
-    user = User.find_by(id: params.require(:user_id))
-    session[:user_id] = user.id
+    user = User.find_by(id: params[:user_id])
+    session[:user_id] = user.id if user.present?
   end
 end
