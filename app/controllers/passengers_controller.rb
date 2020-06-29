@@ -4,11 +4,14 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
+  skip_before_action :restrict_to_employee, only: %i[brochure]
 
   def archived
     @passengers =
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
+
+  def brochure; end
 
   def set_status
     if @passenger.set_status(params[:status])
