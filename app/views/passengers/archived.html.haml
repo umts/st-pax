@@ -24,7 +24,12 @@
           %td= passenger.expiration_display
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
-          %td= button_to 'Reactivate', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
-          %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+          %td= button_to 'Reactivate',
+            set_status_passenger_path(passenger, status: 'active'),
+            class: 'btn btn-warning'
+          %td= button_to 'Delete',
+            passenger, method: :delete,
+            data: { confirm: 'Are you sure you want to delete this passenger?' },
+            class: 'btn btn-danger'
 - else
   %h1 No Archived Passengers to Display

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get :check_existing
     end
     member do
-      post :toggle_archive
+      post :set_status
     end
   end
   resources :users

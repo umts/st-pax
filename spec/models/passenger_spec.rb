@@ -7,6 +7,31 @@ RSpec.describe Passenger do
     @passenger = create :temporary_passenger, :with_note
   end
 
+  describe 'set_status' do
+    context 'setting the status to archived' do
+      it 'sets the status and sends an email to the passenger' do
+        mail = ActionMailer::MessageDelivery.new(PassengerMailer,
+                                                 :notify_archived)
+        expect(PassengerMailer).to receive(:notify_archived)
+          .and_return mail
+        expect(mail).to receive(:deliver_now).and_return true
+        @passenger.set_status('archived')
+      end
+    end
+    context 'setting the status to active or pending' do
+      it 'sets the status to pending' do
+        @passenger.active!
+        expect{ @passenger.set_status('pending') }
+          .to change { @passenger.active_status }
+      end
+      it 'sets the status to pending' do
+        @passenger.pending!
+        expect{ @passenger.set_status('active') }
+          .to change { @passenger.active_status }
+      end
+    end
+  end
+
   describe 'expiration_display' do
     context 'permanent passenger' do
       it 'returns nil' do

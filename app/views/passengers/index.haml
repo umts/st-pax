@@ -50,7 +50,8 @@
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
-          %td= button_to 'Archive', toggle_archive_passenger_url(passenger), class: 'btn btn-warning'
+          %td= button_to 'Archive', set_status_passenger_path(passenger, status: 'archived'),
+            class: 'btn btn-warning'
           - if @current_user.admin?
             %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
