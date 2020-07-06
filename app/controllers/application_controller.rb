@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :check_primary_account
   before_action :set_current_user
+  before_action :login_as_passenger
   before_action :restrict_to_employee
 
   private
@@ -29,6 +30,21 @@ class ApplicationController < ActionController::Base
     session[:user_id] = @current_user.id if @current_user.present?
   end
   # rubocop:enable AbcSize
+
+  def login_as_passenger
+    return if @current_user.present?
+
+    @registrant =
+      if session[:passenger_id]
+        Passenger.find_by(id: session[:passenger_id])
+      elsif request.env.key? 'fcIdNumber'
+        Passenger.new(
+          spire: "#{request.env['fcIdNumber']}@umass.edu",
+          name: "#{request.env['givenName']} #{request.env['surName']}",
+          email: request.env['mail'])
+      end
+    session[:passenger_id] = @registrant.id if @registrant.present?
+  end
 
   def check_primary_account
     return if request.env['UMAPrimaryAccount'] == request.env['uid']
