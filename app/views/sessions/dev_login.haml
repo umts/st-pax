@@ -1,5 +1,6 @@
 %h1 Development login
 
+= button_to 'Log in as new passenger', '/sessions/dev_login'
 - [@admins, @dispatchers].each_with_index do |group, index|
   %h2 Login as #{%w[Admin Dispatcher][index]}:
   %ul
