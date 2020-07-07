@@ -1,7 +1,6 @@
 %nav.navbar.navbar-expand-lg.mb-2.bg-light{aria: {label: 'Main'}}
   - if @current_user
     = navbar_link 'Passengers', passengers_path
-    = navbar_link 'Add New Passenger', new_passenger_path
     = navbar_link 'Dispatch Log', log_index_path
     = navbar_link 'Archived Passengers', archived_passengers_path
   - if @current_user&.admin?
@@ -9,4 +8,5 @@
     = navbar_link 'Manage Mobility Devices', mobility_devices_path
   = navbar_link 'Site Feedback', feedback_index_path
   = navbar_link 'Brochure', brochure_passengers_path
+  = navbar_link new_passenger_link_text, new_passenger_path
   = link_to 'Logout', destroy_session_path, class: 'ml-auto mr-2 nav-link btn btn-secondary'

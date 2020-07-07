@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def new_passenger_link_text
+    return 'Add New Passenger' if @current_user.present?
+    return 'Edit Registration' if @registrant&.persisted?
+    'Register for Special Transportation'
+  end
+
   def navbar_link(text, url)
     button_classes = %w[mx-2 nav-link btn btn-outline-secondary]
     button_classes << 'active' if current_page? url

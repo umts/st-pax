@@ -52,9 +52,7 @@ en:
               blank: 'must be entered if phone is blank'
     attributes:
       passenger:
-        name: 'Passenger Name'
-        permanent: 'Permanent Passenger'
-        spire: 'Passenger Spire'
+        permanent: 'Permanent?'
         phone: 'Phone Number'
         status: 'UMass Status'
         registered_with_disability_services: 'Registered with Disability Services?'
@@ -64,6 +62,3 @@ en:
       user:
         active: 'Active?'
         admin:  'Admin?'
-      eligibility_verification:
-        expiration_date: 'How long will the passenger be with us?'
-        verifying_agency_id: 'Which agency verifies that this passenger needs rides?'

@@ -4,7 +4,7 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
   before_action :restrict_to_admin, only: %i[destroy]
-  skip_before_action :restrict_to_employee, only: %i[brochure]
+  skip_before_action :restrict_to_employee, only: %i[brochure new edit]
 
   def archived
     @passengers =
@@ -31,7 +31,11 @@ class PassengersController < ApplicationController
   end
 
   def new
-    @passenger = Passenger.new(active_status: 'active')
+    @passenger = if @current_user.present?
+                   Passenger.new(active_status: 'active')
+                 elsif @registrant.present?
+                   @registrant
+                 end
     @verification = EligibilityVerification.new
   end
 
