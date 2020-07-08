@@ -49,6 +49,6 @@ class SessionsController < ApplicationController
       (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0')
     else
       '0'*8
-    end + '@umass.edu'
+    end
   end
 end
