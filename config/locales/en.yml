@@ -54,8 +54,6 @@ en:
       passenger:
         permanent: 'Permanent?'
         phone: 'Phone Number'
-        status: 'UMass Status'
-        registered_with_disability_services: 'Registered with Disability Services?'
         has_brochure: 'Has Brochure?'
         active: 'Active?'
         note: 'Additional Notes'
