@@ -87,7 +87,7 @@ class PassengersController < ApplicationController
 
   private
 
-  def base_passenger_params
+  def all_params
     passenger_params =
       params.require(:passenger)
             .permit(:name, :address, :email, :phone, :active_status,
@@ -103,10 +103,6 @@ class PassengersController < ApplicationController
     @passenger = Passenger.find(params[:id])
   end
 
-  def passenger_params
-    base_passenger_params.then { |p| restrict_admin p }
-  end
-
   def passenger_pdf
     @passengers = @passengers.send(@filter)
     pdf = PassengersPDF.new(@passengers, @filter)
@@ -116,9 +112,12 @@ class PassengersController < ApplicationController
                           disposition: :inline
   end
 
-  def restrict_admin(permitted_params)
-    return permitted_params if @current_user.admin?
-
-    permitted_params.except :permanent
+  def passenger_params
+    return all_params if @current_user&.admin?
+    return all_params.except(:permanent) if @current_user.present?
+    all_params
+      .except(:spire, :name, :permanent)
+      .merge!(spire: "#{request.env['fcIdNumber']}@umass.edu",
+              name: "#{request.env['givenName']} #{request.env['surName']}")
   end
 end
