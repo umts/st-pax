@@ -42,6 +42,7 @@ class SessionsController < ApplicationController
     session[:spire] = new_spire
     session[:first_name] = FFaker::Name.first_name
     session[:last_name] = FFaker::Name.last_name
+    session[:email] = FFaker::Internet.email
   end
 
   def new_spire
