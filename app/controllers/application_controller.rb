@@ -37,13 +37,19 @@ class ApplicationController < ActionController::Base
     @registrant =
       if session[:passenger_id]
         Passenger.find_by(id: session[:passenger_id])
-      elsif request.env.key? 'fcIdNumber'
-        Passenger.new(
-          spire: "#{request.env['fcIdNumber']}@umass.edu",
-          name: "#{request.env['givenName']} #{request.env['surName']}",
-          email: request.env['mail'])
+      elsif request.env['fcIdNumber']
+        find_or_initialize_passenger
       end
-    session[:passenger_id] = @registrant.id if @registrant.present?
+    session[:passenger_id] = @registrant&.id
+  end
+
+  def find_or_initialize_passenger
+    passenger = Passenger.find_or_initialize_by(
+      spire: "#{request.env['fcIdNumber']}@umass.edu",
+      name: "#{request.env['givenName']} #{request.env['surName']}")
+    if passenger.new_record?
+      passenger.email = request.env['mail']
+    end
   end
 
   def check_primary_account
