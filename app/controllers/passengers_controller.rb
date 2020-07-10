@@ -4,7 +4,8 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy toggle_archive]
   before_action :restrict_to_admin, only: %i[destroy]
-  skip_before_action :restrict_to_employee, only: %i[brochure new edit]
+  skip_before_action :restrict_to_employee,
+    only: %i[brochure new edit create show]
 
   def archived
     @passengers =
