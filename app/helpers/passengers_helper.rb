@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module PassengersHelper
+  def registration_header
+    if @current_user.present?
+      return 'New Passenger'
+    end
+    'Register for Special Transportation'
+  end
+
   def verifying_agency_label
     if @current_user.present?
       return 'Which agency verifies that this passenger needs rides?'
