@@ -1,5 +1,9 @@
-%h1 New Passenger
+%h1= registration_header
+- if @registrant&.persisted?
+  You are already registered for the special transportation service.
+  To check your status, please call (413) 545-2086
+- else
+  = render partial: 'form', locals: { passenger: @passenger }
 
-= render partial: 'form', locals: { passenger: @passenger }
-
-= link_to 'Back', passengers_path
+%p
+  = link_to 'Back', :back
