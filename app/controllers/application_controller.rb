@@ -50,6 +50,7 @@ class ApplicationController < ActionController::Base
     if passenger.new_record?
       passenger.email = request.env['mail']
     end
+    passenger
   end
 
   def check_primary_account
