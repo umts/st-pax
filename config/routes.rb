@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :mobility_devices, except: :show
   resources :passengers do
     collection do
+      get :new_or_edit_registration
       get :brochure
       get :archived
       get :check_existing
