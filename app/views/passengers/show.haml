@@ -28,10 +28,7 @@
   = verification_information(@passenger)
 - if @passenger.temporary?
   %p
-    - if @passenger.eligibility_verification.present?
-      %b Doctor's Note Expiration Date:
-    - else
-      %b Rides Expire:
+    %b Rides Expire:
     = @passenger.rides_expire.strftime('%m/%d/%Y')
 %p
   %b Registering Dispatcher:
