@@ -5,7 +5,7 @@ class PassengersController < ApplicationController
                 only: %i[show edit update destroy toggle_archive]
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee,
-    only: %i[brochure new edit create show]
+    only: %i[brochure new edit create show new_or_edit_registration]
 
   def archived
     @passengers =
@@ -42,6 +42,14 @@ class PassengersController < ApplicationController
 
   def edit
     @verification = @passenger.eligibility_verification || EligibilityVerification.new
+  end
+
+  def new_or_edit_registration
+    if @registrant.persisted?
+      redirect_to action: :edit, id: @registrant.id
+    else
+      redirect_to action: :new
+    end
   end
 
   def index
