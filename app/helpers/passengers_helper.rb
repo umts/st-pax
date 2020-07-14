@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module PassengersHelper
+  def verifying_agency_help_text
+    help = 'Required only for temporary passengers.'
+  end
+
   def registration_header
     if @current_user.present?
       return 'New Passenger'
