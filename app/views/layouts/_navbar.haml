@@ -3,6 +3,7 @@
     = navbar_link 'Passengers', passengers_path
     = navbar_link 'Dispatch Log', log_index_path
     = navbar_link 'Archived Passengers', archived_passengers_path
+    = badge_link 'Pending Passengers', pending_passengers_path, Passenger.pending.count
   - if @current_user&.admin?
     = navbar_link 'Manage Users', users_path
     = navbar_link 'Manage Mobility Devices', mobility_devices_path

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :brochure
       get :archived
       get :check_existing
+      get :pending
     end
     member do
       post :toggle_archive

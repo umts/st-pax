@@ -12,6 +12,10 @@ class PassengersController < ApplicationController
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
+  def pending
+    @passengers = Passenger.pending
+  end
+
   def brochure; end
 
   def toggle_archive
