@@ -4,8 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PassengerMailer do
 
-  describe '.send_brochure' do
-
+  describe 'send_brochure' do
     before :each do
       @passenger = create :passenger
       @from_add = PassengerMailer.default[:from]
@@ -26,6 +25,5 @@ RSpec.describe PassengerMailer do
     it 'has correct subject' do
       expect(output.subject).to eql 'Your UMass Transit Account'
     end
-
   end
 end

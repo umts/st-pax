@@ -8,5 +8,9 @@ class PassengerMailer < ApplicationMailer
     @passenger = passenger
     mail to: @passenger.email, subject: 'Your UMass Transit Account'
   end
-  
+
+  def notify_pending(passenger)
+    @passenger = passenger
+    mail to: @passenger.email, subject: 'UMass Transit Account Created'
+  end
 end

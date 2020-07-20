@@ -34,6 +34,10 @@ class Passenger < ApplicationRecord
     end
   end
 
+  after_create do
+    PassengerMailer.notify_pending(self).deliver_now
+  end
+
   def expiration_display
     return if permanent?
 
