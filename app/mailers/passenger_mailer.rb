@@ -4,7 +4,7 @@ class PassengerMailer < ApplicationMailer
     mail to: @passenger.email, subject: 'Special Transit Account Archived'
   end
 
-  def send_brochure(passenger)
+  def notify_active(passenger)
     @passenger = passenger
     mail to: @passenger.email, subject: 'Special Transportation Account Confirmed'
   end
