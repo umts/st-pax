@@ -6,11 +6,11 @@ class PassengerMailer < ApplicationMailer
 
   def send_brochure(passenger)
     @passenger = passenger
-    mail to: @passenger.email, subject: 'Your UMass Transit Account'
+    mail to: @passenger.email, subject: 'Special Transportation Account Confirmed'
   end
 
   def notify_pending(passenger)
     @passenger = passenger
-    mail to: @passenger.email, subject: 'UMass Transit Account Created'
+    mail to: @passenger.email, subject: 'Special Transportation Account Created'
   end
 end
