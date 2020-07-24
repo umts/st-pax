@@ -6,6 +6,7 @@ class Passenger < ApplicationRecord
   has_one :eligibility_verification, dependent: :destroy
   accepts_nested_attributes_for :eligibility_verification
   belongs_to :mobility_device, optional: true
+  belongs_to :carrier, optional: true
 
   validates :active_status, presence: true
   validates :name, presence: true, length: { maximum: 50 }
