@@ -37,8 +37,6 @@ class Passenger < ApplicationRecord
   after_create do
     if pending?
       PassengerMailer.notify_pending(self).deliver_now
-    elsif active?
-      PassengerMailer.notify_active(self).deliver_now
     end
   end
 
