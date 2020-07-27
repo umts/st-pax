@@ -10,8 +10,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_pending)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      passenger = create :active_passenger, active_status: 'active', eligibility_verification: (create :eligibility_verification)
-      passenger.save
+      create :passenger, :permanent, active_status: 'active'
     end
 
     it 'creates a pending passenger and sends correct email to the passenger' do
@@ -20,7 +19,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_active)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      create :temporary_passenger, active_status: 'pending'
+      create :passenger, active_status: 'pending'
     end
   end
 
