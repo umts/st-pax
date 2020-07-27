@@ -1,6 +1,6 @@
 Dear #{@passenger.name},
 
-Your account with the Special Transportation Service has been created but is still pending. You can receive rides until #{(Time.now+(60*60*24*3)).strftime("%m/%d/%Y")}.
+Your account with the Special Transportation Service has been created but is still pending. You can receive rides until #{3.business_days.after(Time.now).strftime("%m/%d/%Y")}.
 Once your account has been activated, we will notify you of the date until which you can receive rides. Before using our service, please read the brochure at our website at this link:
 
 =link_to passenger_url('brochure'), passenger_url('brochure')
