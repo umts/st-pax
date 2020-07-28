@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Passenger do
   context 'testing mailers upon creation' do
-    it 'creates an active passenger and sends correct email to the passenger' do
+    it 'correct email is sent upon creation of active passenger' do
       mail = ActionMailer::MessageDelivery.new(PassengerMailer, :notify_active)
       expect(PassengerMailer).to receive(:notify_active).and_return mail
       expect(PassengerMailer).not_to receive(:notify_pending)
@@ -13,7 +13,7 @@ RSpec.describe Passenger do
       create :passenger, :permanent, active_status: 'active'
     end
 
-    it 'creates a pending passenger and sends correct email to the passenger' do
+    it 'correct email is sent upon creation of pending passenger' do
       mail = ActionMailer::MessageDelivery.new(PassengerMailer, :notify_pending)
       expect(PassengerMailer).to receive(:notify_pending).and_return mail
       expect(PassengerMailer).not_to receive(:notify_active)
