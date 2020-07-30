@@ -80,7 +80,6 @@ RSpec.describe Passenger do
         expect(passenger).not_to be_valid
       end
     end
-
     describe 'rides_expire' do
       context 'permanent passenger' do
         it 'returns nil' do
