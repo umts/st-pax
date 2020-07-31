@@ -29,6 +29,15 @@ class Passenger < ApplicationRecord
     if active_status_changed? && archived?
       PassengerMailer.notify_archived(self).deliver_now
     end
+    if active_status_changed? && active?
+      PassengerMailer.notify_active(self).deliver_now
+    end
+  end
+
+  after_create do
+    if pending?
+      PassengerMailer.notify_pending(self).deliver_now
+    end
   end
 
   def expiration_display
