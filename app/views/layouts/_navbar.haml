@@ -1,6 +1,6 @@
 %nav.navbar.navbar-expand-lg.mb-2.bg-light{aria: {label: 'Main'}}
   - if @current_user
-    .nav-item.dropdown.mr-2
+    .nav-item.dropdown.mx-2
       #passenger-dropdown.nav-link.dropdown-toggle.btn.btn-outline-secondary{data: {toggle: 'dropdown'},
         aria: {haspopup: 'true', expanded: 'false'}}
         = link_to 'Passengers', '#'
@@ -8,7 +8,7 @@
         .dropdown-item= link_to 'Current', passengers_path
         .dropdown-item= link_to 'Archived', archived_passengers_path
   - if @current_user&.admin?
-    .nav-item.dropdown.mr-2
+    .nav-item.dropdown.mx-2
       #management-dropdown.nav-link.dropdown-toggle.btn.btn-outline-secondary{data: {toggle: 'dropdown'},
         aria: {haspopup: 'true', expanded: 'false'}}
         = link_to 'Manage', '#'
