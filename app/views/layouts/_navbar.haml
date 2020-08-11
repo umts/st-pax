@@ -1,12 +1,22 @@
 %nav.navbar.navbar-expand-lg.mb-2.bg-light{aria: {label: 'Main'}}
   - if @current_user
-    = navbar_link 'Passengers', passengers_path
+    .nav-item.dropdown.mr-2
+      #passenger-dropdown.nav-link.dropdown-toggle.btn.btn-outline-secondary{data: {toggle: 'dropdown'},
+        aria: {haspopup: 'true', expanded: 'false'}}
+        = link_to 'Passengers', '#'
+      .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
+        .dropdown-item= link_to 'Current', passengers_path
+        .dropdown-item= link_to 'Archived', archived_passengers_path
+  - if @current_user&.admin?
+    .nav-item.dropdown.mr-2
+      #management-dropdown.nav-link.dropdown-toggle.btn.btn-outline-secondary{data: {toggle: 'dropdown'},
+        aria: {haspopup: 'true', expanded: 'false'}}
+        = link_to 'Manage', '#'
+      .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
+        .dropdown-item= link_to 'Users', users_path
+        .dropdown-item= link_to 'Mobility Devices', mobility_devices_path
     = navbar_link 'Add New Passenger', new_passenger_path
     = navbar_link 'Dispatch Log', log_index_path
-    = navbar_link 'Archived Passengers', archived_passengers_path
-  - if @current_user&.admin?
-    = navbar_link 'Manage Users', users_path
-    = navbar_link 'Manage Mobility Devices', mobility_devices_path
   = navbar_link 'Site Feedback', feedback_index_path
   = navbar_link 'Brochure', brochure_passengers_path
   = link_to 'Logout', destroy_session_path, class: 'ml-auto mr-2 nav-link btn btn-secondary'
