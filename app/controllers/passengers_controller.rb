@@ -14,12 +14,18 @@ class PassengersController < ApplicationController
   def brochure; end
 
   def set_status
-    if @passenger.set_status(params[:status])
-      flash[:success] = 'Passenger successfully updated'
+    begin
+      if @passenger.set_status(params[:status])
+        flash[:success] = 'Passenger successfully updated'
+        redirect_to passengers_url
+      else
+        flash[:danger] = @passenger.errors.full_messages
+        redirect_to edit_passenger_path(@passenger)
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = 'Passenger successfully updated, ' \
+                        'but the passenger was unable to be notified of their status change via email.'
       redirect_to passengers_url
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      redirect_to edit_passenger_path(@passenger)
     end
   end
 
@@ -54,23 +60,35 @@ class PassengersController < ApplicationController
   def create
     @passenger = Passenger.new(passenger_params)
     @passenger.registerer = @current_user
-    if @passenger.save
-      flash[:success] = 'Passenger successfully created.'
+    begin
+      if @passenger.save
+        flash[:success] = 'Passenger successfully created.'
+        redirect_to @passenger
+      else
+        flash.now[:danger] = @passenger.errors.full_messages
+        render :new
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = 'Passenger successfully created, ' \
+                        'but the passenger was unable to be notified via email.'
       redirect_to @passenger
-    else
-      flash.now[:danger] = @passenger.errors.full_messages
-      render :new
     end
   end
 
   def update
     @passenger.assign_attributes passenger_params
-    if @passenger.save
-      flash[:success] = 'Passenger successfully updated.'
+    begin
+      if @passenger.save
+        flash[:success] = 'Passenger successfully updated.'
+        redirect_to @passenger
+      else
+        flash[:danger] = @passenger.errors.full_messages
+        render :edit
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = 'Passenger successfully updated, ' \
+                        'but the passenger was unable to be notified of their status change via email.'
       redirect_to @passenger
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      render :edit
     end
   end
 
