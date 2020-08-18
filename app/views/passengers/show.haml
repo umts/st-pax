@@ -12,9 +12,6 @@
   %b Phone:
   = @passenger.phone
 %p
-  %b Has brochure?
-  = checkmark_glyph @passenger.has_brochure?
-%p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p

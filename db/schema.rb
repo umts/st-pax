@@ -10,12 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_152440) do
-
-  create_table "carriers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "gateway_address"
-  end
+ActiveRecord::Schema.define(version: 2020_07_29_191001) do
 
   create_table "eligibility_verifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
@@ -54,7 +49,6 @@ ActiveRecord::Schema.define(version: 2020_07_24_152440) do
     t.integer "mobility_device_id"
     t.string "spire"
     t.integer "registered_by"
-    t.boolean "has_brochure"
     t.integer "active_status", default: 0
     t.date "registration_date"
     t.boolean "subscribed_to_sms", default: false
