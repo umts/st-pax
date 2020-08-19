@@ -9,32 +9,34 @@ RSpec.describe PassengersController do
     session[:user_id] = admin.id
   end
 
+  let!(:passenger) { create :passenger, :permanent }
+
   describe 'POST set_status' do
     context 'with broken mailer' do
+      before :each do
+        allow(PassengerMailer).to receive(:notify_archived).and_raise Net::SMTPFatalError
+        allow(PassengerMailer).to receive(:notify_active).and_raise Net::SMTPFatalError
+      end
       context 'changing active to archived' do
         it 'saves the passenger and displays a warning message' do
-          allow(PassengerMailer).to receive(:notify_archived).and_raise Net::SMTPFatalError
+          passenger.update_columns active_status: 'active'
+          post :set_status, params: { id: passenger.id, status: 'archived' }
+          passenger.reload
 
-          @passenger = create :passenger, :permanent, active_status: 'active'
-          post :set_status, params: { id: @passenger.id, status: 'archived' }
-          @passenger.reload
-
-          expect(@passenger.active_status).to eq 'archived'
+          expect(passenger.active_status).to eq 'archived'
           expect(response).to redirect_to(passengers_path)
-          expect(flash[:warning]).to match(/the passenger was unable to be notified of their status change via email/)
+          expect(flash[:warning]).to match(Regexp.union(/could not notify/, /status change/))
         end
       end
       context 'changing archived to active' do
         it 'saves the passenger and displays a warning message' do
-          allow(PassengerMailer).to receive(:notify_active).and_raise Net::SMTPFatalError
+          passenger.update_columns active_status: 'archived'
+          post :set_status, params: { id: passenger.id, status: 'active' }
+          passenger.reload
 
-          @passenger = create :passenger, :permanent, active_status: 'archived'
-          post :set_status, params: { id: @passenger.id, status: 'active' }
-          @passenger.reload
-
-          expect(@passenger.active_status).to eq 'active'
+          expect(passenger.active_status).to eq 'active'
           expect(response).to redirect_to(passengers_path)
-          expect(flash[:warning]).to match(/the passenger was unable to be notified of their status change via email/)
+          expect(flash[:warning]).to match(Regexp.union(/could not notify/, /status change/))
         end
       end
     end
@@ -42,27 +44,18 @@ RSpec.describe PassengersController do
 
   describe 'POST create' do
     context 'with broken mailer' do
+      before :each do
+        allow(PassengerMailer).to receive(:notify_pending).and_raise Net::SMTPFatalError
+      end
       context 'creating a pending passenger' do
         it 'saves the passenger and displays a warning message' do
-          allow(PassengerMailer).to receive(:notify_pending).and_raise Net::SMTPFatalError
-
-          new_passenger_params = {
-            passenger: {
-              active_status: 'pending',
-              name: 'Pending Passenger',
-              phone: '0000000000',
-              address: '0 Nowhere Ln, Town, State',
-              email: 'pendingpassenger@email.com',
-              spire: '00000000@umass.edu',
-              permanent: true
-            }
-          }
+          new_passenger_params = { passenger: attributes_for(:passenger, :permanent) }
           post :create, params: new_passenger_params
-          @passenger = Passenger.find_by(name: 'Pending Passenger')
+          passenger = Passenger.find_by(name: new_passenger_params[:passenger][:name])
 
-          expect(@passenger).to be_present
-          expect(response).to redirect_to(passenger_path(@passenger))
-          expect(flash[:warning]).to match(/the passenger was unable to be notified via email/)
+          expect(passenger).to be_present
+          expect(response).to redirect_to(passenger_path(passenger))
+          expect(flash[:warning]).to match(Regexp.union(/could not notify/, /status change/))
         end
       end
     end
@@ -70,30 +63,30 @@ RSpec.describe PassengersController do
 
   describe 'POST update' do
     context 'with broken mailer' do
+      before :each do
+        allow(PassengerMailer).to receive(:notify_archived).and_raise Net::SMTPFatalError
+        allow(PassengerMailer).to receive(:notify_active).and_raise Net::SMTPFatalError
+      end
       context 'changing active to archived' do
         it 'saves the passenger and displays a warning message' do
-          allow(PassengerMailer).to receive(:notify_archived).and_raise Net::SMTPFatalError
+          passenger.update_columns active_status: 'active'
+          post :update, params: { id: passenger.id, passenger: { active_status: 'archived' } }
+          passenger.reload
 
-          @passenger = create :passenger, :permanent, active_status: 'active'
-          post :update, params: { id: @passenger.id, passenger: { active_status: 'archived' } }
-          @passenger.reload
-
-          expect(@passenger.active_status).to eq 'archived'
-          expect(response).to redirect_to(passenger_path(@passenger))
-          expect(flash[:warning]).to match(/the passenger was unable to be notified of their status change via email/)
+          expect(passenger.active_status).to eq 'archived'
+          expect(response).to redirect_to(passenger_path(passenger))
+          expect(flash[:warning]).to match(Regexp.union(/could not notify/, /status change/))
         end
       end
       context 'changing archived to active' do
         it 'saves the passenger and displays a warning message' do
-          allow(PassengerMailer).to receive(:notify_active).and_raise Net::SMTPFatalError
+          passenger.update_columns active_status: 'archived'
+          post :update, params: { id: passenger.id, passenger: { active_status: 'active' } }
+          passenger.reload
 
-          @passenger = create :passenger, :permanent, active_status: 'archived'
-          post :update, params: { id: @passenger.id, passenger: { active_status: 'active' } }
-          @passenger.reload
-
-          expect(@passenger.active_status).to eq 'active'
-          expect(response).to redirect_to(passenger_path(@passenger))
-          expect(flash[:warning]).to match(/the passenger was unable to be notified of their status change via email/)
+          expect(passenger.active_status).to eq 'active'
+          expect(response).to redirect_to(passenger_path(passenger))
+          expect(flash[:warning]).to match(Regexp.union(/could not notify/, /status change/))
         end
       end
     end

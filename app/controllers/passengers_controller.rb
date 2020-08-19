@@ -6,6 +6,8 @@ class PassengersController < ApplicationController
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee, only: %i[brochure]
 
+  SMTP_ERROR_APPENDIX = 'but we could not notify them of their status change.'
+
   def archived
     @passengers =
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
@@ -23,8 +25,7 @@ class PassengersController < ApplicationController
         redirect_to edit_passenger_path(@passenger)
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = 'Passenger successfully updated, ' \
-                        'but the passenger was unable to be notified of their status change via email.'
+      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to passengers_url
     end
   end
@@ -69,8 +70,7 @@ class PassengersController < ApplicationController
         render :new
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = 'Passenger successfully created, ' \
-                        'but the passenger was unable to be notified via email.'
+      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end
@@ -86,8 +86,7 @@ class PassengersController < ApplicationController
         render :edit
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = 'Passenger successfully updated, ' \
-                        'but the passenger was unable to be notified of their status change via email.'
+      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end
