@@ -70,7 +70,7 @@ class PassengersController < ApplicationController
         render :new
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
+      flash[:warning] = "Passenger successfully created, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end
