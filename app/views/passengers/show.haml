@@ -12,6 +12,9 @@
   %b Phone:
   = @passenger.phone
 %p
+  %b Subscribed to SMS:
+  = @passenger.subscribed_to_sms ? "Yes" : "No"
+%p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
 %p
