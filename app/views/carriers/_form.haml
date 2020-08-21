@@ -1,0 +1,6 @@
+.row
+  .col-md-6.offset-md-3
+    = bootstrap_form_with model: @carrier, local: true do |f|
+      = f.text_field :name, required: true
+      = f.text_field :gateway_address, required: true
+      = f.primary 'Save'
