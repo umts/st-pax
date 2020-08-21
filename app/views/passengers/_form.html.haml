@@ -17,10 +17,6 @@
         = form.radio_button :active_status, 'active', class: 'form-check-input'
         = form.radio_button :active_status, 'archived', class: 'form-check-input'
 
-      - unless @passenger.permanent?
-        = form.form_group do
-          = form.check_box :has_brochure
-
       = form.select :mobility_device_id,
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'

@@ -1,23 +1,16 @@
 # frozen_string_literal: true
 
-lock '~> 3.9.0'
+lock '~> 3.14.1'
 
 set :application, 'st-pax'
-
 set :repo_url, 'https://github.com/umts/st-pax.git'
 set :branch, :master
-
-set :keep_releases, 5
-
 set :deploy_to, "/srv/#{fetch :application}"
 
 set :log_level, :info
 
-set :linked_files, fetch(:linked_files, []).push(
+append :linked_files,
   'config/database.yml',
   'config/application.yml'
-)
 
-set :linked_dirs, fetch(:linked_dirs, []).push(
-  'log'
-)
+append :linked_dirs, '.bundle', 'log'
