@@ -18,6 +18,12 @@ module SeedCreator
       end
     end
 
+    def create_carriers
+      %w[vzw att sprint tmo vmo].each do |name|
+        create :carrier, name: name, gateway_address: "@#{name}.com"
+      end
+    end
+
     def create_passengers
       create_list :passenger, 10, :permanent
       create_list :passenger, 10, :permanent, :with_mobility_device
@@ -26,7 +32,7 @@ module SeedCreator
       create_list :temporary_passenger, 5, :expired_within_grace_period
       create_list :temporary_passenger, 5, :expiring_soon
       create_list :temporary_passenger, 5, :inactive
-      create_list :temporary_passenger, 5, :no_note
+      create_list :temporary_passenger, 5, :no_note, :subscribed_to_sms
     end
 
     def create_dispatch_logs
@@ -42,5 +48,6 @@ end
 
 SeedCreator.create_users
 SeedCreator.create_mobility_devices
+SeedCreator.create_carriers
 SeedCreator.create_passengers
 SeedCreator.create_dispatch_logs
