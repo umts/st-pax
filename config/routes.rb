@@ -9,11 +9,7 @@ Rails.application.routes.draw do
   resources :feedback, only: %i[index show new create]
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
-  resources :carriers do
-    member do
-      get :update
-    end
-  end
+  resources :carriers
   resources :passengers do
     collection do
       get :brochure
