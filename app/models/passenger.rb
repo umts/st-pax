@@ -79,7 +79,7 @@ class Passenger < ApplicationRecord
     end
     return 3.business_days.since(registration_date) if persisted?
 
-    3.business_days.from_now
+    3.business_days.from_now.to_date
   end
 
   def temporary?

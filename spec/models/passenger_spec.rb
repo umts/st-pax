@@ -112,7 +112,7 @@ RSpec.describe Passenger do
       end
       context 'passenger is a new record' do
         it 'returns 3 days from now' do
-          expect(Passenger.new.rides_expire).to eq 3.business_days.from_now
+          expect(Passenger.new.rides_expire).to eq 3.business_days.from_now.to_date
         end
       end
     end
