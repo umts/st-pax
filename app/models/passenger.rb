@@ -77,9 +77,9 @@ class Passenger < ApplicationRecord
     if eligibility_verification&.expiration_date.present?
       return 3.business_days.after(eligibility_verification.expiration_date)
     end
-    return 3.business_days.since(registration_date) if persisted?
+    return 3.business_days.after(registration_date) if persisted?
 
-    3.business_days.from_now
+    3.business_days.after(Time.zone.today)
   end
 
   def temporary?
