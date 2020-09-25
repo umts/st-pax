@@ -25,6 +25,21 @@ class Passenger < ApplicationRecord
 
   before_validation :assign_registration_date
 
+  before_save do
+    if active_status_changed? && archived?
+      PassengerMailer.notify_archived(self).deliver_now
+    end
+    if active_status_changed? && active?
+      PassengerMailer.notify_active(self).deliver_now
+    end
+  end
+
+  after_create do
+    if pending?
+      PassengerMailer.notify_pending(self).deliver_now
+    end
+  end
+
   def expiration_display
     return if permanent?
 
@@ -63,24 +78,20 @@ class Passenger < ApplicationRecord
     if eligibility_verification&.expiration_date.present?
       return 3.business_days.after(eligibility_verification.expiration_date)
     end
-    return 3.business_days.since(registration_date) if persisted?
+    return 3.business_days.after(registration_date) if persisted?
 
-    3.business_days.from_now
+    3.business_days.after(Time.zone.today)
   end
 
   def temporary?
     !permanent?
   end
 
-  def toggle_archived_status
-    if archived?
-      assign_attributes(active_status: 'active')
-      save
-    else
-      # skip validations on archival
-      success = update_attribute(:active_status, 'archived')
-      PassengerMailer.notify_archived(self).deliver_now if success
-      success
+  def set_status(desired_status)
+    # skip validations on archival
+    if desired_status == 'archived'
+      update_attribute(:active_status, 'archived')
+    else update_attributes(active_status: desired_status)
     end
   end
 

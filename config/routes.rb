@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       get :pending
     end
     member do
-      post :toggle_archive
+      post :set_status
     end
   end
   resources :users

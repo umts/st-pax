@@ -2,7 +2,7 @@
 
 class PassengersController < ApplicationController
   before_action :find_passenger,
-                only: %i[show edit update destroy toggle_archive]
+                only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee,
     only: %i[brochure new edit create show new_or_edit_registration]
@@ -18,8 +18,8 @@ class PassengersController < ApplicationController
 
   def brochure; end
 
-  def toggle_archive
-    if @passenger.toggle_archived_status
+  def set_status
+    if @passenger.set_status(params[:status])
       flash[:success] = 'Passenger successfully updated'
       redirect_to passengers_url
     else
