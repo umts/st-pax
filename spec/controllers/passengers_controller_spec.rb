@@ -4,12 +4,12 @@ require 'rails_helper'
 
 RSpec.describe PassengersController do
 
-  let!(:admin) { create :user, :admin }
+  let(:admin) { create :user, :admin }
   before :each do
     session[:user_id] = admin.id
   end
 
-  let!(:passenger) { create :passenger, :permanent }
+  let(:passenger) { create :passenger, :permanent }
 
   describe 'POST set_status' do
     context 'with broken mailer' do
