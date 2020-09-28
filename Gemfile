@@ -24,7 +24,6 @@ gem 'will_paginate', '~> 3.1'
 gem 'will_paginate-bootstrap4'
 
 group :development, :test do
-  gem 'codeclimate-test-reporter'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
