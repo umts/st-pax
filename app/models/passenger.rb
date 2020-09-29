@@ -100,7 +100,6 @@ class Passenger < ApplicationRecord
     permanent? ? 'permanent' : 'temporary'
   end
 
-      #carrier_selecddt
   private
 
   def requires_verification?
