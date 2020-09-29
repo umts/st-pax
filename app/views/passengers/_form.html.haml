@@ -22,6 +22,14 @@
           :id, :name, @passenger.mobility_device&.id), include_blank: 'None'
 
       = form.form_group do
+        = form.check_box :subscribed_to_sms
+
+      #carrier_select{ style: 'display:none' }
+        = form.select :carrier_id,
+          options_from_collection_for_select(Carrier.order(:name),
+          :id, :name, @passenger.carrier&.id)
+
+      = form.form_group do
         = form.check_box :permanent, disabled: !@current_user.admin?
 
       .verification-fields

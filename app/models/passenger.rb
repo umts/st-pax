@@ -18,6 +18,7 @@ class Passenger < ApplicationRecord
                     format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification,
             presence: { if: -> { requires_verification? } }
+  validates :carrier_id, presence: true, if: :subscribed_to_sms?
 
   enum active_status: { pending: 0, active: 1, archived: 2 }
 
@@ -99,6 +100,7 @@ class Passenger < ApplicationRecord
     permanent? ? 'permanent' : 'temporary'
   end
 
+      #carrier_selecddt
   private
 
   def requires_verification?

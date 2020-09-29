@@ -38,4 +38,11 @@ $( document ).on("turbolinks:load", function() {
     var needsContactInfo = $(this).children("option:selected").data('needs-contact-info');
     $('.contact-information').toggle(needsContactInfo);
   });
+
+  if($('#passenger_subscribed_to_sms').is(':checked')) {
+    $('#carrier_select').show();
+  }
+  $('#passenger_subscribed_to_sms').click(function(){
+    $('#carrier_select').toggle(this.checked);
+  });
 });
