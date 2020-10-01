@@ -92,14 +92,14 @@ RSpec.describe Passenger do
           it 'returns 3 days from the doctors note expiry' do
             date = 2.days.ago.to_date
             @passenger.eligibility_verification.update(expiration_date: date)
-            expect(@passenger.rides_expire).to eq 3.business_days.since(date).to_date
+            expect(@passenger.rides_expire).to eq 3.business_days.since(date)
           end
         end
         context 'the doctors note is not expired' do
           it 'returns three business days after the expiration date of the note' do
-            date = 14.days.from_now
+            date = 14.days.from_now.to_date
             @passenger.eligibility_verification.update(expiration_date: date)
-            expect(@passenger.rides_expire).to eq 3.business_days.after(date).to_date
+            expect(@passenger.rides_expire).to eq 3.business_days.after(date)
           end
         end
       end
@@ -112,7 +112,7 @@ RSpec.describe Passenger do
       end
       context 'passenger is a new record' do
         it 'returns 3 days from now' do
-          expect(Passenger.new.rides_expire.to_date).to eq 3.business_days.from_now.to_date
+          expect(Passenger.new.rides_expire).to eq 3.business_days.after(Time.zone.today)
         end
       end
     end

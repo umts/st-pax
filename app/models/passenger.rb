@@ -25,19 +25,17 @@ class Passenger < ApplicationRecord
 
   before_validation :assign_registration_date
 
-  before_save do
-    if active_status_changed? && archived?
+  after_commit do
+    if saved_change_to_active_status? && archived?
       PassengerMailer.notify_archived(self).deliver_now
     end
-    if active_status_changed? && active?
+    if saved_change_to_active_status? && active?
       PassengerMailer.notify_active(self).deliver_now
     end
   end
 
-  after_create do
-    if pending?
-      PassengerMailer.notify_pending(self).deliver_now
-    end
+  after_commit on: :create do
+    PassengerMailer.notify_pending(self).deliver_now if pending?
   end
 
   def expiration_display
@@ -77,9 +75,9 @@ class Passenger < ApplicationRecord
     if eligibility_verification&.expiration_date.present?
       return 3.business_days.after(eligibility_verification.expiration_date)
     end
-    return 3.business_days.since(registration_date) if persisted?
+    return 3.business_days.after(registration_date) if persisted?
 
-    3.business_days.from_now
+    3.business_days.after(Time.zone.today)
   end
 
   def temporary?
