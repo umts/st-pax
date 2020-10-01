@@ -3,8 +3,10 @@
 source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
+# autoprefixer-rails 10 or greater requires node.js 12 or greater
+gem 'autoprefixer-rails', '~> 9'
 gem 'bootstrap', '~> 4.3.1'
-gem 'bootstrap_form'
+gem 'bootstrap_form', '~> 4.3.0'
 gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
 gem 'exception_notification'
