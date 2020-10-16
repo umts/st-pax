@@ -59,7 +59,7 @@ FactoryBot.define do
 
     trait :subscribed_to_sms do
       subscribed_to_sms { true }
-      carrier { Carrier.all.sample }
+      association :carrier
     end
   end
 end
