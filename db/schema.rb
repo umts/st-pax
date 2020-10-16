@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_09_02_174022) do
     t.integer "active_status", default: 0
     t.date "registration_date"
     t.boolean "subscribed_to_sms", default: false
-    t.text "carrier_id"
+    t.integer "carrier_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
