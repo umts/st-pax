@@ -67,10 +67,12 @@ RSpec.describe 'Carrier Management', js: true do
           expect(page).not_to have_text '@tmo.com'
         end
       end
-      it 'fails to update the carrier' do
-        fill_in 'Name', with: ''
-        submit
-        expect(page).to have_text "Name can't be blank"
+      context 'when name is left blank' do
+        it 'fails to update the carrier' do
+          fill_in 'Name', with: ''
+          submit
+          expect(page).to have_text "Name can't be blank"
+        end
       end
     end
 
