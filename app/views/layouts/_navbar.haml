@@ -7,15 +7,15 @@
           data: {toggle: 'dropdown'},
           aria: {haspopup: 'true', expanded: 'false'} do
           Passengers
-          - unless Passenger.pending.count.zero?
-            %i.fas.fa-user-cog{aria_label: 'Pending passengers present'}
+          - if @pending.present?
+            %i.fas.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
         .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
           = link_to 'Current', passengers_path, class: 'dropdown-item'
           = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
           = link_to pending_passengers_path, class: 'dropdown-item' do
             Pending
-            - unless Passenger.pending.count.zero?
-              %span.badge.badge-warning= Passenger.pending.count
+            - if @pending
+              %span.badge.badge-warning= @pending
       %li.nav-item
         = link_to 'Add New Passenger', new_passenger_path, class: 'nav-link'
       %li.nav-item
