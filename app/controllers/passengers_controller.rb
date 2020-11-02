@@ -100,14 +100,14 @@ class PassengersController < ApplicationController
     @passenger.assign_attributes passenger_params
     begin
       if @passenger.save
-        flash[:success] = 'Passenger successfully updated.'
+        flash[:success] = 'Registration successfully updated.'
         redirect_to @passenger
       else
         flash[:danger] = @passenger.errors.full_messages
         render :edit
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
+      flash[:warning] = "Registration successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end

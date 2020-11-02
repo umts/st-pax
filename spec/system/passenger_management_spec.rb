@@ -61,7 +61,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger successfully updated.'
+        expect(page).to have_text 'Registration successfully updated.'
       end
     end
     context 'editing an existing passenger unsuccessfully' do
@@ -101,7 +101,7 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Phone', with: '123'
           choose 'Pending'
           click_button 'Submit'
-          expect(page).to have_text 'Passenger successfully created.'
+          expect(page).to have_text 'Passenger registration successful'
         end
       end
       context 'with active registration status' do
@@ -113,8 +113,9 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
           click_button 'Submit'
-          expect(page).to have_text 'How long will the passenger be with us?'\
-            ' must be entered for temporary passengers with an active registration status'
+          expect(page).to have_text 'Eligibility verification expiration ' +
+            'date must be entered for temporary passengers' +
+            ' with an active registration status'
         end
       end
     end
@@ -136,7 +137,7 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Phone', with: '123'
           choose 'Pending'
           click_button 'Submit'
-          expect(page).to have_text 'Passenger successfully created.'
+          expect(page).to have_text 'Passenger registration successful'
         end
       end
       context 'with active registration status' do
@@ -146,8 +147,9 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           click_button 'Submit'
-          expect(page).to have_text 'How long will the passenger be with us?'\
-            ' must be entered for temporary passengers with an active registration status'
+          expect(page).to have_text 'Eligibility verification expiration ' +
+            'date must be entered for temporary passengers' +
+            ' with an active registration status'
         end
       end
     end
@@ -158,7 +160,7 @@ RSpec.describe 'Passenger Management', js: true do
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger successfully updated.'
+        expect(page).to have_text 'Registration successfully updated.'
       end
     end
     context 'wanting to delete a passenger' do
