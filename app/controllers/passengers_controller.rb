@@ -7,24 +7,34 @@ class PassengersController < ApplicationController
   skip_before_action :restrict_to_employee,
     only: %i[brochure new edit create show new_or_edit_registration]
 
+  SMTP_ERROR_APPENDIX =
+    'but the email followup was unsuccessful.' +
+    'Please check the validity of the email address.'
+
   def archived
     @passengers =
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
   end
 
   def pending
-    @passengers = Passenger.pending
+    @passengers =
+      Passenger.pending.includes(:eligibility_verification, :mobility_device)
   end
 
   def brochure; end
 
   def set_status
-    if @passenger.set_status(params[:status])
-      flash[:success] = 'Passenger successfully updated'
+    begin
+      if @passenger.set_status(params[:status])
+        flash[:success] = 'Passenger successfully updated'
+        redirect_to passengers_url
+      else
+        flash[:danger] = @passenger.errors.full_messages
+        redirect_to edit_passenger_path(@passenger)
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to passengers_url
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      redirect_to edit_passenger_path(@passenger)
     end
   end
 
@@ -72,23 +82,33 @@ class PassengersController < ApplicationController
   def create
     @passenger = Passenger.new(passenger_params)
     @passenger.registerer = @current_user
-    if @passenger.save
-      flash[:success] = 'Passenger registration successful'
+    begin
+      if @passenger.save
+        flash[:success] = 'Passenger registration successful'
+        redirect_to @passenger
+      else
+        flash.now[:danger] = @passenger.errors.full_messages
+        render :new
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = "Passenger registration successful, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
-    else
-      flash.now[:danger] = @passenger.errors.full_messages
-      render :new
     end
   end
 
   def update
     @passenger.assign_attributes passenger_params
-    if @passenger.save
-      flash[:success] = 'Passenger successfully updated.'
+    begin
+      if @passenger.save
+        flash[:success] = 'Passenger successfully updated.'
+        redirect_to @passenger
+      else
+        flash[:danger] = @passenger.errors.full_messages
+        render :edit
+      end
+    rescue Net::SMTPFatalError
+      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      render :edit
     end
   end
 

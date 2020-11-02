@@ -7,20 +7,6 @@ module ApplicationHelper
     'Register for Special Transportation'
   end
 
-  def navbar_link(text, url)
-    button_classes = %w[mx-2 nav-link btn btn-outline-secondary]
-    button_classes << 'active' if current_page? url
-    link_to text, url, class: button_classes
-  end
-
-  def badge_link(text, url, badge_contents)
-    badge = content_tag :span, badge_contents, class: 'badge badge-warning'
-    text = raw "#{text} #{badge}"
-    button_classes = %w[mx-2 nav-link btn btn-outline-secondary]
-    button_classes << 'active' if current_page? url
-    link_to text, url, class: button_classes
-  end
-
   def checkmark_glyph(value, options = {})
     options.reverse_merge!({yes: 'fa-check', no: 'fa-times'})
     word = value ? 'yes' : 'no'

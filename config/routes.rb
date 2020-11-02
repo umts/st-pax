@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :new_or_edit_registration
       get :brochure
       get :archived
+      get :pending
       get :check_existing
       get :pending
     end
