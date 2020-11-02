@@ -42,7 +42,7 @@ class Passenger < ApplicationRecord
     return if permanent?
 
     eligibility_verification.try(:expiration_date).try(:strftime, '%m/%d/%Y') ||
-      'No Note'
+      'No verification'
   end
 
   def needs_longer_rides?
