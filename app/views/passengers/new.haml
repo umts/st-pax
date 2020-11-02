@@ -1,8 +1,4 @@
 %h1= registration_header
-- if @registrant.pending?
-  = render partial: 'form', locals: { passenger: @passenger }
-- else
-  Your registration is #{@passenger.active_status}. To edit your profile,
-  please call (413) 545-2086
+= render partial: 'form', locals: { passenger: @passenger }
 %p
   = link_to 'Back', :back

@@ -1,10 +1,10 @@
 %h1 Edit Passenger Registration
 
-- if @registrant&.active?
-  You are already registered for the special transportation service.
-  To check your status, please call (413) 545-2086
-- else
+- if @current_user || @registrant&.pending?
   = render partial: 'form', locals: { passenger: @passenger }
+- else
+  Your registration is #{@passenger.active_status}. To edit your profile,
+  please call (413) 545-2086
 
 %p
   = link_to 'Back', :back
