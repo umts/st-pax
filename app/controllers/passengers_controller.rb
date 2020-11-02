@@ -59,7 +59,7 @@ class PassengersController < ApplicationController
   end
 
   def new_or_edit_registration
-    @passenger = Passenger.find_by(id: params[:id]) || Passenger.new
+    @passenger = @registrant
     if @passenger&.persisted?
       redirect_to action: :edit, id: @passenger.id
     else
