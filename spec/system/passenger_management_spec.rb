@@ -15,20 +15,20 @@ RSpec.describe 'Passenger Management', js: true do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
         click_on 'Add New Passenger'
-        fill_in 'Passenger Name', with: 'Foo Bar'
+        fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
         fill_in 'Address', with: '123 turkey lane'
         fill_in 'Phone', with: '123'
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
+        fill_in 'Spire', with: '12345678@umass.edu'
         fill_in 'How long will the passenger be with us?', with: date
         select @verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
         click_button 'Submit'
-        expect(page).to have_text 'Passenger successfully created.'
+        expect(page).to have_text 'Passenger registration successful'
       end
       it 'checks for existing passengers if a duplicate spire is found' do
         visit passengers_path
         click_on 'Add New Passenger'
-        fill_in 'Passenger Spire', with: "#{@passenger.spire}\t"
+        fill_in 'Spire', with: "#{@passenger.spire}\t"
         expect(page).to have_text 'A passenger already exists for this Spire ID'
         expect(page).to have_button 'Add new passenger'
         expect(page).to have_link 'Edit existing passenger'
@@ -38,7 +38,7 @@ RSpec.describe 'Passenger Management', js: true do
       it 'renders spire errors in the flash' do
         visit passengers_path
         click_on 'Add New Passenger'
-        fill_in 'Passenger Spire', with: 'invalid spire'
+        fill_in 'Spire', with: 'invalid spire'
         click_button 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
@@ -46,9 +46,9 @@ RSpec.describe 'Passenger Management', js: true do
         date = 2.days.since.strftime '%Y-%m-%d'
         visit passengers_path
         click_on 'Add New Passenger'
-        fill_in 'Passenger Name', with: 'Foo Bar'
+        fill_in 'Name', with: 'Foo Bar'
         fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Passenger Spire', with: '12345678@umass.edu'
+        fill_in 'Spire', with: '12345678@umass.edu'
         fill_in 'How long will the passenger be with us?', with: date
         click_button 'Submit'
         expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
@@ -59,7 +59,7 @@ RSpec.describe 'Passenger Management', js: true do
         create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
-        fill_in 'Passenger Name', with: 'Bar Foo'
+        fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully updated.'
       end
@@ -68,7 +68,7 @@ RSpec.describe 'Passenger Management', js: true do
       it 'puts the error in the flash' do
         visit passengers_path
         click_link 'Edit'
-        fill_in 'Passenger Spire', with: 'not a valid spire'
+        fill_in 'Spire', with: 'not a valid spire'
         click_button 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
@@ -94,8 +94,8 @@ RSpec.describe 'Passenger Management', js: true do
       context 'with pending registration status' do
         it 'creates the passenger' do
           visit new_passenger_path
-          fill_in 'Passenger Name', with: 'Jane Fonda'
-          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Name', with: 'Jane Fonda'
+          fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
@@ -107,8 +107,8 @@ RSpec.describe 'Passenger Management', js: true do
       context 'with active registration status' do
         it 'does not allow creation' do
           visit new_passenger_path
-          fill_in 'Passenger Name', with: 'Jane Fonda'
-          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Name', with: 'Jane Fonda'
+          fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
@@ -129,8 +129,8 @@ RSpec.describe 'Passenger Management', js: true do
       context 'with pending registration status' do
         it 'creates the passenger' do
           visit new_passenger_path
-          fill_in 'Passenger Name', with: 'Jane Fonda'
-          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Name', with: 'Jane Fonda'
+          fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
@@ -142,8 +142,8 @@ RSpec.describe 'Passenger Management', js: true do
       context 'with active registration status' do
         it 'does not allow creation' do
           visit new_passenger_path
-          fill_in 'Passenger Name', with: 'Jane Fonda'
-          fill_in 'Passenger Spire', with: '12345678@umass.edu'
+          fill_in 'Name', with: 'Jane Fonda'
+          fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           click_button 'Submit'
           expect(page).to have_text 'How long will the passenger be with us?'\
@@ -156,7 +156,7 @@ RSpec.describe 'Passenger Management', js: true do
         create :eligibility_verification, passenger: @passenger
         visit passengers_path
         click_link 'Edit'
-        fill_in 'Passenger Name', with: 'Bar Foo'
+        fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
         expect(page).to have_text 'Passenger successfully updated.'
       end
