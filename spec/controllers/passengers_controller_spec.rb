@@ -25,8 +25,7 @@ RSpec.describe PassengersController do
 
           expect(passenger.active_status).to eq 'archived'
           expect(response).to redirect_to(passengers_path)
-          expect(flash[:warning]).to match(/could not notify/)
-          expect(flash[:warning]).to match(/status change/)
+          expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
       context 'changing archived to active' do
@@ -37,8 +36,7 @@ RSpec.describe PassengersController do
 
           expect(passenger.active_status).to eq 'active'
           expect(response).to redirect_to(passengers_path)
-          expect(flash[:warning]).to match(/could not notify/)
-          expect(flash[:warning]).to match(/status change/)
+          expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
     end
@@ -57,8 +55,7 @@ RSpec.describe PassengersController do
 
           expect(passenger).to be_present
           expect(response).to redirect_to(passenger_path(passenger))
-          expect(flash[:warning]).to match(/could not notify/)
-          expect(flash[:warning]).to match(/status change/)
+          expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
     end
@@ -78,8 +75,7 @@ RSpec.describe PassengersController do
 
           expect(passenger.active_status).to eq 'archived'
           expect(response).to redirect_to(passenger_path(passenger))
-          expect(flash[:warning]).to match(/could not notify/)
-          expect(flash[:warning]).to match(/status change/)
+          expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
       context 'changing archived to active' do
@@ -90,8 +86,7 @@ RSpec.describe PassengersController do
 
           expect(passenger.active_status).to eq 'active'
           expect(response).to redirect_to(passenger_path(passenger))
-          expect(flash[:warning]).to match(/could not notify/)
-          expect(flash[:warning]).to match(/status change/)
+          expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
     end
