@@ -9,7 +9,7 @@ class PassengersController < ApplicationController
 
   SMTP_ERROR_APPENDIX =
     'but the email followup was unsuccessful.' +
-    'Please check the validity of the email address.'
+    ' Please check the validity of the email address.'
 
   def archived
     @passengers =
