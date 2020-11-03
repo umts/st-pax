@@ -5,7 +5,7 @@ class PassengersController < ApplicationController
                 only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee,
-    only: %i[brochure new edit create show new_or_edit_registration]
+    only: %i[brochure new edit create show register]
 
   SMTP_ERROR_APPENDIX =
     'but the email followup was unsuccessful.' +
@@ -58,7 +58,7 @@ class PassengersController < ApplicationController
     @verification = @passenger.eligibility_verification || EligibilityVerification.new
   end
 
-  def new_or_edit_registration
+  def register
     @passenger = @registrant
     if @passenger&.persisted?
       redirect_to action: :edit, id: @passenger.id
