@@ -39,6 +39,14 @@ RSpec.describe 'Carrier Management', js: true do
           expect(page).to have_text 'Name has already been taken'
           expect(page).to have_text 'Gateway address has already been taken'
         end
+        it 'verifies the gateway address is valid' do
+          fill_in 'Name', with: 'att'
+          fill_in 'Gateway address', with: 'att.com'
+          submit
+          expect(page).to have_text(
+            'Gateway address must begin with @ and be followed by a name and domain'
+          )
+        end
       end
       it 'goes back' do
         click_on 'Back'
