@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :check_primary_account
   before_action :set_current_user
   before_action :restrict_to_employee
+  before_action :set_passenger_information
 
   private
 
@@ -46,5 +47,9 @@ class ApplicationController < ActionController::Base
 
   def restrict_to_employee
     deny_access && return unless @current_user.present?
+  end
+
+  def set_passenger_information
+    @pending = Passenger.pending.count
   end
 end

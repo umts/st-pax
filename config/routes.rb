@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       get :brochure
       get :archived
+      get :pending
       get :check_existing
     end
     member do
