@@ -25,7 +25,7 @@
         = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
           data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}
         .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
-          - if @current_user&.admin?
+          - if @current_user.admin?
             = link_to 'Users', users_path, class: 'dropdown-item'
             = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
           = link_to 'Carriers', carriers_path, class: 'dropdown-item'
