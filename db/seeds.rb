@@ -19,20 +19,23 @@ module SeedCreator
     end
 
     def create_carriers
-      %w[vzw att sprint tmo vmo].each do |name|
-        create :carrier, name: name, gateway_address: "@#{name}.com"
-      end
+      create :carrier, name: 'Verizon', gateway_address: '@vtext.com'
+      create :carrier, name: 'T-Mobile', gateway_address: '@tmomail.net'
+      create :carrier, name: 'AT&T', gateway_address: '@txt.att.net'
+      create :carrier, name: 'Sprint', gateway_address: '@messaging.sprintpcs.com'
     end
 
     def create_passengers
       create_list :passenger, 10, :permanent
       create_list :passenger, 10, :permanent, :with_mobility_device
+      create_list :passenger, 5, :permanent, subscribed_to_sms: true,
+                                             carrier: Carrier.all.sample
       create_list :temporary_passenger, 10, :with_note
       create_list :temporary_passenger, 10, :with_note, :with_mobility_device
       create_list :temporary_passenger, 5, :expired_within_grace_period
       create_list :temporary_passenger, 5, :expiring_soon
       create_list :temporary_passenger, 5, :inactive
-      create_list :temporary_passenger, 5, :no_note, :subscribed_to_sms
+      create_list :temporary_passenger, 5, :no_note
     end
 
     def create_dispatch_logs
