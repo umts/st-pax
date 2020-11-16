@@ -20,7 +20,7 @@
         = link_to 'Add New Passenger', new_passenger_path, class: 'nav-link'
       %li.nav-item
         = link_to 'Dispatch Log', log_index_path, class: 'nav-link'
-    - if @current_user&.admin || @current_user&.dispatcher?
+    - if @current_user
       %li.nav-item.dropdown
         = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
           data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}
