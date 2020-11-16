@@ -18,7 +18,7 @@
 - if @passenger.subscribed_to_sms?
   %p
     %b SMS address:
-    = @passenger.phone + @passenger.carrier.gateway_address
+    = @passenger.phone.delete('-') + @passenger.carrier.gateway_address
 %p
   %b Mobility Device:
   = @passenger.mobility_device.try(:name) || 'None'
