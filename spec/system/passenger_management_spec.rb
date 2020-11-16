@@ -19,22 +19,35 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_text 'Carrier'
       end
       context 'passenger creation successful' do
-        it 'creates the passenger' do
-          create :carrier
-          date = 2.days.since.strftime '%Y-%m-%d'
-          visit passengers_path
-          click_on 'Add New Passenger'
+        let :fill do
           fill_in 'Passenger Name', with: 'Foo Bar'
           fill_in 'Email', with: 'foobar@invalid.com'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
-          # Carrier selectbox has no blanks
-          check 'Subscribed to sms'
           fill_in 'Passenger Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?', with: date
-          select @verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
+          fill_in 'How long will the passenger be with us?',
+                  with: 2.days.since.strftime('%Y-%m-%d')
+          select @verifying_agency.name,
+                 from: 'Which agency verifies that this passenger needs rides?'
+        end
+        it 'creates the passenger' do
+          visit passengers_path
+          click_on 'Add New Passenger'
+          fill
           click_button 'Submit'
           expect(page).to have_text 'Passenger successfully created.'
+        end
+        it 'creates a passenger subscribed to sms' do
+          create :carrier
+          visit passengers_path
+          click_on 'Add New Passenger'
+          # When subscribed_to_sms is checked the Carrier selectbox will be
+          # revealed, it has no blanks so we do not need to make a selection
+          check 'Subscribed to sms'
+          fill
+          click_button 'Submit'
+          expect(page).to have_text 'Passenger successfully created.'
+
         end
       end
       context 'passenger creation unsuccessful' do
