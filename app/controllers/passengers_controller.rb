@@ -52,8 +52,9 @@ class PassengersController < ApplicationController
   end
 
   def index
-    @passengers = Passenger.where(active_status: ['active', 'pending'])
-      .includes(:eligibility_verification, :mobility_device).order :name
+    @passengers = Passenger.where(active_status: %w[active pending])
+                           .includes(:eligibility_verification, :mobility_device)
+                           .order :name
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
 
@@ -109,7 +110,7 @@ class PassengersController < ApplicationController
       params.require(:passenger)
             .permit(:name, :address, :email, :phone, :active_status,
                     :mobility_device_id, :permanent, :note, :spire,
-                    :has_brochure,
+                    :has_brochure, :subscribed_to_sms, :carrier_id,
                     eligibility_verification_attributes: %i[
                       expiration_date verifying_agency_id name address phone
                     ])

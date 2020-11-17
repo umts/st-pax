@@ -18,9 +18,18 @@ module SeedCreator
       end
     end
 
+    def create_carriers
+      create :carrier, name: 'Verizon', gateway_address: '@vtext.com'
+      create :carrier, name: 'T-Mobile', gateway_address: '@tmomail.net'
+      create :carrier, name: 'AT&T', gateway_address: '@txt.att.net'
+      create :carrier, name: 'Sprint', gateway_address: '@messaging.sprintpcs.com'
+    end
+
     def create_passengers
       create_list :passenger, 10, :permanent
       create_list :passenger, 10, :permanent, :with_mobility_device
+      create_list :passenger, 5, :permanent, subscribed_to_sms: true,
+                                             carrier: Carrier.all.sample
       create_list :temporary_passenger, 10, :with_note
       create_list :temporary_passenger, 10, :with_note, :with_mobility_device
       create_list :temporary_passenger, 5, :expired_within_grace_period
@@ -42,5 +51,6 @@ end
 
 SeedCreator.create_users
 SeedCreator.create_mobility_devices
+SeedCreator.create_carriers
 SeedCreator.create_passengers
 SeedCreator.create_dispatch_logs
