@@ -56,10 +56,5 @@ FactoryBot.define do
     trait :permanent do
       permanent { true }
     end
-
-    trait :subscribed_to_sms do
-      subscribed_to_sms { true }
-      association :carrier
-    end
   end
 end
