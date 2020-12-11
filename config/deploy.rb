@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lock '~> 3.14.1'
+lock '~> 3.14'
 
 set :application, 'st-pax'
 set :repo_url, 'https://github.com/umts/st-pax.git'
@@ -13,4 +13,4 @@ append :linked_files,
   'config/database.yml',
   'config/application.yml'
 
-append :linked_dirs, '.bundle', 'log'
+append :linked_dirs, '.bundle', 'log', 'node_modules'
