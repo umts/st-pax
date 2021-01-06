@@ -339,7 +339,7 @@ DEPENDENCIES
   bootstrap (~> 4.3.1)
   bootstrap_form
   business_time
-  capistrano (~> 3.14.1)
+  capistrano (~> 3.14)
   capistrano-bundler
   capistrano-passenger
   capistrano-pending

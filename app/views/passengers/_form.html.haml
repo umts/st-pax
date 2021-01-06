@@ -26,6 +26,14 @@
       = form.form_group do
         = form.check_box :permanent, disabled: !@current_user&.admin?
 
+      = form.form_group do
+        = form.check_box :subscribed_to_sms
+
+      #carrier_select{ style: 'display:none' }
+        = form.select :carrier_id,
+          options_from_collection_for_select(Carrier.order(:name),
+          :id, :name, @passenger.carrier&.id)
+
       .verification-fields
         = form.fields_for :eligibility_verification, @verification do |d|
           = d.select :verifying_agency_id,

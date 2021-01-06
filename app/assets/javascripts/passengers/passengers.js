@@ -39,4 +39,11 @@ $( document ).on("turbolinks:load", function() {
     needsContactInfo ||= false; // blank option will needlessly cause toggling
     $('.contact-information').toggle(needsContactInfo);
   });
+
+  if($('#passenger_subscribed_to_sms').is(':checked')) {
+    $('#carrier_select').show();
+  }
+  $('#passenger_subscribed_to_sms').click(function(){
+    $('#carrier_select').toggle(this.checked);
+  });
 });

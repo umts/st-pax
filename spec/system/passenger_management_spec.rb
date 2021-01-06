@@ -10,48 +10,79 @@ RSpec.describe 'Passenger Management', js: true do
       @verifying_agency = create :verifying_agency
       when_current_user_is(@user)
     end
-    context 'creating a new passenger successfully' do
-      it 'creates the passenger' do
-        date = 2.days.since.strftime '%Y-%m-%d'
+    context 'creating a new passeger' do
+      it 'allows you to select a carrier if subscribed to sms' do
         visit passengers_path
         click_on 'Add New Passenger'
-        fill_in 'Name', with: 'Foo Bar'
-        fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Address', with: '123 turkey lane'
-        fill_in 'Phone', with: '123'
-        fill_in 'Spire', with: '12345678@umass.edu'
-        fill_in 'How long will the passenger be with us?', with: date
-        select @verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
-        click_button 'Submit'
-        expect(page).to have_text 'Passenger registration successful'
+        expect(page).not_to have_text 'Carrier'
+        check 'Subscribed to sms'
+        expect(page).to have_text 'Carrier'
       end
-      it 'checks for existing passengers if a duplicate spire is found' do
-        visit passengers_path
-        click_on 'Add New Passenger'
-        fill_in 'Spire', with: "#{@passenger.spire}\t"
-        expect(page).to have_text 'A passenger already exists for this Spire ID'
-        expect(page).to have_button 'Add new passenger'
-        expect(page).to have_link 'Edit existing passenger'
+      context 'passenger creation successful' do
+        let :fill do
+          fill_in 'Name', with: 'Foo Bar'
+          fill_in 'Email', with: 'foobar@invalid.com'
+          fill_in 'Address', with: '123 turkey lane'
+          fill_in 'Phone', with: '123'
+          fill_in 'Spire', with: '12345678@umass.edu'
+          fill_in 'How long will the passenger be with us?',
+                  with: 2.days.since.strftime('%Y-%m-%d')
+          select @verifying_agency.name,
+                 from: 'Which agency verifies that this passenger needs rides?'
+        end
+        it 'creates the passenger' do
+          visit passengers_path
+          click_on 'Add New Passenger'
+          fill
+          click_button 'Submit'
+          expect(page).to have_text 'Passenger registration successful'
+        end
+        it 'creates a passenger subscribed to sms' do
+          create :carrier
+          visit passengers_path
+          click_on 'Add New Passenger'
+          # When subscribed_to_sms is checked the Carrier selectbox will be
+          # revealed, it has no blanks so we do not need to make a selection
+          check 'Subscribed to sms'
+          fill
+          click_button 'Submit'
+          expect(page).to have_text 'Passenger registration successful'
+        end
       end
-    end
-    context 'creating a new passenger unsuccessfully' do
-      it 'renders spire errors in the flash' do
-        visit passengers_path
-        click_on 'Add New Passenger'
-        fill_in 'Spire', with: 'invalid spire'
-        click_button 'Submit'
-        expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
-      end
-      it 'renders verification errors in the flash' do
-        date = 2.days.since.strftime '%Y-%m-%d'
-        visit passengers_path
-        click_on 'Add New Passenger'
-        fill_in 'Name', with: 'Foo Bar'
-        fill_in 'Email', with: 'foobar@invalid.com'
-        fill_in 'Spire', with: '12345678@umass.edu'
-        fill_in 'How long will the passenger be with us?', with: date
-        click_button 'Submit'
-        expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
+      context 'passenger creation unsuccessful' do
+        it 'checks for existing passengers if a duplicate spire is found' do
+          visit passengers_path
+          click_on 'Add New Passenger'
+          fill_in 'Spire', with: "#{@passenger.spire}\t"
+          expect(page).to have_text 'A passenger already exists for this Spire ID'
+          expect(page).to have_button 'Add new passenger'
+          expect(page).to have_link 'Edit existing passenger'
+        end
+        it 'renders spire errors in the flash' do
+          visit passengers_path
+          click_on 'Add New Passenger'
+          fill_in 'Spire', with: 'invalid spire'
+          click_button 'Submit'
+          expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
+        end
+        it 'renders verification errors in the flash' do
+          date = 2.days.since.strftime '%Y-%m-%d'
+          visit passengers_path
+          click_on 'Add New Passenger'
+          fill_in 'Name', with: 'Foo Bar'
+          fill_in 'Email', with: 'foobar@invalid.com'
+          fill_in 'Spire', with: '12345678@umass.edu'
+          fill_in 'How long will the passenger be with us?', with: date
+          click_button 'Submit'
+          expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
+        end
+        it 'renders error if subscribed to sms and carrier is blank' do
+          visit passengers_path
+          click_on 'Add New Passenger'
+          check 'Subscribed to sms'
+          click_button 'Submit'
+          expect(page).to have_text "Carrier can't be blank"
+        end
       end
     end
     context 'editing an existing passenger successfully' do
