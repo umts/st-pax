@@ -24,7 +24,7 @@ RSpec.describe 'Passenger self registration', js: true do
       it 'renders errors in the flash' do
         visit register_passengers_path
         fill_in 'Address', with: '123 turkey lane'
-        expect{ submit }.not_to change { Passenger.count }
+        expect { submit }.not_to change { Passenger.count }
         expect(page).to have_text "Phone Number can't be blank"
       end
     end
