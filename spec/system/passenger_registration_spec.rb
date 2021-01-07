@@ -55,7 +55,7 @@ RSpec.describe 'Passenger self registration', js: true do
         expect(page).not_to have_field 'Address'
         expect(page.current_url).to include passenger_path(@passenger)
         expect(page.current_url).not_to include edit_passenger_path(@passenger)
-        expect(page).to have_text "To edit your profile, please call"
+        expect(page).to have_text 'To edit your profile, please call'
       end
     end
   end
