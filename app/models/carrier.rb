@@ -8,4 +8,5 @@ class Carrier < ApplicationRecord
                       with: /\A@([^@\s]+\.)+[^@\s]+\z/,
                       message: 'must begin with @ and be followed by a name and domain'
   has_many :passengers
+  # this is a change
 end
