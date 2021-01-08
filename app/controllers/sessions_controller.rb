@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'factory_bot'
-
 class SessionsController < ApplicationController
   layout false
   skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user
