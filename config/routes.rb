@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   resources :carriers
   resources :passengers do
     collection do
+      get :register
       get :brochure
       get :archived
       get :pending
       get :check_existing
+      get :pending
     end
     member do
       post :set_status

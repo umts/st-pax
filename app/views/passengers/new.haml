@@ -1,5 +1,4 @@
-%h1 New Passenger
-
-= render 'form'
-
-= link_to 'Back', passengers_path
+%h1= registration_header
+= render partial: 'form', locals: { passenger: @passenger }
+%p
+  = link_to 'Back', :back

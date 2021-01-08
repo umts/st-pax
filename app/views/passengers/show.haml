@@ -33,10 +33,7 @@
   = verification_information(@passenger)
 - if @passenger.temporary?
   %p
-    - if @passenger.eligibility_verification.present?
-      %b Doctor's Note Expiration Date:
-    - else
-      %b Rides Expire:
+    %b Rides Expire:
     = @passenger.rides_expire.strftime('%m/%d/%Y')
 %p
   %b Registering Dispatcher:
@@ -47,5 +44,10 @@
 %p
   %b Other Notes:
   = @passenger.note
+- if @registrant
+  %p
+    You may edit your information until your registration has been approved.
+    After that, you must call the dispatcher.
 = link_to 'Edit', edit_passenger_path
-= link_to 'Back', passengers_path
+- unless @registrant
+  = link_to 'Back', :back

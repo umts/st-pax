@@ -1,4 +1,7 @@
 Rails.application.configure do
+  require 'passenger_login'
+
+  config.middleware.use PassengerLogin
   # Settings specified here will take precedence over those in
   # config/application.rb.
 

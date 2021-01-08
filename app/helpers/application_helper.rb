@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def new_passenger_link_text
+    return 'Add New Passenger' if @current_user.present?
+    return 'Edit Registration' if @registrant&.persisted?
+    'Register for Special Transportation'
+  end
+
   def checkmark_glyph(value, options = {})
     options.reverse_merge!({yes: 'fa-check', no: 'fa-times'})
     word = value ? 'yes' : 'no'
