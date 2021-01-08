@@ -36,7 +36,7 @@ $( document ).on("turbolinks:load", function() {
 
   $('#passenger_eligibility_verification_attributes_verifying_agency_id').change(function(){
     var needsContactInfo = $(this).children("option:selected").data('needs-contact-info');
-    needsContactInfo ||= false; // blank option will needlessly cause toggling
+    needsContactInfo = needsContactInfo || false; // blank option will needlessly cause toggling
     $('.contact-information').toggle(needsContactInfo);
   });
 
