@@ -4,9 +4,12 @@ class PassengersController < ApplicationController
   before_action :find_passenger,
                 only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
-  skip_before_action :restrict_to_employee, only: %i[brochure]
+  skip_before_action :restrict_to_employee,
+    only: %i[brochure new edit create show register]
 
-  SMTP_ERROR_APPENDIX = 'but we could not notify them of their status change.'
+  SMTP_ERROR_APPENDIX =
+    'but the email followup was unsuccessful.' +
+    ' Please check the validity of the email address.'
 
   def archived
     @passengers =
@@ -43,12 +46,29 @@ class PassengersController < ApplicationController
   end
 
   def new
-    @passenger = Passenger.new(active_status: 'active')
+    @passenger = if @current_user.present?
+                   Passenger.new(active_status: 'active')
+                 elsif @registrant.present?
+                   @registrant
+                 end
     @verification = EligibilityVerification.new
   end
 
   def edit
+    if @registrant.present? && !@registrant&.pending?
+      flash[:warning] = 'To edit your profile, please call (413) 545-2086'
+      redirect_to passenger_path(@registrant)
+    end
     @verification = @passenger.eligibility_verification || EligibilityVerification.new
+  end
+
+  def register
+    @passenger = @registrant
+    if @passenger&.persisted?
+      redirect_to action: :edit, id: @passenger.id
+    else
+      redirect_to action: :new
+    end
   end
 
   def index
@@ -69,14 +89,14 @@ class PassengersController < ApplicationController
     @passenger.registerer = @current_user
     begin
       if @passenger.save
-        flash[:success] = 'Passenger successfully created.'
+        flash[:success] = 'Passenger registration successful'
         redirect_to @passenger
       else
         flash.now[:danger] = @passenger.errors.full_messages
         render :new
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger successfully created, #{SMTP_ERROR_APPENDIX}"
+      flash[:warning] = "Passenger registration successful, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end
@@ -85,14 +105,14 @@ class PassengersController < ApplicationController
     @passenger.assign_attributes passenger_params
     begin
       if @passenger.save
-        flash[:success] = 'Passenger successfully updated.'
+        flash[:success] = 'Registration successfully updated.'
         redirect_to @passenger
       else
         flash[:danger] = @passenger.errors.full_messages
         render :edit
       end
     rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
+      flash[:warning] = "Registration successfully updated, #{SMTP_ERROR_APPENDIX}"
       redirect_to @passenger
     end
   end
@@ -105,7 +125,7 @@ class PassengersController < ApplicationController
 
   private
 
-  def base_passenger_params
+  def all_params
     passenger_params =
       params.require(:passenger)
             .permit(:name, :address, :email, :phone, :active_status,
@@ -121,10 +141,6 @@ class PassengersController < ApplicationController
     @passenger = Passenger.find(params[:id])
   end
 
-  def passenger_params
-    base_passenger_params.then { |p| restrict_admin p }
-  end
-
   def passenger_pdf
     @passengers = @passengers.send(@filter)
     pdf = PassengersPDF.new(@passengers, @filter)
@@ -134,9 +150,12 @@ class PassengersController < ApplicationController
                           disposition: :inline
   end
 
-  def restrict_admin(permitted_params)
-    return permitted_params if @current_user.admin?
-
-    permitted_params.except :permanent
+  def passenger_params
+    return all_params if @current_user&.admin?
+    return all_params.except(:permanent) if @current_user.present?
+    all_params
+      .except(:spire, :name, :permanent)
+      .merge!(spire: "#{request.env['fcIdNumber']}@umass.edu",
+              name: "#{request.env['givenName']} #{request.env['surName']}")
   end
 end

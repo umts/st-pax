@@ -1,6 +1,32 @@
 # frozen_string_literal: true
 
 module PassengersHelper
+  def verifying_agency_help_text
+    help = 'Required only for temporary passengers.'
+  end
+
+  def registration_header
+    if @current_user.present?
+      return 'New Passenger'
+    end
+    'Register for Special Transportation'
+  end
+
+  def verifying_agency_label
+    if @current_user.present?
+      return 'Which agency verifies that this passenger needs rides?'
+    end
+    'Which agency verifies that you need our service?'
+  end
+
+  def expiration_date_label
+    subject = if @current_user.present?
+                'the passenger'
+              else 'you'
+              end
+    "How long will #{subject} be with us?"
+  end
+
   def passengers_table_row_class(passenger)
     if passenger.eligibility_verification&.will_expire_within_warning_period?
       'expires-soon'
