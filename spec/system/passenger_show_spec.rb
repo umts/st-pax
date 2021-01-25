@@ -33,4 +33,3 @@ RSpec.describe 'Passenger Show' do
     end
   end
 end
-

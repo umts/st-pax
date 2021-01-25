@@ -28,12 +28,8 @@ class Passenger < ApplicationRecord
   before_validation :assign_registration_date
 
   after_commit do
-    if saved_change_to_active_status? && archived?
-      PassengerMailer.notify_archived(self).deliver_now
-    end
-    if saved_change_to_active_status? && active?
-      PassengerMailer.notify_active(self).deliver_now
-    end
+    PassengerMailer.notify_archived(self).deliver_now if saved_change_to_active_status? && archived?
+    PassengerMailer.notify_active(self).deliver_now if saved_change_to_active_status? && active?
   end
 
   after_commit on: :create do

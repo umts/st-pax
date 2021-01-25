@@ -10,14 +10,14 @@ class EligibilityVerification < ApplicationRecord
   validates :expiration_date, presence: true, if: :passenger_requires_validation
   validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
   validates :expiration_date,
-    absence: { if: -> { passenger&.permanent? },
-               message: 'may not be entered for permanent passengers.' }
+            absence: { if: -> { passenger&.permanent? },
+                       message: 'may not be entered for permanent passengers.' }
   validates :name,
-    presence: { if: -> { verifying_agency&.needs_contact_info? } }
+            presence: { if: -> { verifying_agency&.needs_contact_info? } }
   validates :address,
-    presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
+            presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
   validates :phone,
-    presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
+            presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
 
   before_save :reset_contact_info
 
@@ -38,8 +38,8 @@ class EligibilityVerification < ApplicationRecord
 
   def expired_within_grace_period?
     return true if expiration_date.blank?
-
     return false if expiration_date >= Time.zone.today
+
     expiration_date > EligibilityVerification.grace_period
   end
 

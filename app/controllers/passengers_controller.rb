@@ -5,7 +5,7 @@ class PassengersController < ApplicationController
                 only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee,
-    only: %i[brochure new edit create show register]
+                     only: %i[brochure new edit create show register]
 
   SMTP_ERROR_APPENDIX =
     'but the email followup was unsuccessful.' +
@@ -24,18 +24,16 @@ class PassengersController < ApplicationController
   def brochure; end
 
   def set_status
-    begin
-      if @passenger.set_status(params[:status])
-        flash[:success] = 'Passenger successfully updated'
-        redirect_to passengers_url
-      else
-        flash[:danger] = @passenger.errors.full_messages
-        redirect_to edit_passenger_path(@passenger)
-      end
-    rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
+    if @passenger.set_status(params[:status])
+      flash[:success] = 'Passenger successfully updated'
       redirect_to passengers_url
+    else
+      flash[:danger] = @passenger.errors.full_messages
+      redirect_to edit_passenger_path(@passenger)
     end
+  rescue Net::SMTPFatalError
+    flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
+    redirect_to passengers_url
   end
 
   def check_existing
@@ -126,15 +124,13 @@ class PassengersController < ApplicationController
   private
 
   def all_params
-    passenger_params =
-      params.require(:passenger)
-            .permit(:name, :address, :email, :phone, :active_status,
-                    :mobility_device_id, :permanent, :note, :spire,
-                    :has_brochure, :subscribed_to_sms, :carrier_id,
-                    eligibility_verification_attributes: %i[
-                      expiration_date verifying_agency_id name address phone
-                    ])
-    passenger_params
+    params.require(:passenger)
+          .permit(:name, :address, :email, :phone, :active_status,
+                  :mobility_device_id, :permanent, :note, :spire,
+                  :has_brochure, :subscribed_to_sms, :carrier_id,
+                  eligibility_verification_attributes: %i[
+                    expiration_date verifying_agency_id name address phone
+                  ])
   end
 
   def find_passenger
@@ -153,6 +149,7 @@ class PassengersController < ApplicationController
   def passenger_params
     return all_params if @current_user&.admin?
     return all_params.except(:permanent) if @current_user.present?
+
     all_params
       .except(:spire, :name, :permanent)
       .merge!(spire: "#{request.env['fcIdNumber']}@umass.edu",

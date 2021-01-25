@@ -19,9 +19,8 @@ class SessionsController < ApplicationController
       @dispatchers = User.dispatchers.order :name
       @passengers = Passenger.temporary
     elsif request.post?
-      if find_user
-        redirect_to passengers_path and return
-      end
+      redirect_to passengers_path and return if find_user
+
       set_passenger
       redirect_to brochure_passengers_path
     end
@@ -47,7 +46,7 @@ class SessionsController < ApplicationController
     if Passenger.any?
       (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0')
     else
-      '0'*8
+      '0' * 8
     end
   end
 end

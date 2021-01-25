@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Passenger self registration', js: true do
   context 'registering for the first time' do
     before :each do
-      login_as(build :passenger)
+      login_as(build(:passenger))
     end
     let :submit do
       click_button 'Submit'
@@ -15,7 +15,7 @@ RSpec.describe 'Passenger self registration', js: true do
         visit register_passengers_path
         fill_in 'Address', with: '123 turkey lane'
         fill_in 'Phone', with: '123'
-        expect{ submit }.to change { Passenger.count }.by 1
+        expect { submit }.to change { Passenger.count }.by 1
         expect(page).to have_text 'Passenger registration successful'
         expect(Passenger.last).to be_pending
       end

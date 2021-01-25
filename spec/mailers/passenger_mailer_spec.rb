@@ -1,9 +1,8 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 require 'rails_helper'
 
 RSpec.describe PassengerMailer do
-
   describe 'notify_active' do
     before :each do
       @passenger = create :passenger

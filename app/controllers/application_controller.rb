@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # Disable ABC size because this block will likely be
   # changed in a later branch
-  # rubocop:disable AbcSize
+  # rubocop:disable Metrics/AbcSize
   def set_current_user
     @current_user =
       if session.key? :user_id
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       end
     session[:user_id] = @current_user.id if @current_user.present?
   end
-  # rubocop:enable AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   def login_as_passenger
     return if @current_user.present?

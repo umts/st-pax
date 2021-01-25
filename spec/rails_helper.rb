@@ -9,9 +9,7 @@ require 'capybara/rails'
 require 'rack_session_access/capybara'
 require 'selenium/webdriver'
 # Prevent database truncation if the environment is production
-if Rails.env.production?
-  abort('The Rails environment is running in production mode!')
-end
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!

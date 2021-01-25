@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = 'User successfully created'
       redirect_to users_url
-    else 
+    else
       flash.now[:danger] = @user.errors.full_messages
       render :new
     end
