@@ -9,21 +9,13 @@ class FeedbackController < ApplicationController
 
   def create
     @feedback = Feedback.new(feedback_params)
-    @feedback.user = @current_user
-    unless @feedback.valid?
+    if submit_feedback
+      flash[:info] = 'Feedback was successfully submitted.'
+      redirect_to feedback_path(@feedback.issue.number)
+    else
       flash.now[:danger] = @feedback.errors.full_messages
-      render(:new) && return
+      render :new and return
     end
-
-    begin
-      @feedback.submit!
-    rescue Octokit::Error => e
-      flash.now[:danger] = "An external error occurred: #{e}"
-      render(:new) && return
-    end
-
-    flash[:info] = 'Feedback was successfully submitted.'
-    redirect_to feedback_path(@feedback.issue.number)
   end
 
   def show
@@ -39,6 +31,20 @@ class FeedbackController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:title, :description, :category)
+    params.require(:feedback)
+          .permit(:title, :description, :category)
+          .merge(user: @current_user)
+  end
+
+  def submit_feedback
+    return false unless @feedback.valid?
+
+    begin
+      @feedback.submit!
+    rescue Octokit::Error => e
+      @feedback.errors.add(:base, "An external error occurred: #{e}")
+      return false
+    end
+    true
   end
 end
