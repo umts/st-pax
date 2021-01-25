@@ -8,7 +8,7 @@ class PassengersController < ApplicationController
                      only: %i[brochure new edit create show register]
 
   SMTP_ERROR_APPENDIX =
-    'but the email followup was unsuccessful.' +
+    'but the email followup was unsuccessful.' \
     ' Please check the validity of the email address.'
 
   def archived

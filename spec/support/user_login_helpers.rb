@@ -12,13 +12,14 @@ def when_current_user_is(user)
 end
 
 def login_as(user)
-  if user.is_a? User
+  case user
+  when User
     page.set_rack_session(user_id: user.id)
-  elsif user.is_a? Passenger
+  when Passenger
     if user.persisted?
       page.set_rack_session(passenger_id: user.id)
     else
-      name = user.name.split(' ')
+      name = user.name.split
       page.set_rack_session(spire: user.spire.split('@').first,
                             first_name: name.first,
                             last_name: name.last,

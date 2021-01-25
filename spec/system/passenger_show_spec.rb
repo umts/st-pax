@@ -20,14 +20,14 @@ RSpec.describe 'Passenger Show' do
           )
           click_on 'View'
           expect(page).to have_text 'Subscribed to SMS: Yes'
-          expect(page).to have_text 'SMS address: ' + number + @carrier.gateway_address
+          expect(page).to have_text "SMS address: #{number}#{@carrier.gateway_address}"
         end
       end
       context 'passenger is not subscribed to sms' do
         it 'does not display a SMS address' do
           click_on 'View'
           expect(page).to have_text 'Subscribed to SMS: No'
-          expect(page).not_to have_text 'SMS address: ' + number + @carrier.gateway_address
+          expect(page).not_to have_text "SMS address: #{number}#{@carrier.gateway_address}"
         end
       end
     end
