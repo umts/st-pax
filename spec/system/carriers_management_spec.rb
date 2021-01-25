@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Carrier Management', js: true do
+RSpec.describe 'Carrier Management' do
   let(:submit) { click_button 'Save' }
   context 'as admin' do
     before :each do
@@ -84,7 +84,7 @@ RSpec.describe 'Carrier Management', js: true do
       end
     end
 
-    context 'deleting a carrier' do
+    context 'deleting a carrier', js: true do
       before :each do
         @carrier = create :carrier, name: 'tmobile', gateway_address: '@tmo.com'
         visit carriers_path
