@@ -10,8 +10,9 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
-    - spec/**/*
+    - config/routes.rb
     - lib/tasks/import/**/*
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false

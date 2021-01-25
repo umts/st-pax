@@ -2,7 +2,7 @@
 
 module PassengersHelper
   def verifying_agency_help_text
-    help = 'Required only for temporary passengers.'
+    'Required only for temporary passengers.'
   end
 
   def registration_header

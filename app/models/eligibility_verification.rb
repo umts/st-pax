@@ -56,12 +56,8 @@ class EligibilityVerification < ApplicationRecord
   end
 
   def reset_contact_info
-    unless verifying_agency&.needs_contact_info?
-      assign_attributes(
-        name: nil,
-        address: nil,
-        phone: nil
-      )
-    end
+    return if verifying_agency&.needs_contact_info?
+
+    assign_attributes name: nil, address: nil, phone: nil
   end
 end
