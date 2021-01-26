@@ -4,9 +4,8 @@ require 'rails_helper'
 
 RSpec.describe PassengersController do
 
-  let(:admin) { create :user, :admin }
   before :each do
-    session[:user_id] = admin.id
+    when_current_user_is :admin
   end
 
   let(:passenger) { create :passenger, :permanent }
@@ -91,5 +90,4 @@ RSpec.describe PassengersController do
       end
     end
   end
-
 end

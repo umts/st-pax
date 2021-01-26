@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Passenger self registration', js: true do
-  context 'registering for the first time' do
+RSpec.describe 'Passenger self registration' do
+  context 'registering for the first time', js: true do
     before :each do
       login_as(build :passenger)
     end
