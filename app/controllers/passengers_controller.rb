@@ -155,7 +155,7 @@ class PassengersController < ApplicationController
     return all_params.except(:permanent) if @current_user.present?
     all_params
       .except(:spire, :name, :permanent)
-      .merge!(spire: "#{request.env['fcIdNumber']}@umass.edu",
+      .merge!(spire: "#{request.env['fcIdNumber']}",
               name: "#{request.env['givenName']} #{request.env['surName']}")
   end
 end

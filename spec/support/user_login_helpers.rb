@@ -20,7 +20,7 @@ def login_as(user)
       set_session_values(passenger_id: user.id)
     else
       name = user.name.split(' ')
-      set_session_values(spire: user.spire.split('@').first,
+      set_session_values(spire: user.spire,
                          first_name: name.first,
                          last_name: name.last,
                          email: user.email)
