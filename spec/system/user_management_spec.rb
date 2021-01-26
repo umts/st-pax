@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User Management', js: true do
+RSpec.describe 'User Management' do
   before :each do
     @user = create :user
     when_current_user_is(create :user, :admin)
   end
-  context 'deleting a user unsuccessfully' do
+  context 'deleting a user unsuccessfully', js: true do
     before :each do
       @log = create :log_entry, user: @user
     end
@@ -22,7 +22,7 @@ RSpec.describe 'User Management', js: true do
       )
     end
   end
-  context 'deleting a user successfully' do
+  context 'deleting a user successfully', js: true do
     it 'deletes the user and says it did' do
       visit users_url
       page.accept_confirm 'Are you sure?' do

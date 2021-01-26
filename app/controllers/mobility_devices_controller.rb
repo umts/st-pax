@@ -2,6 +2,7 @@
 
 class MobilityDevicesController < ApplicationController
   before_action :set_device, only: %i[destroy edit update]
+  before_action :restrict_to_admin
 
   def create
     @device = MobilityDevice.new(device_params)
