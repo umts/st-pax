@@ -19,7 +19,7 @@ def login_as(user)
       page.set_rack_session(passenger_id: user.id)
     else
       name = user.name.split(' ')
-      page.set_rack_session(spire: user.spire.split('@').first,
+      page.set_rack_session(spire: user.spire,
                             first_name: name.first,
                             last_name: name.last,
                             email: user.email)

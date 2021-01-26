@@ -44,10 +44,11 @@ class SessionsController < ApplicationController
   end
 
   def new_spire
+    # shibboleth gives us <spire_number>@umass.edu
     if Passenger.any?
       (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0')
     else
       '0'*8
-    end
+    end + '@umass.edu'
   end
 end
