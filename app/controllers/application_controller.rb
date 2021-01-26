@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def find_or_initialize_passenger
     passenger = Passenger.find_or_initialize_by(
-      spire: "#{request.env['fcIdNumber']}",
+      spire: request.env['fcIdNumber'],
       name: "#{request.env['givenName']} #{request.env['surName']}"
     )
     passenger.email = request.env['mail'] if passenger.new_record?

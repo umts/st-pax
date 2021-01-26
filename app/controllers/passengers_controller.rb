@@ -152,7 +152,7 @@ class PassengersController < ApplicationController
 
     all_params
       .except(:spire, :name, :permanent)
-      .merge!(spire: "#{request.env['fcIdNumber']}",
+      .merge!(spire: request.env['fcIdNumber'],
               name: "#{request.env['givenName']} #{request.env['surName']}")
   end
 end
