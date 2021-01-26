@@ -18,7 +18,15 @@ class PassengersPDF < Prawn::Document
 
   def passengers_table(passengers)
     font_size 14
-    headers = [
+    passenger_table =
+      passengers.map { |p| passenger_row p }.unshift passengers_table_headers
+    table passenger_table, header: true, cell_style: { font: 'DejaVu Sans' } do
+      row(0).font_style = :bold
+    end
+  end
+
+  def passengers_table_headers
+    [
       'Name',
       'Needs longer rides?',
       'Mobility Device',
@@ -26,10 +34,6 @@ class PassengersPDF < Prawn::Document
       'Rides Expire',
       'Notes'
     ]
-    passenger_table = passengers.map { |p| passenger_row p }.unshift headers
-    table passenger_table, header: true, cell_style: { font: 'DejaVu Sans' } do
-      row(0).font_style = :bold
-    end
   end
 
   def passenger_row(passenger)
