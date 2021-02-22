@@ -17,7 +17,7 @@ def login_as(user)
   when User
     assign_session_values(user_id: user.id)
   when Passenger
-    assign_as_passenger(user)
+    login_as_passenger(user)
   end
 end
 
