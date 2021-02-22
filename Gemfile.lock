@@ -52,6 +52,7 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.6.4)
       execjs
+    bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootstrap (4.3.1)
       autoprefixer-rails (>= 9.1.0)
@@ -103,6 +104,7 @@ GEM
     crass (1.0.6)
     diff-lcs (1.3)
     docile (1.3.2)
+    ed25519 (1.2.4)
     erb2haml (0.1.5)
       html2haml
     erubi (1.9.0)
@@ -338,6 +340,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt_pbkdf (>= 1.0, < 2.0)
   bootstrap (~> 4.3.1)
   bootstrap_form
   business_time
@@ -349,6 +352,7 @@ DEPENDENCIES
   capistrano-yarn
   capybara
   coffee-rails (~> 4.2)
+  ed25519 (>= 1.2, < 2.0)
   erb2haml
   exception_notification
   factory_bot_rails
