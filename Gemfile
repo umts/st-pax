@@ -43,12 +43,14 @@ group :test do
 end
 
 group :development do
-  gem 'capistrano', '~> 3.14', require: false
-  gem 'capistrano-bundler',    require: false
-  gem 'capistrano-passenger',  require: false
-  gem 'capistrano-pending',    require: false
-  gem 'capistrano-rails',      require: false
-  gem 'capistrano-yarn',       require: false
+  gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0', require: false
+  gem 'capistrano', '~> 3.14',           require: false
+  gem 'capistrano-bundler',              require: false
+  gem 'capistrano-passenger',            require: false
+  gem 'capistrano-pending',              require: false
+  gem 'capistrano-rails',                require: false
+  gem 'capistrano-yarn',                 require: false
+  gem 'ed25519', '>= 1.2', '< 2.0',      require: false
   gem 'erb2haml'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rb-fsevent', '0.9.8'
