@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :user do
     name  { FFaker::Name.name }
-    sequence(:spire) { |n| n.to_s.rjust(8, '0') + '@umass.edu' }
+    sequence(:spire) { |n| format('%08i@umass.edu', n) }
     active { true }
   end
 

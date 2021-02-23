@@ -2,20 +2,18 @@
 
 module PassengersHelper
   def verifying_agency_help_text
-    help = 'Required only for temporary passengers.'
+    'Required only for temporary passengers.'
   end
 
   def registration_header
-    if @current_user.present?
-      return 'New Passenger'
-    end
+    return 'New Passenger' if @current_user.present?
+
     'Register for Special Transportation'
   end
 
   def verifying_agency_label
-    if @current_user.present?
-      return 'Which agency verifies that this passenger needs rides?'
-    end
+    return 'Which agency verifies that this passenger needs rides?' if @current_user.present?
+
     'Which agency verifies that you need our service?'
   end
 
@@ -48,7 +46,7 @@ module PassengersHelper
     agency = passenger.eligibility_verification&.verifying_agency
     if agency&.needs_contact_info?
       render partial: 'verifying_agency_contact_info',
-        locals: { verification: passenger.eligibility_verification }
+             locals: { verification: passenger.eligibility_verification }
     else
       agency&.name ||
         'No agency has verified that this passenger requires rides.'

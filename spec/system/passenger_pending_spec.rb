@@ -7,15 +7,15 @@ RSpec.describe 'Pending Passenger Management' do
     @user = create :user, :admin
     when_current_user_is(@user)
     @passenger = create :passenger,
-      name: 'Zim',
-      active_status: 'pending'
+                        name: 'Zim',
+                        active_status: 'pending'
   end
   context 'confirming a registration' do
     context 'having filled in the correct data' do
       before :each do
         create :eligibility_verification,
-          :with_agency,
-          passenger: @passenger
+               :with_agency,
+               passenger: @passenger
       end
       it 'successfully activates the passenger' do
         visit pending_passengers_path

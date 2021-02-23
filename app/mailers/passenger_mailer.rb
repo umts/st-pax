@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PassengerMailer < ApplicationMailer
   def notify_archived(passenger)
     @passenger = passenger

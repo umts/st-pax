@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'User Management' do
   before :each do
     @user = create :user
-    when_current_user_is(create :user, :admin)
+    when_current_user_is :admin
   end
   context 'deleting a user unsuccessfully', js: true do
     before :each do

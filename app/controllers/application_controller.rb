@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # Disable ABC size because this block will likely be
   # changed in a later branch
-  # rubocop:disable AbcSize
+  # rubocop:disable Metrics/AbcSize
   def set_current_user
     @current_user =
       if session.key? :user_id
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
       end
     session[:user_id] = @current_user.id if @current_user.present?
   end
-  # rubocop:enable AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   def login_as_passenger
     return if @current_user.present?
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def find_or_initialize_passenger
     passenger = Passenger.find_or_initialize_by(
-      spire: "#{request.env['fcIdNumber']}",
+      spire: request.env['fcIdNumber'],
       name: "#{request.env['givenName']} #{request.env['surName']}"
     )
     passenger.email = request.env['mail'] if passenger.new_record?

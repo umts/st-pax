@@ -21,7 +21,7 @@ class User < ApplicationRecord
   end
 
   def url
-    Rails.application.routes.url_helpers.user_url self,
-      Rails.application.config.action_mailer.default_url_options
+    url_options = Rails.application.config.action_mailer.default_url_options
+    Rails.application.routes.url_helpers.user_url self, url_options
   end
 end

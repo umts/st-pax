@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe PassengersController do
-
   before :each do
     when_current_user_is :admin
   end

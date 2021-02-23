@@ -23,11 +23,7 @@ RSpec.configure do |config|
 
   config.disable_monkey_patching!
 
-  if config.files_to_run.one?
-    config.default_formatter = 'doc'
-  else
-    config.default_formatter = 'progress'
-  end
+  config.default_formatter = config.files_to_run.one? ? 'doc' : 'progress'
 
   config.order = :random
   Kernel.srand config.seed

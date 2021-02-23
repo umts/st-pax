@@ -19,9 +19,8 @@ class SessionsController < ApplicationController
       @dispatchers = User.dispatchers.order :name
       @passengers = Passenger.temporary
     elsif request.post?
-      if find_user
-        redirect_to passengers_path and return
-      end
+      redirect_to passengers_path and return if find_user
+
       set_passenger
       redirect_to brochure_passengers_path
     end
@@ -29,26 +28,28 @@ class SessionsController < ApplicationController
 
   private
 
+  def fake_passenger_attributes
+    {
+      spire: new_spire,
+      first_name: FFaker::Name.first_name,
+      last_name: FFaker::Name.last_name,
+      email: FFaker::Internet.email
+    }
+  end
+
   def find_user
     user = User.find_by(id: params[:user_id])
     session[:user_id] = user.id if user.present?
   end
 
+  def new_spire
+    num = Passenger.maximum(:spire).to_i + 1
+    format('%08i@umass.edu', num)
+  end
+
   def set_passenger
     passenger = Passenger.find_by(id: params[:passenger_id])
     session[:passenger_id] = passenger.id if passenger.present?
-    session[:spire] = new_spire
-    session[:first_name] = FFaker::Name.first_name
-    session[:last_name] = FFaker::Name.last_name
-    session[:email] = FFaker::Internet.email
-  end
-
-  def new_spire
-    # shibboleth gives us <spire_number>@umass.edu
-    if Passenger.any?
-      (Passenger.pluck(:spire).map(&:to_i).max + 1).to_s.rjust(8, '0')
-    else
-      '0'*8
-    end + '@umass.edu'
+    session.merge! fake_passenger_attributes
   end
 end

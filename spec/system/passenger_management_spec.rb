@@ -144,9 +144,10 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
           click_button 'Submit'
-          expect(page).to have_text 'Eligibility verification expiration ' +
-            'date must be entered for temporary passengers' +
-            ' with an active registration status'
+          expect(page).to have_text <<~MSG.squish
+            Eligibility verification expiration date must be entered for
+            temporary passengers with an active registration status
+          MSG
         end
       end
     end
@@ -178,9 +179,10 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'Email', with: 'jfonda@umass.edu'
           click_button 'Submit'
-          expect(page).to have_text 'Eligibility verification expiration ' +
-            'date must be entered for temporary passengers' +
-            ' with an active registration status'
+          expect(page).to have_text <<~MSG.squish
+            Eligibility verification expiration date must be entered for
+            temporary passengers with an active registration status
+          MSG
         end
       end
     end

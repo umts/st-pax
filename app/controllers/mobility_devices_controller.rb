@@ -19,11 +19,10 @@ class MobilityDevicesController < ApplicationController
   def destroy
     if @device.destroy
       flash[:success] = 'Mobility device was successfully destroyed.'
-      redirect_to mobility_devices_url
     else
       flash[:danger] = @device.errors.full_messages
-      redirect_to mobility_devices_url
     end
+    redirect_to mobility_devices_url
   end
 
   def index

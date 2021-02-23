@@ -42,13 +42,13 @@ RSpec.describe Passenger do
       context 'setting the status to active or pending' do
         it 'sets the status to pending' do
           @passenger.active!
-          expect{ @passenger.set_status('pending') }
-            .to change { @passenger.active_status }
+          expect { @passenger.set_status('pending') }
+            .to(change { @passenger.active_status })
         end
         it 'sets the status to pending' do
           @passenger.pending!
-          expect{ @passenger.set_status('active') }
-            .to change { @passenger.active_status }
+          expect { @passenger.set_status('active') }
+            .to(change { @passenger.active_status })
         end
       end
     end

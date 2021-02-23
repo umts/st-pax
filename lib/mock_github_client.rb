@@ -14,7 +14,7 @@ class MockGithubClient
       Repo: #{repo}
       Title: #{title}
       Body:
-      #{body.to_s.lines.map { |line| '  ' + line }.join('')}
+      #{body.to_s.lines.map { |line| "  #{line}" }.join}
       Options: #{options.inspect}
     LOG
     dummy

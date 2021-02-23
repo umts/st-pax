@@ -7,15 +7,15 @@ RSpec.describe 'Archived Passenger Management' do
     @user = create :user, :admin
     when_current_user_is(@user)
     @passenger = create :passenger,
-      name: 'Zim',
-      active_status: 'archived'
+                        name: 'Zim',
+                        active_status: 'archived'
   end
   context 're-activating a temporary passenger' do
     context 'having filled in the correct data' do
       before :each do
         create :eligibility_verification,
-          :with_agency,
-          passenger: @passenger
+               :with_agency,
+               passenger: @passenger
       end
       it 'successfully reactivates the passenger' do
         visit archived_passengers_path

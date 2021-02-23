@@ -39,12 +39,10 @@ class LogController < ApplicationController
 
   private
 
-  # rubocop:disable Style/AndOr
   def find_modifiable_entry
     @entry = LogEntry.find_by id: params.require(:id)
     deny_access and return unless @current_user.can_modify? @entry
   end
-  # rubocop:enable Style/AndOr
 
   def entry_params
     params.require(:log_entry).permit(:text)

@@ -1,16 +1,18 @@
 AllCops:
-  TargetRubyVersion: 2.6
   Exclude:
     - bin/**/*
     - config/environments/**/*
     - config/initializers/**/*
     - db/schema.rb
     - db/migrate/*.rb
+  NewCops: enable
+  TargetRubyVersion: 2.6
 
 Metrics/BlockLength:
   Exclude:
-    - spec/**/*
+    - config/routes.rb
     - lib/tasks/import/**/*
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false

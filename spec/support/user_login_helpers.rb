@@ -13,22 +13,27 @@ def when_current_user_is(user)
 end
 
 def login_as(user)
-  if user.is_a? User
-    set_session_values(user_id: user.id)
-  elsif user.is_a? Passenger
-    if user.persisted?
-      set_session_values(passenger_id: user.id)
-    else
-      name = user.name.split(' ')
-      set_session_values(spire: user.spire,
-                         first_name: name.first,
-                         last_name: name.last,
-                         email: user.email)
-    end
+  case user
+  when User
+    assign_session_values(user_id: user.id)
+  when Passenger
+    login_as_passenger(user)
   end
 end
 
-def set_session_values(**session_values)
+def login_as_passenger(passenger)
+  if passenger.persisted?
+    assign_session_values(passenger_id: passenger.id)
+  else
+    name = passenger.name.split
+    assign_session_values(spire: passenger.spire,
+                          first_name: name.first,
+                          last_name: name.last,
+                          email: passenger.email)
+  end
+end
+
+def assign_session_values(**session_values)
   case self.class.metadata[:type]
   when :system
     page.set_rack_session(session_values)
