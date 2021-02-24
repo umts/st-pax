@@ -49,7 +49,6 @@ group :development do
   gem 'capistrano-passenger',            require: false
   gem 'capistrano-pending',              require: false
   gem 'capistrano-rails',                require: false
-  gem 'capistrano-yarn',                 require: false
   gem 'ed25519', '>= 1.2', '< 2.0',      require: false
   gem 'erb2haml'
   gem 'listen', '>= 3.0.5', '< 3.2'
