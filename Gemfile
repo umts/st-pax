@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.3'
 gem 'bootstrap_form'
 gem 'business_time'
 gem 'coffee-rails', '~> 4.2'
@@ -16,7 +16,7 @@ gem 'octokit'
 gem 'prawn'
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 6.0.3'
 gem 'rake'
 gem 'sassc-rails'
 gem 'turbolinks', '~> 5'
