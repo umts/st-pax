@@ -12,7 +12,7 @@ RSpec.describe 'User Management' do
       @log = create :log_entry, user: @user
     end
     it 'puts the errors in the flash' do
-      visit users_url
+      visit users_path
       # Click the 'destroy' link in the user's row
       page.accept_confirm 'Are you sure?' do
         within('tr', text: @user.name) { click_on 'Destroy' }
@@ -24,7 +24,7 @@ RSpec.describe 'User Management' do
   end
   context 'deleting a user successfully', js: true do
     it 'deletes the user and says it did' do
-      visit users_url
+      visit users_path
       page.accept_confirm 'Are you sure?' do
         within('tr', text: @user.name) { click_on 'Destroy' }
       end
