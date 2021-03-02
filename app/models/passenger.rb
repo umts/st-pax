@@ -88,7 +88,7 @@ class Passenger < ApplicationRecord
     # skip validations on archival
     if desired_status == 'archived'
       update_attribute(:active_status, 'archived')
-    else update_attributes(active_status: desired_status)
+    else update(active_status: desired_status)
     end
   end
 
