@@ -3,5 +3,5 @@
 class VerifyingAgency < ApplicationRecord
   has_many :eligibility_verifications, dependent: :restrict_with_error
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 end
