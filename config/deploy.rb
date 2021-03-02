@@ -14,3 +14,5 @@ append :linked_files,
        'config/application.yml'
 
 append :linked_dirs, '.bundle', 'log', 'node_modules'
+
+set :passenger_restart_with_sudo, true
