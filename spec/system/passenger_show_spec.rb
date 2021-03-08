@@ -15,9 +15,7 @@ RSpec.describe 'Passenger Show' do
       let(:number) { @passenger.phone.delete('-') }
       context 'passenger is subscribed to sms' do
         it 'displays a SMS address ' do
-          @passenger.update_attributes(
-            subscribed_to_sms: true, carrier: @carrier
-          )
+          @passenger.update(subscribed_to_sms: true, carrier: @carrier)
           click_on 'View'
           expect(page).to have_text 'Subscribed to SMS: Yes'
           expect(page).to have_text "SMS address: #{number}#{@carrier.gateway_address}"

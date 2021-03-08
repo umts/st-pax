@@ -36,10 +36,10 @@ RSpec.describe 'Passenger self registration' do
         login_as(@passenger)
         visit edit_passenger_path(@passenger)
         expect(page).to have_field 'Address'
-        expect(page.current_url).to include edit_passenger_path(@passenger)
+        expect(page).to have_current_path edit_passenger_path(@passenger)
         visit register_passengers_path
         expect(page).to have_field 'Address'
-        expect(page.current_url).to include edit_passenger_path(@passenger)
+        expect(page).to have_current_path edit_passenger_path(@passenger)
       end
     end
     context 'after becoming active' do
@@ -48,13 +48,13 @@ RSpec.describe 'Passenger self registration' do
         login_as(@passenger)
         visit edit_passenger_path(@passenger)
         expect(page).not_to have_field 'Address'
-        expect(page.current_url).to include passenger_path(@passenger)
-        expect(page.current_url).not_to include edit_passenger_path(@passenger)
+        expect(page).to have_current_path passenger_path(@passenger)
+        expect(page).not_to have_current_path edit_passenger_path(@passenger)
         expect(page).to have_text 'To edit your profile, please call'
         visit register_passengers_path
         expect(page).not_to have_field 'Address'
-        expect(page.current_url).to include passenger_path(@passenger)
-        expect(page.current_url).not_to include edit_passenger_path(@passenger)
+        expect(page).to have_current_path passenger_path(@passenger)
+        expect(page).not_to have_current_path edit_passenger_path(@passenger)
         expect(page).to have_text 'To edit your profile, please call'
       end
     end
