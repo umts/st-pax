@@ -2,7 +2,7 @@
 
 require 'prawn/table'
 
-class PassengersPDF < Prawn::Document
+class PassengersPdf < Prawn::Document
   def initialize(passengers, filter)
     super(page_layout: :landscape)
     font_families.update(

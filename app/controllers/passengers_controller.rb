@@ -139,7 +139,7 @@ class PassengersController < ApplicationController
 
   def passenger_pdf
     @passengers = @passengers.send(@filter)
-    pdf = PassengersPDF.new(@passengers, @filter)
+    pdf = PassengersPdf.new(@passengers, @filter)
     name = "#{@filter} Passengers #{Date.today}".capitalize
     send_data pdf.render, filename: name,
                           type: 'application/pdf',
