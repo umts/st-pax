@@ -9,8 +9,9 @@
       %tr
         %th Name
         %th Mobility Device
-        %th Needs longer rides?
+        %th Longer rides
         %th Phone
+        %th Email
         %th.permanent.text-center Permanent
         %th.text-center{data: {type: 'date'}} Rides Expire
         %td{data: {orderable: 'false'}}
@@ -25,6 +26,7 @@
           %td= passenger.mobility_device.try(:name)
           %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
+          %td= passenger.email
           %td.text-center{data: {filter: passenger.permanent_or_temporary}}= checkmark_glyph passenger.permanent?
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
