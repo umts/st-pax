@@ -4,6 +4,16 @@
   .col-md-6.offset-md-3
     = bootstrap_form_with model: @feedback, local: true do |f|
       = f.text_field :title, required: true
+
+      %p.alert.alert-warning
+        Information submitted in this form is
+        %strong publicly accessible
+        on
+        = succeed '.' do
+          = link_to 'GitHub', github_url
+        Do not include any information that identifies an employee or
+        passenger in your report.
+
       = f.text_area :description, rows: 10
       = f.select :category,
         Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] }
