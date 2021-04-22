@@ -14,6 +14,8 @@
         %th Email
         %th.permanent.text-center Permanent
         %th.text-center{data: {type: 'date'}} Rides Expire
+        - if @status == :pending
+          %th.text-center Eligibility Verified
         %td{data: {orderable: 'false'}}
         %td{data: {orderable: 'false'}}
         %td{data: {orderable: 'false'}}
@@ -29,6 +31,8 @@
           %td= passenger.email
           %td.text-center{data: {filter: passenger.permanent_or_temporary}}= checkmark_glyph passenger.permanent?
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
+          - if @status == :pending
+            %td.text-center= checkmark_glyph passenger.eligibility_verification.present?
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           %td= status_action_button(passenger, @status)
