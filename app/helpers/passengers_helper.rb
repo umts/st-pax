@@ -26,7 +26,7 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
-    return unless passenger.active?
+    return if passenger.archived?
 
     if passenger.eligibility_verification&.will_expire_within_warning_period?
       'expires-soon'
