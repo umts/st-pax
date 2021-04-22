@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
+require 'passenger_param_manager'
+
 class PassengersController < ApplicationController
-  before_action :find_passenger,
-                only: %i[show edit update destroy set_status]
+  before_action :find_passenger, only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
-  skip_before_action :restrict_to_employee,
-                     only: %i[brochure new edit create show register]
+  skip_before_action :restrict_to_employee, only: %i[brochure new edit create show register]
 
   SMTP_ERROR_APPENDIX =
     'but the email followup was unsuccessful.' \
@@ -123,16 +123,6 @@ class PassengersController < ApplicationController
 
   private
 
-  def all_params
-    params.require(:passenger)
-          .permit(:name, :address, :email, :phone, :active_status,
-                  :mobility_device_id, :permanent, :note, :spire,
-                  :has_brochure, :subscribed_to_sms, :carrier_id,
-                  eligibility_verification_attributes: %i[
-                    expiration_date verifying_agency_id name address phone
-                  ])
-  end
-
   def find_passenger
     @passenger = Passenger.find(params[:id])
   end
@@ -147,12 +137,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    return all_params if @current_user&.admin?
-    return all_params.except(:permanent) if @current_user.present?
-
-    all_params
-      .except(:spire, :name, :permanent)
-      .merge!(spire: request.env['fcIdNumber'],
-              name: "#{request.env['givenName']} #{request.env['surName']}")
+    PassengerParamManager.new(params, request.env, @current_user).params
   end
+
 end
