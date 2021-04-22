@@ -1,29 +1,8 @@
 %h1
   %span.filter-name
-  Passengers
+  #{@status.to_s.capitalize} Passengers
 
-.row.align-items-end.justify-content-between
-  .passenger-filters.col-lg-4.my-3
-    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
-      = f.form_group do
-        %fieldset
-          %legend.sr-only Filter Passengers
-          - %w[permanent temporary all].each do |filter|
-            =f.radio_button :filter, filter,
-              label: filter.capitalize,
-              checked: @filter == filter,
-              inline: true
-      = f.submit 'Print'
-      -if @current_user.admin?
-        %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
-  .col-lg-4.my-3
-    %table#key
-      %tbody
-        %tr.text-center
-          %td.p-3.expires-soon Expires within one week
-          %td.p-3.needs-note Within grace period, needs doctor's note
-          %td.p-3.expired Expired - out of grace period
-
+= render partial: 'filters_and_key' if @status.blank?
 - if @passengers.present?
   %table.table#passengers{data: {paging: 'false'}}
     %thead
@@ -50,8 +29,7 @@
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
-          %td= button_to 'Archive', set_status_passenger_path(passenger, status: 'archived'),
-            class: 'btn btn-warning'
+          %td= status_action_button(passenger, @status)
           - if @current_user.admin?
             %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else

@@ -26,6 +26,8 @@ module PassengersHelper
   end
 
   def passengers_table_row_class(passenger)
+    return unless passenger.active?
+
     if passenger.eligibility_verification&.will_expire_within_warning_period?
       'expires-soon'
     elsif passenger.needs_verification?
@@ -51,5 +53,17 @@ module PassengersHelper
       agency&.name ||
         'No agency has verified that this passenger requires rides.'
     end
+  end
+
+  def status_action_button(passenger, current_status)
+    settings = {
+      nil => { text: 'Archive', status: 'archived', btn: 'warning' },
+      :archived => { text: 'Reactivate', status: 'active', btn: 'warning' },
+      :pending => { text: 'Confirm Registration', status: 'active', btn: 'success' }
+    }[current_status]
+
+    button_to settings[:text],
+              set_status_passenger_path(passenger, status: settings[:status]),
+              class: "btn btn-#{settings[:btn]}"
   end
 end

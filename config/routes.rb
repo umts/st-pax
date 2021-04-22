@@ -10,33 +10,31 @@ Rails.application.routes.draw do
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
   resources :carriers
+
+  %w[archived pending].each do |status|
+    get '/passengers/:status',
+        to: 'passengers#index', as: "#{status}_passengers",
+        status: /#{status}/, defaults: { status: status }
+  end
+
   resources :passengers do
     collection do
       get :register
       get :brochure
-      get :archived
-      get :pending
       get :check_existing
-      get :pending
     end
     member do
       post :set_status
     end
   end
+
   resources :users
 
   unless Rails.env.production?
-    get  'sessions/dev_login',
-         to: 'sessions#dev_login',
-         as: :dev_login
-    post 'sessions/dev_login',
-         to: 'sessions#dev_login'
+    get  'sessions/dev_login', to: 'sessions#dev_login', as: :dev_login
+    post 'sessions/dev_login', to: 'sessions#dev_login'
   end
 
-  get 'sessions/unauthenticated',
-      to: 'sessions#unauthenticated',
-      as: :unauthenticated_session
-  get 'sessions/destroy',
-      to: 'sessions#destroy',
-      as: :destroy_session
+  get 'sessions/unauthenticated', to: 'sessions#unauthenticated', as: :unauthenticated_session
+  get 'sessions/destroy', to: 'sessions#destroy', as: :destroy_session
 end
