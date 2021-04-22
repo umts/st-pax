@@ -139,5 +139,4 @@ class PassengersController < ApplicationController
   def passenger_params
     PassengerParamManager.new(params, request.env, @current_user).params
   end
-
 end
