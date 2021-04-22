@@ -18,12 +18,12 @@ class PassengerParamManager
 
   def admin_filter(parameters)
     parameters.delete_if do |key, _|
-      key == :permanent && !@current_user&.admin?
+      key == 'permanent' && !@current_user&.admin?
     end
   end
 
   def include_env_values(parameters)
-    return parameters unless @current_user.blank?
+    return parameters if @current_user.present?
 
     spire, given_name, surname = @env.values_at('fcIdNumber', 'givenName', 'surName')
     parameters.reverse_merge(spire: spire, name: "#{given_name} #{surname}")
@@ -41,7 +41,7 @@ class PassengerParamManager
 
   def user_filter(parameters)
     parameters.delete_if do |key, _|
-      %i[spire name].include?(key) && @current_user.blank?
+      %w[spire name].include?(key) && @current_user.blank?
     end
   end
 end
