@@ -7,10 +7,6 @@ class PassengersController < ApplicationController
   skip_before_action :restrict_to_employee,
                      only: %i[brochure new edit create show register]
 
-  SMTP_ERROR_APPENDIX =
-    'but the email followup was unsuccessful.' \
-    ' Please check the validity of the email address.'
-
   def archived
     @passengers =
       Passenger.archived.includes(:eligibility_verification, :mobility_device)
@@ -24,16 +20,13 @@ class PassengersController < ApplicationController
   def brochure; end
 
   def set_status
-    if @passenger.set_status(params[:status])
-      flash[:success] = 'Passenger successfully updated'
-      redirect_to passengers_url
-    else
-      flash[:danger] = @passenger.errors.full_messages
-      redirect_to edit_passenger_path(@passenger)
+    msg = 'Passenger successfully updated'
+    success = -> { redirect_to passengers_path }
+    failure = -> { redirect_to edit_passenger_path(@passenger) }
+
+    try_notifying_passenger success: success, failure: failure, success_message: msg do
+      @passenger.set_status(params[:status])
     end
-  rescue Net::SMTPFatalError
-    flash[:warning] = "Passenger successfully updated, #{SMTP_ERROR_APPENDIX}"
-    redirect_to passengers_url
   end
 
   def check_existing
@@ -85,33 +78,23 @@ class PassengersController < ApplicationController
   def create
     @passenger = Passenger.new(passenger_params)
     @passenger.registerer = @current_user
-    begin
-      if @passenger.save
-        flash[:success] = 'Passenger registration successful'
-        redirect_to @passenger
-      else
-        flash.now[:danger] = @passenger.errors.full_messages
-        render :new
-      end
-    rescue Net::SMTPFatalError
-      flash[:warning] = "Passenger registration successful, #{SMTP_ERROR_APPENDIX}"
-      redirect_to @passenger
+    msg = 'Passenger registration successful'
+    success = -> { redirect_to @passenger }
+    failure = -> { render :new }
+
+    try_notifying_passenger success: success, failure: failure, success_message: msg do
+      @passenger.save
     end
   end
 
   def update
     @passenger.assign_attributes passenger_params
-    begin
-      if @passenger.save
-        flash[:success] = 'Registration successfully updated.'
-        redirect_to @passenger
-      else
-        flash[:danger] = @passenger.errors.full_messages
-        render :edit
-      end
-    rescue Net::SMTPFatalError
-      flash[:warning] = "Registration successfully updated, #{SMTP_ERROR_APPENDIX}"
-      redirect_to @passenger
+    msg = 'Registration successfully updated'
+    success = -> { redirect_to @passenger }
+    failure = -> { render :edit }
+
+    try_notifying_passenger success: success, failure: failure, success_message: msg do
+      @passenger.save
     end
   end
 
@@ -154,5 +137,17 @@ class PassengersController < ApplicationController
       .except(:spire, :name, :permanent)
       .merge!(spire: request.env['fcIdNumber'],
               name: "#{request.env['givenName']} #{request.env['surName']}")
+  end
+
+  def try_notifying_passenger(success:, failure:, success_message:)
+    if yield
+      flash[:success] = "#{success_message}." and success.call
+    else
+      flash[:danger] = @passenger.errors.full_messages and failure.call
+    end
+  rescue Net::SMTPFatalError
+    flash[:warning] = "#{success_message}, but the email followup was " \
+      'unsuccessful. Please check the validity of the email address.'
+    success.call
   end
 end
