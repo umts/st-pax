@@ -1,14 +1,12 @@
 AllCops:
   Exclude:
     - bin/**/*
-    - config/**/*
+    - config/{environments,initializers}/**/*
+    - config/{application,boot,environment,puma,spring}.rb
     - db/schema.rb
     - db/migrate/*.rb
     - config.ru
-  Include:
-    - config/routes.rb
   NewCops: enable
-  TargetRubyVersion: 2.6
 
 Metrics/BlockLength:
   Exclude:
