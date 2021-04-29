@@ -1,0 +1,21 @@
+.row.align-items-end.justify-content-between
+  .passenger-filters.col-lg-4.my-3
+    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
+      = f.form_group do
+        %fieldset
+          %legend.sr-only Filter Passengers
+          - %w[permanent temporary all].each do |filter|
+            =f.radio_button :filter, filter,
+              label: filter.capitalize,
+              checked: @filter == filter,
+              inline: true
+      = f.submit 'Print'
+      -if @current_user.admin?
+        %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
+  .col-lg-4.my-3
+    %table#key
+      %tbody
+        %tr.text-center
+          %td.p-3.expires-soon Expires within one week
+          %td.p-3.needs-note Within grace period, needs doctor's note
+          %td.p-3.expired Expired - out of grace period

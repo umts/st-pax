@@ -7,16 +7,6 @@ class PassengersController < ApplicationController
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :restrict_to_employee, only: %i[brochure new edit create show register]
 
-  def archived
-    @passengers =
-      Passenger.archived.includes(:eligibility_verification, :mobility_device)
-  end
-
-  def pending
-    @passengers =
-      Passenger.pending.includes(:eligibility_verification, :mobility_device)
-  end
-
   def brochure; end
 
   def set_status
@@ -63,11 +53,13 @@ class PassengersController < ApplicationController
   end
 
   def index
-    @passengers = Passenger.where(active_status: %w[active pending])
-                           .includes(:eligibility_verification, :mobility_device)
-                           .order :name
+    status_filter = params[:status].presence || %w[active pending]
+    @status = params[:status]&.to_sym
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
+    @passengers = Passenger.where(active_status: status_filter)
+                           .includes(:eligibility_verification, :mobility_device)
+                           .order :name
 
     respond_to do |format|
       format.html
