@@ -33,6 +33,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.action_dispatch.cookies_same_site_protection = :lax
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
