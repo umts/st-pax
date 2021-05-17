@@ -6,7 +6,7 @@ require 'simplecov'
 Pathname(__dir__).join('support').glob('**/*.rb').each { |f| require f }
 
 SimpleCov.start 'rails' do
-  refuse_coverage_drop
+  maximum_coverage_drop 0.5 if ENV['CI']
 end
 
 RSpec.configure do |config|
