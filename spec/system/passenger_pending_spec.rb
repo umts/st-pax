@@ -8,7 +8,7 @@ RSpec.describe 'Pending Passenger Management' do
     when_current_user_is(@user)
     @passenger = create :passenger,
                         name: 'Zim',
-                        active_status: 'pending'
+                        registration_status: 'pending'
   end
   context 'confirming a registration' do
     context 'having filled in the correct data' do
