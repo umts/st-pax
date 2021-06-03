@@ -15,16 +15,13 @@
         = form.form_group :registration_status,
           label: { text: 'Registration Status' },
           help: "You can select 'pending' if the passenger is temporary but has no verifying information yet" do
-          = form.radio_button :active_status, 'pending', class: 'form-check-input'
-          = form.radio_button :active_status, 'active', class: 'form-check-input'
-          = form.radio_button :active_status, 'archived', class: 'form-check-input'
+          = form.radio_button :registration_status, 'pending', class: 'form-check-input'
+          = form.radio_button :registration_status, 'active', class: 'form-check-input'
+          = form.radio_button :registration_status, 'archived', class: 'form-check-input'
 
       = form.select :mobility_device_id,
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, passenger.mobility_device&.id), include_blank: 'None'
-
-      = form.form_group do
-        = form.check_box :permanent, disabled: !@current_user&.admin?
 
       = form.form_group do
         = form.check_box :subscribed_to_sms
