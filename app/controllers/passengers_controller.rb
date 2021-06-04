@@ -28,7 +28,7 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = if @current_user.present?
-                   Passenger.new(active_status: 'active')
+                   Passenger.new(registration_status: 'active')
                  elsif @registrant.present?
                    @registrant
                  end
@@ -57,7 +57,7 @@ class PassengersController < ApplicationController
     @status = params[:status]&.to_sym
     allowed_filters = %w[permanent temporary]
     @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
-    @passengers = Passenger.where(active_status: status_filter)
+    @passengers = Passenger.where(registration_status: status_filter)
                            .includes(:eligibility_verification, :mobility_device)
                            .order :name
 

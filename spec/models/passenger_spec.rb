@@ -10,7 +10,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_pending)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      create :passenger, :permanent, active_status: 'active'
+      create :passenger, :permanent, registration_status: 'active'
     end
 
     it 'correct email is sent upon creation of pending passenger' do
@@ -19,7 +19,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_active)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      create :passenger, active_status: 'pending'
+      create :passenger, registration_status: 'pending'
     end
   end
 
@@ -43,12 +43,12 @@ RSpec.describe Passenger do
         it 'sets the status to pending' do
           @passenger.active!
           expect { @passenger.set_status('pending') }
-            .to(change { @passenger.active_status })
+            .to(change { @passenger.registration_status })
         end
         it 'sets the status to pending' do
           @passenger.pending!
           expect { @passenger.set_status('active') }
-            .to(change { @passenger.active_status })
+            .to(change { @passenger.registration_status })
         end
       end
     end
