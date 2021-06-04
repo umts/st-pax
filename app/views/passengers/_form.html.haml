@@ -23,8 +23,9 @@
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, passenger.mobility_device&.id), include_blank: 'None'
 
-      = form.form_group do
-        = form.check_box :permanent, disabled: !@current_user&.admin?
+      - if @current_user&.admin?
+        = form.form_group do
+          = form.check_box :permanent
 
       = form.form_group do
         = form.check_box :subscribed_to_sms
