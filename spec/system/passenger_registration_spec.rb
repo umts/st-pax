@@ -32,7 +32,7 @@ RSpec.describe 'Passenger self registration' do
   context 'editing registration' do
     context 'while still pending' do
       it 'redirects to the edit page and allows editing' do
-        @passenger = create :passenger, active_status: 'pending'
+        @passenger = create :passenger, registration_status: 'pending'
         login_as(@passenger)
         visit edit_passenger_path(@passenger)
         expect(page).to have_field 'Address'

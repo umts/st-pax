@@ -37,7 +37,7 @@ RSpec.describe PassengersHelper do
     end
 
     context 'when the passenger is archived' do
-      let(:passenger) { create :passenger, active_status: :archived }
+      let(:passenger) { create :passenger, registration_status: :archived }
 
       it { is_expected.to be(nil) }
     end

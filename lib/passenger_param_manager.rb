@@ -30,7 +30,7 @@ class PassengerParamManager
   end
 
   def permit(parameters)
-    pax_params = %i[name address email phone active_status mobility_device_id
+    pax_params = %i[name address email phone registration_status mobility_device_id
                     permanent note spire has_brocure subscribed_to_sms
                     carrier_id]
     ev_params = %i[expiration_date verifying_agency_id name address phone]

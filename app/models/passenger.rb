@@ -8,7 +8,7 @@ class Passenger < ApplicationRecord
   belongs_to :mobility_device, optional: true
   belongs_to :carrier, optional: true
 
-  validates :active_status, presence: true
+  validates :registration_status, presence: true
   validates :name, presence: true, length: { maximum: 50 }
   validates :registration_date, :phone, :address, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
@@ -21,7 +21,7 @@ class Passenger < ApplicationRecord
             presence: { if: -> { requires_verification? } }
   validates :carrier_id, presence: true, if: :subscribed_to_sms?
 
-  enum active_status: { pending: 0, active: 1, archived: 2 }
+  enum registration_status: { pending: 0, active: 1, archived: 2 }
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
@@ -29,8 +29,8 @@ class Passenger < ApplicationRecord
   before_validation :assign_registration_date
 
   after_commit do
-    PassengerMailer.notify_archived(self).deliver_now if saved_change_to_active_status? && archived?
-    PassengerMailer.notify_active(self).deliver_now if saved_change_to_active_status? && active?
+    PassengerMailer.notify_archived(self).deliver_now if saved_change_to_registration_status? && archived?
+    PassengerMailer.notify_active(self).deliver_now if saved_change_to_registration_status? && active?
   end
 
   after_commit on: :create do
@@ -87,8 +87,8 @@ class Passenger < ApplicationRecord
   def set_status(desired_status)
     # skip validations on archival
     if desired_status == 'archived'
-      update_attribute(:active_status, 'archived')
-    else update(active_status: desired_status)
+      update_attribute(:registration_status, 'archived')
+    else update(registration_status: desired_status)
     end
   end
 
@@ -103,7 +103,7 @@ class Passenger < ApplicationRecord
   end
 
   def assign_registration_date
-    if active_status_changed? && active?
+    if registration_status_changed? && active?
       assign_attributes(registration_date: Time.zone.today)
     elsif registration_date.blank?
       assign_attributes(registration_date: (created_at || Time.zone.today))
