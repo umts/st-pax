@@ -23,6 +23,10 @@
         options_from_collection_for_select(MobilityDevice.order(:name),
           :id, :name, passenger.mobility_device&.id), include_blank: 'None'
 
+      - if @current_user&.admin?
+        = form.form_group do
+          = form.check_box :permanent
+
       = form.form_group do
         = form.check_box :subscribed_to_sms
 
