@@ -2,14 +2,14 @@
 
 ## What is It?
 
-This app is a database of Special Transit passengers, to be used by ST
-dispatchers and administrators.
+This app is a database of Special Transportation (ST) passengers, to be used by
+ST dispatchers and administrators.
 
 ## What Does It Do?
 
-Stores all Spacial Transit passengers and their attributes. This allows for
-functionality such as automatically deactivating temporary ST passengers who
-have expired doctors notes (done with a cron job that runs every day at 4:30am)
+Stores all ST passengers and their attributes. This allows for functionality
+such as automatically deactivating temporary ST passengers who have expired
+doctors notes (done with a cron job that runs every day at 4:30am)
 
 ## Current Functionality
 
