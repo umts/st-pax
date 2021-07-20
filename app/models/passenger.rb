@@ -17,8 +17,7 @@ class Passenger < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :spire, uniqueness: { case_sensitive: false },
                     format: { with: /\A\d{8}@umass.edu\z/ }
-  validates :eligibility_verification,
-            presence: { if: -> { requires_verification? } }
+  validates :eligibility_verification, presence: { if: -> { requires_verification? } }
   validates :carrier_id, presence: true, if: :subscribed_to_sms?
 
   enum registration_status: { pending: 0, active: 1, archived: 2 }
@@ -88,7 +87,9 @@ class Passenger < ApplicationRecord
     # skip validations on archival
     if desired_status == 'archived'
       update_attribute(:registration_status, 'archived')
-    else update(registration_status: desired_status)
+    else
+      self.registration_status = desired_status
+      save
     end
   end
 
