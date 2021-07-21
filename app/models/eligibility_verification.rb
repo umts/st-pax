@@ -14,12 +14,9 @@ class EligibilityVerification < ApplicationRecord
   validates :expiration_date,
             absence: { if: -> { passenger&.permanent? },
                        message: 'may not be entered for permanent passengers.' }
-  validates :name,
-            presence: { if: -> { verifying_agency&.needs_contact_info? } }
-  validates :address,
-            presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
-  validates :phone,
-            presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
+  validates :name, presence: { if: -> { verifying_agency&.needs_contact_info? } }
+  validates :address, presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
+  validates :phone, presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
 
   before_save :reset_contact_info
 
