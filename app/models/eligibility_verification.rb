@@ -9,15 +9,14 @@ class EligibilityVerification < ApplicationRecord
   validates :passenger, uniqueness: true
   validates :expiration_date, presence: true, if: :passenger_requires_validation
   validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
+  validates :expiration_date, absence: { if: -> { verifying_agency.blank? },
+                                         message: 'cannot be entered without verifying agency' }
   validates :expiration_date,
             absence: { if: -> { passenger&.permanent? },
                        message: 'may not be entered for permanent passengers.' }
-  validates :name,
-            presence: { if: -> { verifying_agency&.needs_contact_info? } }
-  validates :address,
-            presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
-  validates :phone,
-            presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
+  validates :name, presence: { if: -> { verifying_agency&.needs_contact_info? } }
+  validates :address, presence: { if: -> { phone.blank? && verifying_agency&.needs_contact_info? } }
+  validates :phone, presence: { if: -> { address.blank? && verifying_agency&.needs_contact_info? } }
 
   before_save :reset_contact_info
 

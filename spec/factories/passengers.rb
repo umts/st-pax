@@ -14,7 +14,7 @@ FactoryBot.define do
       trait :with_note do
         after(:create) do |passenger|
           create :eligibility_verification,
-                 :with_agency,
+                 :unexpired,
                  passenger: passenger
           passenger.active!
         end
