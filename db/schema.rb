@@ -10,14 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_150743) do
+ActiveRecord::Schema.define(version: 2021_08_02_194251) do
 
-  create_table "carriers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "gateway_address"
-  end
-
-  create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "eligibility_verifications", charset: "utf8", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
     t.datetime "created_at", null: false
@@ -28,21 +23,21 @@ ActiveRecord::Schema.define(version: 2021_06_02_150743) do
     t.string "phone"
   end
 
-  create_table "log_entries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "log_entries", charset: "utf8", force: :cascade do |t|
     t.integer "user_id"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "mobility_devices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "mobility_devices", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "needs_longer_rides", default: false, null: false
   end
 
-  create_table "passengers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "passengers", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "address"
@@ -57,10 +52,9 @@ ActiveRecord::Schema.define(version: 2021_06_02_150743) do
     t.integer "registration_status", default: 0
     t.date "registration_date"
     t.boolean "subscribed_to_sms", default: false
-    t.integer "carrier_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "spire"
     t.boolean "active"
@@ -69,7 +63,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_150743) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "verifying_agencies", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "verifying_agencies", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.boolean "needs_contact_info", default: false
   end

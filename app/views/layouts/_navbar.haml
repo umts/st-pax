@@ -26,7 +26,6 @@
           - if @current_user.admin?
             = link_to 'Users', users_path, class: 'dropdown-item'
             = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
-          = link_to 'Carriers', carriers_path, class: 'dropdown-item'
     %li.nav-item
       = link_to new_passenger_link_text, register_passengers_path,
         class: 'nav-link'
