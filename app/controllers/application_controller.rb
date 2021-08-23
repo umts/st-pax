@@ -57,9 +57,7 @@ class ApplicationController < ActionController::Base
 
     @primary_account = request.env['UMAPrimaryAccount']
     @uid = request.env['uid']
-    render 'sessions/unauthenticated_subsidiary',
-           status: :unauthorized,
-           layout: false
+    render 'sessions/subsidiary', status: :unauthorized
   end
 
   def restrict_to_admin
