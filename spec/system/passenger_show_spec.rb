@@ -13,14 +13,14 @@ RSpec.describe 'Passenger Show' do
     context 'viewing passenger' do
       let(:number) { @passenger.phone.delete('-') }
       context 'passenger is subscribed to sms' do
-        it 'say so' do
+        it 'displays the subscription status' do
           @passenger.update(subscribed_to_sms: true)
           click_on 'View'
           expect(page).to have_text 'Subscribed to SMS: Yes'
         end
       end
       context 'passenger is not subscribed to sms' do
-        it 'says so' do
+        it 'displays the subscription status' do
           click_on 'View'
           expect(page).to have_text 'Subscribed to SMS: No'
         end
