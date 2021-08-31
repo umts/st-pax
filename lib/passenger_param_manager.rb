@@ -31,8 +31,7 @@ class PassengerParamManager
 
   def permit(parameters)
     pax_params = %i[name address email phone registration_status mobility_device_id
-                    permanent note spire has_brocure subscribed_to_sms
-                    carrier_id]
+                    permanent note spire has_brocure subscribed_to_sms]
     ev_params = %i[expiration_date verifying_agency_id name address phone]
 
     parameters.require(:passenger)

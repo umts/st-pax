@@ -6,7 +6,6 @@ class Passenger < ApplicationRecord
   has_one :eligibility_verification, dependent: :destroy
   accepts_nested_attributes_for :eligibility_verification
   belongs_to :mobility_device, optional: true
-  belongs_to :carrier, optional: true
 
   validates :registration_status, presence: true
   validates :name, presence: true, length: { maximum: 50 }
@@ -18,7 +17,6 @@ class Passenger < ApplicationRecord
   validates :spire, uniqueness: { case_sensitive: false },
                     format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification, presence: { if: -> { requires_verification? } }
-  validates :carrier_id, presence: true, if: :subscribed_to_sms?
 
   enum registration_status: { pending: 0, active: 1, archived: 2 }
 

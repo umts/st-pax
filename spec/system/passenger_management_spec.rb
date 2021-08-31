@@ -11,13 +11,6 @@ RSpec.describe 'Passenger Management', js: true do
       when_current_user_is(@user)
     end
     context 'creating a new passeger' do
-      it 'allows you to select a carrier if subscribed to sms' do
-        visit passengers_path
-        click_on 'Add New Passenger'
-        expect(page).not_to have_text 'Carrier'
-        check 'Subscribed to sms'
-        expect(page).to have_text 'Carrier'
-      end
       context 'passenger creation successful' do
         let :fill do
           fill_in 'Name', with: 'Foo Bar'
@@ -38,11 +31,8 @@ RSpec.describe 'Passenger Management', js: true do
           expect(page).to have_text 'Passenger registration successful'
         end
         it 'creates a passenger subscribed to sms' do
-          create :carrier
           visit passengers_path
           click_on 'Add New Passenger'
-          # When subscribed_to_sms is checked the Carrier selectbox will be
-          # revealed, it has no blanks so we do not need to make a selection
           check 'Subscribed to sms'
           fill
           click_button 'Submit'
@@ -75,13 +65,6 @@ RSpec.describe 'Passenger Management', js: true do
           fill_in 'How long will the passenger be with us?', with: date
           click_button 'Submit'
           expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
-        end
-        it 'renders error if subscribed to sms and carrier is blank' do
-          visit passengers_path
-          click_on 'Add New Passenger'
-          check 'Subscribed to sms'
-          click_button 'Submit'
-          expect(page).to have_text "Carrier can't be blank"
         end
       end
     end
