@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :feedback, only: %i[index show new create]
   resources :log, except: %i[edit new show]
   resources :mobility_devices, except: :show
-  resources :carriers
 
   %w[archived pending].each do |status|
     get '/passengers/:status',
