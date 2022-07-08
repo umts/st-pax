@@ -16,3 +16,5 @@ append :linked_files,
 append :linked_dirs, '.bundle', 'log', 'node_modules'
 
 set :passenger_restart_with_sudo, true
+
+before 'git:check', 'git:allow_shared'
