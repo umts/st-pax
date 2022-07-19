@@ -19,6 +19,5 @@
 //= require datatables.net-bs4/js/dataTables.bootstrap4.js
 //= require rails-ujs
 //= require turbolinks
-//= require moment/moment
 //= require clipboard/dist/clipboard
 //= require_tree .
