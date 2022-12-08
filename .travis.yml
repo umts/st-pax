@@ -27,8 +27,8 @@ script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 branches:
-  only: 
-    - master
+  only:
+    - main
 notifications:
   email:
     on_success: never
