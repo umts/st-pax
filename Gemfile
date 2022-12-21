@@ -50,8 +50,7 @@ group :development do
   gem 'capistrano-rails',                require: false
   gem 'ed25519', '>= 1.2', '< 2.0',      require: false
   gem 'erb2haml'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'rb-fsevent', '0.9.8'
+  gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
