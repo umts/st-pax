@@ -14,11 +14,7 @@ class Feedback
   validates :category, inclusion: { in: CATEGORIES }
 
   def self.repo
-    Figaro.env.github_repo
-  end
-
-  def self.token
-    Figaro.env.github_token
+    Rails.application.credentials.dig(:github, :repo)
   end
 
   def submit!
@@ -33,12 +29,13 @@ class Feedback
     self.title = @issue.title
     self.description = @issue.body
     self.category = (@issue.labels.map(&:name) & Feedback::CATEGORIES).first
+    self
   end
 
   def client
     @client ||=
-      if Feedback.token.present?
-        Octokit::Client.new(access_token: Feedback.token)
+      if IssueToken.token.present?
+        Octokit::Client.new(access_token: IssueToken.token)
       else
         MockGithubClient.new
       end

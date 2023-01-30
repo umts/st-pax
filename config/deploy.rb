@@ -11,7 +11,7 @@ set :log_level, :info
 
 append :linked_files,
        'config/database.yml',
-       'config/application.yml'
+       'config/credentials/production.key'
 
 append :linked_dirs, '.bundle', 'log', 'node_modules'
 
