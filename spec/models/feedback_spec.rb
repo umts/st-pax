@@ -65,12 +65,12 @@ RSpec.describe Feedback do
     let(:call) { feedback.client }
 
     it 'is a mock client if there is no token' do
-      allow(Feedback).to receive(:token).and_return(nil)
+      allow(IssueToken).to receive(:token).and_return(nil)
       expect(call).to be_a(MockGithubClient)
     end
 
     it 'is an Octokit::Client if there is a token' do
-      allow(Feedback).to receive(:token)
+      allow(IssueToken).to receive(:token)
         .and_return 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeef'
       expect(call).to be_a(Octokit::Client)
     end
