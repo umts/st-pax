@@ -21,6 +21,8 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
+  config.example_status_persistence_file_path = File.expand_path File.join(__dir__, 'examples.txt')
+
   config.disable_monkey_patching!
 
   config.default_formatter = config.files_to_run.one? ? 'doc' : 'progress'
