@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class IssueToken < ApplicationRecord
   validates :singleton, inclusion: { in: [0] }, uniqueness: true
   validate :functioning_token
 
   class << self
-    delegate :token, to: :instance
+    delegate :token, :valid?, to: :instance
 
     def instance
       create_with(singleton: 0).first_or_create
