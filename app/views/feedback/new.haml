@@ -2,33 +2,20 @@
 
 .row
   .col-md-6.offset-md-3
-    - if IssueToken.token.present? && IssueToken.valid?
-      = bootstrap_form_with model: @feedback, local: true do |f|
-        = f.text_field :title, required: true
+    = bootstrap_form_with model: @feedback, local: true do |f|
+      = f.text_field :title, required: true
 
-        %p.alert.alert-warning
-          Information submitted in this form is
-          %strong publicly accessible
-          on
-          = succeed '.' do
-            = link_to 'GitHub', github_url
-          Do not include any information that identifies an employee or
-          passenger in your report.
+      %p.alert.alert-warning
+        Information submitted in this form is
+        %strong publicly accessible
+        on
+        = succeed '.' do
+          = link_to 'GitHub', github_url
+        Do not include any information that identifies an employee or
+        passenger in your report.
 
-        = f.text_area :description, rows: 10
-        = f.select(:category,
-          Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] })
-        = f.primary 'Submit'
-    - else
-      .alert.alert-danger
-        %p The site isn't configured to submit feedback, yet.
-        - if @current_user.admin?
-          %p
-            To complete the set up,
-            = succeed '.' do
-              = link_to 'authenticate with GitHub', github_login_url
-          %p
-            %strong
-              Do this using the GitHub user that will be submitting new issues.
-
+      = f.text_area :description, rows: 10
+      = f.select(:category,
+        Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] })
+      = f.primary 'Submit'
     = link_to 'Back', feedback_index_path
