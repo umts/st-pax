@@ -8,6 +8,10 @@ class IssueToken < ApplicationRecord
     def instance
       create_with(singleton: 0).first_or_create
     end
+
+    def usable?
+      instance.token.present? && instance.valid?
+    end
   end
 
   private
