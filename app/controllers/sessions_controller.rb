@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  layout false
   skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user, :login_as_passenger
 
   def destroy
@@ -15,9 +14,8 @@ class SessionsController < ApplicationController
   # route not defined in production
   def dev_login
     if request.get?
-      @admins = User.admins.order :name
-      @dispatchers = User.dispatchers.order :name
-      @passengers = Passenger.temporary
+      @users = User.order :name
+      @passengers = Passenger.temporary.order :name
     elsif request.post?
       redirect_to passengers_path and return if find_user
 
