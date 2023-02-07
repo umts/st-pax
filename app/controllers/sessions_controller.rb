@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
   end
 
   # route not defined in production
+  # :nocov:
   def dev_login
     if request.get?
       @users = User.order :name
@@ -50,4 +51,5 @@ class SessionsController < ApplicationController
     session[:passenger_id] = passenger.id if passenger.present?
     session.merge! fake_passenger_attributes
   end
+  # :nocov:
 end
