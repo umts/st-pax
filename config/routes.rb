@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  if Rails.env.development?
-    root 'sessions#dev_login'
-  else root 'passengers#index'
-  end
+  root 'passengers#index'
 
   resources :feedback, only: %i[index show new create]
   resources :log, except: %i[edit new show]

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  layout false
-  skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user
+  skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user, :login_as_passenger
 
   def destroy
     session.clear
@@ -13,11 +12,11 @@ class SessionsController < ApplicationController
   end
 
   # route not defined in production
+  # :nocov:
   def dev_login
     if request.get?
-      @admins = User.admins.order :name
-      @dispatchers = User.dispatchers.order :name
-      @passengers = Passenger.temporary
+      @users = User.order :name
+      @passengers = Passenger.temporary.order :name
     elsif request.post?
       redirect_to passengers_path and return if find_user
 
@@ -52,4 +51,5 @@ class SessionsController < ApplicationController
     session[:passenger_id] = passenger.id if passenger.present?
     session.merge! fake_passenger_attributes
   end
+  # :nocov:
 end
