@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
       elsif request.env['fcIdNumber']
         find_or_initialize_passenger
       end
+
+    redirect_to dev_login_path and return if @registrant.blank? && Rails.env.development?
+
     session[:passenger_id] = @registrant&.id
   end
 
