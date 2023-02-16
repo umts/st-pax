@@ -4,6 +4,8 @@ class FeedbackController < ApplicationController
   skip_before_action :restrict_to_employee
 
   def new
+    render 'authorize' and return unless IssueToken.usable?
+
     @feedback = Feedback.new
   end
 

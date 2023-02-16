@@ -15,8 +15,7 @@
         passenger in your report.
 
       = f.text_area :description, rows: 10
-      = f.select :category,
-        Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] }
+      = f.select(:category,
+        Feedback::CATEGORIES.map { |cat| [cat.capitalize, cat] })
       = f.primary 'Submit'
-
     = link_to 'Back', feedback_index_path
