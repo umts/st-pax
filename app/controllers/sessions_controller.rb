@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user, :login_as_passenger
+  skip_before_action :restrict_to_employee, :check_primary_account, :set_current_user,
+                     :login_as_passenger, :require_authentication
 
   def destroy
     session.clear

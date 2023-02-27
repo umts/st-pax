@@ -5,6 +5,7 @@ require 'passenger_param_manager'
 class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
+  skip_before_action :require_authentication, only: :brochure
   skip_before_action :restrict_to_employee, only: %i[brochure new edit create show register]
 
   def brochure; end
