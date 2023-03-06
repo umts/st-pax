@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  helper_method :authenticated?
+
   before_action :check_primary_account
   before_action :set_current_user
   before_action :login_as_passenger
+  before_action :require_authentication
   before_action :restrict_to_employee
   before_action :set_passenger_information
+
+  def authenticated?
+    @current_user.present? || @registrant.present?
+  end
 
   private
 
@@ -41,9 +48,14 @@ class ApplicationController < ActionController::Base
         find_or_initialize_passenger
       end
 
-    redirect_to dev_login_path and return if @registrant.blank? && Rails.env.development?
-
     session[:passenger_id] = @registrant&.id
+  end
+
+  def require_authentication
+    return if authenticated?
+    redirect_to dev_login_path and return if Rails.env.development?
+
+    deny_access
   end
 
   def find_or_initialize_passenger
