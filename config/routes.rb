@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'passengers#index'
+  root 'passengers#welcome'
 
   get '/github/callback' => 'github#callback'
 
