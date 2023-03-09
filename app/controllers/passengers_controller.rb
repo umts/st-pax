@@ -6,9 +6,13 @@ class PassengersController < ApplicationController
   before_action :find_passenger, only: %i[show edit update destroy set_status]
   before_action :restrict_to_admin, only: %i[destroy]
   skip_before_action :require_authentication, only: :brochure
-  skip_before_action :restrict_to_employee, only: %i[brochure new edit create show register]
+  skip_before_action :restrict_to_employee, only: %i[brochure welcome new edit create show register]
 
   def brochure; end
+
+  def welcome
+    redirect_to @current_user.present? ? passengers_path : register_passengers_path
+  end
 
   def set_status
     msg = 'Passenger successfully updated'
