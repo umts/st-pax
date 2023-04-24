@@ -5,7 +5,7 @@ module ApplicationHelper
     return 'Add New Passenger' if @current_user.present?
     return 'Edit Registration' if @registrant&.persisted?
 
-    'Register for Special Transportation'
+    'Register for the Accessible Van Service'
   end
 
   def checkmark_glyph(value, options = {})

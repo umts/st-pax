@@ -1,4 +1,4 @@
-%h1 Welcome to the website for Special Transportation.
+%h1 Welcome to the website for the Accessible Van Service.
 %h2 You are not allowed on this page.
 %p
   Some possible scenarios:
@@ -6,15 +6,11 @@
     %li
       You are a current or future passenger. In this case, you might be
       interested in our
-      = link_to 'brochure.', brochure_passengers_path
+      = succeed '.' do
+        = link_to 'brochure', brochure_passengers_path
     %li
-      You are an employee of UMass Transit, but we haven't added you to our
-      database yet. In this case, please talk to an ST Supervisor or contact
-      IT.
-    %li
-      You are an employee of UMass Transit and should be able to log in.
-      If this is the case, please talk to an ST Supervisor to get it sorted
-      out.
+      You are an employee of UMass Transit and believe that you should have
+      access. If this is the case, please contact AVS staff for assistance.
     %li
       You are neither an employee nor a passenger. In this case, you might be
       looking for our public website, where you can access
