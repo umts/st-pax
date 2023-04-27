@@ -3,6 +3,6 @@ Dear <%= @passenger.name -%>,
 <%= yield %>
 ------------------------------------------------------------------------------
 
-This is an automated email related to your UMass Amherst Transit Account.
-For more information, call us at (413)545-2086, email us at stspv@umass.edu,
-or visit our website at https://www.umass.edu/transportation/special-transportation
+This is an automated email related to your UMass Amherst <%= t 'department.name' -%> Account.
+For more information, call us at <%= t 'department.phone' -%>, email us at <%= t 'department.email' -%>,
+or visit our website at <%= t 'department.website' -%>

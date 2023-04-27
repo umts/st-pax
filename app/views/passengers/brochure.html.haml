@@ -1,5 +1,5 @@
 #brochure.container
-  %h1 SpecTrans Passenger Information
+  %h1 #{t 'department.name'} Passenger Information
   .row
     .col-lg-6
       %table.table
@@ -8,25 +8,24 @@
         %tbody
           %tr
             %th Phone
-            %td 413-545-2086
+            %td= t 'department.phone'
           %tr
             %th Public Website
-            %td= link_to 'www.umass.edu/transportation/special-transportation',
-              'https://www.umass.edu/transportation/special-transportation'
+            %td= link_to nil, t('department.website')
           %tr
             %th Email
-            %td stspv@umass.edu
+            %td= t 'department.email'
     .col-lg-6
       %table.table
-        %caption Special Transportation Staff
+        %caption #{t 'department.name'} Staff
         %thead
         %tbody
           %tr
-            %th Supervisors
-            %td Lisa Gagnon &amp; Shayla Keane
+            %th= 'Supervisor'.pluralize t('department.supervisors').size
+            %td= t('department.supervisors').to_sentence
           %tr
-            %th Coordinator
-            %td Diana Noble
+            %th= 'Coordinator'.pluralize t('department.coordinators').size
+            %td= t('department.coordinators').to_sentence
   %h2 Hours of Operation
   .row
     .col-lg-6

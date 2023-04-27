@@ -8,7 +8,7 @@ module PassengersHelper
   def registration_header
     return 'New Passenger' if @current_user.present?
 
-    'Register for Special Transportation'
+    "Register for #{t 'department.name'}"
   end
 
   def verifying_agency_label
