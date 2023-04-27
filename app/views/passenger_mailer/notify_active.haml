@@ -1,9 +1,0 @@
-Dear #{@passenger.name},
-
-Your #{t 'department.name'} account has been activated. You can receive rides until #{@passenger.rides_expire ?  @passenger.rides_expire.strftime("%m/%d/%Y") : 'further notice'}.
-A link to the brochure, where our terms and policies are outlined, is included below.
-
-=link_to nil, brochure_passengers_url
-
-This is an automated email related to your UMass Amherst #{t 'department.name'} Account.
-For more information, call us at #{t 'department.phone'}, email us at #{t 'department.email'}, or visit our website at #{t 'department.website'}

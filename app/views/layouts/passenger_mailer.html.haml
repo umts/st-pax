@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+  %body
+    %p Dear #{@passenger.name},
+    = yield
+    %hr/
+    %p
+      This is an automated email related to your UMass Amherst #{t 'department.name'} Account.
+      For more information, call us at #{t 'department.phone'}, email us at
+      = succeed ',' do
+        = mail_to t('department.email')
+      or visit our website at
+      = link_to nil, t('department.website')
