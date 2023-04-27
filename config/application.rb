@@ -30,5 +30,7 @@ module StPaxTracker
     # in config/environments, which are processed later.
 
     config.time_zone = 'Eastern Time (US & Canada)'
+
+    config.action_mailer.preview_path = Rails.root.join('app/mailers/previews')
   end
 end
