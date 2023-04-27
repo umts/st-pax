@@ -42,7 +42,7 @@ class PassengersController < ApplicationController
 
   def edit
     if @registrant.present? && !@registrant&.pending?
-      flash[:warning] = 'To edit your profile, please call (413) 545-2086'
+      flash[:warning] = "To edit your profile, please call #{I18n.t 'department.phone'}"
       redirect_to passenger_path(@registrant)
     end
     @verification = @passenger.eligibility_verification || EligibilityVerification.new

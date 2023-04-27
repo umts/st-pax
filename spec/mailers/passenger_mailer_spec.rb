@@ -22,7 +22,7 @@ RSpec.describe PassengerMailer do
     end
 
     it 'has correct subject' do
-      expect(output.subject).to eql 'Accessible Van Service Account Confirmed'
+      expect(output.subject).to eq "#{I18n.t 'department.name'} Account Confirmed"
     end
   end
 end

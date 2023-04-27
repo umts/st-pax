@@ -1,4 +1,4 @@
-%h1 Welcome to the website for the Accessible Van Service.
+%h1 Welcome to the #{t 'department.name'} website.
 %h2 You are not allowed on this page.
 %p
   Some possible scenarios:
@@ -9,8 +9,9 @@
       = succeed '.' do
         = link_to 'brochure', brochure_passengers_path
     %li
-      You are an employee of UMass Transit and believe that you should have
-      access. If this is the case, please contact AVS staff for assistance.
+      You are a #{t 'department.name'} employee and believe that you should have
+      access. If this is the case, please contact #{t 'department.abbr'} staff
+      for assistance.
     %li
       You are neither an employee nor a passenger. In this case, you might be
       looking for our public website, where you can access

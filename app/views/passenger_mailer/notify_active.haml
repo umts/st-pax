@@ -1,9 +1,9 @@
 Dear #{@passenger.name},
 
-Your account with the Accessible Van Service has been activated. You can receive rides until #{@passenger.rides_expire ?  @passenger.rides_expire.strftime("%m/%d/%Y") : 'further notice'}.
+Your #{t 'department.name'} account has been activated. You can receive rides until #{@passenger.rides_expire ?  @passenger.rides_expire.strftime("%m/%d/%Y") : 'further notice'}.
 A link to the brochure, where our terms and policies are outlined, is included below.
 
-=link_to passenger_url('brochure'), passenger_url('brochure')
+=link_to nil, brochure_passengers_url
 
-This is an automated email related to your UMass Amherst Transit Account.
-For more information, call us at (413)545-2086, email us at stspv@umass.edu, or visit our website at www.umass.edu/transportation/accessible-van-service
+This is an automated email related to your UMass Amherst #{t 'department.name'} Account.
+For more information, call us at #{t 'department.phone'}, email us at #{t 'department.email'}, or visit our website at #{t 'department.website'}
