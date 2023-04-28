@@ -6,6 +6,7 @@ require 'simplecov'
 Pathname(__dir__).join('support').glob('**/*.rb').each { |f| require f }
 
 SimpleCov.start 'rails' do
+  add_filter 'app/mailers/previews'
   maximum_coverage_drop 0.5 if ENV['CI']
 end
 
