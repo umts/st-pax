@@ -4,12 +4,13 @@
   .col-md-6.offset-md-3
     = bootstrap_form_with model: @entry, local: true do |f|
       = f.text_area :text, required: true, rows: 8, hide_label: true
-      .d-flex.justify-content-between.align-items-center
+      .d-flex
         = f.primary 'Create log entry'
-        .input-group
+        .input-group.ml-2
           .input-group-text
             .custom-control.custom-checkbox
-              = f.check_box :pinned, class: 'custom-control-label'
+              = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
+              = f.label :pinned, class: 'custom-control-label'
             
 
 = will_paginate @entries, list_classes: %w[pagination justify-content-end]
@@ -28,6 +29,10 @@
                 = f.text_area :text, required: true, rows: 8, hide_label: true
                 = f.primary 'Change log entry'
         .actions.col-xl-1.form-inline
+          - if entry.pinned?
+            = button_to 'Unpin', entry, method: :patch, params: { log_entry: { pinned: false } }, 
+              class: 'btn btn-danger', form_class: 'mr-2'
+
           - if @current_user.can_modify? entry
             = link_to 'Edit', '#', class: 'edit-entry mr-5'
             = button_to 'Delete', entry, method: :delete,

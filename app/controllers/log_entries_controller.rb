@@ -25,7 +25,7 @@ class LogEntriesController < ApplicationController
 
   def index
     @entry = LogEntry.new
-    @entries = LogEntry.includes(:user).order('created_at desc')
+    @entries = LogEntry.includes(:user).where(pinned: true).order('created_at desc')
                        .page(params[:page] || 1)
   end
 
