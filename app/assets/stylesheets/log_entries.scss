@@ -9,5 +9,9 @@ ul.dispatch-log {
     .edit-form {
       display: none;
     }
+
+    &.pinned {
+      background: #e7d2d2;
+    }
   }
 }

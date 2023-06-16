@@ -11,12 +11,13 @@
             .custom-control.custom-checkbox
               = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
               = f.label :pinned, class: 'custom-control-label'
+            
 
 = will_paginate @entries, list_classes: %w[pagination justify-content-end]
 
 %ul.dispatch-log
   - @entries.each do |entry|
-    %li.card.mb-3.p-3
+    %li.card.mb-3.p-3{ class: entry.pinned ? 'pinned' : nil }
       .row
         .name.col-xl-1.font-weight-bold= entry.user.try(:name) || 'Unknown'
         .time.col-xl-2.font-italic= entry.entry_time
@@ -26,14 +27,14 @@
             .edit-form
               = bootstrap_form_with namespace: entry.id, model: entry, local: true do |f|
                 = f.text_area :text, required: true, rows: 8, hide_label: true
-                = f.primary 'Change log entry'
+                .d-flex
+                  = f.primary 'Create log entry'
+                  .input-group.ml-2
+                    .input-group-text
+                      .custom-control.custom-checkbox
+                        = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
+                        = f.label :pinned, class: 'custom-control-label'
         .actions.col-xl-1.form-inline
-          - if entry.pinned?
-            = button_to 'Unpin', entry, method: :patch, params: { log_entry: { pinned: false } },
-              class: 'btn btn-danger', form_class: 'mr-2'
-          - else 
-            = button_to 'Pin', entry, method: :patch, params: { log_entry: { pinned: true } },
-              class: 'btn btn-danger', form_class: 'mr-2'
           - if @current_user.can_modify? entry
             = link_to 'Edit', '#', class: 'edit-entry mr-5'
             = button_to 'Delete', entry, method: :delete,
