@@ -10,6 +10,4 @@ class LogEntry < ApplicationRecord
   def entry_time
     created_at.strftime '%A, %B %e, %Y — %l:%M %P'
   end
-
-  
 end

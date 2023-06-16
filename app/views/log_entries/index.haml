@@ -31,6 +31,9 @@
           - if entry.pinned?
             = button_to 'Unpin', entry, method: :patch, params: { log_entry: { pinned: false } },
               class: 'btn btn-danger', form_class: 'mr-2'
+          - else 
+            = button_to 'Pin', entry, method: :patch, params: { log_entry: { pinned: true } },
+              class: 'btn btn-danger', form_class: 'mr-2'
           - if @current_user.can_modify? entry
             = link_to 'Edit', '#', class: 'edit-entry mr-5'
             = button_to 'Delete', entry, method: :delete,

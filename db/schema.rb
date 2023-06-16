@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_184945) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "pinned", default: false
+    t.boolean "pinned", default: false, null: false
   end
 
   create_table "mobility_devices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

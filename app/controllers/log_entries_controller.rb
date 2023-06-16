@@ -5,7 +5,6 @@ class LogEntriesController < ApplicationController
 
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
-
     if @entry.save
       flash[:success] = 'Log entry was successfully created.'
     else
@@ -25,7 +24,7 @@ class LogEntriesController < ApplicationController
 
   def index
     @entry = LogEntry.new
-    @entries = LogEntry.includes(:user).where(pinned: true).order('created_at desc')
+    @entries = LogEntry.includes(:user).order(pinned: :desc, created_at: :desc)
                        .page(params[:page] || 1)
   end
 
