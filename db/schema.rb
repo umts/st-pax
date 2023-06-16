@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_30_202421) do
+ActiveRecord::Schema.define(version: 2023_06_15_184945) do
 
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2023_01_30_202421) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "pinned", default: false
   end
 
   create_table "mobility_devices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

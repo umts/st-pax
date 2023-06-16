@@ -5,6 +5,7 @@ class LogEntriesController < ApplicationController
 
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
+
     if @entry.save
       flash[:success] = 'Log entry was successfully created.'
     else
@@ -45,6 +46,6 @@ class LogEntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:log_entry).permit(:text)
+    params.require(:log_entry).permit(:text, :pinned)
   end
 end

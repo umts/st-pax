@@ -10,4 +10,8 @@ class LogEntry < ApplicationRecord
   def entry_time
     created_at.strftime '%A, %B %e, %Y — %l:%M %P'
   end
+
+  def pin
+    update(pinned: true)
+  end
 end
