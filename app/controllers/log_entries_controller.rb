@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LogController < ApplicationController
+class LogEntriesController < ApplicationController
   before_action :find_modifiable_entry, only: %i[destroy update]
 
   def create
@@ -10,7 +10,7 @@ class LogController < ApplicationController
     else
       flash[:danger] = @entry.errors.full_messages
     end
-    redirect_to log_index_path
+    redirect_to log_entries_path
   end
 
   def destroy
@@ -19,7 +19,7 @@ class LogController < ApplicationController
     else
       flash[:danger] = @log.errors.full_messages
     end
-    redirect_to log_index_path
+    redirect_to log_entries_path
   end
 
   def index
@@ -34,7 +34,7 @@ class LogController < ApplicationController
     else
       flash[:danger] = @entry.errors.full_messages
     end
-    redirect_to log_index_path
+    redirect_to log_entries_path
   end
 
   private

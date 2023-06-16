@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/github/callback' => 'github#callback'
 
   resources :feedback, only: %i[index show new create]
-  resources :log, except: %i[edit new show]
+  resources :log_entries, only: %i[index create update destroy], path: 'log'
   resources :mobility_devices, except: :show
 
   %w[archived pending].each do |status|
