@@ -21,3 +21,7 @@
 //= require turbolinks
 //= require clipboard/dist/clipboard
 //= require_tree .
+
+$(document).on('turbolinks:load', function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});

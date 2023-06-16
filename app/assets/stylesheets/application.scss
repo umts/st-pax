@@ -16,7 +16,6 @@ $theme-colors: (
 
 @import "font-awesome";
 @import "jquery-ui";
-@import "log_entries";
 @import "passengers";
 
 h1{
@@ -33,4 +32,8 @@ span.yes-glyph {
 }
 span.no-glyph {
   color: theme-color("danger");
+}
+
+.pre-wrap {
+  white-space: pre-wrap;
 }
