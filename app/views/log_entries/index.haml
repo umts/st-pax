@@ -11,26 +11,28 @@
   - @entries.each do |entry|
     .log-entry.card.mb-3
       .card-header
-        - if @current_user.can_modify? entry
-          .d-flex.float-right
-            = button_tag type: :button, class: 'log-entry-edit-button btn btn-sm' do
-              %i.fas.fa-edit
-              Edit
-            = button_to entry, method: :delete, class: 'btn btn-sm', form_class: 'log-entry-delete-button',
-                               'data-confirm': 'Are you sure?' do
-              %i.fas.fa-trash
-              Delete
-            = button_tag type: :button, hidden: true, class: 'log-entry-edit-cancel-button btn btn-sm' do
-              %i.fas.fa-times
-              Cancel
-        - if entry.pinned?
-          %span.text-primary.mr-2
-            %i.fas.fa-thumbtack
-            .sr-only Pinned
-        %strong= entry.user&.name || 'Unknown'
-        = link_to '#', title: entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p'), class: 'text-muted', 'data-toggle': 'tooltip' do
-          = time_ago_in_words(entry.created_at)
-          ago
+        .d-flex.justify-content-between.align-items-center
+          %div
+            - if entry.pinned?
+              %span.text-primary.mr-2
+                %i.fas.fa-thumbtack
+                .sr-only Pinned
+            %strong= entry.user&.name || 'Unknown'
+            = link_to '#', title: entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p'), class: 'text-muted', 'data-toggle': 'tooltip' do
+              = time_ago_in_words(entry.created_at)
+              ago
+          - if @current_user.can_modify? entry
+            .d-flex
+              = button_tag type: :button, class: 'log-entry-edit-button btn btn-sm' do
+                %i.fas.fa-edit
+                Edit
+              = button_to entry, method: :delete, class: 'btn btn-sm', form_class: 'log-entry-delete-button',
+                                 'data-confirm': 'Are you sure?' do
+                %i.fas.fa-trash
+                Delete
+              = button_tag type: :button, hidden: true, class: 'log-entry-edit-cancel-button btn btn-sm' do
+                %i.fas.fa-times
+                Cancel
       .log-entry-show.card-body.pre-wrap= entry.text
       - if @current_user.can_modify? entry
         .log-entry-edit.card-body{ hidden: true }= render partial: 'form', locals: { log_entry: entry }
