@@ -28,7 +28,7 @@
                 %i.fas.fa-edit
                 Edit
               = button_to entry, method: :delete, class: 'btn btn-sm', form_class: 'log-entry-delete-button',
-                                 'data-confirm': 'Are you sure?' do
+                                 'data-confirm': 'Are you sure you want to delete this log entry?' do
                 %i.fas.fa-trash
                 Delete
               = button_tag type: :button, hidden: true, class: 'log-entry-edit-cancel-button btn btn-sm' do
