@@ -49,6 +49,7 @@ group :development do
   gem 'capistrano-rails',                require: false
   gem 'ed25519', '>= 1.2', '< 2.0',      require: false
   gem 'erb2haml'
+  gem 'haml-lint'
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
