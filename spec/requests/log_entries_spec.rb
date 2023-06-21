@@ -247,4 +247,76 @@ RSpec.describe 'Log Entries' do
       end
     end
   end
+
+  describe 'DELETE /log/:id' do
+    subject(:call) { delete "/log/#{log_entry.id}" }
+
+    let!(:log_entry) { create(:log_entry) }
+
+    context 'when not logged in' do
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not delete a log entry' do
+        expect { call }.not_to change(LogEntry, :count)
+      end
+    end
+
+    context 'when logged in as a passenger' do
+      before { login_as_passenger create(:passenger) }
+
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not delete a log entry' do
+        expect { call }.not_to change(LogEntry, :count)
+      end
+    end
+
+    context 'when logged in as a normal user that does not own the log entry' do
+      before { login_as create(:user) }
+
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not delete a log entry' do
+        expect { call }.not_to change(LogEntry, :count)
+      end
+    end
+
+    context 'when logged in as a normal user that owns the log entry' do
+      before { login_as user }
+
+      let(:user) { create(:user) }
+      let!(:log_entry) { create(:log_entry, user: user) }
+
+      it 'deletes a log entry' do
+        expect { call }.to change(LogEntry, :count).by(-1)
+      end
+
+      it 'deletes the log entry' do
+        call
+        expect(LogEntry.find_by(id: log_entry.id)).to be_nil
+      end
+    end
+
+    context 'when logged in as an administrator' do
+      before { login_as create(:user, :admin) }
+
+      it 'deletes a log entry' do
+        expect { call }.to change(LogEntry, :count).by(-1)
+      end
+
+      it 'deletes the log entry' do
+        call
+        expect(LogEntry.find_by(id: log_entry.id)).to be_nil
+      end
+    end
+  end
 end
