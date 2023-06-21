@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rack_session_access'
+
 def when_current_user_is(user)
   current_user =
     case user
@@ -37,6 +39,8 @@ def assign_session_values(**session_values)
   case self.class.metadata[:type]
   when :system
     page.set_rack_session(session_values)
+  when :request
+    put RackSessionAccess.path, params: { data: RackSessionAccess.encode(**session_values) }
   when :controller
     session.merge!(session_values)
   end
