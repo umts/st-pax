@@ -17,7 +17,10 @@ class LogEntriesController < ApplicationController
     if @entry.destroy
       flash[:success] = 'Log entry was successfully deleted.'
     else
+      # skip coverage until LogEntry deletion can possibly be restrained
+      # :nocov:
       flash[:danger] = @log.errors.full_messages
+      # :nocov:
     end
     redirect_to log_entries_path
   end
