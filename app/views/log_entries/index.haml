@@ -1,43 +1,39 @@
-%h1 Dispatch Log
-
-.row
-  .col-md-6.offset-md-3
-    = bootstrap_form_with model: @entry, local: true do |f|
-      = f.text_area :text, required: true, rows: 8, hide_label: true
-      .d-flex
-        = f.primary 'Create log entry'
-        - if @current_user.admin?
-          .input-group.ml-2
-            .input-group-text
-              .custom-control.custom-checkbox
-                = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
-                = f.label :pinned, class: 'custom-control-label'
-            
-
-= will_paginate @entries, list_classes: %w[pagination justify-content-end]
-
-%ul.dispatch-log
+%section.container.my-3
+  %h1 Dispatch Log
+  %hr
+  .card.mb-3
+    .card-header
+      %strong= @current_user.name
+      %span.text-muted now
+    .card-body
+      = render partial: 'form', locals: { log_entry: @entry }
+  = will_paginate @entries, list_classes: %w[pagination justify-content-center]
   - @entries.each do |entry|
-    %li.card.mb-3.p-3{ class: entry.pinned ? 'pinned' : nil }
-      .row
-        .name.col-xl-1.font-weight-bold= entry.user.try(:name) || 'Unknown'
-        .time.col-xl-2.font-italic= entry.entry_time
-        .text.col-xl-8.my-3.my-xl-0.py-3.bg-light.rounded
-          %p= entry.text
+    .log-entry.card.mb-3
+      .card-header
+        .d-flex.justify-content-between.align-items-center
+          %div
+            - if entry.pinned?
+              %span.text-primary.mr-2
+                %i.fas.fa-thumbtack
+                .sr-only Pinned
+            %strong= entry.user&.name || 'Unknown'
+            = link_to '#', title: entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p'),
+                      class: 'text-muted', 'data-toggle': 'tooltip' do
+              = time_ago_in_words(entry.created_at)
+              ago
           - if @current_user.can_modify? entry
-            .edit-form
-              = bootstrap_form_with namespace: entry.id, model: entry, local: true do |f|
-                = f.text_area :text, required: true, rows: 8, hide_label: true
-                .d-flex
-                  = f.primary 'Change log entry'
-                  - if @current_user.admin?
-                    .input-group.ml-2
-                      .input-group-text
-                        .custom-control.custom-checkbox
-                          = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
-                          = f.label :pinned, class: 'custom-control-label'
-        .actions.col-xl-1.form-inline
-          - if @current_user.can_modify? entry
-            = link_to 'Edit', '#', class: 'edit-entry mr-5'
-            = button_to 'Delete', entry, method: :delete,
-              class: 'btn btn-danger', form_class: 'ml-auto ml-xl-0'
+            .d-flex
+              = button_tag type: :button, class: 'log-entry-edit-button btn btn-sm' do
+                %i.fas.fa-edit
+                Edit
+              = button_to entry, method: :delete, class: 'btn btn-sm', form_class: 'log-entry-delete-button',
+                                 'data-confirm': 'Are you sure you want to delete this log entry?' do
+                %i.fas.fa-trash
+                Delete
+              = button_tag type: :button, hidden: true, class: 'log-entry-edit-cancel-button btn btn-sm' do
+                %i.fas.fa-times
+                Cancel
+      .log-entry-show.card-body.pre-wrap= entry.text
+      - if @current_user.can_modify? entry
+        .log-entry-edit.card-body{ hidden: true }= render partial: 'form', locals: { log_entry: entry }
