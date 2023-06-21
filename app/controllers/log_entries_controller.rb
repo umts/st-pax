@@ -24,7 +24,7 @@ class LogEntriesController < ApplicationController
 
   def index
     @entry = LogEntry.new
-    @entries = LogEntry.includes(:user).order('created_at desc')
+    @entries = LogEntry.includes(:user).order(pinned: :desc, created_at: :desc)
                        .page(params[:page] || 1)
   end
 
@@ -45,6 +45,6 @@ class LogEntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:log_entry).permit(:text)
+    params.require(:log_entry).permit(:text, @current_user.admin? ? :pinned : nil)
   end
 end
