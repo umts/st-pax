@@ -71,7 +71,9 @@ RSpec.describe 'Log Entries' do
     end
 
     context 'when logged in as a normal user' do
-      before { login_as create(:user) }
+      before { login_as user }
+
+      let(:user) { create(:user) }
 
       context 'with valid attributes' do
         let(:attributes) { { text: 'Test log entry' } }
@@ -88,6 +90,11 @@ RSpec.describe 'Log Entries' do
         it 'creates a new log entry with the given attributes' do
           submit
           expect(LogEntry.last).to have_attributes(attributes)
+        end
+
+        it 'creates the log entry for the current user' do
+          submit
+          expect(LogEntry.last).to have_attributes(user_id: user.id)
         end
       end
 
