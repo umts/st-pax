@@ -37,7 +37,6 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'timecop'
-  gem 'webdrivers'
 end
 
 group :development do
