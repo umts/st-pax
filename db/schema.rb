@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2023_06_15_184945) do
-
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
@@ -61,6 +60,10 @@ ActiveRecord::Schema.define(version: 2023_06_15_184945) do
     t.integer "registration_status", default: 0
     t.date "registration_date"
     t.boolean "subscribed_to_sms", default: false
+    t.string "uid"
+    t.string "net_id"
+    t.index ["net_id"], name: "index_passengers_on_net_id"
+    t.index ["uid"], name: "index_passengers_on_uid"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -70,6 +73,10 @@ ActiveRecord::Schema.define(version: 2023_06_15_184945) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid"
+    t.string "net_id"
+    t.index ["net_id"], name: "index_users_on_net_id"
+    t.index ["uid"], name: "index_users_on_uid"
   end
 
   create_table "verifying_agencies", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

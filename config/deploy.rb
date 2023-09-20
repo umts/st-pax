@@ -13,7 +13,7 @@ append :linked_files,
        'config/database.yml',
        'config/credentials/production.key'
 
-append :linked_dirs, '.bundle', 'log', 'node_modules'
+append :linked_dirs, '.bundle', 'log', 'node_modules', 'private'
 
 set :passenger_restart_with_sudo, true
 

@@ -21,6 +21,8 @@
 /coverage/*
 !/coverage/.last_run.json
 
+private/
+
 config/database.yml
 
 /config/credentials/development.key
