@@ -12,4 +12,11 @@ namespace :passengers do
       end
     end
   end
+
+  desc 'Import Passenger NetIDs and AD UIDs'
+  task :import_netids, [:filename] => [:environment] do |_task, args|
+    CSV.foreach Rails.root.join('private', args[:filename]), headers: true do |row|
+      Passenger.find(row['id']).update!(net_id: row['net_id'], uid: row['uid'])
+    end
+  end
 end
