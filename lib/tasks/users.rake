@@ -7,7 +7,7 @@ namespace :users do
   task export_spires: :environment do
     path = Rails.root.join "private/users-#{Date.today}.csv"
     CSV.open(path, 'w', headers: %w[id spire_id], write_headers: true) do |csv|
-      User.where(net_id: nil).find_each do |user|
+      User.where(net_id: [nil, '']).where.not(spire: [nil, '']).find_each do |user|
         csv << [user.id, user.spire.split('@').first]
       end
     end
