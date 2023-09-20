@@ -1,0 +1,7 @@
+%li.page-item{ class: current_page.first? ? 'disabled' : nil }
+  = link_to current_page.first? ? '#' : url,
+            title: sanitize(t('views.pagination.previous')),
+            rel: 'prev',
+            remote: remote,
+            class: 'page-link' do
+    %i.fas.fa-angle-left
