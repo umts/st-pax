@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2023_09_22_123246) do
     t.string "uid"
     t.string "net_id"
     t.index ["net_id"], name: "index_passengers_on_net_id"
-    t.index ["spire"], name: "index_passengers_on_spire", unique: true
+    t.index ["spire"], name: "index_passengers_on_spire"
     t.index ["uid"], name: "index_passengers_on_uid"
   end
 
