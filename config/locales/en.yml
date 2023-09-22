@@ -50,6 +50,10 @@ en:
               blank: 'must be entered if address is blank'
             address:
               blank: 'must be entered if phone is blank'
+        user:
+          attributes:
+            spire:
+              invalid: 'must be 8 digits followed by @umass.edu'
     attributes:
       passenger:
         permanent: 'Permanent?'
