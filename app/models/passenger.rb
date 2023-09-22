@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Passenger < ApplicationRecord
-  belongs_to :registerer, foreign_key: :registered_by, class_name: 'User',
-                          optional: true
+  belongs_to :registerer, optional: true, inverse_of: :registered_passengers,
+                          foreign_key: :registered_by, class_name: 'User'
   has_one :eligibility_verification, dependent: :destroy
   accepts_nested_attributes_for :eligibility_verification
   belongs_to :mobility_device, optional: true
