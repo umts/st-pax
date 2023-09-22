@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_15_184945) do
+ActiveRecord::Schema.define(version: 2023_09_22_123246) do
+
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_184945) do
     t.string "uid"
     t.string "net_id"
     t.index ["net_id"], name: "index_passengers_on_net_id"
+    t.index ["spire"], name: "index_passengers_on_spire", unique: true
     t.index ["uid"], name: "index_passengers_on_uid"
   end
 
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 2023_06_15_184945) do
     t.string "uid"
     t.string "net_id"
     t.index ["net_id"], name: "index_users_on_net_id"
+    t.index ["spire"], name: "index_users_on_spire", unique: true
     t.index ["uid"], name: "index_users_on_uid"
   end
 
