@@ -7,7 +7,7 @@
       %span.text-muted now
     .card-body
       = render partial: 'form', locals: { log_entry: @entry }
-  = will_paginate @entries, list_classes: %w[pagination justify-content-center]
+  = paginate @entries
   - @entries.each do |entry|
     .log-entry.card.mb-3
       .card-header
