@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
+ruby file: '.ruby-version'
 
 gem 'bootstrap', '~> 4.3'
 gem 'bootstrap_form'
