@@ -57,7 +57,7 @@ group :development do
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
   gem 'web-console', '>= 3.3.0'
 end
 
