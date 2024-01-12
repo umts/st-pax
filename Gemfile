@@ -16,9 +16,10 @@ gem 'octokit'
 gem 'prawn'
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0.8'
 gem 'rake'
 gem 'sassc-rails'
+gem 'sprockets-rails'
 gem 'turbolinks', '~> 5'
 
 group :development, :test do
