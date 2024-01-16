@@ -12,6 +12,8 @@ class MobilityDevicesController < ApplicationController
     @device = MobilityDevice.new
   end
 
+  def edit; end
+
   def create
     @device = MobilityDevice.new(device_params)
 

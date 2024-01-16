@@ -46,6 +46,8 @@ class PassengersController < ApplicationController
     end
   end
 
+  def show; end
+
   def new
     @passenger = if @current_user.present?
                    Passenger.new(registration_status: 'active')
