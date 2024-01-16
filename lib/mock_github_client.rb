@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-require 'ostruct'
-
 class MockGithubClient
+  MockIssue = Struct.new(:number, :title, :body, :labels) do
+    def html_url = nil
+  end
+
+  MockLabel = Struct.new(:name)
+
   def initialize(logger: nil)
     @logger = logger || Rails.logger
   end
@@ -27,11 +31,6 @@ class MockGithubClient
   private
 
   def dummy
-    OpenStruct.new(
-      number: 1,
-      title: 'Dummy Issue',
-      body: 'Issue description',
-      labels: [OpenStruct.new(name: 'bug')]
-    )
+    MockIssue.new(1, 'Dummy Issue', 'Issue description', [MockLabel.new('bug')])
   end
 end
