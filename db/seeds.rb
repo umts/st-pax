@@ -14,7 +14,7 @@ module SeedCreator
 
     def create_mobility_devices
       %w[Cane Crutches Wheelchair].each do |name|
-        create :mobility_device, name: name
+        create :mobility_device, name:
       end
     end
 

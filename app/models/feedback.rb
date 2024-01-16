@@ -18,10 +18,7 @@ class Feedback
   end
 
   def submit!
-    @issue = client.create_issue Feedback.repo,
-                                 title,
-                                 signed_description,
-                                 labels: labels
+    @issue = client.create_issue Feedback.repo, title, signed_description, labels:
   end
 
   def load(issue_number)

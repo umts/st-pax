@@ -13,16 +13,14 @@ FactoryBot.define do
 
       trait :with_note do
         after(:create) do |passenger|
-          create :eligibility_verification,
-                 :unexpired,
-                 passenger: passenger
+          create(:eligibility_verification, :unexpired, passenger:)
           passenger.active!
         end
       end
 
       trait :inactive do
         after(:create) do |passenger|
-          create :eligibility_verification, :expired, passenger: passenger
+          create(:eligibility_verification, :expired, passenger:)
         end
       end
 
@@ -32,18 +30,14 @@ FactoryBot.define do
 
       trait :expired_within_grace_period do
         after(:create) do |passenger|
-          create :eligibility_verification,
-                 :expired_within_grace_period, :with_agency,
-                 passenger: passenger
+          create(:eligibility_verification, :expired_within_grace_period, :with_agency, passenger:)
           passenger.active!
         end
       end
 
       trait :expiring_soon do
         after :create do |passenger|
-          create :eligibility_verification,
-                 :expiring_soon, :with_agency,
-                 passenger: passenger
+          create(:eligibility_verification, :expiring_soon, :with_agency, passenger:)
           passenger.active!
         end
       end

@@ -38,11 +38,7 @@ class PassengersPdf < Prawn::Document
 
   def passenger_row(passenger)
     name = passenger.name
-    needs_longer_ride = if passenger.needs_longer_rides?
-                          # unicode for checkmark
-                          "\u2714"
-                        else ''
-                        end
+    needs_longer_ride = passenger.needs_longer_rides? ? '✔' : ''
     mobility_device = passenger.mobility_device.try(:name)
     phone = passenger.phone
     expiration = passenger.rides_expire

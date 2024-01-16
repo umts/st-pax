@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   %w[archived pending].each do |status|
     get '/passengers/:status',
         to: 'passengers#index', as: "#{status}_passengers",
-        status: /#{status}/, defaults: { status: status }
+        status: /#{status}/, defaults: { status: }
   end
 
   resources :passengers do

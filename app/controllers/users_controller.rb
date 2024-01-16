@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     @users = User.order(:name)
     if params[:show_inactive]
       @show_inactive = true
-    else @users = @users.active
+    else
+      @users = @users.active
     end
   end
 

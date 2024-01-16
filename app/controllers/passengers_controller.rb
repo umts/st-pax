@@ -19,7 +19,7 @@ class PassengersController < ApplicationController
     success = -> { redirect_to passengers_path }
     failure = -> { redirect_to edit_passenger_path(@passenger) }
 
-    try_notifying_passenger success: success, failure: failure, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: msg do
       @passenger.set_status(params[:status])
     end
   end
@@ -79,7 +79,7 @@ class PassengersController < ApplicationController
     success = -> { redirect_to @passenger }
     failure = -> { render :new }
 
-    try_notifying_passenger success: success, failure: failure, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: msg do
       @passenger.save
     end
   end
@@ -90,7 +90,7 @@ class PassengersController < ApplicationController
     success = -> { redirect_to @passenger }
     failure = -> { render :edit }
 
-    try_notifying_passenger success: success, failure: failure, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: msg do
       @passenger.save
     end
   end
@@ -128,7 +128,7 @@ class PassengersController < ApplicationController
     end
   rescue Net::SMTPFatalError
     flash[:warning] = "#{success_message}, but the email followup was " \
-      'unsuccessful. Please check the validity of the email address.'
+                      'unsuccessful. Please check the validity of the email address.'
     success.call
   end
 end

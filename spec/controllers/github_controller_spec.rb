@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe GithubController do
   describe 'GET callback' do
-    subject(:submit) { get :callback, params: { code: code } }
+    subject(:submit) { get :callback, params: { code: } }
 
     let(:code) { 'OAUTH-CODE-FROM-GITHUB' }
 
