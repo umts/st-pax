@@ -3,19 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe PassengersController do
-  before :each do
+  before do
     when_current_user_is :admin
   end
 
-  let(:passenger) { create :passenger, :permanent }
+  let(:passenger) { create(:passenger, :permanent) }
   let(:mail_exception) { Net::SMTPFatalError.new 'It Broke!' }
 
   describe 'POST set_status' do
     context 'with broken mailer' do
-      before :each do
+      before do
         allow(PassengerMailer).to receive(:notify_archived).and_raise mail_exception
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
       end
+
       context 'changing active to archived' do
         it 'saves the passenger and displays a warning message' do
           passenger.update_columns registration_status: 'active'
@@ -27,6 +28,7 @@ RSpec.describe PassengersController do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
+
       context 'changing archived to active' do
         it 'saves the passenger and displays a warning message' do
           passenger.update_columns registration_status: 'archived'
@@ -43,9 +45,10 @@ RSpec.describe PassengersController do
 
   describe 'POST create' do
     context 'with broken mailer' do
-      before :each do
+      before do
         allow(PassengerMailer).to receive(:notify_pending).and_raise mail_exception
       end
+
       context 'creating a pending passenger' do
         it 'saves the passenger and displays a warning message' do
           new_passenger_params = { passenger: attributes_for(:passenger, :permanent) }
@@ -62,10 +65,11 @@ RSpec.describe PassengersController do
 
   describe 'POST update' do
     context 'with broken mailer' do
-      before :each do
+      before do
         allow(PassengerMailer).to receive(:notify_archived).and_raise mail_exception
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
       end
+
       context 'changing active to archived' do
         it 'saves the passenger and displays a warning message' do
           passenger.update_columns registration_status: 'active'
@@ -77,6 +81,7 @@ RSpec.describe PassengersController do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
+
       context 'changing archived to active' do
         it 'saves the passenger and displays a warning message' do
           passenger.update_columns registration_status: 'archived'

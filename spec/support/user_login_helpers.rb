@@ -5,8 +5,8 @@ require 'rack_session_access'
 def when_current_user_is(user)
   current_user =
     case user
-    when :anybody, :anyone then create :user
-    when Symbol then create :user, user
+    when :anybody, :anyone then create(:user)
+    when Symbol then create(:user, user)
     when User then user
     when nil then nil
     else raise ArgumentError, 'Invalid user type'

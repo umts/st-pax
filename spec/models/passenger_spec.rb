@@ -10,7 +10,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_pending)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      create :passenger, :permanent, registration_status: 'active'
+      create(:passenger, :permanent, registration_status: 'active')
     end
 
     it 'correct email is sent upon creation of pending passenger' do
@@ -19,13 +19,13 @@ RSpec.describe Passenger do
       expect(PassengerMailer).not_to receive(:notify_active)
       expect(PassengerMailer).not_to receive(:notify_archived)
       expect(mail).to receive(:deliver_now).and_return true
-      create :passenger, registration_status: 'pending'
+      create(:passenger, registration_status: 'pending')
     end
   end
 
   context 'testing methods' do
-    before :each do
-      @passenger = create :temporary_passenger, :with_note
+    before do
+      @passenger = create(:temporary_passenger, :with_note)
     end
 
     describe 'set_status' do
@@ -39,12 +39,14 @@ RSpec.describe Passenger do
           @passenger.set_status('archived')
         end
       end
+
       context 'setting the status to active or pending' do
         it 'sets the status to pending' do
           @passenger.active!
           expect { @passenger.set_status('pending') }
             .to(change { @passenger.registration_status })
         end
+
         it 'sets the status to pending' do
           @passenger.pending!
           expect { @passenger.set_status('active') }
@@ -57,9 +59,10 @@ RSpec.describe Passenger do
       context 'permanent passenger' do
         it 'returns nil' do
           @passenger.update permanent: true
-          expect(@passenger.expiration_display).to be nil
+          expect(@passenger.expiration_display).to be_nil
         end
       end
+
       context 'temporary passenger' do
         it 'returns the expiration date of the doctors note' do
           date = @passenger.eligibility_verification.expiration_date
@@ -76,17 +79,19 @@ RSpec.describe Passenger do
 
     describe 'not having a SPIRE' do
       it 'is not valid' do
-        passenger = build :passenger, spire: ''
+        passenger = build(:passenger, spire: '')
         expect(passenger).not_to be_valid
       end
     end
+
     describe 'rides_expire' do
       context 'permanent passenger' do
         it 'returns nil' do
           @passenger.update permanent: true
-          expect(@passenger.rides_expire).to be nil
+          expect(@passenger.rides_expire).to be_nil
         end
       end
+
       context 'doctors note present' do
         context 'doctors note is expired within grace period' do
           it 'returns 3 days from the doctors note expiry' do
@@ -95,6 +100,7 @@ RSpec.describe Passenger do
             expect(@passenger.rides_expire).to eq 3.business_days.since(date)
           end
         end
+
         context 'the doctors note is not expired' do
           it 'returns three business days after the expiration date of the note' do
             date = 14.days.from_now.to_date
@@ -103,13 +109,15 @@ RSpec.describe Passenger do
           end
         end
       end
+
       context 'temporary passenger has no doctors note' do
         it 'returns 3 business days after the registration date' do
-          passenger = create :passenger
+          passenger = create(:passenger)
           date = passenger.registration_date
           expect(passenger.rides_expire).to eq 3.business_days.after(date)
         end
       end
+
       context 'passenger is a new record' do
         it 'returns 3 days from now' do
           expect(Passenger.new.rides_expire).to eq 3.business_days.after(Time.zone.today)

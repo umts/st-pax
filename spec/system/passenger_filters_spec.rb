@@ -3,44 +3,44 @@
 require 'rails_helper'
 
 RSpec.describe 'Passenger Filters' do
-  before :each do
+  before do
     when_current_user_is :admin
   end
 
-  context 'html view', js: true do
+  context 'html view', :js do
     it 'allows filtering by permanent status' do
-      create :temporary_passenger, name: 'Gary Stue'
-      create :passenger, :permanent, name: 'Mary Sue'
+      create(:temporary_passenger, name: 'Gary Stue')
+      create(:passenger, :permanent, name: 'Mary Sue')
       visit passengers_path
       choose 'Permanent'
-      expect(page).to have_selector 'table#passengers tbody tr', count: 1
+      expect(page).to have_css 'table#passengers tbody tr', count: 1
       expect(page).to have_content 'Mary Sue'
-      expect(page).not_to have_content 'Gary Stue'
+      expect(page).to have_no_content 'Gary Stue'
     end
 
     it 'allows filtering by temporary' do
-      create :passenger, :permanent, name: 'Mary Sue'
-      create :temporary_passenger, name: 'Gary Stue'
+      create(:passenger, :permanent, name: 'Mary Sue')
+      create(:temporary_passenger, name: 'Gary Stue')
       visit passengers_path
       choose 'Temporary'
-      expect(page).to have_selector 'table#passengers tbody tr', count: 1
-      expect(page).not_to have_content 'Mary Sue'
+      expect(page).to have_css 'table#passengers tbody tr', count: 1
+      expect(page).to have_no_content 'Mary Sue'
       expect(page).to have_content 'Gary Stue'
     end
 
     it 'allows filtering by everyone' do
-      create :temporary_passenger, name: 'Gary Stue'
-      create :passenger, :permanent, name: 'Mary Sue'
+      create(:temporary_passenger, name: 'Gary Stue')
+      create(:passenger, :permanent, name: 'Mary Sue')
       visit passengers_path
       choose 'All'
-      expect(page).to have_selector 'table#passengers tbody tr', count: 2
+      expect(page).to have_css 'table#passengers tbody tr', count: 2
       expect(page).to have_content 'Mary Sue'
       expect(page).to have_content 'Gary Stue'
     end
   end
 
   it 'allows printing a PDF with filters' do
-    create :passenger, :permanent, name: 'Spongebob'
+    create(:passenger, :permanent, name: 'Spongebob')
     visit passengers_path
     choose 'Permanent'
     click_on 'Print'

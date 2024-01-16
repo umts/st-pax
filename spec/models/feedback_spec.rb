@@ -5,12 +5,13 @@ require 'mock_github_client'
 
 RSpec.describe Feedback do
   let(:client) { MockGithubClient.new(logger: Logger.new(nil)) }
-  let(:feedback) { build :feedback }
+  let(:feedback) { build(:feedback) }
 
   describe '#submit!' do
     let(:sig_pattern) { /^\[\d+\]\([^)]+\)$/ }
     let(:call) { feedback.submit! }
-    before :each do
+
+    before do
       allow(feedback).to receive(:client).and_return(client)
     end
 
@@ -35,7 +36,8 @@ RSpec.describe Feedback do
 
   describe '#load' do
     let(:call) { feedback.load(1) }
-    before :each do
+
+    before do
       allow(feedback).to receive(:client).and_return(client)
     end
 
