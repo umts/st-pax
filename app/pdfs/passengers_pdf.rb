@@ -7,8 +7,8 @@ class PassengersPdf < Prawn::Document
     super(page_layout: :landscape)
     font_families.update(
       'DejaVu Sans' => {
-        normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
-        bold: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSansBold.ttf')
+        normal: Rails.root.join('app/assets/fonts/DejaVuSans.ttf'),
+        bold: Rails.root.join('app/assets/fonts/DejaVuSansBold.ttf')
       }
     )
     font 'DejaVu Sans'

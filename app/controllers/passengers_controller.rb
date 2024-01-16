@@ -31,6 +31,21 @@ class PassengersController < ApplicationController
     render partial: 'check_existing'
   end
 
+  def index
+    status_filter = params[:status].presence || %w[active pending]
+    @status = params[:status]&.to_sym
+    allowed_filters = %w[permanent temporary]
+    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
+    @passengers = Passenger.where(registration_status: status_filter)
+                           .includes(:eligibility_verification, :mobility_device)
+                           .order :name
+
+    respond_to do |format|
+      format.html
+      format.pdf { passenger_pdf }
+    end
+  end
+
   def new
     @passenger = if @current_user.present?
                    Passenger.new(registration_status: 'active')
@@ -54,21 +69,6 @@ class PassengersController < ApplicationController
       redirect_to action: :edit, id: @passenger.id
     else
       redirect_to action: :new
-    end
-  end
-
-  def index
-    status_filter = params[:status].presence || %w[active pending]
-    @status = params[:status]&.to_sym
-    allowed_filters = %w[permanent temporary]
-    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
-    @passengers = Passenger.where(registration_status: status_filter)
-                           .includes(:eligibility_verification, :mobility_device)
-                           .order :name
-
-    respond_to do |format|
-      format.html
-      format.pdf { passenger_pdf }
     end
   end
 
