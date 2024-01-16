@@ -17,26 +17,40 @@ RSpec.describe PassengersController do
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
       end
 
-      context 'changing active to archived' do
-        it 'saves the passenger and displays a warning message' do
+      context 'when changing active to archived' do
+        before do
           passenger.update_columns registration_status: 'active'
           post :set_status, params: { id: passenger.id, status: 'archived' }
-          passenger.reload
+        end
 
-          expect(passenger.registration_status).to eq 'archived'
+        it 'saves the passenger' do
+          expect(passenger.reload.registration_status).to eq 'archived'
+        end
+
+        it 'redirects to the index' do
           expect(response).to redirect_to(passengers_path)
+        end
+
+        it 'displays a warning message' do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
 
-      context 'changing archived to active' do
-        it 'saves the passenger and displays a warning message' do
+      context 'when changing archived to active' do
+        before do
           passenger.update_columns registration_status: 'archived'
           post :set_status, params: { id: passenger.id, status: 'active' }
-          passenger.reload
+        end
 
-          expect(passenger.registration_status).to eq 'active'
+        it 'saves the passenger' do
+          expect(passenger.reload.registration_status).to eq 'active'
+        end
+
+        it 'redirects to the index' do
           expect(response).to redirect_to(passengers_path)
+        end
+
+        it 'displays a warning message' do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
@@ -49,14 +63,23 @@ RSpec.describe PassengersController do
         allow(PassengerMailer).to receive(:notify_pending).and_raise mail_exception
       end
 
-      context 'creating a pending passenger' do
-        it 'saves the passenger and displays a warning message' do
-          new_passenger_params = { passenger: attributes_for(:passenger, :permanent) }
+      context 'when creating a pending passenger' do
+        before do
           post :create, params: new_passenger_params
-          passenger = Passenger.find_by(name: new_passenger_params[:passenger][:name])
+        end
 
-          expect(passenger).to be_present
-          expect(response).to redirect_to(passenger_path(passenger))
+        let(:new_passenger_params) { { passenger: attributes_for(:passenger, :permanent) } }
+        let(:created_passenger) { Passenger.find_by(name: new_passenger_params[:passenger][:name]) }
+
+        it 'saves the passenger' do
+          expect(created_passenger).to be_present
+        end
+
+        it 'redirects to the passenger' do
+          expect(response).to redirect_to(passenger_path(created_passenger))
+        end
+
+        it 'displays a warning message' do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
@@ -70,26 +93,40 @@ RSpec.describe PassengersController do
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
       end
 
-      context 'changing active to archived' do
-        it 'saves the passenger and displays a warning message' do
+      context 'when changing active to archived' do
+        before do
           passenger.update_columns registration_status: 'active'
           post :update, params: { id: passenger.id, passenger: { registration_status: 'archived' } }
-          passenger.reload
+        end
 
-          expect(passenger.registration_status).to eq 'archived'
+        it 'saves the passenger' do
+          expect(passenger.reload.registration_status).to eq 'archived'
+        end
+
+        it 'redirects to the passenger' do
           expect(response).to redirect_to(passenger_path(passenger))
+        end
+
+        it 'displays a warning message' do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
 
-      context 'changing archived to active' do
-        it 'saves the passenger and displays a warning message' do
+      context 'when changing archived to active' do
+        before do
           passenger.update_columns registration_status: 'archived'
           post :update, params: { id: passenger.id, passenger: { registration_status: 'active' } }
-          passenger.reload
+        end
 
-          expect(passenger.registration_status).to eq 'active'
+        it 'saves the passenger' do
+          expect(passenger.reload.registration_status).to eq 'active'
+        end
+
+        it 'redirects to the passenger' do
           expect(response).to redirect_to(passenger_path(passenger))
+        end
+
+        it 'displays a warning message' do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
