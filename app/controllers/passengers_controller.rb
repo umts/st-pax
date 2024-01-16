@@ -26,7 +26,7 @@ class PassengersController < ApplicationController
 
   def check_existing
     @passenger = Passenger.find_by(spire: params[:spire_id])
-    return unless @passenger.present?
+    return if @passenger.blank?
 
     render partial: 'check_existing'
   end
@@ -110,7 +110,7 @@ class PassengersController < ApplicationController
   def passenger_pdf
     @passengers = @passengers.send(@filter)
     pdf = PassengersPdf.new(@passengers, @filter)
-    name = "#{@filter} Passengers #{Date.today}".capitalize
+    name = "#{@filter} Passengers #{Time.zone.today}".capitalize
     send_data pdf.render, filename: name,
                           type: 'application/pdf',
                           disposition: :inline

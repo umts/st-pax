@@ -47,7 +47,7 @@ class MobilityDevicesController < ApplicationController
 
   def set_device
     @device = MobilityDevice.find_by id: params.require(:id)
-    head :not_found unless @device.present?
+    head :not_found if @device.blank?
   end
 
   def device_params
