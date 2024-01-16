@@ -26,7 +26,6 @@ group :development, :test do
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'pry-byebug'
-  gem 'rubocop'
   gem 'simplecov', require: false
 end
 
@@ -50,6 +49,8 @@ group :development do
   gem 'erb2haml'
   gem 'haml-lint'
   gem 'listen'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
