@@ -5,11 +5,11 @@ require 'mock_github_client'
 
 RSpec.describe MockGithubClient do
   let(:io) { StringIO.new }
-  let(:client) { MockGithubClient.new(logger: Logger.new(io)) }
+  let(:client) { described_class.new(logger: Logger.new(io)) }
   let(:log) { io.rewind && io.read }
 
   describe '#create_issue' do
-    let :call do
+    subject :call do
       client.create_issue 'acme/widgets',
                           'It broke',
                           "* This is broken\n*That is broken\n",
@@ -18,15 +18,21 @@ RSpec.describe MockGithubClient do
 
     it 'logs the would-be issue' do
       call
-      expect(log).to match(%r{^Repo: acme/widgets$})
-      expect(log).to match(/^Title: It broke$/)
-      expect(log).to match(/^  \* This is broken$/)
-      expect(log).to match(/^Options: {:labels=>"[^"]*"}$/)
+      expect(log).to(match(%r{^Repo: acme/widgets$})
+                     .and(match(/^Title: It broke$/))
+                     .and(match(/^  \* This is broken$/))
+                     .and(match(/^Options: {:labels=>"[^"]*"}$/)))
     end
 
     it 'returns a dummy issue' do
       expect(call).to respond_to(:number, :title, :body, :labels)
+    end
+
+    it 'returns a dummy issue with lables' do
       expect(call.labels).to be_an(Array)
+    end
+
+    it 'returns dummy lables' do
       expect(call.labels.first).to respond_to(:name)
     end
   end
