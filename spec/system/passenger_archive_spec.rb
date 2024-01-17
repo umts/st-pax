@@ -3,31 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe 'Archived Passenger Management' do
+  let(:user) { create(:user, :admin) }
+  let!(:passenger) { create(:passenger, name: 'Zim', registration_status: 'archived') }
+
   before do
-    @user = create(:user, :admin)
-    when_current_user_is(@user)
-    @passenger = create(:passenger, name: 'Zim', registration_status: 'archived')
+    when_current_user_is(user)
+    visit archived_passengers_path
   end
 
-  context 're-activating a temporary passenger' do
-    context 'having filled in the correct data' do
-      before do
-        create(:eligibility_verification, :with_agency, passenger: @passenger)
-      end
+  context 'when re-activating a temporary passenger' do
+    context 'with the correct data filled in' do
+      before { create(:eligibility_verification, :with_agency, passenger:) }
 
       it 'successfully reactivates the passenger' do
-        visit archived_passengers_path
-        expect(page).to have_text 'Zim'
-        click_button 'Reactivate'
-        expect(@passenger.reload).to be_active
+        click_on 'Reactivate'
+        expect(passenger.reload).to be_active
       end
     end
 
-    context 'having not filled in the correct data' do
+    context 'without the correct data filled in' do
       it 'puts an error in the flash' do
-        visit archived_passengers_path
-        expect(page).to have_text 'Zim'
-        click_button 'Reactivate'
+        click_on 'Reactivate'
         message = 'Eligibility verification is required for temporary passengers with active registration'
         expect(page).to have_text message
       end
