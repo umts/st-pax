@@ -3,142 +3,145 @@
 require 'rails_helper'
 
 RSpec.describe 'Passenger Management', :js do
-  context 'as an admin' do
-    before do
-      @user = create(:user, :admin)
-      @passenger = create(:passenger, name: 'Foo Bar')
-      @verifying_agency = create(:verifying_agency)
-      when_current_user_is(@user)
-    end
+  let!(:passenger) { create(:passenger, name: 'Foo Bar') }
+  let!(:verifying_agency) { create(:verifying_agency) }
 
-    context 'creating a new passeger' do
-      context 'passenger creation successful' do
+  context 'when the user is an admin' do
+    before { when_current_user_is :admin }
+
+    context 'when when creating a new passenger' do
+      before do
+        visit passengers_path
+        click_on 'Add New Passenger'
+      end
+
+      context 'when passenger creation is successful' do
         let :fill do
           fill_in 'Name', with: 'Foo Bar'
           fill_in 'Email', with: 'foobar@invalid.com'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
           fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?',
-                  with: 2.days.since.strftime('%Y-%m-%d')
-          select @verifying_agency.name,
-                 from: 'Which agency verifies that this passenger needs rides?'
+          fill_in 'How long will the passenger be with us?', with: 2.days.since.strftime('%Y-%m-%d')
+          select verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
         end
 
         it 'creates the passenger' do
-          visit passengers_path
-          click_on 'Add New Passenger'
           fill
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
 
         it 'creates a passenger subscribed to sms' do
-          visit passengers_path
-          click_on 'Add New Passenger'
           check 'Subscribed to sms'
           fill
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
       end
 
-      context 'passenger creation unsuccessful' do
-        it 'checks for existing passengers if a duplicate spire is found' do
-          visit passengers_path
-          click_on 'Add New Passenger'
-          fill_in 'Spire', with: "#{@passenger.spire}\t"
+      context 'when trying to use a duplicate Spire ID' do
+        before { fill_in 'Spire', with: "#{passenger.spire}\t" }
+
+        it 'warns about the duplication' do
           expect(page).to have_text 'A passenger already exists for this Spire ID'
+        end
+
+        it 'Allows it anyways (for some reason?)' do
           expect(page).to have_button 'Add new passenger'
+        end
+
+        it 'Offers a link to edit the existing passenger' do
           expect(page).to have_link 'Edit existing passenger'
+        end
+      end
+
+      context 'when passenger creation is unsuccessful' do
+        before do
+          fill_in 'Name', with: 'Foo Bar'
+          fill_in 'Email', with: 'foobar@invalid.com'
+          fill_in 'Spire', with: '12345678@umass.edu'
+          fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
         end
 
         it 'renders spire errors in the flash' do
-          visit passengers_path
-          click_on 'Add New Passenger'
           fill_in 'Spire', with: 'invalid spire'
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
         end
 
         it 'renders verification errors in the flash' do
-          date = 2.days.since.strftime '%Y-%m-%d'
-          visit passengers_path
-          click_on 'Add New Passenger'
-          fill_in 'Name', with: 'Foo Bar'
-          fill_in 'Email', with: 'foobar@invalid.com'
-          fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?', with: date
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
         end
       end
     end
 
-    context 'editing an existing passenger successfully' do
-      it 'updates the passenger' do
-        create(:eligibility_verification, passenger: @passenger)
+    context 'when editing an existing passenger' do
+      before do
+        create(:eligibility_verification, passenger:)
         visit passengers_path
-        click_link 'Edit'
+        click_on 'Edit'
+      end
+
+      it 'updates the passenger' do
         fill_in 'Name', with: 'Bar Foo'
-        click_button 'Submit'
+        click_on 'Submit'
         expect(page).to have_text 'Registration successfully updated.'
       end
-    end
 
-    context 'editing an existing passenger unsuccessfully' do
-      it 'puts the error in the flash' do
-        visit passengers_path
-        click_link 'Edit'
+      it 'puts errors in the flash' do
         fill_in 'Spire', with: 'not a valid spire'
-        click_button 'Submit'
+        click_on 'Submit'
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
     end
 
-    context 'deleting an existing passenger successfully' do
+    context 'when deleting an existing passenger' do
       it 'deletes the passenger' do
         visit passengers_path
         page.accept_confirm 'Are you sure?' do
-          click_button 'Delete'
+          click_on 'Delete'
         end
         expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
 
-    context 'archiving a passenger successfully' do
+    context 'when archiving a passenger' do
       it 'archives the passenger' do
         visit passengers_path
-        click_button 'Archive'
+        click_on 'Archive'
+        expect(passenger.reload).to be_archived
+      end
+
+      it 'tells you the passenger has been archived' do
+        visit passengers_path
+        click_on 'Archive'
         expect(page).to have_text 'Passenger successfully updated'
-        expect(@passenger.reload).to be_archived
       end
     end
 
-    context 'creating a temporary passenger without a doctors note' do
-      context 'with pending registration status' do
+    context 'when creating a temporary passenger without a doctors note' do
+      before do
+        visit new_passenger_path
+        fill_in 'Name', with: 'Jane Fonda'
+        fill_in 'Spire', with: '12345678@umass.edu'
+        fill_in 'Email', with: 'jfonda@umass.edu'
+        fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
+      end
+
+      context 'with a pending registration status' do
         it 'creates the passenger' do
-          visit new_passenger_path
-          fill_in 'Name', with: 'Jane Fonda'
-          fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'Email', with: 'jfonda@umass.edu'
-          fill_in 'Address', with: '123 turkey lane'
-          fill_in 'Phone', with: '123'
           choose 'Pending'
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
       end
 
-      context 'with active registration status' do
+      context 'with an active registration status' do
         it 'does not allow creation' do
-          visit new_passenger_path
-          fill_in 'Name', with: 'Jane Fonda'
-          fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'Email', with: 'jfonda@umass.edu'
-          fill_in 'Address', with: '123 turkey lane'
-          fill_in 'Phone', with: '123'
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text <<~MSG.squish
             Eligibility verification expiration date must be entered for
             temporary passengers with an active registration status
@@ -148,56 +151,52 @@ RSpec.describe 'Passenger Management', :js do
     end
   end
 
-  context 'as a dispatcher' do
-    before do
-      @user = create(:user)
-      @passenger = create(:passenger, name: 'Foo Bar')
-      when_current_user_is(@user)
-    end
+  context 'when the user is a dispatcher' do
+    before { when_current_user_is :anyone }
 
-    context 'creating a new passenger successfully' do
+    context 'when creating a new passenger' do
+      before do
+        visit new_passenger_path
+        fill_in 'Name', with: 'Jane Fonda'
+        fill_in 'Spire', with: '12345678@umass.edu'
+        fill_in 'Email', with: 'jfonda@umass.edu'
+        fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
+      end
+
       context 'with pending registration status' do
         it 'creates the passenger' do
-          visit new_passenger_path
-          fill_in 'Name', with: 'Jane Fonda'
-          fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'Email', with: 'jfonda@umass.edu'
-          fill_in 'Address', with: '123 turkey lane'
-          fill_in 'Phone', with: '123'
           choose 'Pending'
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
       end
 
       context 'with active registration status' do
         it 'does not allow creation' do
-          visit new_passenger_path
-          fill_in 'Name', with: 'Jane Fonda'
-          fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'Email', with: 'jfonda@umass.edu'
-          click_button 'Submit'
+          click_on 'Submit'
           expect(page).to have_text <<~MSG.squish
             Eligibility verification expiration date must be entered for
             temporary passengers with an active registration status
           MSG
         end
       end
-    end
 
-    context 'editing an existing passenger successfully' do
-      it 'updates the passenger' do
-        create(:eligibility_verification, passenger: @passenger)
-        visit passengers_path
-        click_link 'Edit'
-        fill_in 'Name', with: 'Bar Foo'
-        click_button 'Submit'
-        expect(page).to have_text 'Registration successfully updated.'
+      context 'when editing an existing passenger' do
+        before do
+          create(:eligibility_verification, passenger:)
+          visit passengers_path
+          click_on 'Edit'
+        end
+
+        it 'updates the passenger' do
+          fill_in 'Name', with: 'Bar Foo'
+          click_on 'Submit'
+          expect(page).to have_text 'Registration successfully updated.'
+        end
       end
-    end
 
-    context 'wanting to delete a passenger' do
-      it 'does not have a button to do so' do
+      it 'does not offer a button to delete a passenger' do
         visit passengers_path
         expect(page).to have_no_button 'Delete'
       end
