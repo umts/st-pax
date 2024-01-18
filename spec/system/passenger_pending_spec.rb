@@ -3,20 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe 'Pending Passenger Management' do
-  before :each do
-    @user = create :user, :admin
+  before do
+    @user = create(:user, :admin)
     when_current_user_is(@user)
-    @passenger = create :passenger,
+    @passenger = create(:passenger,
                         name: 'Zim',
-                        registration_status: 'pending'
+                        registration_status: 'pending')
   end
+
   context 'confirming a registration' do
     context 'having filled in the correct data' do
-      before :each do
-        create :eligibility_verification,
+      before do
+        create(:eligibility_verification,
                :with_agency,
-               passenger: @passenger
+               passenger: @passenger)
       end
+
       it 'successfully activates the passenger' do
         visit pending_passengers_path
         expect(page).to have_text 'Zim'
@@ -24,6 +26,7 @@ RSpec.describe 'Pending Passenger Management' do
         expect(@passenger.reload).to be_active
       end
     end
+
     context 'having not filled in the correct data' do
       it 'puts an error in the flash' do
         visit pending_passengers_path

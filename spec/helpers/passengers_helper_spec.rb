@@ -6,7 +6,7 @@ RSpec.describe PassengersHelper do
   describe 'passengers_table_row_class' do
     subject(:call) { helper.passengers_table_row_class(passenger) }
 
-    let(:passenger) { create :temporary_passenger, :with_note }
+    let(:passenger) { create(:temporary_passenger, :with_note) }
     let(:verification) { passenger.eligibility_verification }
 
     context 'when ev will expire within warning period' do
@@ -31,15 +31,15 @@ RSpec.describe PassengersHelper do
     end
 
     context 'when the passenger needs a doctors note' do
-      let(:passenger) { create :temporary_passenger, :no_note }
+      let(:passenger) { create(:temporary_passenger, :no_note) }
 
       it { is_expected.to eq('needs-note') }
     end
 
     context 'when the passenger is archived' do
-      let(:passenger) { create :passenger, registration_status: :archived }
+      let(:passenger) { create(:passenger, registration_status: :archived) }
 
-      it { is_expected.to be(nil) }
+      it { is_expected.to be_nil }
     end
   end
 end

@@ -17,7 +17,7 @@ RSpec.describe PassengerParamManager do
       )
     end
     let(:env) { {} }
-    let(:current_user) { create :user, :admin }
+    let(:current_user) { create(:user, :admin) }
 
     it 'requires passenger params' do
       params.delete(:passenger)
@@ -37,7 +37,7 @@ RSpec.describe PassengerParamManager do
     end
 
     context 'when the current user is not an admin' do
-      let(:current_user) { create :user }
+      let(:current_user) { create(:user) }
 
       it 'forbids updating permanent status' do
         expect(call.keys).not_to include('permanent')

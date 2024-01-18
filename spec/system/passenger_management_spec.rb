@@ -2,14 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Passenger Management', js: true do
+RSpec.describe 'Passenger Management', :js do
   context 'as an admin' do
-    before :each do
-      @user = create :user, :admin
-      @passenger = create :passenger, name: 'Foo Bar'
-      @verifying_agency = create :verifying_agency
+    before do
+      @user = create(:user, :admin)
+      @passenger = create(:passenger, name: 'Foo Bar')
+      @verifying_agency = create(:verifying_agency)
       when_current_user_is(@user)
     end
+
     context 'creating a new passeger' do
       context 'passenger creation successful' do
         let :fill do
@@ -23,6 +24,7 @@ RSpec.describe 'Passenger Management', js: true do
           select @verifying_agency.name,
                  from: 'Which agency verifies that this passenger needs rides?'
         end
+
         it 'creates the passenger' do
           visit passengers_path
           click_on 'Add New Passenger'
@@ -30,6 +32,7 @@ RSpec.describe 'Passenger Management', js: true do
           click_button 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
+
         it 'creates a passenger subscribed to sms' do
           visit passengers_path
           click_on 'Add New Passenger'
@@ -39,6 +42,7 @@ RSpec.describe 'Passenger Management', js: true do
           expect(page).to have_text 'Passenger registration successful'
         end
       end
+
       context 'passenger creation unsuccessful' do
         it 'checks for existing passengers if a duplicate spire is found' do
           visit passengers_path
@@ -48,6 +52,7 @@ RSpec.describe 'Passenger Management', js: true do
           expect(page).to have_button 'Add new passenger'
           expect(page).to have_link 'Edit existing passenger'
         end
+
         it 'renders spire errors in the flash' do
           visit passengers_path
           click_on 'Add New Passenger'
@@ -55,6 +60,7 @@ RSpec.describe 'Passenger Management', js: true do
           click_button 'Submit'
           expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
         end
+
         it 'renders verification errors in the flash' do
           date = 2.days.since.strftime '%Y-%m-%d'
           visit passengers_path
@@ -68,9 +74,10 @@ RSpec.describe 'Passenger Management', js: true do
         end
       end
     end
+
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :eligibility_verification, passenger: @passenger
+        create(:eligibility_verification, passenger: @passenger)
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
@@ -78,6 +85,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_text 'Registration successfully updated.'
       end
     end
+
     context 'editing an existing passenger unsuccessfully' do
       it 'puts the error in the flash' do
         visit passengers_path
@@ -87,6 +95,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
       end
     end
+
     context 'deleting an existing passenger successfully' do
       it 'deletes the passenger' do
         visit passengers_path
@@ -96,6 +105,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
+
     context 'archiving a passenger successfully' do
       it 'archives the passenger' do
         visit passengers_path
@@ -104,6 +114,7 @@ RSpec.describe 'Passenger Management', js: true do
         expect(@passenger.reload).to be_archived
       end
     end
+
     context 'creating a temporary passenger without a doctors note' do
       context 'with pending registration status' do
         it 'creates the passenger' do
@@ -118,6 +129,7 @@ RSpec.describe 'Passenger Management', js: true do
           expect(page).to have_text 'Passenger registration successful'
         end
       end
+
       context 'with active registration status' do
         it 'does not allow creation' do
           visit new_passenger_path
@@ -135,12 +147,14 @@ RSpec.describe 'Passenger Management', js: true do
       end
     end
   end
+
   context 'as a dispatcher' do
-    before :each do
-      @user = create :user
-      @passenger = create :passenger, name: 'Foo Bar'
+    before do
+      @user = create(:user)
+      @passenger = create(:passenger, name: 'Foo Bar')
       when_current_user_is(@user)
     end
+
     context 'creating a new passenger successfully' do
       context 'with pending registration status' do
         it 'creates the passenger' do
@@ -155,6 +169,7 @@ RSpec.describe 'Passenger Management', js: true do
           expect(page).to have_text 'Passenger registration successful'
         end
       end
+
       context 'with active registration status' do
         it 'does not allow creation' do
           visit new_passenger_path
@@ -169,9 +184,10 @@ RSpec.describe 'Passenger Management', js: true do
         end
       end
     end
+
     context 'editing an existing passenger successfully' do
       it 'updates the passenger' do
-        create :eligibility_verification, passenger: @passenger
+        create(:eligibility_verification, passenger: @passenger)
         visit passengers_path
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
@@ -179,10 +195,11 @@ RSpec.describe 'Passenger Management', js: true do
         expect(page).to have_text 'Registration successfully updated.'
       end
     end
+
     context 'wanting to delete a passenger' do
       it 'does not have a button to do so' do
         visit passengers_path
-        expect(page).not_to have_button 'Delete'
+        expect(page).to have_no_button 'Delete'
       end
     end
   end
