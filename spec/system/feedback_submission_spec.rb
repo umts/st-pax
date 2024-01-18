@@ -21,7 +21,7 @@ RSpec.describe 'Feedback Submission' do
       end
 
       it "Doesn't provide any further steps" do
-        expect(page).not_to have_link 'authenticate with GitHub'
+        expect(page).to have_no_link 'authenticate with GitHub'
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe 'Feedback Submission' do
   end
 
   context 'with an IssueToken' do
-    before :each do
+    before do
       allow(IssueToken).to receive(:usable?).and_return true
       allow(MockGithubClient).to receive(:new).and_return client
 

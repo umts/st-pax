@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe PassengerMailer do
   describe 'notify_active' do
-    before :each do
-      @passenger = create :passenger
+    before do
+      @passenger = create(:passenger)
       @from_add = PassengerMailer.default[:from]
     end
 

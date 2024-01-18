@@ -3,14 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe 'User Management' do
-  before :each do
-    @user = create :user
+  before do
+    @user = create(:user)
     when_current_user_is :admin
   end
-  context 'deleting a user unsuccessfully', js: true do
-    before :each do
-      @log = create :log_entry, user: @user
+
+  context 'deleting a user unsuccessfully', :js do
+    before do
+      @log = create(:log_entry, user: @user)
     end
+
     it 'puts the errors in the flash' do
       visit users_path
       # Click the 'destroy' link in the user's row
@@ -22,7 +24,8 @@ RSpec.describe 'User Management' do
       )
     end
   end
-  context 'deleting a user successfully', js: true do
+
+  context 'deleting a user successfully', :js do
     it 'deletes the user and says it did' do
       visit users_path
       page.accept_confirm 'Are you sure?' do
@@ -33,6 +36,7 @@ RSpec.describe 'User Management' do
       )
     end
   end
+
   context 'editing an existing user successfully' do
     it 'updates the user' do
       visit users_path
@@ -42,6 +46,7 @@ RSpec.describe 'User Management' do
       expect(page).to have_text 'User successfully updated'
     end
   end
+
   context 'editing an existing user unsuccessfully' do
     it 'puts the error in the flash' do
       visit users_path
@@ -51,6 +56,7 @@ RSpec.describe 'User Management' do
       expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
     end
   end
+
   context 'creating a new user successfully' do
     it 'creates the user' do
       visit users_path
@@ -61,6 +67,7 @@ RSpec.describe 'User Management' do
       expect(page).to have_text 'User successfully created'
     end
   end
+
   context 'creating a new user unsuccessfully' do
     it 'renders an error in the flash' do
       visit users_path

@@ -1,5 +1,6 @@
 require:
   - rubocop-rake
+  - rubocop-rspec
 
 AllCops:
   Exclude:
@@ -16,6 +17,9 @@ Metrics/BlockLength:
     - config/routes.rb
     - lib/tasks/import/**/*
     - spec/**/*
+
+RSpec/NestedGroups:
+  Max: 4
 
 Style/Documentation:
   Enabled: false

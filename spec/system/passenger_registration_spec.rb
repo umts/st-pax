@@ -3,13 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Passenger self registration' do
-  context 'registering for the first time', js: true do
-    before :each do
+  context 'registering for the first time', :js do
+    before do
       login_as(build(:passenger))
     end
+
     let :submit do
       click_button 'Submit'
     end
+
     context 'successfully' do
       it 'creates a new pending passenger' do
         visit register_passengers_path
@@ -20,6 +22,7 @@ RSpec.describe 'Passenger self registration' do
         expect(Passenger.last).to be_pending
       end
     end
+
     context 'unsuccessfully' do
       it 'renders errors in the flash' do
         visit register_passengers_path
@@ -29,10 +32,11 @@ RSpec.describe 'Passenger self registration' do
       end
     end
   end
+
   context 'editing registration' do
     context 'while still pending' do
       it 'redirects to the edit page and allows editing' do
-        @passenger = create :passenger, registration_status: 'pending'
+        @passenger = create(:passenger, registration_status: 'pending')
         login_as(@passenger)
         visit edit_passenger_path(@passenger)
         expect(page).to have_field 'Address'
@@ -42,19 +46,20 @@ RSpec.describe 'Passenger self registration' do
         expect(page).to have_current_path edit_passenger_path(@passenger)
       end
     end
+
     context 'after becoming active' do
       it 'does not allow editing' do
-        @passenger = create :temporary_passenger, :with_note
+        @passenger = create(:temporary_passenger, :with_note)
         login_as(@passenger)
         visit edit_passenger_path(@passenger)
-        expect(page).not_to have_field 'Address'
+        expect(page).to have_no_field 'Address'
         expect(page).to have_current_path passenger_path(@passenger)
-        expect(page).not_to have_current_path edit_passenger_path(@passenger)
+        expect(page).to have_no_current_path edit_passenger_path(@passenger)
         expect(page).to have_text 'To edit your profile, please call'
         visit register_passengers_path
-        expect(page).not_to have_field 'Address'
+        expect(page).to have_no_field 'Address'
         expect(page).to have_current_path passenger_path(@passenger)
-        expect(page).not_to have_current_path edit_passenger_path(@passenger)
+        expect(page).to have_no_current_path edit_passenger_path(@passenger)
         expect(page).to have_text 'To edit your profile, please call'
       end
     end
