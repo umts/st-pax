@@ -46,6 +46,8 @@ en:
               blank: 'must be entered for temporary passengers with an active registration status'
             expiration_date:
               blank: 'must be entered for temporary passengers with an active registration status'
+              no_agency: 'cannot be entered without verifying agency'
+              perm_pax: 'may not be entered for permanent passengers'
             phone:
               blank: 'must be entered if address is blank'
             address:
