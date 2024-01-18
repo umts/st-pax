@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_22_123246) do
+ActiveRecord::Schema.define(version: 2024_01_18_184517) do
 
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2023_09_22_123246) do
     t.string "name"
     t.text "address"
     t.string "phone"
+    t.index ["passenger_id"], name: "index_eligibility_verifications_on_passenger_id", unique: true
   end
 
   create_table "issue_tokens", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2023_09_22_123246) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "needs_longer_rides", default: false, null: false
+    t.index ["name"], name: "index_mobility_devices_on_name", unique: true
   end
 
   create_table "passengers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -85,6 +87,7 @@ ActiveRecord::Schema.define(version: 2023_09_22_123246) do
   create_table "verifying_agencies", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "needs_contact_info", default: false
+    t.index ["name"], name: "index_verifying_agencies_on_name", unique: true
   end
 
 end
