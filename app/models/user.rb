@@ -2,7 +2,8 @@
 
 class User < ApplicationRecord
   has_many :log_entries, dependent: :restrict_with_error
-  has_many :registered_passengers, inverse_of: :registerer, foreign_key: :registered_by, class_name: 'Passenger'
+  has_many :registered_passengers, inverse_of: :registerer, foreign_key: :registered_by,
+                                   class_name: 'Passenger', dependent: :nullify
 
   validates :name, :spire, presence: true
   validates :spire, uniqueness: { case_sensitive: false }, format: { with: /\A\d{8}@umass.edu\z/ }
