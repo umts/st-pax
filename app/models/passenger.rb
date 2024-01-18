@@ -83,12 +83,14 @@ class Passenger < ApplicationRecord
 
   def set_status(desired_status)
     # skip validations on archival
+    # rubocop:disable Rails/SkipsModelValidations
     if desired_status == 'archived'
       update_attribute(:registration_status, 'archived')
     else
       self.registration_status = desired_status
       save
     end
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def permanent_or_temporary
