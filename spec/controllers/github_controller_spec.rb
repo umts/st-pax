@@ -12,6 +12,8 @@ RSpec.describe GithubController do
 
     before do
       allow(Octokit).to receive(:exchange_code_for_token).and_return({ access_token: new_token })
+      allow(IssueToken).to receive(:instance).and_return token_instance
+      allow(token_instance).to receive(:update)
       when_current_user_is :admin
     end
 
@@ -22,8 +24,6 @@ RSpec.describe GithubController do
     end
 
     it 'updates the IssueToken' do
-      allow(IssueToken).to receive(:instance).and_return token_instance
-      allow(token_instance).to receive(:update)
       submit
 
       expect(token_instance).to have_received(:update).with(token: new_token)
