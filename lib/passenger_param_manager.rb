@@ -26,7 +26,7 @@ class PassengerParamManager
     return parameters if @current_user.present?
 
     spire, given_name, surname = @env.values_at('fcIdNumber', 'givenName', 'surName')
-    parameters.reverse_merge(spire: spire, name: "#{given_name} #{surname}")
+    parameters.reverse_merge(spire:, name: "#{given_name} #{surname}")
   end
 
   def permit(parameters)

@@ -10,7 +10,7 @@ class GithubController < ApplicationController
       Rails.application.credentials.dig(:github, :client_secret)
     )[:access_token]
 
-    IssueToken.instance.update(token: token)
+    IssueToken.instance.update(token:)
 
     redirect_to root_path
   end

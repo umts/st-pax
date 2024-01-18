@@ -190,7 +190,7 @@ RSpec.describe 'Log Entries' do
       before { login_as user }
 
       let(:user) { create(:user) }
-      let!(:log_entry) { create(:log_entry, user: user) }
+      let!(:log_entry) { create(:log_entry, user:) }
 
       context 'with valid attributes' do
         let(:attributes) { { text: 'Test log entry' } }
@@ -301,7 +301,7 @@ RSpec.describe 'Log Entries' do
       before { login_as user }
 
       let(:user) { create(:user) }
-      let!(:log_entry) { create(:log_entry, user: user) }
+      let!(:log_entry) { create(:log_entry, user:) }
 
       it 'deletes a log entry' do
         expect { call }.to change(LogEntry, :count).by(-1)

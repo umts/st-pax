@@ -30,7 +30,7 @@ RSpec.describe User do
           expect(call).to be false
         end
         it 'returns true if it is associated with the user' do
-          @item = create :log_entry, user: user
+          @item = create(:log_entry, user:)
           expect(call).to be true
         end
       end

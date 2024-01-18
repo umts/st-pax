@@ -18,10 +18,7 @@ module PassengersHelper
   end
 
   def expiration_date_label
-    subject = if @current_user.present?
-                'the passenger'
-              else 'you'
-              end
+    subject = @current_user.present? ? 'the passenger' : 'you'
     "How long will #{subject} be with us?"
   end
 

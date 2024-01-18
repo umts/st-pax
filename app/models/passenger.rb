@@ -105,7 +105,7 @@ class Passenger < ApplicationRecord
     if registration_status_changed? && active?
       assign_attributes(registration_date: Time.zone.today)
     elsif registration_date.blank?
-      assign_attributes(registration_date: (created_at || Time.zone.today))
+      assign_attributes(registration_date: created_at || Time.zone.today)
     end
   end
 end
