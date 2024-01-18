@@ -22,7 +22,7 @@ class FeedbackController < ApplicationController
   def create
     @feedback = Feedback.new(feedback_params)
     if submit_feedback
-      flash[:info] = 'Feedback was successfully submitted.'
+      flash[:info] = t('.success')
       redirect_to feedback_path(@feedback.issue.number)
     else
       flash.now[:danger] = @feedback.errors.full_messages

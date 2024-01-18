@@ -15,11 +15,10 @@ class PassengersController < ApplicationController
   end
 
   def set_status
-    msg = 'Passenger successfully updated'
     success = -> { redirect_to passengers_path }
     failure = -> { redirect_to edit_passenger_path(@passenger) }
 
-    try_notifying_passenger success:, failure:, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: t('.update.success') do
       @passenger.set_status(params[:status])
     end
   end
@@ -59,7 +58,7 @@ class PassengersController < ApplicationController
 
   def edit
     if @registrant.present? && !@registrant&.pending?
-      flash[:warning] = "To edit your profile, please call #{t 'department.phone'}"
+      flash[:warning] = t('.must_call', phone: t('department.phone'))
       redirect_to passenger_path(@registrant)
     end
     @verification = @passenger.eligibility_verification || EligibilityVerification.new
@@ -77,29 +76,27 @@ class PassengersController < ApplicationController
   def create
     @passenger = Passenger.new(passenger_params)
     @passenger.registerer = @current_user
-    msg = 'Passenger registration successful'
     success = -> { redirect_to @passenger }
     failure = -> { render :new }
 
-    try_notifying_passenger success:, failure:, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: t('.success') do
       @passenger.save
     end
   end
 
   def update
     @passenger.assign_attributes passenger_params
-    msg = 'Registration successfully updated'
     success = -> { redirect_to @passenger }
     failure = -> { render :edit }
 
-    try_notifying_passenger success:, failure:, success_message: msg do
+    try_notifying_passenger success:, failure:, success_message: t('.registrant_success') do
       @passenger.save
     end
   end
 
   def destroy
     @passenger.destroy
-    flash[:success] = 'Passenger successfully destroyed.'
+    flash[:success] = t('.success')
     redirect_to passengers_url
   end
 
@@ -124,13 +121,12 @@ class PassengersController < ApplicationController
 
   def try_notifying_passenger(success:, failure:, success_message:)
     if yield
-      flash[:success] = "#{success_message}." and success.call
+      flash[:success] = success_message and success.call
     else
       flash[:danger] = @passenger.errors.full_messages and failure.call
     end
   rescue Net::SMTPFatalError
-    flash[:warning] = "#{success_message}, but the email followup was " \
-                      'unsuccessful. Please check the validity of the email address.'
+    flash[:warning] = t('.notify_warning', message: success_message)
     success.call
   end
 end

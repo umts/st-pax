@@ -18,7 +18,7 @@ class MobilityDevicesController < ApplicationController
     @device = MobilityDevice.new(device_params)
 
     if @device.save
-      flash[:success] = 'Mobility device was successfully created.'
+      flash[:success] = t('.success')
       redirect_to mobility_devices_url
     else
       flash.now[:danger] = @device.errors.full_messages
@@ -28,7 +28,7 @@ class MobilityDevicesController < ApplicationController
 
   def update
     if @device.update(device_params)
-      flash[:success] = 'Mobility device was successfully updated.'
+      flash[:success] = t('.success')
       redirect_to mobility_devices_url
     else
       flash.now[:danger] = @device.errors.full_messages
@@ -38,7 +38,7 @@ class MobilityDevicesController < ApplicationController
 
   def destroy
     if @device.destroy
-      flash[:success] = 'Mobility device was successfully destroyed.'
+      flash[:success] = t('.success')
     else
       flash[:danger] = @device.errors.full_messages
     end
