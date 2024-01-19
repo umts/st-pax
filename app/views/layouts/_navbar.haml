@@ -27,8 +27,8 @@
             = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
     - if authenticated?
       %li.nav-item
-        = link_to new_passenger_link_text, register_passengers_path,
-          class: 'nav-link'
+        = link_to new_passenger_link_text(dispatcher: @current_user.present?, registered: @registrant&.persisted?),
+          register_passengers_path, class: 'nav-link'
       %li.nav-item
         = link_to 'Site Feedback', feedback_index_path, class: 'nav-link'
     %li.nav-item
