@@ -50,6 +50,8 @@ group :development do
   gem 'haml-lint'
   gem 'listen'
   gem 'rubocop'
+  gem 'rubocop-capybara'
+  gem 'rubocop-factory_bot'
   gem 'rubocop-rails'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
