@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   trait :with_agency do
-    association :verifying_agency
+    verifying_agency
   end
 
   trait :unexpired do
