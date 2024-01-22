@@ -18,7 +18,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).to have_received(:notify_active)
     end
 
-    it 'does now sent the incorrect email' do
+    it 'does not sent the incorrect email' do
       %i[notify_pending notify_archived].each do |mail_method|
         expect(PassengerMailer).not_to have_received(mail_method)
       end
@@ -42,7 +42,7 @@ RSpec.describe Passenger do
       expect(PassengerMailer).to have_received(:notify_pending)
     end
 
-    it 'does now sent the incorrect email' do
+    it 'does not sent the incorrect email' do
       %i[notify_active notify_archived].each do |mail_method|
         expect(PassengerMailer).not_to have_received(mail_method)
       end
@@ -93,7 +93,7 @@ RSpec.describe Passenger do
       expect(call).to be_nil
     end
 
-    it 'returns the expiration date of the doctors note for temporary passengers' do
+    it "returns the expiration date of the doctor's note for temporary passengers" do
       date = passenger.eligibility_verification.expiration_date
       expect(call).to eq(date.strftime('%m/%d/%Y'))
     end
