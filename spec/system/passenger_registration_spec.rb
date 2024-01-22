@@ -74,7 +74,7 @@ RSpec.describe 'Passenger self-registration' do
         expect(page).to have_current_path passenger_path(passenger)
       end
 
-      it 'redirects to the show page for registering' do
+      it 'redirects to the show page rather than allowing editing' do
         visit register_passengers_path
         expect(page).to have_current_path passenger_path(passenger)
       end
