@@ -9,7 +9,7 @@ RSpec.describe 'Passenger Management', :js do
   context 'when the user is an admin' do
     before { when_current_user_is :admin }
 
-    context 'when when creating a new passenger' do
+    context 'when creating a new passenger' do
       before do
         visit passengers_path
         click_on 'Add New Passenger'
@@ -22,7 +22,7 @@ RSpec.describe 'Passenger Management', :js do
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
           fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?', with: 2.days.since.strftime('%Y-%m-%d')
+          fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
           select verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
         end
 
@@ -41,17 +41,17 @@ RSpec.describe 'Passenger Management', :js do
       end
 
       context 'when trying to use a duplicate Spire ID' do
-        before { fill_in 'Spire', with: "#{passenger.spire}\t" }
+        before { fill_in('Spire', with: passenger.spire).send_keys(:tab) }
 
         it 'warns about the duplication' do
           expect(page).to have_text 'A passenger already exists for this Spire ID'
         end
 
-        it 'Allows it anyways (for some reason?)' do
+        it 'allows continued editing to fix the error' do
           expect(page).to have_button 'Add new passenger'
         end
 
-        it 'Offers a link to edit the existing passenger' do
+        it 'offers a link to edit the existing passenger' do
           expect(page).to have_link 'Edit existing passenger'
         end
       end
@@ -121,7 +121,7 @@ RSpec.describe 'Passenger Management', :js do
       end
     end
 
-    context 'when creating a temporary passenger without a doctors note' do
+    context "when creating a temporary passenger without a doctor's note" do
       before do
         visit new_passenger_path
         fill_in 'Name', with: 'Jane Fonda'
