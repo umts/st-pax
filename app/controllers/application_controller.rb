@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
   end
 
   def restrict_to_employee
-    deny_access && return unless @current_user.present?
+    deny_access && return if @current_user.blank?
   end
 
   def set_passenger_information

@@ -323,6 +323,11 @@ GEM
       rubocop (~> 1.41)
     rubocop-factory_bot (2.25.1)
       rubocop (~> 1.41)
+    rubocop-rails (2.23.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
     rubocop-rspec (2.26.1)
@@ -439,6 +444,7 @@ DEPENDENCIES
   rubocop
   rubocop-capybara
   rubocop-factory_bot
+  rubocop-rails
   rubocop-rake
   rubocop-rspec
   sassc-rails
