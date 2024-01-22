@@ -27,7 +27,13 @@ RSpec.describe 'User Management' do
     end
 
     context 'when a user is deletable' do
-      it 'deletes the user and says it did' do
+      it 'deletes the user' do
+        submit
+        visit users_path
+        expect(User.find_by(id: user.id)).to be_blank
+      end
+
+      it 'says it deleted them' do
         submit
         expect(page).to have_text('User successfully destroyed')
       end
@@ -40,6 +46,12 @@ RSpec.describe 'User Management' do
     end
 
     it 'updates the user' do
+      fill_in 'Name', with: 'Bar Foo'
+      click_on 'Save'
+      expect(user.reload.name).to eq('Bar Foo')
+    end
+
+    it 'says it updated them' do
       fill_in 'Name', with: 'Bar Foo'
       click_on 'Save'
       expect(page).to have_text('User successfully updated')
@@ -58,6 +70,12 @@ RSpec.describe 'User Management' do
     end
 
     it 'creates the user' do
+      fill_in 'Name', with: 'Foo Bar'
+      fill_in 'Spire', with: '12345678@umass.edu'
+      expect { click_on 'Save' }.to change(User, :count).by(1)
+    end
+
+    it 'says it created them' do
       fill_in 'Name', with: 'Foo Bar'
       fill_in 'Spire', with: '12345678@umass.edu'
       click_on 'Save'
