@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe Passenger do
   let(:passenger) { create(:temporary_passenger, :with_note) }
 
-  before do
-    @passenger = create(:temporary_passenger, :with_note)
-  end
-
   describe 'active passenger creation notifications' do
     let(:mail) { ActionMailer::MessageDelivery.new(PassengerMailer, :notify_active) }
 
