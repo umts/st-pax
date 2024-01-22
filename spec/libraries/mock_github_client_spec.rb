@@ -28,11 +28,11 @@ RSpec.describe MockGithubClient do
       expect(call).to respond_to(:number, :title, :body, :labels)
     end
 
-    it 'returns a dummy issue with lables' do
+    it 'returns a dummy issue with labels' do
       expect(call.labels).to be_an(Array)
     end
 
-    it 'returns dummy lables' do
+    it 'returns dummy labels' do
       expect(call.labels.first).to respond_to(:name)
     end
   end
