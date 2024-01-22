@@ -4,6 +4,16 @@ class MobilityDevicesController < ApplicationController
   before_action :set_device, only: %i[destroy edit update]
   before_action :restrict_to_admin
 
+  def index
+    @devices = MobilityDevice.order :name
+  end
+
+  def new
+    @device = MobilityDevice.new
+  end
+
+  def edit; end
+
   def create
     @device = MobilityDevice.new(device_params)
 
@@ -16,23 +26,6 @@ class MobilityDevicesController < ApplicationController
     end
   end
 
-  def destroy
-    if @device.destroy
-      flash[:success] = 'Mobility device was successfully destroyed.'
-    else
-      flash[:danger] = @device.errors.full_messages
-    end
-    redirect_to mobility_devices_url
-  end
-
-  def index
-    @devices = MobilityDevice.order :name
-  end
-
-  def new
-    @device = MobilityDevice.new
-  end
-
   def update
     if @device.update(device_params)
       flash[:success] = 'Mobility device was successfully updated.'
@@ -43,11 +36,20 @@ class MobilityDevicesController < ApplicationController
     end
   end
 
+  def destroy
+    if @device.destroy
+      flash[:success] = 'Mobility device was successfully destroyed.'
+    else
+      flash[:danger] = @device.errors.full_messages
+    end
+    redirect_to mobility_devices_url
+  end
+
   private
 
   def set_device
     @device = MobilityDevice.find_by id: params.require(:id)
-    head :not_found unless @device.present?
+    head :not_found if @device.blank?
   end
 
   def device_params
