@@ -12,6 +12,8 @@ RSpec.describe PassengersController do
 
   describe 'POST set_status' do
     context 'with broken mailer' do
+      # Deliberate to avoid triggering the stubbed exceptions outside of the example
+      # rubocop:disable Rails/SkipsModelValidations
       before do
         allow(PassengerMailer).to receive(:notify_archived).and_raise mail_exception
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
@@ -40,6 +42,7 @@ RSpec.describe PassengersController do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 
@@ -65,6 +68,8 @@ RSpec.describe PassengersController do
 
   describe 'POST update' do
     context 'with broken mailer' do
+      # Deliberate to avoid triggering the stubbed exceptions outside of the example
+      # rubocop:disable Rails/SkipsModelValidations
       before do
         allow(PassengerMailer).to receive(:notify_archived).and_raise mail_exception
         allow(PassengerMailer).to receive(:notify_active).and_raise mail_exception
@@ -93,6 +98,7 @@ RSpec.describe PassengersController do
           expect(flash[:warning]).to match(/email followup was unsuccessful/)
         end
       end
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 end

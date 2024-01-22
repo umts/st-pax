@@ -3,6 +3,16 @@
 class FeedbackController < ApplicationController
   skip_before_action :restrict_to_employee
 
+  def show
+    @feedback = Feedback.new
+    begin
+      @feedback.load(params[:id])
+    rescue Octokit::Error => e
+      flash[:warning] = "Could not display issue: #{e}"
+      redirect_to feedback_index_path
+    end
+  end
+
   def new
     render 'authorize' and return unless IssueToken.usable?
 
@@ -17,16 +27,6 @@ class FeedbackController < ApplicationController
     else
       flash.now[:danger] = @feedback.errors.full_messages
       render :new and return
-    end
-  end
-
-  def show
-    @feedback = Feedback.new
-    begin
-      @feedback.load(params[:id])
-    rescue Octokit::Error => e
-      flash[:warning] = "Could not display issue: #{e}"
-      redirect_to feedback_index_path
     end
   end
 

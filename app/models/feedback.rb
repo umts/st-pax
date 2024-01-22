@@ -46,7 +46,7 @@ class Feedback
   end
 
   def signed_description
-    return description unless user.present?
+    return description if user.blank?
 
     "#{description}\n\n[#{user.id}](#{user.url})"
   end

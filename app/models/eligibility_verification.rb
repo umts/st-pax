@@ -32,7 +32,7 @@ class EligibilityVerification < ApplicationRecord
     return false if expiration_date.blank?
 
     expiration_date < EligibilityVerification.expiration_warning &&
-      expiration_date >= Date.today
+      expiration_date >= Time.zone.today
   end
 
   def expired_within_grace_period?

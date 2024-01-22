@@ -7,8 +7,8 @@ class PassengersPdf < Prawn::Document
     super(page_layout: :landscape)
     font_families.update(
       'DejaVu Sans' => {
-        normal: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSans.ttf'),
-        bold: Rails.root.join('app', 'assets', 'fonts', 'DejaVuSansBold.ttf')
+        normal: Rails.root.join('app/assets/fonts/DejaVuSans.ttf'),
+        bold: Rails.root.join('app/assets/fonts/DejaVuSansBold.ttf')
       }
     )
     font 'DejaVu Sans'
@@ -48,7 +48,7 @@ class PassengersPdf < Prawn::Document
 
   def header(filter)
     font_size 30
-    date = Time.now.strftime('%m/%d/%Y')
+    date = Time.zone.now.strftime('%m/%d/%Y')
     title = [filter, 'Passengers', date].compact.map(&:capitalize).join(' ')
     text title, style: :bold, size: 30
     move_down 20
