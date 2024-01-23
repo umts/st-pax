@@ -26,10 +26,27 @@ class PassengersController < ApplicationController
 
   def check_existing
     @passenger = Passenger.find_by(spire: params[:spire_id])
-    return unless @passenger.present?
+    return if @passenger.blank?
 
     render partial: 'check_existing'
   end
+
+  def index
+    status_filter = params[:status].presence || %w[active pending]
+    @status = params[:status]&.to_sym
+    allowed_filters = %w[permanent temporary]
+    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
+    @passengers = Passenger.where(registration_status: status_filter)
+                           .includes(:eligibility_verification, :mobility_device)
+                           .order :name
+
+    respond_to do |format|
+      format.html
+      format.pdf { passenger_pdf }
+    end
+  end
+
+  def show; end
 
   def new
     @passenger = if @current_user.present?
@@ -54,21 +71,6 @@ class PassengersController < ApplicationController
       redirect_to action: :edit, id: @passenger.id
     else
       redirect_to action: :new
-    end
-  end
-
-  def index
-    status_filter = params[:status].presence || %w[active pending]
-    @status = params[:status]&.to_sym
-    allowed_filters = %w[permanent temporary]
-    @filter = allowed_filters.find { |f| f == params[:filter] } || 'all'
-    @passengers = Passenger.where(registration_status: status_filter)
-                           .includes(:eligibility_verification, :mobility_device)
-                           .order :name
-
-    respond_to do |format|
-      format.html
-      format.pdf { passenger_pdf }
     end
   end
 
@@ -110,7 +112,7 @@ class PassengersController < ApplicationController
   def passenger_pdf
     @passengers = @passengers.send(@filter)
     pdf = PassengersPdf.new(@passengers, @filter)
-    name = "#{@filter} Passengers #{Date.today}".capitalize
+    name = "#{@filter} Passengers #{Time.zone.today}".capitalize
     send_data pdf.render, filename: name,
                           type: 'application/pdf',
                           disposition: :inline

@@ -3,10 +3,25 @@
 class LogEntriesController < ApplicationController
   before_action :find_modifiable_entry, only: %i[destroy update]
 
+  def index
+    @entry = LogEntry.new
+    @entries = LogEntry.includes(:user).order(pinned: :desc, created_at: :desc)
+                       .page(params[:page]).per(100)
+  end
+
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
     if @entry.save
       flash[:success] = 'Log entry was successfully created.'
+    else
+      flash[:danger] = @entry.errors.full_messages
+    end
+    redirect_to log_entries_path
+  end
+
+  def update
+    if @entry.update entry_params
+      flash[:success] = 'Log entry was successfully changed.'
     else
       flash[:danger] = @entry.errors.full_messages
     end
@@ -21,21 +36,6 @@ class LogEntriesController < ApplicationController
       # :nocov:
       flash[:danger] = @log.errors.full_messages
       # :nocov:
-    end
-    redirect_to log_entries_path
-  end
-
-  def index
-    @entry = LogEntry.new
-    @entries = LogEntry.includes(:user).order(pinned: :desc, created_at: :desc)
-                       .page(params[:page]).per(100)
-  end
-
-  def update
-    if @entry.update entry_params
-      flash[:success] = 'Log entry was successfully changed.'
-    else
-      flash[:danger] = @entry.errors.full_messages
     end
     redirect_to log_entries_path
   end
