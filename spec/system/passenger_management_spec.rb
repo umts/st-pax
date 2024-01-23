@@ -28,6 +28,11 @@ RSpec.describe 'Passenger Management', :js do
 
         it 'creates the passenger' do
           fill
+          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+        end
+
+        it 'informs the user of success' do
+          fill
           click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
@@ -64,6 +69,10 @@ RSpec.describe 'Passenger Management', :js do
           fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
         end
 
+        it 'does not create the passenger' do
+          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+        end
+
         it 'renders spire errors in the flash' do
           fill_in 'Spire', with: 'invalid spire'
           click_on 'Submit'
@@ -82,10 +91,15 @@ RSpec.describe 'Passenger Management', :js do
         create(:eligibility_verification, passenger:)
         visit passengers_path
         click_on 'Edit'
+        fill_in 'Name', with: 'Bar Foo'
       end
 
       it 'updates the passenger' do
-        fill_in 'Name', with: 'Bar Foo'
+        click_on 'Submit'
+        expect(passenger.reload.name).to eq('Bar Foo')
+      end
+
+      it 'informs the user of success' do
         click_on 'Submit'
         expect(page).to have_text 'Registration successfully updated.'
       end
@@ -98,11 +112,22 @@ RSpec.describe 'Passenger Management', :js do
     end
 
     context 'when deleting an existing passenger' do
-      it 'deletes the passenger' do
+      subject(:delete) do
+        page.accept_confirm('Are you sure?') { click_on 'Delete' }
+      end
+
+      before do
         visit passengers_path
-        page.accept_confirm 'Are you sure?' do
-          click_on 'Delete'
-        end
+      end
+
+      it 'deletes the passneger' do
+        delete
+        visit passengers_path
+        expect(Passenger.find_by(id: passenger.id)).to be_blank
+      end
+
+      it 'informs the user of success' do
+        delete
         expect(page).to have_text 'Passenger successfully destroyed.'
       end
     end
@@ -132,15 +157,24 @@ RSpec.describe 'Passenger Management', :js do
       end
 
       context 'with a pending registration status' do
+        before { choose 'Pending' }
+
         it 'creates the passenger' do
-          choose 'Pending'
+          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+        end
+
+        it 'informs the user of success' do
           click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
       end
 
       context 'with an active registration status' do
-        it 'does not allow creation' do
+        it 'does not create the passenger' do
+          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+        end
+
+        it 'displays an error message' do
           click_on 'Submit'
           expect(page).to have_text <<~MSG.squish
             Eligibility verification expiration date must be entered for
@@ -164,16 +198,25 @@ RSpec.describe 'Passenger Management', :js do
         fill_in 'Phone', with: '123'
       end
 
-      context 'with pending registration status' do
+      context 'with a pending registration status' do
+        before { choose 'Pending' }
+
         it 'creates the passenger' do
-          choose 'Pending'
+          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+        end
+
+        it 'informs the user of success' do
           click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
         end
       end
 
       context 'with active registration status' do
-        it 'does not allow creation' do
+        it 'does not create the passenger' do
+          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+        end
+
+        it 'displays an error message' do
           click_on 'Submit'
           expect(page).to have_text <<~MSG.squish
             Eligibility verification expiration date must be entered for
@@ -187,10 +230,15 @@ RSpec.describe 'Passenger Management', :js do
           create(:eligibility_verification, passenger:)
           visit passengers_path
           click_on 'Edit'
+          fill_in 'Name', with: 'Bar Foo'
         end
 
         it 'updates the passenger' do
-          fill_in 'Name', with: 'Bar Foo'
+          click_on 'Submit'
+          expect(passenger.reload.name).to eq('Bar Foo')
+        end
+
+        it 'informs the user of success' do
           click_on 'Submit'
           expect(page).to have_text 'Registration successfully updated.'
         end
