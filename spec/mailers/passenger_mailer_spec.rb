@@ -3,26 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe PassengerMailer do
-  describe 'notify_active' do
-    before do
-      @passenger = create(:passenger)
-      @from_add = PassengerMailer.default[:from]
-    end
+  describe '.notify_active' do
+    subject(:output) { described_class.notify_active(passenger) }
 
-    let :output do
-      PassengerMailer.notify_active(@passenger)
-    end
+    let(:passenger) { create(:passenger) }
+    let(:from_address) { described_class.default[:from] }
 
     it 'emails from correct value' do
-      expect(output.from).to eql Array(@from_add)
+      expect(output.from).to eq([from_address])
     end
 
     it 'emails correct passenger' do
-      expect(output.to).to eql Array(@passenger.email)
+      expect(output.to).to eq([passenger.email])
     end
 
     it 'has correct subject' do
-      expect(output.subject).to eq "#{I18n.t 'department.name'} Account Confirmed"
+      expect(output.subject).to eq("#{I18n.t 'department.name'} Account Confirmed")
     end
   end
 end
