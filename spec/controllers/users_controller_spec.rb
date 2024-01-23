@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController do
-  context 'the current user is not an admin' do
+  context 'when the current user is not an admin' do
     before do
       when_current_user_is :anyone
     end
