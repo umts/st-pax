@@ -13,24 +13,19 @@ RSpec.describe Feedback do
 
     before do
       allow(feedback).to receive(:client).and_return(client)
+      allow(client).to receive(:create_issue)
     end
 
     it 'creates an issue' do
-      expect(client).to receive(:create_issue).with(
-        anything,
-        feedback.title,
-        feedback.description,
-        hash_including(labels: /#{feedback.category}/)
-      )
       call
+      expect(client).to have_received(:create_issue)
+        .with(anything, feedback.title, feedback.description, hash_including(labels: /#{feedback.category}/))
     end
 
     it 'signs the feedback if the user is set' do
-      expect(client).to receive(:create_issue).with(
-        anything, anything, sig_pattern, any_args
-      )
       feedback.user = create :user
       call
+      expect(client).to have_received(:create_issue).with(anything, anything, sig_pattern, any_args)
     end
   end
 
@@ -39,12 +34,12 @@ RSpec.describe Feedback do
 
     before do
       allow(feedback).to receive(:client).and_return(client)
+      allow(client).to receive(:issue).and_call_original
     end
 
     it 'loads the issue from GitHub' do
-      expect(client).to receive(:issue)
-        .with(anything, 1).and_call_original
       call
+      expect(client).to have_received(:issue).with(anything, 1)
     end
 
     it 'sets the title from the issue' do

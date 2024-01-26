@@ -24,14 +24,14 @@ RSpec.describe IssueToken do
     end
 
     it 'is false if the token is invalid' do
-      dummy_instance = double(described_class, token: 'abc', valid?: false)
+      dummy_instance = instance_double(described_class, token: 'abc', valid?: false)
       allow(described_class).to receive(:instance).and_return(dummy_instance)
 
       expect(call).to be(false)
     end
 
     it 'is true if the token is present and valid' do
-      dummy_instance = double(described_class, token: 'abc', valid?: true)
+      dummy_instance = instance_double(described_class, token: 'abc', valid?: true)
       allow(described_class).to receive(:instance).and_return(dummy_instance)
 
       expect(call).to be(true)
@@ -48,7 +48,7 @@ RSpec.describe IssueToken do
     end
 
     context 'with a mock client' do
-      let(:client) { double(Octokit::Client) }
+      let(:client) { instance_double(Octokit::Client) }
 
       before { allow(Octokit::Client).to receive(:new).and_return(client) }
 

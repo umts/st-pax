@@ -10,35 +10,34 @@ RSpec.describe User do
   end
 
   describe '#can_modify?' do
-    let(:call) { user.can_modify? @item }
+    subject(:call) { user.can_modify? item }
 
     context 'when user is an admin' do
       let(:user) { create(:user, :admin) }
+      let(:item) { create(:log_entry) }
 
-      it 'returns true' do
-        @item = create(:log_entry)
-        expect(call).to be true
-      end
+      it { is_expected.to be(true) }
     end
 
     context 'when user is a dispatcher' do
       let(:user) { create(:user) }
 
-      context 'with a log entry' do
-        it 'returns false if it is not associated with the user' do
-          @item = create(:log_entry)
-          expect(call).to be false
-        end
+      context "with another user's log entry" do
+        let(:item) { create(:log_entry) }
 
-        it 'returns true if it is associated with the user' do
-          @item = create(:log_entry, user:)
-          expect(call).to be true
-        end
+        it { is_expected.to be(false) }
       end
 
-      it 'returns false with something other than a log entry' do
-        @item = create(:passenger)
-        expect(call).to be false
+      context "with the user's log entry" do
+        let(:item) { create(:log_entry, user:) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'with something other than a log entry' do
+        let(:item) { create(:passenger) }
+
+        it { is_expected.to be(false) }
       end
     end
   end

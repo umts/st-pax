@@ -3,125 +3,157 @@
 require 'rails_helper'
 
 RSpec.describe Passenger do
-  context 'testing mailers upon creation' do
-    it 'correct email is sent upon creation of active passenger' do
-      mail = ActionMailer::MessageDelivery.new(PassengerMailer, :notify_active)
-      expect(PassengerMailer).to receive(:notify_active).and_return mail
-      expect(PassengerMailer).not_to receive(:notify_pending)
-      expect(PassengerMailer).not_to receive(:notify_archived)
-      expect(mail).to receive(:deliver_now).and_return true
+  let(:passenger) { create(:temporary_passenger, :with_note) }
+
+  describe 'active passenger creation notifications' do
+    let(:mail) { ActionMailer::MessageDelivery.new(PassengerMailer, :notify_active) }
+
+    before do
+      allow(PassengerMailer).to receive_messages(notify_active: mail, notify_pending: nil, notify_archived: nil)
+      allow(mail).to receive(:deliver_now).and_return true
       create(:passenger, :permanent, registration_status: 'active')
     end
 
-    it 'correct email is sent upon creation of pending passenger' do
-      mail = ActionMailer::MessageDelivery.new(PassengerMailer, :notify_pending)
-      expect(PassengerMailer).to receive(:notify_pending).and_return mail
-      expect(PassengerMailer).not_to receive(:notify_active)
-      expect(PassengerMailer).not_to receive(:notify_archived)
-      expect(mail).to receive(:deliver_now).and_return true
-      create(:passenger, registration_status: 'pending')
+    it 'sends the correct email' do
+      expect(PassengerMailer).to have_received(:notify_active)
+    end
+
+    it 'does not sent the incorrect email' do
+      %i[notify_pending notify_archived].each do |mail_method|
+        expect(PassengerMailer).not_to have_received(mail_method)
+      end
+    end
+
+    it 'delivers the mail' do
+      expect(mail).to have_received(:deliver_now)
     end
   end
 
-  context 'testing methods' do
+  describe 'pending passenger creation notifications' do
+    let(:mail) { ActionMailer::MessageDelivery.new(PassengerMailer, :notify_pending) }
+
     before do
-      @passenger = create(:temporary_passenger, :with_note)
+      allow(PassengerMailer).to receive_messages(notify_active: nil, notify_pending: mail, notify_archived: nil)
+      allow(mail).to receive(:deliver_now).and_return true
+      create(:passenger, :permanent, registration_status: 'pending')
     end
 
-    describe 'set_status' do
-      context 'setting the status to archived' do
-        it 'sets the status and sends an email to the passenger' do
-          mail = ActionMailer::MessageDelivery.new(PassengerMailer,
-                                                   :notify_archived)
-          expect(PassengerMailer).to receive(:notify_archived)
-            .and_return mail
-          expect(mail).to receive(:deliver_now).and_return true
-          @passenger.set_status('archived')
-        end
-      end
+    it 'sends the correct email' do
+      expect(PassengerMailer).to have_received(:notify_pending)
+    end
 
-      context 'setting the status to active or pending' do
-        it 'sets the status to pending' do
-          @passenger.active!
-          expect { @passenger.set_status('pending') }
-            .to(change { @passenger.registration_status })
-        end
-
-        it 'sets the status to pending' do
-          @passenger.pending!
-          expect { @passenger.set_status('active') }
-            .to(change { @passenger.registration_status })
-        end
+    it 'does not sent the incorrect email' do
+      %i[notify_active notify_archived].each do |mail_method|
+        expect(PassengerMailer).not_to have_received(mail_method)
       end
     end
 
-    describe 'expiration_display' do
-      context 'permanent passenger' do
-        it 'returns nil' do
-          @passenger.update permanent: true
-          expect(@passenger.expiration_display).to be_nil
-        end
+    it 'delivers the mail' do
+      expect(mail).to have_received(:deliver_now)
+    end
+  end
+
+  describe '#set_status' do
+    subject(:call) { ->(status) { passenger.set_status(status) } }
+
+    context 'when setting the status to archived' do
+      let(:mail) { ActionMailer::MessageDelivery.new(PassengerMailer, :notify_archived) }
+
+      before do
+        allow(PassengerMailer).to receive(:notify_archived).and_return mail
+        allow(mail).to receive(:deliver_now).and_return true
       end
 
-      context 'temporary passenger' do
-        it 'returns the expiration date of the doctors note' do
-          date = @passenger.eligibility_verification.expiration_date
-          expect(@passenger.expiration_display).to eql date.strftime('%m/%d/%Y')
-        end
+      it 'sets the status to archived' do
+        expect { call['archived'] }.to change(passenger, :registration_status)
+      end
+
+      it 'sets the status and sends an email to the passenger' do
+        call['archived']
+        expect(mail).to have_received(:deliver_now)
       end
     end
 
-    describe 'temporary?' do
-      it 'returns true if the passenger is not permanent' do
-        expect(@passenger.temporary?).to be true
+    it 'sets the status to pending' do
+      passenger.active!
+      expect { call['pending'] }.to change(passenger, :registration_status)
+    end
+
+    it 'sets the status to active' do
+      passenger.pending!
+      expect { call['active'] }.to change(passenger, :registration_status)
+    end
+  end
+
+  describe '#expiration_display' do
+    subject(:call) { passenger.expiration_display }
+
+    it 'returns nil for a permanent' do
+      passenger.update permanent: true
+      expect(call).to be_nil
+    end
+
+    it "returns the expiration date of the doctor's note for temporary passengers" do
+      date = passenger.eligibility_verification.expiration_date
+      expect(call).to eq(date.strftime('%m/%d/%Y'))
+    end
+  end
+
+  describe '#temporary?' do
+    subject(:call) { passenger.temporary? }
+
+    it 'returns true if the passenger is not permanent' do
+      expect(call).to be(true)
+    end
+  end
+
+  describe 'not having a SPIRE' do
+    it 'is not valid' do
+      spireless_passenger = build(:passenger, spire: '')
+      expect(spireless_passenger).not_to be_valid
+    end
+  end
+
+  describe '#rides_expire' do
+    subject(:call) { passenger.rides_expire }
+
+    context 'with a permanent passenger' do
+      it 'returns nil' do
+        passenger.update permanent: true
+        expect(call).to be_nil
       end
     end
 
-    describe 'not having a SPIRE' do
-      it 'is not valid' do
-        passenger = build(:passenger, spire: '')
-        expect(passenger).not_to be_valid
+    context "with a doctor's note that is expired within the grace period" do
+      it 'returns 3 days from the doctors note expiry' do
+        date = 2.days.ago.to_date
+        passenger.eligibility_verification.update(expiration_date: date)
+        expect(call).to eq(3.business_days.since(date))
       end
     end
 
-    describe 'rides_expire' do
-      context 'permanent passenger' do
-        it 'returns nil' do
-          @passenger.update permanent: true
-          expect(@passenger.rides_expire).to be_nil
-        end
+    context "with a non-expired doctor's note" do
+      it 'returns three business days after the expiration date of the note' do
+        date = 14.days.from_now.to_date
+        passenger.eligibility_verification.update(expiration_date: date)
+        expect(call).to eq(3.business_days.after(date))
       end
+    end
 
-      context 'doctors note present' do
-        context 'doctors note is expired within grace period' do
-          it 'returns 3 days from the doctors note expiry' do
-            date = 2.days.ago.to_date
-            @passenger.eligibility_verification.update(expiration_date: date)
-            expect(@passenger.rides_expire).to eq 3.business_days.since(date)
-          end
-        end
+    context "with no doctor's note" do
+      let(:passenger) { create(:passenger) }
 
-        context 'the doctors note is not expired' do
-          it 'returns three business days after the expiration date of the note' do
-            date = 14.days.from_now.to_date
-            @passenger.eligibility_verification.update(expiration_date: date)
-            expect(@passenger.rides_expire).to eq 3.business_days.after(date)
-          end
-        end
+      it 'returns 3 business days after the registration date' do
+        date = passenger.registration_date
+        expect(call).to eq(3.business_days.after(date))
       end
+    end
 
-      context 'temporary passenger has no doctors note' do
-        it 'returns 3 business days after the registration date' do
-          passenger = create(:passenger)
-          date = passenger.registration_date
-          expect(passenger.rides_expire).to eq 3.business_days.after(date)
-        end
-      end
+    context 'when the passenger is a new record' do
+      let(:passenger) { build(:passenger) }
 
-      context 'passenger is a new record' do
-        it 'returns 3 days from now' do
-          expect(Passenger.new.rides_expire).to eq 3.business_days.after(Time.zone.today)
-        end
+      it 'returns 3 days from now' do
+        expect(call).to eq(3.business_days.after(Time.zone.today))
       end
     end
   end
