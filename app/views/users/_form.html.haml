@@ -5,6 +5,7 @@
       = f.text_field :spire, placeholder: '12345678@umass.edu'
       = f.form_group do
         = f.check_box :active
-      =f.form_group do
+      = f.form_group do
         = f.check_box :admin
+      = f.text_field :title, help: 'Will be shown on brochure'
       = f.primary 'Save'
