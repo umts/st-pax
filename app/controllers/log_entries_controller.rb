@@ -12,7 +12,7 @@ class LogEntriesController < ApplicationController
   def create
     @entry = LogEntry.new entry_params.merge(user: @current_user)
     if @entry.save
-      flash[:success] = 'Log entry was successfully created.'
+      flash[:success] = t('.success')
     else
       flash[:danger] = @entry.errors.full_messages
     end
@@ -21,7 +21,7 @@ class LogEntriesController < ApplicationController
 
   def update
     if @entry.update entry_params
-      flash[:success] = 'Log entry was successfully changed.'
+      flash[:success] = t('.success')
     else
       flash[:danger] = @entry.errors.full_messages
     end
@@ -30,7 +30,7 @@ class LogEntriesController < ApplicationController
 
   def destroy
     if @entry.destroy
-      flash[:success] = 'Log entry was successfully deleted.'
+      flash[:success] = t('.success')
     else
       # skip coverage until LogEntry deletion can possibly be restrained
       # :nocov:

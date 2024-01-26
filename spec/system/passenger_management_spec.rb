@@ -101,7 +101,7 @@ RSpec.describe 'Passenger Management', :js do
 
       it 'informs the user of success' do
         click_on 'Submit'
-        expect(page).to have_text 'Registration successfully updated.'
+        expect(page).to have_text 'Registration successfully updated'
       end
 
       it 'puts errors in the flash' do
@@ -120,7 +120,7 @@ RSpec.describe 'Passenger Management', :js do
         visit passengers_path
       end
 
-      it 'deletes the passneger' do
+      it 'deletes the passenger' do
         delete
         visit passengers_path
         expect(Passenger.find_by(id: passenger.id)).to be_blank
@@ -128,7 +128,7 @@ RSpec.describe 'Passenger Management', :js do
 
       it 'informs the user of success' do
         delete
-        expect(page).to have_text 'Passenger successfully destroyed.'
+        expect(page).to have_text 'Passenger successfully destroyed'
       end
     end
 
@@ -240,7 +240,7 @@ RSpec.describe 'Passenger Management', :js do
 
         it 'informs the user of success' do
           click_on 'Submit'
-          expect(page).to have_text 'Registration successfully updated.'
+          expect(page).to have_text 'Registration successfully updated'
         end
       end
 

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = 'User successfully created'
+      flash[:success] = t('.success')
       redirect_to users_url
     else
       flash.now[:danger] = @user.errors.full_messages
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = 'User successfully updated'
+      flash[:success] = t('.success')
       redirect_to users_url
     else
       flash.now[:danger] = @user.errors.full_messages
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      flash[:success] = 'User successfully destroyed.'
+      flash[:success] = t('.success')
     else
       flash[:danger] = @user.errors.full_messages
     end
