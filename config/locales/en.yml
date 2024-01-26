@@ -46,6 +46,8 @@ en:
               blank: 'must be entered for temporary passengers with an active registration status'
             expiration_date:
               blank: 'must be entered for temporary passengers with an active registration status'
+              no_agency: 'cannot be entered without verifying agency'
+              perm_pax: 'may not be entered for permanent passengers'
             phone:
               blank: 'must be entered if address is blank'
             address:
@@ -75,3 +77,38 @@ en:
     supervisors:
       - Tommy Fitzsimmons
       - Zack Suranofsky
+  feedback:
+    create:
+      success: 'Feedback was successfully submitted'
+  log_entries:
+    create:
+      success: 'log entry was successfully created'
+    update:
+      success: 'log entry was successfully changed'
+    destroy:
+      success: 'log entry was successfully deleted'
+  mobility_devices:
+    create:
+      success: 'Mobility device was successfully created'
+    update:
+      success: 'Mobility device was successfully updated'
+    destroy:
+      success: 'Mobility device was successfully destroyed'
+  passengers:
+    create:
+      success: 'Passenger registration successful'
+    edit:
+      must_call: 'To edit your profile, please call %{phone}'
+    update:
+      success: 'Passenger successfully updated'
+      registrant_success: 'Registration successfully updated'
+    destroy:
+      success: 'Passenger successfully destroyed'
+    notify_warning: '%{message}, but the email followup was unsuccessful. Please check the validity of the email address.'
+  users:
+    create:
+      success: 'User successfully created'
+    update:
+      success: 'User successfully updated'
+    destroy:
+      success: 'User successfully destroyed'
