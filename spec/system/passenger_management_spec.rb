@@ -82,7 +82,7 @@ RSpec.describe 'Passenger Management', :js do
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Registration successfully updated.'
+        expect(page).to have_text 'Registration successfully updated'
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe 'Passenger Management', :js do
         page.accept_confirm 'Are you sure?' do
           click_button 'Delete'
         end
-        expect(page).to have_text 'Passenger successfully destroyed.'
+        expect(page).to have_text 'Passenger successfully destroyed'
       end
     end
 
@@ -192,7 +192,7 @@ RSpec.describe 'Passenger Management', :js do
         click_link 'Edit'
         fill_in 'Name', with: 'Bar Foo'
         click_button 'Submit'
-        expect(page).to have_text 'Registration successfully updated.'
+        expect(page).to have_text 'Registration successfully updated'
       end
     end
 
