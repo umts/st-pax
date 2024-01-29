@@ -7,5 +7,7 @@
         = f.check_box :active
       = f.form_group do
         = f.check_box :admin
-      = f.text_field :title, help: 'Will be shown on brochure'
+      = f.text_field :title, help: 'Will be shown on brochure', list: 'title-list'
+      %datalist#title-list
+        = options_for_select @titles
       = f.primary 'Save'
