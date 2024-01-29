@@ -9,5 +9,5 @@
         = f.check_box :admin
       = f.text_field :title, help: 'Will be shown on brochure', list: 'title-list', autocomplete: 'off'
       %datalist#title-list
-        = options_for_select @titles
+        = options_for_select User.select(:title).distinct.pluck(:title).compact
       = f.primary 'Save'

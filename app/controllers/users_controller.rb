@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   before_action :set_user, except: %i[index new create]
-  before_action :set_titles, only: %i[new edit create update]
   before_action :restrict_to_admin
 
   def index
@@ -55,10 +54,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def set_titles
-    @titles = User.select(:title).distinct.pluck(:title).compact
   end
 
   def user_params
