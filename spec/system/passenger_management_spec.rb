@@ -17,7 +17,7 @@ RSpec.describe 'Passenger Management', :js do
 
       context 'when passenger creation is successful' do
         let :fill do
-          fill_in 'Name', with: 'Foo Bar'
+          fill_in 'Name', with: 'Foo Baz'
           fill_in 'Email', with: 'foobar@invalid.com'
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
@@ -28,7 +28,9 @@ RSpec.describe 'Passenger Management', :js do
 
         it 'creates the passenger' do
           fill
-          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+          click_on 'Submit'
+          visit passengers_path
+          expect(page).to have_text('Foo Baz')
         end
 
         it 'informs the user of success' do
@@ -63,14 +65,16 @@ RSpec.describe 'Passenger Management', :js do
 
       context 'when passenger creation is unsuccessful' do
         before do
-          fill_in 'Name', with: 'Foo Bar'
+          fill_in 'Name', with: 'Foo Baz'
           fill_in 'Email', with: 'foobar@invalid.com'
           fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
         end
 
         it 'does not create the passenger' do
-          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+          click_on 'Submit'
+          visit passengers_path
+          expect(page).to have_no_text('Foo Baz')
         end
 
         it 'renders spire errors in the flash' do
@@ -96,7 +100,8 @@ RSpec.describe 'Passenger Management', :js do
 
       it 'updates the passenger' do
         click_on 'Submit'
-        expect(passenger.reload.name).to eq('Bar Foo')
+        visit passengers_path
+        expect(page).to have_text('Bar Foo').and(have_no_text(passenger.name))
       end
 
       it 'informs the user of success' do
@@ -123,7 +128,7 @@ RSpec.describe 'Passenger Management', :js do
       it 'deletes the passenger' do
         delete
         visit passengers_path
-        expect(Passenger.find_by(id: passenger.id)).to be_blank
+        expect(page).to have_no_text(passenger.name)
       end
 
       it 'informs the user of success' do
@@ -136,7 +141,8 @@ RSpec.describe 'Passenger Management', :js do
       it 'archives the passenger' do
         visit passengers_path
         click_on 'Archive'
-        expect(passenger.reload).to be_archived
+        visit archived_passengers_path
+        expect(page).to have_text(passenger.name)
       end
 
       it 'tells you the passenger has been archived' do
@@ -160,7 +166,9 @@ RSpec.describe 'Passenger Management', :js do
         before { choose 'Pending' }
 
         it 'creates the passenger' do
-          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+          click_on 'Submit'
+          visit passengers_path
+          expect(page).to have_text('Jane Fonda')
         end
 
         it 'informs the user of success' do
@@ -171,7 +179,8 @@ RSpec.describe 'Passenger Management', :js do
 
       context 'with an active registration status' do
         it 'does not create the passenger' do
-          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+          visit passengers_path
+          expect(page).to have_no_text('Jane Fonda')
         end
 
         it 'displays an error message' do
@@ -202,7 +211,9 @@ RSpec.describe 'Passenger Management', :js do
         before { choose 'Pending' }
 
         it 'creates the passenger' do
-          expect { click_on 'Submit' }.to change(Passenger, :count).by(1)
+          click_on 'Submit'
+          visit passengers_path
+          expect(page).to have_text('Jane Fonda')
         end
 
         it 'informs the user of success' do
@@ -213,7 +224,8 @@ RSpec.describe 'Passenger Management', :js do
 
       context 'with active registration status' do
         it 'does not create the passenger' do
-          expect { click_on 'Submit' }.not_to change(Passenger, :count)
+          visit passengers_path
+          expect(page).to have_no_text('Jane Fonda')
         end
 
         it 'displays an error message' do
@@ -235,7 +247,8 @@ RSpec.describe 'Passenger Management', :js do
 
         it 'updates the passenger' do
           click_on 'Submit'
-          expect(passenger.reload.name).to eq('Bar Foo')
+          visit passengers_path
+          expect(page).to have_text('Bar Foo')
         end
 
         it 'informs the user of success' do
