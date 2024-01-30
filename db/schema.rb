@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_18_184517) do
+ActiveRecord::Schema.define(version: 2024_01_26_202921) do
 
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2024_01_18_184517) do
     t.datetime "updated_at", null: false
     t.string "uid"
     t.string "net_id"
+    t.string "title"
     t.index ["net_id"], name: "index_users_on_net_id"
     t.index ["spire"], name: "index_users_on_spire", unique: true
     t.index ["uid"], name: "index_users_on_uid"

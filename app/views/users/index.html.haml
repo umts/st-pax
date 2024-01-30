@@ -6,8 +6,9 @@
         %tr
           %th Name
           %th Spire ID
+          %th Staff Title
           %th.text-center Active?
-          %th.text-center Staff?
+          %th.text-center Admin?
           %th
           %th
       %tbody
@@ -16,6 +17,7 @@
             %tr
               %td= user.name
               %td= user.spire
+              %td= user.title
               %td.text-center= checkmark_glyph user.active?
               %td.text-center= checkmark_glyph user.admin?
               %td= link_to 'Edit', edit_user_path(user)

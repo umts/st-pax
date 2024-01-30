@@ -1,12 +1,12 @@
 %h1= @user.name
-%p
-  %b Spire:
-  = @user.spire
-%p
-  %b Active:
-  = checkmark_glyph @user.active?
-%p
-  %b Admin:
-  = checkmark_glyph @user.admin?
+%dl.row
+  %dt.col-sm-2 Spire:
+  %dd.col-sm-10= @user.spire
+  %dt.col-sm-2 Active:
+  %dd.col-sm-10= checkmark_glyph @user.active?
+  %dt.col-sm-2 Admin:
+  %dd.col-sm-10= checkmark_glyph @user.admin?
+  %dt.col-sm-2 Title:
+  %dd.col-sm-10= @user.title
 = link_to 'Edit', edit_user_path
 = link_to 'Back', users_path

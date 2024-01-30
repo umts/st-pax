@@ -72,11 +72,6 @@ en:
     phone: 413-545-2086
     email: stspv@umass.edu
     website: https://www.umass.edu/transportation/accessible-van-service
-    coordinators:
-      - Diana Noble
-    supervisors:
-      - Tommy Fitzsimmons
-      - Zack Suranofsky
   feedback:
     create:
       success: 'Feedback was successfully submitted'
