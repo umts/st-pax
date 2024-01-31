@@ -20,12 +20,10 @@
         %caption #{t 'department.name'} Staff
         %thead
         %tbody
-          %tr
-            %th= 'Supervisor'.pluralize t('department.supervisors').size
-            %td= t('department.supervisors').to_sentence
-          %tr
-            %th= 'Coordinator'.pluralize t('department.coordinators').size
-            %td= t('department.coordinators').to_sentence
+          - staff_titles_and_names.each do |title, names|
+            %tr
+              %th= title
+              %td= names
   %h2 Hours of Operation
   .row
     .col-lg-6
