@@ -1,4 +1,8 @@
-%h1= registration_header
+%h1
+  - if @curent_user.present?
+    New Passenger
+  - else
+    Register for #{t 'department.name'}
 = render partial: 'form', locals: { passenger: @passenger }
 %p
   = link_to 'Back', :back

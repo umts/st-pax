@@ -36,15 +36,15 @@
             options_for_select(VerifyingAgency.all.map { |agency| [agency.name,
             agency.id, { 'data-needs-contact-info': agency.needs_contact_info? } ] },
             passenger.eligibility_verification&.verifying_agency&.id),
-            help: verifying_agency_help_text,
-            label: verifying_agency_label,
+            help: 'Required only for temporary passengers.',
+            label: verifying_agency_label(@current_user.present?),
             include_blank: true
           - if passenger.eligibility_verification.blank? && passenger.temporary?
             - expiration_help = "Rides expire #{passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
           = d.text_field :expiration_date,
             class: 'datepicker verification-expires',
             help: expiration_help,
-            label: expiration_date_label,
+            label: "How long will #{@current_user.present? ? 'the passenger' : 'you'} be with us?",
             disabled: passenger.permanent?
           = d.form_group :contact_information,
             label: { text: 'This verifying agency requires contact information to be entered' },

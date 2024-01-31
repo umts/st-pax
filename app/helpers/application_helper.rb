@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def new_passenger_link_text
-    return 'Add New Passenger' if @current_user.present?
-    return 'Edit Registration' if @registrant&.persisted?
+  def new_passenger_link_text(dispatcher: false, registered: false)
+    return 'Add New Passenger' if dispatcher
+    return 'Edit Registration' if registered
 
     "Register for #{t 'department.name'}"
   end
