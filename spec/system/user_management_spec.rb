@@ -30,7 +30,7 @@ RSpec.describe 'User Management' do
       it 'deletes the user' do
         submit
         visit users_path
-        expect(User.find_by(id: user.id)).to be_blank
+        expect(page).to have_no_text(user.name)
       end
 
       it 'says it deleted them' do
@@ -48,7 +48,8 @@ RSpec.describe 'User Management' do
     it 'updates the user' do
       fill_in 'Name', with: 'Bar Foo'
       click_on 'Save'
-      expect(user.reload.name).to eq('Bar Foo')
+      visit users_path
+      expect(page).to have_text('Bar Foo').and(have_no_text(user.name))
     end
 
     it 'says it updated them' do
@@ -69,23 +70,33 @@ RSpec.describe 'User Management' do
       click_on 'New User'
     end
 
-    it 'creates the user' do
-      fill_in 'Name', with: 'Foo Bar'
-      fill_in 'Spire', with: '12345678@umass.edu'
-      expect { click_on 'Save' }.to change(User, :count).by(1)
+    context 'when successfully creating them' do
+      before do
+        fill_in 'Name', with: 'Foo Bar'
+        fill_in 'Spire', with: '12345678@umass.edu'
+        check 'Active'
+        click_on 'Save'
+      end
+
+      it 'creates the user' do
+        visit users_path
+        expect(page).to have_text('Foo Bar')
+      end
+
+      it 'says it created them' do
+        expect(page).to have_text 'User successfully created'
+      end
     end
 
-    it 'says it created them' do
-      fill_in 'Name', with: 'Foo Bar'
-      fill_in 'Spire', with: '12345678@umass.edu'
-      click_on 'Save'
-      expect(page).to have_text 'User successfully created'
-    end
+    context 'when making an error' do
+      before do
+        fill_in 'Spire', with: 'invalid spire'
+        click_on 'Save'
+      end
 
-    it 'renders an error in the flash' do
-      fill_in 'Spire', with: 'invalid spire'
-      click_on 'Save'
-      expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
+      it 'renders an error in the flash' do
+        expect(page).to have_text 'Spire must be 8 digits followed by @umass.edu'
+      end
     end
   end
 end
