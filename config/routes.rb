@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get :register
       get :brochure
       get :check_existing
+      get :export_csv, action: :export_csv
     end
     member do
       post :set_status

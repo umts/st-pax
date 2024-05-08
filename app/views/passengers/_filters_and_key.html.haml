@@ -12,6 +12,7 @@
       = f.submit 'Print'
       -if @current_user.admin?
         %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
+        = link_to('Export CSV', passengers_path(format: 'csv', status: params[:status]), class: 'btn btn-secondary')
   .col-lg-4.my-3
     %table#key
       %tbody
