@@ -38,6 +38,7 @@ class PassengersController < ApplicationController
     @passengers = Passenger.where(registration_status: status_filter)
                            .includes(:eligibility_verification, :mobility_device)
                            .order :name
+    @passengers = @passengers.send(@filter)
 
     respond_to do |format|
       format.html
@@ -113,7 +114,6 @@ class PassengersController < ApplicationController
   end
 
   def passenger_pdf
-    @passengers = @passengers.send(@filter)
     pdf = PassengersPdf.new(@passengers, @filter)
     name = "#{@filter} Passengers #{Time.zone.today}".capitalize
     send_data pdf.render, filename: name,
@@ -135,7 +135,7 @@ class PassengersController < ApplicationController
     flash[:warning] = t('.notify_warning', message: success_message)
     success.call
   end
-  
+
   def export_csv
     @passengers = Passenger.all
 
