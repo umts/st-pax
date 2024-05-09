@@ -12,7 +12,7 @@
       = f.submit 'Print', formaction: passengers_path(format: :pdf)
       -if @current_user.admin?
         %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
-        = f.submit 'Export CSV', formaction: passengers_path(format: :csv), class: 'btn btn-secondary'
+        = f.submit 'Export CSV', formaction: passengers_path(format: :csv)
   .col-lg-4.my-3
     %table#key
       %tbody
