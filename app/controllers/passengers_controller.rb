@@ -135,12 +135,4 @@ class PassengersController < ApplicationController
     flash[:warning] = t('.notify_warning', message: success_message)
     success.call
   end
-
-  def export_csv
-    @passengers = Passenger.all
-
-    respond_to do |format|
-     
-    end
-  end
 end
