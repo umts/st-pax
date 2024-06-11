@@ -161,14 +161,15 @@ RSpec.describe Passenger do
       subject(:call) { described_class.all.to_csv }
 
       before do
-        create(:passenger, name: 'John Doe', needs_longer_rides: true, permanent: true)
-        create(:passenger, name: 'Jane Smith', needs_longer_rides: false, permanent: false)
+        longer_rides_mobility_device = create(:mobility_device, needs_longer_rides: true)
+        create(:passenger, name: 'John Doe', mobility_device: longer_rides_mobility_device, permanent: true)
+        create(:passenger, name: 'Jane Smith', permanent: false)
       end
 
       it 'formats the passengers as a csv' do
         expect(call).to eq(<<~CSV)
           Name,Longer rides,Permanent
-          John Doe,false,true
+          John Doe,true,true
           Jane Smith,false,false
         CSV
       end

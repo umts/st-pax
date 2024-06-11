@@ -3,8 +3,6 @@
 require 'csv'
 
 class Passenger < ApplicationRecord
-  attr_writer :needs_longer_rides
-
   belongs_to :registerer, optional: true, inverse_of: :registered_passengers,
                           foreign_key: :registered_by, class_name: 'User'
   has_one :eligibility_verification, dependent: :destroy
