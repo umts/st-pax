@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class Passenger < ApplicationRecord
   belongs_to :registerer, optional: true, inverse_of: :registered_passengers,
                           foreign_key: :registered_by, class_name: 'User'
@@ -95,6 +97,16 @@ class Passenger < ApplicationRecord
 
   def permanent_or_temporary
     permanent? ? 'permanent' : 'temporary'
+  end
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ['Name', 'Longer rides', 'Permanent']
+  
+      all.each do |passenger|
+        csv << [passenger.name, passenger.needs_longer_rides?, passenger.permanent?]
+      end
+    end
   end
 
   private

@@ -38,10 +38,17 @@ class PassengersController < ApplicationController
     @passengers = Passenger.where(registration_status: status_filter)
                            .includes(:eligibility_verification, :mobility_device)
                            .order :name
+    @passengers = @passengers.send(@filter)
 
     respond_to do |format|
       format.html
       format.pdf { passenger_pdf }
+      format.csv do
+        send_data @passengers.to_csv,
+                  filename: "passengers-#{Date.today}.csv",
+                  type: 'text/csv; charset=utf-8',
+                  disposition: 'attachment'
+      end
     end
   end
 
@@ -107,7 +114,6 @@ class PassengersController < ApplicationController
   end
 
   def passenger_pdf
-    @passengers = @passengers.send(@filter)
     pdf = PassengersPdf.new(@passengers, @filter)
     name = "#{@filter} Passengers #{Time.zone.today}".capitalize
     send_data pdf.render, filename: name,
