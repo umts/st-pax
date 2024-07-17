@@ -1,6 +1,6 @@
 .row.align-items-end.justify-content-between
   .passenger-filters.col-lg-4.my-3
-    = bootstrap_form_tag url: passengers_path(format: 'pdf'), method: :get do |f|
+    = bootstrap_form_tag url: '#', method: :get do |f|
       = f.form_group do
         %fieldset
           %legend.sr-only Filter Passengers
@@ -9,9 +9,10 @@
               label: filter.capitalize,
               checked: @filter == filter,
               inline: true
-      = f.submit 'Print'
+      = f.submit 'Print', formaction: passengers_path(format: :pdf)
       -if @current_user.admin?
         %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
+      = f.submit 'Export CSV', formaction: passengers_path(format: :csv)
   .col-lg-4.my-3
     %table#key
       %tbody
