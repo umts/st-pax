@@ -1,24 +1,16 @@
 .row
   .col-lg-6
-    %table.table
-      %caption Contact Information
-      %thead
-      %tbody
-        %tr
-          %th Phone
-          %td= t 'department.phone'
-        %tr
-          %th Public Website
-          %td= link_to nil, t('department.website')
-        %tr
-          %th Email
-          %td= t 'department.email'
+    %h3.text-center Contact Information
+    %dl.row
+      %dt.col-sm-3 Phone
+      %dd.col-sm-9= t 'department.phone'
+      %dt.col-sm-3 Public Website
+      %dd.col-sm-9= link_to nil, t('department.website')
+      %dt.col-sm-3 Email
+      %dd.col-sm-9= t 'department.email'
   .col-lg-6
-    %table.table
-      %caption #{t 'department.name'} Staff
-      %thead
-      %tbody
-        - staff_titles_and_names.each do |title, names|
-          %tr
-            %th= title
-            %td= names
+    %h3.text-center #{t 'department.name'} Staff
+    %dl.row
+      - staff_titles_and_names.each do |title, names|
+        %dt.col-sm-3= title
+        %dd.col-sm-9= names
