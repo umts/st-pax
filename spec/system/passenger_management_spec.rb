@@ -22,7 +22,7 @@ RSpec.describe 'Passenger Management', :js do
           fill_in 'Address', with: '123 turkey lane'
           fill_in 'Phone', with: '123'
           fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
+          fill_in 'How long will the passenger be with us?', with: 2.days.from_now
           select verifying_agency.name, from: 'Which agency verifies that this passenger needs rides?'
         end
 
@@ -68,7 +68,7 @@ RSpec.describe 'Passenger Management', :js do
           fill_in 'Name', with: 'Foo Baz'
           fill_in 'Email', with: 'foobar@invalid.com'
           fill_in 'Spire', with: '12345678@umass.edu'
-          fill_in 'How long will the passenger be with us?', with: 2.days.from_now.strftime('%F')
+          fill_in 'How long will the passenger be with us?', with: 2.days.from_now
         end
 
         it 'does not create the passenger' do
