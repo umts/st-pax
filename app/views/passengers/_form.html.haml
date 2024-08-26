@@ -41,8 +41,8 @@
             include_blank: true
           - if passenger.eligibility_verification.blank? && passenger.temporary?
             - expiration_help = "Rides expire #{passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
-          = d.text_field :expiration_date,
-            class: 'datepicker verification-expires',
+          = d.date_field :expiration_date,
+            class: 'verification-expires',
             help: expiration_help,
             label: expiration_date_label,
             disabled: passenger.permanent?

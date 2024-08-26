@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
-//= require jquery-ui/ui/widgets/datepicker
 //= require popper.js/dist/umd/popper
 //= require bootstrap-sprockets
 //= require datatables.net/js/jquery.dataTables.js
