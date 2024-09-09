@@ -1,6 +1,6 @@
 .row
   .col-lg-6
-    %h3.text-center Contact Information
+    %h2.h5.text-center Contact Information
     %dl.row
       %dt.col-sm-3 Phone
       %dd.col-sm-9= t 'department.phone'
@@ -9,7 +9,7 @@
       %dt.col-sm-3 Email
       %dd.col-sm-9= t 'department.email'
   .col-lg-6
-    %h3.text-center #{t 'department.name'} Staff
+    %h2.h5.text-center #{t 'department.abbr'} Staff
     %dl.row
       - staff_titles_and_names.each do |title, names|
         %dt.col-sm-3= title
