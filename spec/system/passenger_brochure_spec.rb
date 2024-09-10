@@ -10,9 +10,7 @@ RSpec.describe 'Passenger Brochure' do
   before { visit brochure_passengers_path }
 
   it 'shows users with titles' do
-    within 'tr', text: 'Admiral' do
-      expect(page).to have_text(staff_member.name)
-    end
+    expect(page).to have_text(/Admiral\s+#{staff_member.name}/)
   end
 
   it "doesn't show users without titles" do
