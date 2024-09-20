@@ -39,8 +39,8 @@ RSpec.describe 'Passenger Management', :js do
           expect(page).to have_text 'Passenger registration successful'
         end
 
-        it 'creates a passenger subscribed to sms' do
-          check 'Subscribed to sms'
+        it 'creates a passenger subscribed to SMS' do
+          check 'Subscribed to SMS'
           fill
           click_on 'Submit'
           expect(page).to have_text 'Passenger registration successful'
