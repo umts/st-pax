@@ -2,8 +2,11 @@
 %ul
   %li
     New schedules for the following week are available every Friday after
-    7:00 a.m. You can call #{t 'department.phone'} on Friday morning to set up
-    your rides for the following week.
+    7:00 a.m. You can call
+    = phone_to t('department.phone')
+    or text
+    = sms_to t('department.sms')
+    on Friday morning to set up your rides for the following week.
   %li
     #{t 'department.name'} vans travel on campus and in close proximity to the
     University, we do not travel more than 3 miles from Du Bois Library.
@@ -49,8 +52,7 @@
     schedule the ride. Please do not ask drivers to drop you off outside of the
     designated drop-off locations. If you need special accommodations, please
     email the #{t 'department.abbr'} Supervisors at
-    = succeed '.' do
-      = mail_to t('department.email')
+    = succeed('.') { mail_to t('department.email') }
   %li
     A &ldquo;no-show&rdquo; is a ride that you miss completely or are more than
     five minutes late for. Passengers who accrue four or more no-shows in a
@@ -69,4 +71,4 @@
     may be suspended from the service for one week.
   %li
     If your driver is not there within 2 minutes, call the Dispatcher at
-    #{t 'department.phone'}.
+    = succeed('.') { phone_to t('department.phone') }
