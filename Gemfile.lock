@@ -386,9 +386,10 @@ GEM
     timeout (0.4.1)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (1.5.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.1)
@@ -457,7 +458,7 @@ DEPENDENCIES
   spring-watcher-listen
   sprockets-rails
   timecop
-  turbolinks
+  turbo-rails
   uglifier
   web-console
 
