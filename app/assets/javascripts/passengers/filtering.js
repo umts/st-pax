@@ -11,7 +11,7 @@ function updatePassengerFilter() {
   $("table#passengers").DataTable().columns(column).search(selected).draw();
 }
 
-$(document).on("turbolinks:load", function() {
+$(document).on("turbo:load", function() {
   $("input[name=filter]").on("change", updatePassengerFilter);
   updatePassengerFilter();
 });
