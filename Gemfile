@@ -20,7 +20,7 @@ gem 'rails', '~> 7.0.8'
 gem 'rake'
 gem 'sassc-rails'
 gem 'sprockets-rails'
-gem 'turbolinks', '~> 5'
+gem 'turbolinks'
 
 group :development, :test do
   gem 'factory_bot_rails'
@@ -40,13 +40,13 @@ group :test do
 end
 
 group :development do
-  gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0', require: false
-  gem 'capistrano', '~> 3.14',           require: false
-  gem 'capistrano-bundler',              require: false
-  gem 'capistrano-passenger',            require: false
-  gem 'capistrano-pending',              require: false
-  gem 'capistrano-rails',                require: false
-  gem 'ed25519', '>= 1.2', '< 2.0',      require: false
+  gem 'bcrypt_pbkdf', require: false
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-passenger', require: false
+  gem 'capistrano-pending', require: false
+  gem 'capistrano-rails', require: false
+  gem 'ed25519', require: false
   gem 'erb2haml'
   gem 'haml-lint'
   gem 'listen'
@@ -58,7 +58,7 @@ group :development do
   gem 'rubocop-rspec'
   gem 'spring'
   gem 'spring-watcher-listen'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console'
 end
 
 group :production do
