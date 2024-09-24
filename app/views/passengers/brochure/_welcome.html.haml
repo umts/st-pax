@@ -1,0 +1,16 @@
+%h2 Hello!
+
+%p
+  Welcome to #{t 'department.name'}! Below are our policies and procedures,
+  which you should review before starting to use our services. Also, be sure to
+  get us your doctor's note or eligibility form if you haven't already. Please
+  have it faxed to #{t 'department.fax'}.
+.card.border-info.mb-3
+  .card-body
+    %i.fas.fa-info-circle.text-info
+    For information on all of our pickup and dropoff locations, visit our
+    = succeed('.') { link_to 'online map project', map_project_url }
+%p
+  If you have any further questions about our policies, procedures, or pickup
+  locations, you can call and speak to our dispatcher at #{t 'department.phone'}
+  or email our staff at #{mail_to t 'department.email'}.

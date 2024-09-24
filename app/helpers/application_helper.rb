@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  def map_project_url
+    'https://www.google.com/maps/d/u/0/viewer' \
+    '?ll=42.38924848859173%2C-72.52462826539438&z=16' \
+    '&mid=1xXU7Hvn0xGzwQbmdNgn-W87bgg8'
+  end
+
   def new_passenger_link_text
     return 'Add New Passenger' if @current_user.present?
     return 'Edit Registration' if @registrant&.persisted?
