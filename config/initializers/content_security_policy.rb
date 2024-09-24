@@ -20,7 +20,7 @@ Rails.application.configure do
   config.content_security_policy_nonce_generator = lambda do |request|
     request.session[:csp_nonce] ||= SecureRandom.base64(16)
   end
-  config.content_security_policy_nonce_directives = %w(script-src)
+  config.content_security_policy_nonce_directives = %w[script-src style-src]
 
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
