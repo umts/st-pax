@@ -3,11 +3,15 @@
     %h2.h5.text-center Contact Information
     %dl.row
       %dt.col-sm-3 Phone
-      %dd.col-sm-9= t 'department.phone'
+      %dd.col-sm-9= phone_to t('department.phone')
+      %dt.col-sm-3 Text
+      %dd.col-sm-9
+        = sms_to t('department.sms')
+        %span.text-muted (During Dispatch hours only)
       %dt.col-sm-3 Public Website
       %dd.col-sm-9= link_to nil, t('department.website')
       %dt.col-sm-3 Email
-      %dd.col-sm-9= t 'department.email'
+      %dd.col-sm-9= mail_to t('department.email')
   .col-lg-6
     %h2.h5.text-center #{t 'department.abbr'} Staff
     %dl.row

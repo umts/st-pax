@@ -33,5 +33,7 @@
         = link_to 'Site Feedback', feedback_index_path, class: 'nav-link'
     %li.nav-item
       = link_to 'Brochure', brochure_passengers_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Map Project', map_project_url, class: 'nav-link'
   - if authenticated?
     = link_to 'Logout', destroy_session_path, class: 'nav-link', method: :delete

@@ -26,6 +26,6 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
   config.before :each, :js, type: :system do
-    driven_by :selenium_chrome_headless
+    driven_by :selenium, using: :headless_chrome
   end
 end

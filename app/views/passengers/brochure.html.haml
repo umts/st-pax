@@ -1,4 +1,4 @@
 #brochure.container
   %h1 #{t 'department.name'} Passenger Information
-  - %w[contacts hours policies scheduling].each do |section|
+  - %w[contacts hours welcome policies scheduling].each do |section|
     = render "passengers/brochure/#{section}"
