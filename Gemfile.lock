@@ -418,17 +418,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt_pbkdf (>= 1.0, < 2.0)
+  bcrypt_pbkdf
   bootstrap (~> 4.3)
   bootstrap_form
   business_time
-  capistrano (~> 3.14)
+  capistrano
   capistrano-bundler
   capistrano-passenger
   capistrano-pending
   capistrano-rails
   capybara
-  ed25519 (>= 1.2, < 2.0)
+  ed25519
   erb2haml
   exception_notification
   factory_bot_rails
@@ -464,9 +464,9 @@ DEPENDENCIES
   spring-watcher-listen
   sprockets-rails
   timecop
-  turbolinks (~> 5)
+  turbolinks
   uglifier
-  web-console (>= 3.3.0)
+  web-console
 
 RUBY VERSION
    ruby 3.1.4p223
