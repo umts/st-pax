@@ -24,6 +24,7 @@ gem 'sprockets-rails'
 gem 'turbolinks'
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
