@@ -10,10 +10,8 @@
             = form_with url: sessions_dev_login_path, local: true do |f|
               .input-group
                 = f.select :user_id,
-                  grouped_options_for_select(dev_login_options(@users)),
-                  {}, class: 'form-control custom-select'
-                .input-group-append
-                  = f.submit 'Login', class: 'btn btn-success'
+                  grouped_options_for_select(dev_login_options(@users)), {}, class: 'form-select'
+                = f.submit 'Login', class: 'btn btn-success'
     .col.mb-4
       .card
         .card-body
@@ -23,6 +21,5 @@
               .input-group
                 = f.select :passenger_id,
                   options_from_collection_for_select(@passengers, :id, :name),
-                  { include_blank: 'New Passenger' }, class: 'form-control custom-select'
-                .input-group-append
-                  = f.submit 'Login', class: 'btn btn-success'
+                  { include_blank: 'New Passenger' }, class: 'form-select'
+                = f.submit 'Login', class: 'btn btn-success'
