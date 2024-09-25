@@ -1,7 +1,7 @@
 $( document ).on("turbolinks:load", function() {
   $('#passengers').DataTable({
     fixedHeader: true,
-    lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, 'All'] ],
+    paging: false,
     order: [[0, 'asc']],
     stateSave: true,
   });
