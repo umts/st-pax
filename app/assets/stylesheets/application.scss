@@ -11,8 +11,8 @@ $theme-colors: (
 
 @import "bootstrap/scss/bootstrap";
 
-@import "datatables.net-bs4/css/dataTables.bootstrap4";
-@import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
+@import "datatables.net-bs5/css/dataTables.bootstrap5";
+@import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
 
 $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
