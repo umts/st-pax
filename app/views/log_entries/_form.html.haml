@@ -3,8 +3,8 @@
   .d-flex
     = f.primary log_entry.persisted? ? 'Save' : 'Submit'
     - if @current_user.admin?
-      .input-group.ml-2
+      .input-group.ms-2
         .input-group-text
-          .custom-control.custom-checkbox
-            = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
-            = f.label :pinned, class: 'custom-control-label'
+          .form-check
+            = f.check_box_without_bootstrap :pinned, class: 'form-check-input'
+            = f.label :pinned, class: 'form-check-label'
