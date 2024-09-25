@@ -1,0 +1,16 @@
+[
+  {
+    "command": ["bin/rails", "server", "-p", "3000"],
+    "status": {
+      "Listening on": null
+    },
+    "defaultStatus": ["⏳", "S"]
+  },
+  {
+    "command": ["bin/rails", "dartsass:watch"],
+    "status": {
+      "Sass is watching": null
+    },
+    "defaultStatus": ["⏳", "S"]
+  }
+]

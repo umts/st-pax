@@ -7,6 +7,42 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.11.2.tgz#8644bc25b19475779a7b7c1fc104bc0a794f4465"
   integrity sha512-XiUPoS79r1G7PcpnNtq85TJ7inJWe0v+b5oZJZKb0pGHNIV6+UiNeQWiFGmuQ0aj7GEhnD/v9iqxIsjuRKtEnQ==
 
+"@lydell/node-pty-darwin-arm64@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty-darwin-arm64/-/node-pty-darwin-arm64-1.0.2.tgz#4bd6cba48723184ee07b2d6dbca263f1647ada1b"
+  integrity sha512-DWMwBdevXb1uuf8AUZbHdBMmEkcUIvrEXoepp8T1ny4O6qCUHh5MjTNNtEKeLdIACFqVtOelQdakzdAESMx6zA==
+
+"@lydell/node-pty-darwin-x64@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty-darwin-x64/-/node-pty-darwin-x64-1.0.2.tgz#ae540fe12190fbe384bea710ef3534869ee417ba"
+  integrity sha512-quQ7CKnhjVjNagTsKCCbXONzPHYlULEYUFVYYQ3c4s8yp+e9o5AP4Ln7VrLGnPyajjkMeuHq6HghkR8sil1HZw==
+
+"@lydell/node-pty-linux-x64@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty-linux-x64/-/node-pty-linux-x64-1.0.2.tgz#4af7a1ed3f8ac650b2efeb3ca255051d08753df0"
+  integrity sha512-mVS7vtMY1NlhROqfT0BTNnSmh7jzP8N4dI4AF92zsWvp47b6evfobqAoQ7u5LSKyQkF/fZN7N0F5LU3tfYrDPA==
+
+"@lydell/node-pty-win32-arm64@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty-win32-arm64/-/node-pty-win32-arm64-1.0.2.tgz#faa3e8a53458546fa4807e406bb8f9197d4efe54"
+  integrity sha512-d9Clr3Prc2jJGk+8gLcRrJtIy0VeB8aAnjizW0xKm12C3z5yG+EIAjC7ZWoYIkSQGovqEnHsqGn2IuVPgQatfA==
+
+"@lydell/node-pty-win32-x64@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty-win32-x64/-/node-pty-win32-x64-1.0.2.tgz#261844045b1e6ed5ae1b56efa8fc53564eb85b13"
+  integrity sha512-OxrTOB4qmOSVfTu96MLVTPpQfps4DGfqSVugzOsRz23z2OC/BhfeUUwW8kiTt8ZqTskg0LRTwM4DtOWeaJny6w==
+
+"@lydell/node-pty@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@lydell/node-pty/-/node-pty-1.0.2.tgz#7f820dd917c27ef27cb846cb6684e905b391de2b"
+  integrity sha512-5UhusYFuH8GDjmF0+WKAHYv6HrB+AhuGBIcSFHOVRLC4aCf1JMTbrnOtZvXKPQV4MeBupZ9EzN6IZbjvjfI1Ew==
+  optionalDependencies:
+    "@lydell/node-pty-darwin-arm64" "1.0.2"
+    "@lydell/node-pty-darwin-x64" "1.0.2"
+    "@lydell/node-pty-linux-x64" "1.0.2"
+    "@lydell/node-pty-win32-arm64" "1.0.2"
+    "@lydell/node-pty-win32-x64" "1.0.2"
+
 clipboard@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.4.tgz#836dafd66cf0fea5d71ce5d5b0bf6e958009112d"
@@ -70,10 +106,23 @@ popper.js@^1.16.0:
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.0.tgz#2e1816bcbbaa518ea6c2e15a466f4cb9c6e2fbb3"
   integrity sha512-+G+EkOPoE5S/zChTpmBSSDYmhXJ5PsW8eMhH8cP/CQHMFPBG/kC9Y5IIw6qNYgdJ+/COf0ddY2li28iHaZRSjw==
 
+run-pty@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/run-pty/-/run-pty-5.0.0.tgz#75a840d8ac25dae38903ae4f7f5e3cb199768ffe"
+  integrity sha512-0gk83+2NmrZGGPlJ88lqt0dYHvgyau/JBdRz9OqEbNyIfmbiq9E5sGCsvHdjrLoUJVh09ZX9r5rN587ACoM3vQ==
+  dependencies:
+    "@lydell/node-pty" "^1.0.0"
+    tiny-decoders "^23.0.0"
+
 select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
   integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
+
+tiny-decoders@^23.0.0:
+  version "23.0.0"
+  resolved "https://registry.yarnpkg.com/tiny-decoders/-/tiny-decoders-23.0.0.tgz#49acf51455612c7729b04be6147fcea6d2a20f8b"
+  integrity sha512-gQB+za3EW9JN1ASDmrVl1a1I6Q/jzg4M75YLI9ToHCdCW4/9KvBTTNH4u3kFbg8e+/8Zn68VRF+ayuiPNqYAmg==
 
 tiny-emitter@^2.0.0:
   version "2.1.0"
