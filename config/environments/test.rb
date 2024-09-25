@@ -30,6 +30,11 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  # Don't use sass to compress already-built CSS
+  # This can be removed when sassc/sassc-rails is removed
+  config.assets.css_compressor = nil
+  config.assets.check_precompiled_asset = false
+
   config.action_dispatch.cookies_same_site_protection = :lax
 
   # Raise exceptions instead of rendering exception templates.
