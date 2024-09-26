@@ -8,7 +8,8 @@ module SeedCreator
     include FactoryBot::Syntax::Methods
 
     def create_users
-      create_list :user, 2, :admin
+      create :user, :admin, title: 'Coordinator'
+      create_list :user, 2, :admin, title: 'Supervisor'
       create_list :user, 5
     end
 
