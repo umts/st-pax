@@ -440,7 +440,6 @@ DEPENDENCIES
   haml-rails
   kaminari
   listen
-  matrix
   mysql2
   octokit
   pdf-inspector
