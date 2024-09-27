@@ -139,7 +139,7 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.1)
-    ffaker (2.18.0)
+    ffaker (2.23.0)
     ffi (1.17.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
