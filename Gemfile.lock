@@ -143,8 +143,9 @@ GEM
     ffi (1.17.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    haml (5.2.1)
-      temple (>= 0.8.0)
+    haml (6.3.0)
+      temple (>= 0.8.2)
+      thor
       tilt
     haml-lint (0.999.999)
       haml_lint
@@ -153,11 +154,11 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
-    haml_lint (0.40.0)
-      haml (>= 4.0, < 5.3)
+    haml_lint (0.59.0)
+      haml (>= 5.0)
       parallel (~> 1.10)
       rainbow
-      rubocop (>= 0.50.0)
+      rubocop (>= 1.0)
       sysexits (~> 1.1)
     hashery (2.1.2)
     html2haml (2.3.0)
