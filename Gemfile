@@ -3,10 +3,9 @@
 source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
-gem 'bootstrap', '~> 4.3'
 gem 'bootstrap_form'
 gem 'business_time'
-gem 'dartsass-rails'
+gem 'cssbundling-rails'
 gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'

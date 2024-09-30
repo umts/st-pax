@@ -7,10 +7,6 @@
     "defaultStatus": ["⏳", "S"]
   },
   {
-    "command": ["bin/rails", "dartsass:watch"],
-    "status": {
-      "Sass is watching": null
-    },
-    "defaultStatus": ["⏳", "S"]
+    "command": ["yarn", "build:css", "--watch"]
   }
 ]
