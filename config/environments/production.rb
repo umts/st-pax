@@ -24,11 +24,8 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
-  # Compress JavaScripts and CSS.
+  # Compress JavaScripts.
   config.assets.js_compressor = Uglifier.new(harmony: true)
-  # Don't use sass to compress already-built CSS
-  # This can be removed when sassc/sassc-rails is removed
-  config.assets.css_compressor = nil
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
