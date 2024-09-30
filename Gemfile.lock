@@ -344,6 +344,9 @@ GEM
       rubocop (~> 1.0)
     rubocop-rspec (3.0.5)
       rubocop (~> 1.61)
+    rubocop-rspec_rails (2.30.0)
+      rubocop (~> 1.61)
+      rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.4)
@@ -464,6 +467,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rake
   rubocop-rspec
+  rubocop-rspec_rails
   sassc-rails
   selenium-webdriver
   simplecov

@@ -56,6 +56,7 @@ group :development do
   gem 'rubocop-rails'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
+  gem 'rubocop-rspec_rails'
   gem 'spring'
   gem 'spring-watcher-listen'
   gem 'web-console'
