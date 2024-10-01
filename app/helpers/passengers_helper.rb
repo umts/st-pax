@@ -53,14 +53,18 @@ module PassengersHelper
   end
 
   def status_action_button(passenger, current_status)
-    settings = {
-      nil => { text: 'Archive', status: 'archived', btn: 'warning' },
-      :archived => { text: 'Reactivate', status: 'active', btn: 'warning' },
-      :pending => { text: 'Confirm Registration', status: 'active', btn: 'success' }
-    }[current_status]
+    settings = status_action_settings current_status
 
     button_to settings[:text],
               set_status_passenger_path(passenger, status: settings[:status]),
               class: "btn btn-#{settings[:btn]}"
+  end
+
+  def status_action_settings(current_status)
+    {
+      nil => { text: 'Archive', status: 'archived', btn: 'warning' },
+      :archived => { text: 'Reactivate', status: 'active', btn: 'warning' },
+      :pending => { text: 'Confirm Registration', status: 'active', btn: 'success' }
+    }.fetch(current_status)
   end
 end
