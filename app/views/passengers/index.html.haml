@@ -16,11 +16,15 @@
         %th.text-center{data: {type: 'date'}} Rides Expire
         - if @status == :pending
           %th.text-center Eligibility Verified
-        %td{data: {orderable: 'false'}}
-        %td{data: {orderable: 'false'}}
-        %td{data: {orderable: 'false'}}
+        %th{data: {orderable: 'false'}}
+          .sr-only View
+        %th{data: {orderable: 'false'}}
+          .sr-only Edit
+        %th{data: {orderable: 'false'}}
+          .sr-only= status_action_settings(@status)[:text]
         - if @current_user.admin?
-          %td{data: {orderable: 'false'}}
+          %th{data: {orderable: 'false'}}
+            .sr-only Delete
     %tbody
       - @passengers.each do |passenger|
         %tr{class: passengers_table_row_class(passenger), data: {email: passenger.email} }

@@ -9,8 +9,8 @@ gem 'cssbundling-rails'
 gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'
+gem 'irb'
 gem 'kaminari'
-gem 'matrix'
 gem 'mysql2'
 gem 'octokit'
 gem 'prawn'
@@ -22,10 +22,10 @@ gem 'sprockets-rails'
 gem 'turbolinks'
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
-  gem 'pry-byebug'
   gem 'simplecov', require: false
 end
 
@@ -46,7 +46,6 @@ group :development do
   gem 'capistrano-pending', require: false
   gem 'capistrano-rails', require: false
   gem 'ed25519', require: false
-  gem 'erb2haml'
   gem 'haml-lint'
   gem 'listen'
   gem 'rubocop'

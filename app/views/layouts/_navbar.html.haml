@@ -18,11 +18,11 @@
               %span.badge.badge-warning= @pending
       %li.nav-item
         = link_to 'Dispatch Log', log_entries_path, class: 'nav-link'
-      %li.nav-item.dropdown
-        = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
-          data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}
-        .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
-          - if @current_user.admin?
+      - if @current_user.admin?
+        %li.nav-item.dropdown
+          = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
+            data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}
+          .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
             = link_to 'Users', users_path, class: 'dropdown-item'
             = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
     - if authenticated?
