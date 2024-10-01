@@ -1,7 +1,7 @@
 %p
   Previously reported feedback is publicly accessible on
   = succeed '.' do
-    = link_to 'GitHub', github_url
+    = link_to_if github_url.present?, 'GitHub', github_url
 %p
   = succeed '.' do
     = link_to 'Submit new feedback', new_feedback_path

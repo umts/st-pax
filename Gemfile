@@ -9,6 +9,7 @@ gem 'business_time'
 gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'
+gem 'irb'
 gem 'kaminari'
 gem 'mysql2'
 gem 'octokit'
@@ -22,10 +23,10 @@ gem 'sprockets-rails'
 gem 'turbolinks'
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pdf-inspector', require: 'pdf/inspector'
-  gem 'pry-byebug'
   gem 'simplecov', require: false
 end
 
