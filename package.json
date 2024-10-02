@@ -2,12 +2,26 @@
   "name": "st_pax_tracker",
   "private": true,
   "dependencies": {
+    "@csstools/postcss-sass": "^5.1.1",
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "autoprefixer": "^10.4.20",
+    "bootstrap": "^4.6.2",
     "clipboard": "^2.0.4",
     "datatables.net": "^1.11.3",
     "datatables.net-bs4": "^1.11.3",
     "datatables.net-fixedheader-bs4": "^3.2.0",
     "jquery": "^3.5.0",
-    "popper.js": "^1.16.0"
+    "popper.js": "1.16.1",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^13.0.0",
+    "postcss-scss": "^4.0.9"
+  },
+  "devDependencies": {
+    "run-pty": "^5.0.0"
+  },
+  "scripts": {
+    "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css"
   }
 }
