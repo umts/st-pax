@@ -24,7 +24,7 @@ gem 'turbolinks'
 group :development, :test do
   gem 'debug'
   gem 'factory_bot_rails'
-  gem 'ffaker'
+  gem 'faker'
   gem 'pdf-inspector', require: 'pdf/inspector'
   gem 'simplecov', require: false
 end
