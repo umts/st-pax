@@ -5,13 +5,12 @@ require 'rails_helper'
 RSpec.describe 'Passenger self-registration' do
   context 'when registering for the first time', :js do
     let(:passenger) { build(:passenger) }
+    let(:submit) { click_on 'Submit' }
 
     before do
       login_as passenger
       visit register_passengers_path
     end
-
-    let(:submit) { click_on 'Submit' }
 
     context 'without errors' do
       before do
@@ -48,7 +47,7 @@ RSpec.describe 'Passenger self-registration' do
         submit
         when_current_user_is :anybody
         visit passengers_path
-        expect(page).not_to have_text passenger.name
+        expect(page).to have_no_text passenger.name
       end
 
       it 'renders errors in the flash' do

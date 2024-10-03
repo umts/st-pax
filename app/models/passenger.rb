@@ -20,7 +20,7 @@ class Passenger < ApplicationRecord
                     format: { with: /\A\d{8}@umass.edu\z/ }
   validates :eligibility_verification, presence: { if: -> { requires_verification? } }
 
-  enum registration_status: { pending: 0, active: 1, archived: 2 }
+  enum :registration_status, { pending: 0, active: 1, archived: 2 }
 
   scope :permanent, -> { where(permanent: true) }
   scope :temporary, -> { where.not(permanent: true) }
@@ -102,8 +102,8 @@ class Passenger < ApplicationRecord
   def self.to_csv
     CSV.generate(headers: true) do |csv|
       csv << ['Name', 'Longer rides', 'Permanent']
-  
-      all.each do |passenger|
+
+      find_each do |passenger|
         csv << [passenger.name, passenger.needs_longer_rides?, passenger.permanent?]
       end
     end
