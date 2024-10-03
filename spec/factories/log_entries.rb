@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :log_entry do
     user
-    text { FFaker::Lorem.paragraph }
+    text { Faker::Lorem.paragraph }
   end
 end

@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :passenger do
-    name { FFaker::Name.name }
-    address { FFaker::Address.street_address }
-    email { FFaker::Internet.email }
-    phone { FFaker::PhoneNumber.short_phone_number }
+    name { "#{Faker::Name.first_name} #{Faker::Name.last_name}" }
+    address { Faker::Address.street_address }
+    email { Faker::Internet.email }
+    phone { Faker::PhoneNumber.phone_number }
     sequence(:spire) { |n| format('%08i@umass.edu', n) }
 
     factory :temporary_passenger do
