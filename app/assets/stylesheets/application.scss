@@ -9,7 +9,7 @@ $theme-colors: (
   "dark": #333333
 );
 
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 @import "datatables.net-bs4/css/dataTables.bootstrap4";
 @import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
