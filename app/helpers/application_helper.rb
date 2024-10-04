@@ -15,12 +15,12 @@ module ApplicationHelper
   end
 
   def checkmark_glyph(value, options = {})
-    options.reverse_merge!({ yes: 'fa-check', no: 'fa-times' })
+    options.reverse_merge!({ yes: 'fa-check', no: 'fa-xmark' })
     word = value ? 'yes' : 'no'
 
     capture do
       concat content_tag :span, nil,
-                         class: ['fas', "#{word}-glyph", options.fetch(word.to_sym)],
+                         class: ['fa-solid', "#{word}-glyph", options.fetch(word.to_sym)],
                          aria: { hidden: 'true' }, title: word
       concat content_tag :span, word, class: 'sr-only'
     end

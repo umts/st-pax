@@ -14,7 +14,10 @@ $theme-colors: (
 @import "datatables.net-bs4/css/dataTables.bootstrap4";
 @import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
 
-@import "font-awesome";
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";
+
 @import "passengers";
 
 h1{
