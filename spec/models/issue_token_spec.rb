@@ -53,14 +53,14 @@ RSpec.describe IssueToken do
       before { allow(Octokit::Client).to receive(:new).and_return(client) }
 
       it 'passes if OctoKit succeeds in its check' do
-        allow(client).to receive(:check_application_authorization)
+        allow(client).to receive(:check_token)
         instance.token = 'GOODTOKEN'
 
         expect(instance).to be_valid
       end
 
       it 'fails of OctoKit fails in its check' do
-        allow(client).to receive(:check_application_authorization).and_raise(Octokit::NotFound)
+        allow(client).to receive(:check_token).and_raise(Octokit::NotFound)
         instance.token = 'BADTOKEN'
 
         expect(instance).not_to be_valid
