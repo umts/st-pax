@@ -10,7 +10,7 @@
     "datatables.net": "^1.11.3",
     "datatables.net-bs4": "^1.11.3",
     "datatables.net-fixedheader-bs4": "^3.2.0",
-    "jquery": "^3.5.0",
+    "jquery": "^3.7.1",
     "popper.js": "1.16.1",
     "postcss": "^8.4.47",
     "postcss-cli": "^11.0.0",
