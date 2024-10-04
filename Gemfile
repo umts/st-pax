@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
-gem 'bootstrap', '~> 4.3'
 gem 'bootstrap_form'
 gem 'business_time'
+gem 'cssbundling-rails'
 gem 'exception_notification'
 gem 'haml'
 gem 'haml-rails'
+gem 'irb'
 gem 'kaminari'
-gem 'matrix'
 gem 'mysql2'
 gem 'octokit'
 gem 'prawn'
@@ -18,15 +18,14 @@ gem 'prawn-table'
 gem 'puma'
 gem 'rails', '~> 7.0.8'
 gem 'rake'
-gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'turbolinks'
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
-  gem 'ffaker'
+  gem 'faker'
   gem 'pdf-inspector', require: 'pdf/inspector'
-  gem 'pry-byebug'
   gem 'simplecov', require: false
 end
 
@@ -47,7 +46,6 @@ group :development do
   gem 'capistrano-pending', require: false
   gem 'capistrano-rails', require: false
   gem 'ed25519', require: false
-  gem 'erb2haml'
   gem 'haml-lint'
   gem 'listen'
   gem 'rubocop'

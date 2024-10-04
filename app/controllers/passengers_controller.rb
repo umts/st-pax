@@ -45,7 +45,7 @@ class PassengersController < ApplicationController
       format.pdf { passenger_pdf }
       format.csv do
         send_data @passengers.to_csv,
-                  filename: "passengers-#{Date.today}.csv",
+                  filename: "passengers-#{Time.zone.today}.csv",
                   type: 'text/csv; charset=utf-8',
                   disposition: 'attachment'
       end

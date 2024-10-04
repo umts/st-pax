@@ -23,7 +23,7 @@ class IssueToken < ApplicationRecord
 
     client = Octokit::Client.new client_id: Rails.application.credentials.dig(:github, :client_id),
                                  client_secret: Rails.application.credentials.dig(:github, :client_secret)
-    client.check_application_authorization token
+    client.check_token token
   rescue Octokit::NotFound
     errors.add :token, 'is not valid or is not authorized'
   end

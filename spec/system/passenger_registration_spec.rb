@@ -4,12 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'Passenger self-registration' do
   context 'when registering for the first time', :js do
+    let(:passenger) { build(:passenger) }
+    let(:submit) { click_on 'Submit' }
+
     before do
-      login_as build(:passenger)
+      login_as passenger
       visit register_passengers_path
     end
-
-    let(:submit) { click_on 'Submit' }
 
     context 'without errors' do
       before do
@@ -18,12 +19,17 @@ RSpec.describe 'Passenger self-registration' do
       end
 
       it 'creates a passenger' do
-        expect { submit }.to change(Passenger, :count).by(1)
+        submit
+        when_current_user_is :anybody
+        visit passengers_path
+        expect(page).to have_text passenger.name
       end
 
       it 'creates a pending passenger' do
         submit
-        expect(Passenger.last).to be_pending
+        when_current_user_is :anybody
+        visit pending_passengers_path
+        expect(page).to have_text passenger.name
       end
 
       it 'informs you of success' do
@@ -38,7 +44,10 @@ RSpec.describe 'Passenger self-registration' do
       end
 
       it 'does not create a new passenger' do
-        expect { submit }.not_to change(Passenger, :count)
+        submit
+        when_current_user_is :anybody
+        visit passengers_path
+        expect(page).to have_no_text passenger.name
       end
 
       it 'renders errors in the flash' do
