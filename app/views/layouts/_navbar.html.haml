@@ -8,7 +8,7 @@
           aria: {haspopup: 'true', expanded: 'false'} do
           Passengers
           - if @pending.positive?
-            %i.fas.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
+            %i.fa-solid.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
         .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
           = link_to 'Current', passengers_path, class: 'dropdown-item'
           = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
