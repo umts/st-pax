@@ -4,7 +4,7 @@
 
 = render partial: 'filters_and_key' if @status.blank?
 - if @passengers.present?
-  %table.table#passengers{data: {paging: 'false'}}
+  %table.table#passengers
     %thead
       %tr
         %th Name
