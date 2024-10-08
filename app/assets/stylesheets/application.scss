@@ -1,18 +1,16 @@
-$theme-colors: (
-  "primary": #881c1c,
-  "secondary": #63666a,
-  "success": #76881d,
-  "danger": #a8431e,
-  "warning": #c69214,
-  "info": #71b2c9,
-  "light": #eeeeee,
-  "dark": #333333
-);
+$primary: #881c1c;
+$secondary: #63666a;
+$success: #76881d;
+$danger: #a8431e;
+$warning: #c69214;
+$info: #71b2c9;
+$light: #eeeeee;
+$dark: #333333;
 
 @import "bootstrap/scss/bootstrap";
 
-@import "datatables.net-bs4/css/dataTables.bootstrap4";
-@import "datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4";
+@import "datatables.net-bs5/css/dataTables.bootstrap5";
+@import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
 
 $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
@@ -30,10 +28,10 @@ th[scope="row"] {
 }
 
 span.yes-glyph {
-  color: theme-color("success");
+  color: $success;
 }
 span.no-glyph {
-  color: theme-color("danger");
+  color: $danger;
 }
 
 .pre-wrap {
