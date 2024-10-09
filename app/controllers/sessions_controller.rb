@@ -8,9 +8,10 @@ class SessionsController < ApplicationController
     session.clear
     if Rails.env.production?
       redirect_to '/Shibboleth.sso/Logout?return=' \
-                  'https://webauth.umass.edu/saml2/idp/SingleLogoutService.php'
+                  'https://webauth.umass.edu/saml2/idp/SingleLogoutService.php',
+                  status: :see_other
     else
-      redirect_to dev_login_path
+      redirect_to dev_login_path, status: :see_other
     end
   end
 

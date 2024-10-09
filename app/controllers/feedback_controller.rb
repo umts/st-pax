@@ -26,7 +26,7 @@ class FeedbackController < ApplicationController
       redirect_to feedback_path(@feedback.issue.number)
     else
       flash.now[:danger] = @feedback.errors.full_messages
-      render :new and return
+      render :new, status: :unprocessable_entity
     end
   end
 
