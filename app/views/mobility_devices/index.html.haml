@@ -2,7 +2,7 @@
 .row
   .col-md-6.offset-md-3
     %table.table.table-sm
-      %thead.thead-dark
+      %thead.table-dark
         %tr
           %th Device
           %th.text-center Needs Longer Rides?
@@ -15,7 +15,7 @@
               %td= device.name
               %td.text-center= checkmark_glyph device.needs_longer_rides?
               %td= link_to 'Edit', edit_mobility_device_url(device)
-              %td.text-right= button_to 'Destroy', device, method: :delete, class: 'btn btn-danger'
+              %td.text-end= button_to 'Destroy', device, method: :delete, class: 'btn btn-danger'
         - else
           %tr
             %td{colspan: 4} No devices to show.
