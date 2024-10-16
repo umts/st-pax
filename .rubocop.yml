@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop-capybara
   - rubocop-factory_bot
@@ -9,11 +11,12 @@ require:
 AllCops:
   Exclude:
     - bin/**/*
+    - config.ru
     - config/{environments,initializers}/**/*
     - config/{application,boot,environment,puma,spring}.rb
     - db/schema.rb
     - db/migrate/*.rb
-    - config.ru
+    - vendor/**/*
   NewCops: enable
 
 Metrics/BlockLength:
