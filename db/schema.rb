@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2024_01_26_202921) do
-
+ActiveRecord::Schema[7.0].define(version: 2024_01_26_202921) do
   create_table "eligibility_verifications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "passenger_id"
     t.date "expiration_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "verifying_agency_id"
     t.string "name"
     t.text "address"
@@ -27,23 +26,23 @@ ActiveRecord::Schema[6.1].define(version: 2024_01_26_202921) do
   create_table "issue_tokens", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "token"
     t.integer "singleton"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["singleton"], name: "index_issue_tokens_on_singleton", unique: true
   end
 
   create_table "log_entries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "user_id"
     t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "pinned", default: false, null: false
   end
 
   create_table "mobility_devices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "needs_longer_rides", default: false, null: false
     t.index ["name"], name: "index_mobility_devices_on_name", unique: true
   end
@@ -54,8 +53,8 @@ ActiveRecord::Schema[6.1].define(version: 2024_01_26_202921) do
     t.string "address"
     t.string "phone"
     t.boolean "permanent", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "note"
     t.integer "mobility_device_id"
     t.string "spire"
@@ -75,8 +74,8 @@ ActiveRecord::Schema[6.1].define(version: 2024_01_26_202921) do
     t.string "spire"
     t.boolean "active"
     t.boolean "admin", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "uid"
     t.string "net_id"
     t.string "title"

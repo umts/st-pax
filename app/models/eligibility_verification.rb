@@ -48,7 +48,7 @@ class EligibilityVerification < ApplicationRecord
   private
 
   def passenger_requires_validation
-    passenger&.active? && passenger&.temporary?
+    passenger&.active? && passenger.temporary?
   end
 
   def reset_contact_info
