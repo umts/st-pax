@@ -1,12 +1,15 @@
 table#key, table#passengers {
   .expires-soon {
     background-color: #fffd8a;
+    --bs-table-bg: #fffd8a;
   }
   .needs-note {
     background-color: #ffd1a3;
+    --bs-table-bg: #ffd1a3;
   }
   .expired {
     background-color: #db7d7d;
+    --bs-table-bg: #db7d7d;
   }
 }
 

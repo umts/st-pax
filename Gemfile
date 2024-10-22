@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
-gem 'bootstrap_form'
+gem 'bootstrap_form', '~> 5.4'
 gem 'business_time'
 gem 'cssbundling-rails'
 gem 'exception_notification'
