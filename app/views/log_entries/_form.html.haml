@@ -5,7 +5,5 @@
     - if @current_user.admin?
       .input-group.ms-2
         .input-group-text
-          .form-check
-            - pinned_id = log_entry.persisted? ? "log-entry-#{log_entry.id}-pinned" : 'log-entry-pinned'
-            = f.check_box_without_bootstrap :pinned, id: pinned_id, class: 'form-check-input'
-            = f.label :pinned, for: pinned_id, class: 'form-check-label'
+          - pinned_id = log_entry.persisted? ? "log-entry-#{log_entry.id}-pinned" : 'log-entry-pinned'
+          = f.check_box :pinned, id: pinned_id, multiple: true
