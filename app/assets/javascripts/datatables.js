@@ -1,4 +1,4 @@
-$( document ).on("turbolinks:load", function() {
+$( document ).on("turbo:load", function() {
   $('#passengers').DataTable({
     fixedHeader: true,
     paging: false,
@@ -7,6 +7,6 @@ $( document ).on("turbolinks:load", function() {
   });
 });
 
-$( document ).on('turbolinks:before-cache', function() {
+$( document ).on('turbo:before-cache', function() {
   $('#passengers').DataTable().destroy();
 });
