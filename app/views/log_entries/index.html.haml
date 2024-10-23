@@ -18,10 +18,9 @@
                 %i.fa-solid.fa-thumbtack
                 .sr-only Pinned
             %strong= entry.user&.name || 'Unknown'
-            = link_to '#', title: entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p'),
-                      class: 'text-muted', 'data-toggle': 'tooltip' do
-              = time_ago_in_words(entry.created_at)
-              ago
+            %span.text-muted{ title: entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p'),
+                              tabindex: 0, 'data-toggle': 'tooltip' }
+              #{time_ago_in_words(entry.created_at)} ago
           - if @current_user.can_modify? entry
             .d-flex
               = button_tag type: :button, class: 'log-entry-edit-button btn btn-sm' do
