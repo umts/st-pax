@@ -1,3 +1,4 @@
+require 'passenger_login'
 require "active_support/core_ext/integer/time"
 
 # The test environment is used exclusively to run your application's
@@ -7,6 +8,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  config.middleware.use PassengerLogin
 
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
@@ -41,6 +44,8 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  config.action_mailer.default_url_options = {only_path: true}
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -55,6 +60,10 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # RackSessionAccess gives us access to the rack session
+  # during feature tests
+  config.middleware.use RackSessionAccess::Middleware
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true

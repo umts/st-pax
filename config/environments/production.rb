@@ -23,6 +23,9 @@ Rails.application.configure do
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
 
+  # Compress Javascript using a preprocessor.
+  config.assets.js_compressor = Uglifier.new(harmony: true)
+
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
@@ -35,6 +38,8 @@ Rails.application.configure do
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
+
+  config.action_dispatch.cookies_same_site_protection = :strict
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -68,8 +73,17 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "st_pax_tracker_production"
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'mailhub.oit.umass.edu',
+    port: 25
+  }
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = {
+    host: 'st-pax.admin.umass.edu',
+    protocol: 'https'
+  }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -83,6 +97,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.use ExceptionNotification::Rack,
+                        email: {
+                          sender_address: %{'st-pax' <transit-it@admin.umass.edu>},
+                          exception_recipients: %w{programmers@admin.umass.edu}
+                        }
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
