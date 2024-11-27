@@ -7,8 +7,8 @@
 Rails.application.configure do
   config.content_security_policy do |policy|
     policy.default_src :self
-    policy.font_src    :self, :data
-    policy.img_src     :self, :data
+    policy.font_src    :self
+    policy.img_src     :self
     policy.object_src  :none
     policy.script_src  :self
     policy.style_src   :self
@@ -16,7 +16,7 @@ Rails.application.configure do
     # policy.report_uri "/csp-violation-report-endpoint"
   end
 
-  # Generate session nonces for permitted importmap and inline scripts
+  # Generate session nonces for permitted importmap, inline scripts, and inline styles.
   config.content_security_policy_nonce_generator = lambda do |request|
     request.session[:csp_nonce] ||= SecureRandom.base64(16)
   end
