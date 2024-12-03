@@ -1,4 +1,4 @@
-$( document ).on("turbolinks:load", function() {
+$( document ).on("turbo:load", function() {
   var clipboard = new ClipboardJS('#copybtn', {
     text: function() {
       return $("#passengers tbody tr").map(function(){
@@ -20,9 +20,13 @@ $( document ).on("turbolinks:load", function() {
       url: '/passengers/check_existing',
       data: { spire_id: $(this).val() },
       success: function(responseBody) {
-        if(responseBody == undefined){ return }
-        $('body').append(responseBody)
-        $('#check-existing').modal()
+        if (responseBody === undefined) { return }
+        if ($('#check-existing').length) {
+          $('#check-existing').remove();
+        }
+
+        $('body').append(responseBody);
+        $('#check-existing').modal('show');
       }
     });
   });

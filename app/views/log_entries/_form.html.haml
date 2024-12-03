@@ -1,11 +1,8 @@
-= bootstrap_form_with model: log_entry, local: true do |f|
-  = f.text_area :text, required: true, rows: 6, hide_label: true, 'aria-label': 'Text'
+= bootstrap_form_with model: log_entry, namespace: log_entry.id, local: true do |f|
+  = f.text_area :text, required: true, rows: 6, hide_label: true
   .d-flex
     = f.primary log_entry.persisted? ? 'Save' : 'Submit'
     - if @current_user.admin?
-      .input-group.ml-2
+      .input-group.ms-2
         .input-group-text
-          .custom-control.custom-checkbox
-            - pinned_id = log_entry.persisted? ? "log-entry-#{log_entry.id}-pinned" : 'log-entry-pinned'
-            = f.check_box_without_bootstrap :pinned, id: pinned_id, class: 'custom-control-input'
-            = f.label :pinned, for: pinned_id, class: 'custom-control-label'
+          = f.check_box :pinned, multiple: true

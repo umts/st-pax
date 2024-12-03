@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       redirect_to users_url
     else
       flash.now[:danger] = @user.errors.full_messages
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       redirect_to users_url
     else
       flash.now[:danger] = @user.errors.full_messages
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

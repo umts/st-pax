@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
-gem 'bootstrap_form'
+gem 'bootstrap_form', '~> 5.4'
 gem 'business_time'
 gem 'cssbundling-rails'
 gem 'exception_notification'
@@ -16,10 +16,10 @@ gem 'octokit'
 gem 'prawn'
 gem 'prawn-table'
 gem 'puma'
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.0'
 gem 'rake'
 gem 'sprockets-rails'
-gem 'turbolinks'
+gem 'turbo-rails'
 
 group :development, :test do
   gem 'debug'
@@ -61,5 +61,5 @@ group :development do
 end
 
 group :production do
-  gem 'uglifier'
+  gem 'terser'
 end
