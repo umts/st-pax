@@ -19,7 +19,7 @@ gem 'puma'
 gem 'rails', '~> 7.1.0'
 gem 'rake'
 gem 'sprockets-rails'
-gem 'turbolinks'
+gem 'turbo-rails'
 
 group :development, :test do
   gem 'debug'

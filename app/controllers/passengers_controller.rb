@@ -84,7 +84,7 @@ class PassengersController < ApplicationController
     @passenger = Passenger.new(passenger_params)
     @passenger.registerer = @current_user
     success = -> { redirect_to @passenger }
-    failure = -> { render :new }
+    failure = -> { render :new, status: :unprocessable_entity }
 
     try_notifying_passenger success:, failure:, success_message: t('.success') do
       @passenger.save
@@ -94,7 +94,7 @@ class PassengersController < ApplicationController
   def update
     @passenger.assign_attributes passenger_params
     success = -> { redirect_to @passenger }
-    failure = -> { render :edit }
+    failure = -> { render :edit, status: :unprocessable_entity }
 
     try_notifying_passenger success:, failure:, success_message: t('.registrant_success') do
       @passenger.save

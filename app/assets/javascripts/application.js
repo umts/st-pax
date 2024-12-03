@@ -13,14 +13,13 @@
 //= require jquery/dist/jquery
 //= require @popperjs/core/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
+//= require @hotwired/turbo/dist/turbo.es2017-umd.js
 //= require datatables.net/js/dataTables.js
 //= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
 //= require datatables.net-bs5/js/dataTables.bootstrap5.js
-//= require rails-ujs
-//= require turbolinks
 //= require clipboard/dist/clipboard
 //= require_tree .
 
-$(document).on('turbolinks:load', function () {
+$(document).on('turbo:load', function () {
   $('[data-toggle="tooltip"]').tooltip();
 });

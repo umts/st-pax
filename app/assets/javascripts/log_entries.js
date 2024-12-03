@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('turbo:load', function() {
   function setLogEntryEditing(logEntry, change) {
     var edit = logEntry.find('.log-entry-edit-button');
     var destroy = logEntry.find('.log-entry-delete-button');

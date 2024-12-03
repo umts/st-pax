@@ -41,6 +41,7 @@
           %td= link_to 'Edit', edit_passenger_path(passenger)
           %td= status_action_button(passenger, @status)
           - if @current_user.admin?
-            %td= button_to 'Delete', passenger, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+            %td= button_to 'Delete', passenger, method: :delete,
+              data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results

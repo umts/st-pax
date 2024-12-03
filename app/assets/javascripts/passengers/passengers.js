@@ -1,4 +1,4 @@
-$( document ).on("turbolinks:load", function() {
+$( document ).on("turbo:load", function() {
   var clipboard = new ClipboardJS('#copybtn', {
     text: function() {
       return $("#passengers tbody tr").map(function(){
