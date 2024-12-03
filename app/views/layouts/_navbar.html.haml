@@ -1,39 +1,42 @@
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light{aria: {label: 'Main'}}
-  %ul.navbar-nav.mr-auto
-    - if @current_user
-      %li.nav-item.dropdown
-        = link_to '#', class: 'nav-link dropdown-toggle',
-          id: 'passenger-dropdown',
-          data: {toggle: 'dropdown'},
-          aria: {haspopup: 'true', expanded: 'false'} do
-          Passengers
-          - if @pending.positive?
-            %i.fa-solid.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
-        .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
-          = link_to 'Current', passengers_path, class: 'dropdown-item'
-          = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
-          = link_to pending_passengers_path, class: 'dropdown-item' do
-            Pending
-            - if @pending.positive?
-              %span.badge.badge-warning= @pending
-      %li.nav-item
-        = link_to 'Dispatch Log', log_entries_path, class: 'nav-link'
-      - if @current_user.admin?
+%nav.navbar.navbar-expand-lg.bg-light{aria: {label: 'Main'}}
+  .container-fluid
+    %ul.navbar-nav.me-auto
+      - if @current_user
         %li.nav-item.dropdown
-          = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
-            data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}
-          .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
-            = link_to 'Users', users_path, class: 'dropdown-item'
-            = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
-    - if authenticated?
+          = link_to '#', class: 'nav-link dropdown-toggle',
+            id: 'passenger-dropdown',
+            data: { bs_toggle: 'dropdown' },
+            aria: { haspopup: 'true', expanded: 'false' } do
+            Passengers
+            - if @pending.positive?
+              %i.fa-solid.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
+          .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
+            = link_to 'Current', passengers_path, class: 'dropdown-item'
+            = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
+            = link_to pending_passengers_path, class: 'dropdown-item' do
+              Pending
+              - if @pending.positive?
+                %span.badge.bg-warning= @pending
+        %li.nav-item
+          = link_to 'Dispatch Log', log_entries_path, class: 'nav-link'
+        - if @current_user.admin?
+          %li.nav-item.dropdown
+            = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
+              data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
+            .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
+              = link_to 'Users', users_path, class: 'dropdown-item'
+              = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
+      - if authenticated?
+        %li.nav-item
+          = link_to new_passenger_link_text, register_passengers_path,
+            class: 'nav-link'
+        %li.nav-item
+          = link_to 'Site Feedback', feedback_index_path, class: 'nav-link'
       %li.nav-item
-        = link_to new_passenger_link_text, register_passengers_path,
-          class: 'nav-link'
+        = link_to 'Brochure', brochure_passengers_path, class: 'nav-link'
       %li.nav-item
-        = link_to 'Site Feedback', feedback_index_path, class: 'nav-link'
-    %li.nav-item
-      = link_to 'Brochure', brochure_passengers_path, class: 'nav-link'
-    %li.nav-item
-      = link_to 'Map Project', map_project_url, class: 'nav-link'
-  - if authenticated?
-    = button_to 'Logout', destroy_session_path, method: :delete, class: 'btn btn-link nav-link', data: { turbo: false }
+        = link_to 'Map Project', map_project_url, class: 'nav-link'
+    %ul.navbar-nav
+      - if authenticated?
+        %li.nav-item
+          = button_to 'Logout', destroy_session_path, method: :delete, class: 'btn btn-link nav-link', data: { turbo: false }

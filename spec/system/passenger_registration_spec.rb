@@ -41,6 +41,8 @@ RSpec.describe 'Passenger self-registration' do
     context 'with errors' do
       before do
         fill_in 'Address', with: '123 turkey lane'
+        fill_in 'Phone', with: '123'
+        fill_in 'Email', with: 'BAD'
       end
 
       it 'does not create a new passenger' do
@@ -52,7 +54,7 @@ RSpec.describe 'Passenger self-registration' do
 
       it 'renders errors in the flash' do
         submit
-        expect(page).to have_text "Phone Number can't be blank"
+        expect(page).to have_text 'Email is invalid'
       end
     end
   end
