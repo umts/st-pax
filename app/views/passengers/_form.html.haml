@@ -1,12 +1,10 @@
 .row
   .col-md-6.offset-md-3
     = bootstrap_form_with model: passenger, local: true do |form|
-      .form-group
-        %b Registration date:
-        = passenger.registration_date
+      - unless passenger.new_record?
+        = form.text_field :registration_date, disabled: true, control_class: 'form-control-plaintext'
       = form.text_field :name, disabled: @registrant.present?
-      = form.text_field :spire, placeholder: '12345678@umass.edu',
-        disabled: @registrant.present?
+      = form.text_field :spire, placeholder: '12345678@umass.edu', disabled: @registrant.present?
       = form.text_field :address
       = form.text_field :email
       = form.phone_field :phone
@@ -15,9 +13,9 @@
         = form.form_group :registration_status,
           label: { text: 'Registration Status' },
           help: "You can select 'pending' if the passenger is temporary but has no verifying information yet" do
-          = form.radio_button :registration_status, 'pending', class: 'form-check-input'
-          = form.radio_button :registration_status, 'active', class: 'form-check-input'
-          = form.radio_button :registration_status, 'archived', class: 'form-check-input'
+          = form.radio_button :registration_status, 'pending'
+          = form.radio_button :registration_status, 'active'
+          = form.radio_button :registration_status, 'archived'
 
       = form.select :mobility_device_id,
         options_from_collection_for_select(MobilityDevice.order(:name),

@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require jquery/dist/jquery
-//= require popper.js/dist/umd/popper
+//= require @popperjs/core/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
 //= require datatables.net/js/dataTables.js
 //= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
-//= require datatables.net-bs4/js/dataTables.bootstrap4.js
+//= require datatables.net-bs5/js/dataTables.bootstrap5.js
 //= require rails-ujs
 //= require turbolinks
 //= require clipboard/dist/clipboard

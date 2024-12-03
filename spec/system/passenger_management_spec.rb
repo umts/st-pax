@@ -67,6 +67,8 @@ RSpec.describe 'Passenger Management', :js do
         before do
           fill_in 'Name', with: 'Foo Baz'
           fill_in 'Email', with: 'foobar@invalid.com'
+          fill_in 'Address', with: '123 turkey lane'
+          fill_in 'Phone', with: '123'
           fill_in 'Spire', with: '12345678@umass.edu'
           fill_in 'How long will the passenger be with us?', with: 2.days.from_now
         end
@@ -85,7 +87,7 @@ RSpec.describe 'Passenger Management', :js do
 
         it 'renders verification errors in the flash' do
           click_on 'Submit'
-          expect(page).to have_text 'Which agency verifies that this passenger needs rides?'
+          expect(page).to have_text 'verifying agency must be entered for temporary passengers'
         end
       end
     end
