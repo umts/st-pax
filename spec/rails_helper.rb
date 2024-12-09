@@ -14,10 +14,6 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
-# TODO: Remove when the fix in puma/puma#3532 is released
-require 'rackup'
-Rackup::Handler = Rack::Handler
-
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
