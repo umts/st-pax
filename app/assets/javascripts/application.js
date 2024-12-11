@@ -20,6 +20,8 @@
 //= require clipboard/dist/clipboard
 //= require_tree .
 
-$(document).on('turbo:load', function () {
-  $('[data-toggle="tooltip"]').tooltip();
+document.addEventListener('turbo:load', function () {
+  document.querySelectorAll('[data-toggle="tooltip"]').forEach(function (element) {
+    new bootstrap.Tooltip(element);
+  });
 });
