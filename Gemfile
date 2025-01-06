@@ -48,6 +48,7 @@ group :development do
   gem 'ed25519', require: false
   gem 'haml-lint'
   gem 'listen'
+  gem 'overcommit', require: false
   gem 'rubocop'
   gem 'rubocop-capybara'
   gem 'rubocop-factory_bot'
