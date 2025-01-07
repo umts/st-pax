@@ -237,12 +237,12 @@ cssesc@^3.0.0:
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
 
-datatables.net-bs5@^2, datatables.net-bs5@^2.1.8:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.1.8.tgz#860717c4ee85ecb84812ba9a73fb1204aa2a68b6"
-  integrity sha512-YlGws8eI3iw/1AmKJH18+YMzm/UgGb6o9s14KAC24QT1/8anolm8GnVAgGcwUcvHm3hn1i8A5QXqgbqeMRINeg==
+datatables.net-bs5@^2, datatables.net-bs5@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-bs5/-/datatables.net-bs5-2.2.0.tgz#ba80819825b96827d6361f8385b092c2a657a8af"
+  integrity sha512-klqdrghM0BkBWulaWiGdKwdZyPHK+8coBGjhSQAZe/eQBnr7OLC8wl7NqPfQuVXv4J74HgO6K1gIYHKHbHjrtA==
   dependencies:
-    datatables.net "2.1.8"
+    datatables.net "2.2.0"
     jquery ">=1.7"
 
 datatables.net-fixedheader-bs5@^4.0.1:
@@ -262,10 +262,10 @@ datatables.net-fixedheader@4.0.1:
     datatables.net "^2"
     jquery ">=1.7"
 
-datatables.net@2.1.8, datatables.net@^2, datatables.net@^2.1.8:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.1.8.tgz#9b020f18e927cc924d72411f62dc595cc688669b"
-  integrity sha512-47ULt+U4bcjbuGTpTlT6SnCuSFVRBxxdWa6X3NfvTObBJ2BZU0o+JUIl05wQ6cABNIavjbAV51gpgvFsMHL9zA==
+datatables.net@2.2.0, datatables.net@^2, datatables.net@^2.1.8:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-2.2.0.tgz#d7e92ede9a3bf23ac4c360e475fbe6313f16fd56"
+  integrity sha512-q/G5ylL+AhMLFFHNYQAgvooCZtmbudc7wwzKkCZI4B1HnYec4SqnWtcTFjC7P6EtL1UGyx16FcjQ0U84S86mLg==
   dependencies:
     jquery ">=1.7"
 
