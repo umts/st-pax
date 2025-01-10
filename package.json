@@ -9,7 +9,7 @@
     "bootstrap": "^5.3.3",
     "@hotwired/turbo-rails": "^8.0.12",
     "clipboard": "^2.0.11",
-    "datatables.net": "^2.1.8",
+    "datatables.net": "^2.2.1",
     "datatables.net-bs5": "^2.2.1",
     "datatables.net-fixedheader-bs5": "^4.0.1",
     "jquery": "^3.7.1",
