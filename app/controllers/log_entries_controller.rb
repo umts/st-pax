@@ -44,7 +44,7 @@ class LogEntriesController < ApplicationController
 
   def find_modifiable_entry
     @entry = LogEntry.find params.require(:id)
-    deny_access and return unless @current_user.can_modify? @entry
+    deny_access('no_access') and return unless @current_user.can_modify? @entry
   end
 
   def entry_params
