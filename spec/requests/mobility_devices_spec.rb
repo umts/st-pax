@@ -135,14 +135,14 @@ RSpec.describe 'Mobility Devices' do
       end
 
       context 'with invalid params' do
-        let(:bad_params) { { mobility_device: { name: nil, needs_longer_rides: 'true' } } }
+        let(:attributes) { { name: nil, needs_longer_rides: 'true' } }
 
         it 'does not create a new device' do
-          expect { post '/mobility_devices', params: bad_params }.not_to change(MobilityDevice, :count)
+          expect { submit }.not_to change(MobilityDevice, :count)
         end
 
         it 'returns an unprocessable entity status' do
-          post '/mobility_devices', params: bad_params
+          submit
           expect(response).to have_http_status :unprocessable_entity
         end
       end
@@ -265,15 +265,14 @@ RSpec.describe 'Mobility Devices' do
       end
 
       context 'with invalid params' do
-        let(:bad_params) { { mobility_device: { name: nil, needs_longer_rides: 'true' } } }
+        let(:attributes) { { name: nil, needs_longer_rides: 'true' } }
 
         it 'does not update the device' do
-          expect { patch "/mobility_devices/#{device.id}", params: bad_params }
-            .not_to(change { device.reload.attributes })
+          expect { submit }.not_to(change { device.reload.attributes })
         end
 
         it 'returns an unprocessable entity status' do
-          patch "/mobility_devices/#{device.id}", params: bad_params
+          submit
           expect(response).to have_http_status :unprocessable_entity
         end
       end
@@ -349,11 +348,6 @@ RSpec.describe 'Mobility Devices' do
           expect { delete "/mobility_devices/#{used_device.id}" }.not_to change(MobilityDevice, :count)
         end
 
-        it 'can still be retrieved' do
-          delete "/mobility_devices/#{used_device.id}"
-          expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
-        end
-
         it 'redirects to the index' do
           delete "/mobility_devices/#{used_device.id}"
           expect(response).to redirect_to mobility_devices_url
@@ -366,11 +360,6 @@ RSpec.describe 'Mobility Devices' do
 
       it 'does not destroy the device' do
         expect { call }.not_to change(MobilityDevice, :count)
-      end
-
-      it 'can still be retrieved' do
-        call
-        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
       end
 
       it 'responds with an unauthorized status' do
@@ -386,11 +375,6 @@ RSpec.describe 'Mobility Devices' do
         expect { call }.not_to change(MobilityDevice, :count)
       end
 
-      it 'can still be retrieved' do
-        call
-        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
-      end
-
       it 'responds with an unauthorized status' do
         call
         expect(response).to have_http_status :unauthorized
@@ -400,11 +384,6 @@ RSpec.describe 'Mobility Devices' do
     context 'when not logged in' do
       it 'does not destroy the device' do
         expect { call }.not_to change(MobilityDevice, :count)
-      end
-
-      it 'can still be retrieved' do
-        call
-        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
       end
 
       it 'responds with an unauthorized status' do
