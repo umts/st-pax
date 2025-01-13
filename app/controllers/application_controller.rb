@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def deny_access(reason)
+  def deny_access(reason = 'no_access')
     if request.xhr?
       head :forbidden
     else
