@@ -1,0 +1,17 @@
+%h1 Welcome to the #{t 'department.name'} website.
+%h2 You are not allowed on this page.
+%p
+  Some possible scenarios:
+  %ul
+    %li
+      You are neither an employee nor a passenger. In this case, you might be
+      looking for our public website, where you can access
+      = succeed ',' do
+        = link_to 'news', 'http://umass.edu/transit/news.html'
+      = succeed ', and' do
+        = link_to 'schedules', 'http://umass.edu/transit/schedules.html'
+      = succeed '.' do
+        = link_to 'employment information',
+                  'http://umass.edu/transit/join_team.html'
+
+= link_to 'Logout', destroy_session_path, data: { turbo_method: :delete }

@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def deny_access
+  def deny_access(reason)
     if request.xhr?
       head :forbidden
     else
-      render 'public/403_no_user', status: :forbidden
+      render "public/403_#{reason}", status: :forbidden
     end
   end
 
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     return if authenticated?
     redirect_to dev_login_path and return if Rails.env.development?
 
-    deny_access
+    deny_access('no_account')
   end
 
   def find_or_initialize_passenger
@@ -72,11 +72,11 @@ class ApplicationController < ActionController::Base
   end
 
   def restrict_to_admin
-    deny_access && return unless @current_user&.admin?
+    deny_access('no_access') && return unless @current_user&.admin?
   end
 
   def restrict_to_employee
-    deny_access && return if @current_user.blank?
+    deny_access('no_access') && return if @current_user.blank?
   end
 
   def set_passenger_information
