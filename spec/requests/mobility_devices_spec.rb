@@ -331,4 +331,80 @@ RSpec.describe 'Mobility Devices' do
       end
     end
   end
+
+  describe 'DELETE /mobility_devices/:id' do
+    subject(:call) { delete "/mobility_devices/#{device.id}" }
+
+    let!(:device) { create(:mobility_device) }
+
+    context 'when logged in as admin' do
+      let(:admin) { create(:user, :admin) }
+
+      before { login_as admin }
+
+      context 'with no pax are dependent on the device' do
+        it 'destroys the device' do
+          expect { call }.to change(MobilityDevice, :count).by(-1)
+        end
+
+        it 'cannot be retrieved anymore' do
+          call
+          expect(MobilityDevice.find_by(id: device.id)).to be_nil
+        end
+
+        it 'redirects to the index' do
+          call
+          expect(response).to redirect_to mobility_devices_url
+        end
+      end
+
+      context 'with a pax is dependent on the device' do
+        let!(:used_device) { create(:mobility_device, passengers: [pax]) }
+        let!(:pax) { create(:passenger) }
+
+        it 'does not destroy the device' do
+          expect { delete "/mobility_devices/#{used_device.id}" }.not_to change(MobilityDevice, :count)
+        end
+
+        it 'can still be retrieved' do
+          delete "/mobility_devices/#{used_device.id}"
+          expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
+        end
+
+        it 'redirects to the index' do
+          delete "/mobility_devices/#{used_device.id}"
+          expect(response).to redirect_to mobility_devices_url
+        end
+      end
+    end
+
+    context 'when logged in as a user' do
+      let(:user) { create(:user) }
+
+      before { login_as user }
+
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context 'when logged in as a passenger' do
+      let(:pax) { create(:passenger) }
+
+      before { login_as_passenger pax }
+
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context 'when not logged in' do
+      it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+  end
 end
