@@ -3,13 +3,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Mobility Devices' do
+  shared_context 'with admin login' do
+    let(:admin) { create(:user, :admin) }
+
+    before { login_as admin }
+  end
+
+  shared_context 'with user login' do
+    let(:user) { create(:user) }
+
+    before { login_as user }
+  end
+
+  shared_context 'with pax login' do
+    let(:pax) { create(:passenger) }
+
+    before { login_as_passenger pax }
+  end
+
   describe 'GET /mobility_devices' do
     subject(:call) { get '/mobility_devices' }
 
     context 'when logged in as admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       it 'responds successfully' do
         call
@@ -18,9 +34,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
-
-      before { login_as user }
+      include_context 'with user login'
 
       it 'responds with an unauthorized status' do
         call
@@ -29,9 +43,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a passenger' do
-      let(:pax) { create(:passenger) }
-
-      before { login_as_passenger pax }
+      include_context 'with pax login'
 
       it 'responds with an unauthorized status' do
         call
@@ -51,9 +63,7 @@ RSpec.describe 'Mobility Devices' do
     subject(:call) { get '/mobility_devices/new' }
 
     context 'when logged in as admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       it 'responds successfully' do
         call
@@ -62,9 +72,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
-
-      before { login_as user }
+      include_context 'with user login'
 
       it 'responds with an unauthorized status' do
         call
@@ -73,11 +81,16 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a passenger' do
-      let(:pax) { create(:passenger) }
-
-      before { login_as_passenger pax }
+      include_context 'with pax login'
 
       it 'responds with an unauthorized status' do
+        call
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context 'when not logged in' do
+      it 'respond with an unauthorized status' do
         call
         expect(response).to have_http_status :unauthorized
       end
@@ -90,9 +103,7 @@ RSpec.describe 'Mobility Devices' do
     let(:attributes) { { name: 'Scooter', needs_longer_rides: true } }
 
     context 'when logged in as admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       context 'with valid params' do
         it 'creates a new mobility device' do
@@ -110,17 +121,15 @@ RSpec.describe 'Mobility Devices' do
         end
       end
 
-      context 'when the device already exists' do
-        before { submit }
-
-        let(:copy_params) { { mobility_device: { name: 'sCoOtEr', needs_longer_rides: false } } }
+      context 'when a device already exists with the same name' do
+        before { create(:mobility_device, name: 'sCoOtEr', needs_longer_rides: false) }
 
         it 'does not create a new device' do
-          expect { post '/mobility_devices', params: copy_params }.not_to change(MobilityDevice, :count)
+          expect { submit }.not_to change(MobilityDevice, :count)
         end
 
         it 'returns an unprocessable entity status' do
-          post '/mobility_devices', params: copy_params
+          submit
           expect(response).to have_http_status :unprocessable_entity
         end
       end
@@ -140,9 +149,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
-
-      before { login_as user }
+      include_context 'with user login'
 
       it 'does not create a new device' do
         expect { submit }.not_to change(MobilityDevice, :count)
@@ -155,9 +162,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a pax' do
-      let(:pax) { create(:passenger) }
-
-      before { login_as_passenger pax }
+      include_context 'with pax login'
 
       it 'does not create a new device' do
         expect { submit }.not_to change(MobilityDevice, :count)
@@ -187,9 +192,7 @@ RSpec.describe 'Mobility Devices' do
     let(:device) { create(:mobility_device) }
 
     context 'when logged in as an admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       it 'responds successfully' do
         call
@@ -198,9 +201,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
-
-      before { login_as user }
+      include_context 'with user login'
 
       it 'responds with an unauthorized status' do
         call
@@ -209,9 +210,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a passenger' do
-      let(:pax) { create(:passenger) }
-
-      before { login_as_passenger pax }
+      include_context 'with pax login'
 
       it 'responds with an unauthorized status' do
         call
@@ -234,9 +233,7 @@ RSpec.describe 'Mobility Devices' do
     let(:attributes) { { name: 'Walker', needs_longer_rides: true } }
 
     context 'when logged in as an admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       context 'with valid params' do
         it 'updates the device' do
@@ -254,23 +251,15 @@ RSpec.describe 'Mobility Devices' do
         end
       end
 
-      context 'with a duplicate name' do
-        before do
-          submit
-          patch "/mobility_devices/#{copy_device.id}",
-                params: { mobility_device: { name: 'Service Animal', needs_longer_rides: false } }
-        end
-
-        let(:copy_device) { create(:mobility_device) }
-        let(:dup_params) { { mobility_device: { name: 'wAlKeR', needs_longer_rides: true } } }
+      context 'when a device already exists with the same name' do
+        before { create(:mobility_device, name: 'wAlKeR', needs_longer_rides: false) }
 
         it 'does not change the device' do
-          expect { patch "/mobility_devices/#{copy_device.id}", params: dup_params }
-            .not_to(change { copy_device.reload.attributes })
+          expect { submit }.not_to(change { device.reload.attributes })
         end
 
         it 'returns an unprocessable entity status' do
-          patch "/mobility_devices/#{copy_device.id}", params: dup_params
+          submit
           expect(response).to have_http_status :unprocessable_entity
         end
       end
@@ -291,9 +280,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
-
-      before { login_as user }
+      include_context 'with user login'
 
       it 'does change the device' do
         expect { submit }.not_to(change { device.reload.attributes })
@@ -306,9 +293,7 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a pax' do
-      let(:pax) { create(:passenger) }
-
-      before { login_as_passenger pax }
+      include_context 'with pax login'
 
       it 'does change the device' do
         expect { submit }.not_to(change { device.reload.attributes })
@@ -338,9 +323,7 @@ RSpec.describe 'Mobility Devices' do
     let!(:device) { create(:mobility_device) }
 
     context 'when logged in as admin' do
-      let(:admin) { create(:user, :admin) }
-
-      before { login_as admin }
+      include_context 'with admin login'
 
       context 'with no pax are dependent on the device' do
         it 'destroys the device' do
@@ -359,8 +342,8 @@ RSpec.describe 'Mobility Devices' do
       end
 
       context 'with a pax is dependent on the device' do
-        let!(:used_device) { create(:mobility_device, passengers: [pax]) }
-        let!(:pax) { create(:passenger) }
+        let!(:dependent) { create(:passenger) }
+        let!(:used_device) { create(:mobility_device, passengers: [dependent]) }
 
         it 'does not destroy the device' do
           expect { delete "/mobility_devices/#{used_device.id}" }.not_to change(MobilityDevice, :count)
@@ -379,9 +362,16 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a user' do
-      let(:user) { create(:user) }
+      include_context 'with user login'
 
-      before { login_as user }
+      it 'does not destroy the device' do
+        expect { call }.not_to change(MobilityDevice, :count)
+      end
+
+      it 'can still be retrieved' do
+        call
+        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
+      end
 
       it 'responds with an unauthorized status' do
         call
@@ -390,9 +380,16 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when logged in as a passenger' do
-      let(:pax) { create(:passenger) }
+      include_context 'with pax login'
 
-      before { login_as_passenger pax }
+      it 'does not destroy the device' do
+        expect { call }.not_to change(MobilityDevice, :count)
+      end
+
+      it 'can still be retrieved' do
+        call
+        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
+      end
 
       it 'responds with an unauthorized status' do
         call
@@ -401,6 +398,15 @@ RSpec.describe 'Mobility Devices' do
     end
 
     context 'when not logged in' do
+      it 'does not destroy the device' do
+        expect { call }.not_to change(MobilityDevice, :count)
+      end
+
+      it 'can still be retrieved' do
+        call
+        expect(MobilityDevice.find_by(id: device.id)).not_to be_nil
+      end
+
       it 'responds with an unauthorized status' do
         call
         expect(response).to have_http_status :unauthorized
