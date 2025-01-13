@@ -48,7 +48,7 @@ class MobilityDevicesController < ApplicationController
   private
 
   def set_device
-    @device = MobilityDevice.find params.require(:id)
+    @device = MobilityDevice.find params[:id]
   end
 
   def device_params
