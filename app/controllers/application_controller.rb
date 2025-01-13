@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       head :forbidden
     else
-      render 'sessions/unauthenticated', status: :forbidden
+      render 'public/403_no_user', status: :forbidden
     end
   end
 
