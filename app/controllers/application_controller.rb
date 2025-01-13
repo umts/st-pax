@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
 
   def deny_access
     if request.xhr?
-      head :unauthorized
+      head :forbidden
     else
-      render 'sessions/unauthenticated', status: :unauthorized
+      render 'sessions/unauthenticated', status: :forbidden
     end
   end
 
