@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       head :forbidden
     else
-      file = authenticated? ? '403_no_access' : '403_no_account'
+      file = authenticated? ? '403-no-access' : '403-no-account'
 
       render file: Rails.public_path.join(file), status: :forbidden
     end
