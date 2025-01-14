@@ -16,11 +16,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def deny_access(reason = 'no_access')
+  def deny_access
     if request.xhr?
       head :forbidden
     else
-      render "public/403_#{reason}", status: :forbidden
+      file = authenticated? ? '403_no_access' : '403_no_account'
+
+      render file: Rails.public_path.join(file), status: :forbidden
     end
   end
 
@@ -51,7 +53,7 @@ class ApplicationController < ActionController::Base
     return if authenticated?
     redirect_to dev_login_path and return if Rails.env.development?
 
-    deny_access('no_account')
+    deny_access
   end
 
   def find_or_initialize_passenger
@@ -64,19 +66,15 @@ class ApplicationController < ActionController::Base
   end
 
   def check_primary_account
-    return if request.env['UMAPrimaryAccount'] == request.env['uid']
-
-    @primary_account = request.env['UMAPrimaryAccount']
-    @uid = request.env['uid']
-    deny_access('subsidiary')
+    deny_access && return unless request.env['UMAPrimaryAccount'] == request.env['uid']
   end
 
   def restrict_to_admin
-    deny_access('no_access') && return unless @current_user&.admin?
+    deny_access && return unless @current_user&.admin?
   end
 
   def restrict_to_employee
-    deny_access('no_access') && return if @current_user.blank?
+    deny_access && return if @current_user.blank?
   end
 
   def set_passenger_information
