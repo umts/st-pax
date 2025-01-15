@@ -33,6 +33,5 @@ Rails.application.routes.draw do
     post 'sessions/dev_login', to: 'sessions#dev_login'
   end
 
-  delete 'sessions/destroy', to: 'sessions#destroy', as: :destroy_session
-  post :logout, to: 'sessions#destroy'
+  post :logout, to: 'sessions#destroy', as: :logout
 end

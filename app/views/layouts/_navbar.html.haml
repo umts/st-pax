@@ -39,4 +39,4 @@
     %ul.navbar-nav
       - if authenticated?
         %li.nav-item
-          = button_to 'Logout', destroy_session_path, method: :delete, class: 'btn btn-link nav-link', data: { turbo: false }
+          = button_to 'Logout', logout_path, method: :post, class: 'btn btn-link nav-link', data: { turbo: false }
