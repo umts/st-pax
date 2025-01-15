@@ -8,34 +8,18 @@
 </head>
 
 <body class="rails-default-error-page">
-  <!-- This file lives in public/403_no_access.html -->
+  <!-- This file lives in public/403-no-access.html -->
   <div class="dialog">
     <div>
-      <h1>Welcome to the Accessable Van Service website</h1>
-      <h2>You are not allowed on this page.</h2>
-      <p>Some possible reasons:
-        <ul>
-          <li>
-            You are attempting to login with a subsidiary account. 
-            Role subsidiary accounts cannout be used to access this site. 
-            Please login with your primary NetID. For assistance, contact 
-            <a href="mailto:transit-it@admin.umass.edu">transit-it@admin.umass.edu</a>
-          </li>
-          <li>
-            You are a current or future passenger. In this case, you may be interested in our 
-            <a href="/passengers/brochure">Brochure.</a>
-          </li>
-          <li>
-            You are an AVS employee and believe you should have access. 
-            In this case, please contact AVS staff for assistance.
-          </li>
-        </ul>
-      </p>
-      <p>
+      <h1>You do have acces to this page.</h1>
+      <p>Please submit feedback if you believe this is a mistake.</p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/feedback/new">Feedback</a>
         <form method="post" action="/logout">
           <a href="#" class="logout-link">Logout</a>
         </form>
-      </p>
+      </nav>
     </div>
     <p>If you are the application owner check the logs for more information.</p>
   </div>
