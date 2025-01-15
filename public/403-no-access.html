@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>You do not have access to this page (403)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="/status_code.js"></script>
+  <link rel="stylesheet" href="/status_code.css"/>
+</head>
+
+<body class="rails-default-error-page">
+  <!-- This file lives in public/403-no-access.html -->
+  <div class="dialog">
+    <div>
+      <h1>You do have acces to this page.</h1>
+      <p>Please submit feedback if you believe this is a mistake.</p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/feedback/new">Feedback</a>
+        <form method="post" action="/logout">
+          <a href="#" class="logout-link">Logout</a>
+        </form>
+      </nav>
+    </div>
+    <p>If you are the application owner check the logs for more information.</p>
+  </div>
+</body>
+</html>

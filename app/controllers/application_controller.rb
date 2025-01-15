@@ -18,9 +18,11 @@ class ApplicationController < ActionController::Base
 
   def deny_access
     if request.xhr?
-      head :unauthorized
+      head :forbidden
     else
-      render 'sessions/unauthenticated', status: :unauthorized
+      file = authenticated? ? '403-no-access.html' : '403-no-account.html'
+
+      render file: Rails.public_path.join(file), status: :forbidden
     end
   end
 
@@ -64,11 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_primary_account
-    return if request.env['UMAPrimaryAccount'] == request.env['uid']
-
-    @primary_account = request.env['UMAPrimaryAccount']
-    @uid = request.env['uid']
-    render 'sessions/subsidiary', status: :unauthorized
+    deny_access && return unless request.env['UMAPrimaryAccount'] == request.env['uid']
   end
 
   def restrict_to_admin
