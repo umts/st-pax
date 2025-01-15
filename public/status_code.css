@@ -45,3 +45,9 @@
   color: #666;
   box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
 }
+
+.rails-defailt-error-page div.dialog nav {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1em 0;
+}
