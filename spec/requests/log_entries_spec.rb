@@ -7,18 +7,18 @@ RSpec.describe 'Log Entries' do
     subject(:call) { get '/log' }
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         call
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
     context 'when logged in as a passenger' do
       before { login_as_passenger create(:passenger) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         call
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -47,9 +47,9 @@ RSpec.describe 'Log Entries' do
     let(:attributes) { { text: 'Test log entry' } }
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         submit
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not create a new log entry' do
@@ -60,9 +60,9 @@ RSpec.describe 'Log Entries' do
     context 'when logged in as a passenger' do
       before { login_as_passenger create(:passenger) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         submit
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not create a new log entry' do
@@ -150,9 +150,9 @@ RSpec.describe 'Log Entries' do
     let(:attributes) { { text: 'Test log entry' } }
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         submit
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not change the log entry' do
@@ -163,9 +163,9 @@ RSpec.describe 'Log Entries' do
     context 'when logged in as a passenger' do
       before { login_as_passenger create(:passenger) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         submit
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not change the log entry' do
@@ -176,9 +176,9 @@ RSpec.describe 'Log Entries' do
     context 'when logged in as a normal user that does not own the log entry' do
       before { login_as create(:user) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         submit
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not change the log entry' do
@@ -261,9 +261,9 @@ RSpec.describe 'Log Entries' do
     let!(:log_entry) { create(:log_entry) }
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         call
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not delete a log entry' do
@@ -274,9 +274,9 @@ RSpec.describe 'Log Entries' do
     context 'when logged in as a passenger' do
       before { login_as_passenger create(:passenger) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         call
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not delete a log entry' do
@@ -287,9 +287,9 @@ RSpec.describe 'Log Entries' do
     context 'when logged in as a normal user that does not own the log entry' do
       before { login_as create(:user) }
 
-      it 'responds with an unauthorized status' do
+      it 'responds with a forbidden status' do
         call
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it 'does not delete a log entry' do

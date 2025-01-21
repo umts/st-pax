@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>You do not have access to this page (403)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="/status_code.js"></script>
+  <link rel="stylesheet" href="/status_code.css"/>
+</head>
+
+<body class="rails-default-error-page">
+  <!-- This file lives in public/403_no_account.html -->
+  <div class="dialog">
+    <div>
+      <h1>Welcome to the Accessable Van Service website</h1>
+      <p>We don't recognize you as an AVS employee or passenger.</p>
+      <p>
+        You may be looking for our <a href="http://www.umass.edu/transit">public website</a>, 
+        where you can access news, schedules, and employment information.
+      </p>
+      <p>
+        <form method="post" action="/logout">
+          <a href="#" class="logout-link">Logout</a>
+        </form>
+      </p>
+    </div>
+    <p>If you are the application owner check the logs for more information.</p>
+  </div>
+</body>
+</html>

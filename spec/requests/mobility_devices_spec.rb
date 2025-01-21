@@ -36,25 +36,25 @@ RSpec.describe 'Mobility Devices' do
     context 'when logged in as a user' do
       include_context 'with user login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when logged in as a passenger' do
       include_context 'with pax login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
@@ -74,25 +74,25 @@ RSpec.describe 'Mobility Devices' do
     context 'when logged in as a user' do
       include_context 'with user login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when logged in as a passenger' do
       include_context 'with pax login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when not logged in' do
-      it 'respond with an unauthorized status' do
+      it 'respond with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
@@ -155,9 +155,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to change(MobilityDevice, :count)
       end
 
-      it 'returns an unauthorized status' do
+      it 'returns an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -168,9 +168,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to change(MobilityDevice, :count)
       end
 
-      it 'returns an unauthorized status' do
+      it 'returns an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -179,9 +179,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to change(MobilityDevice, :count)
       end
 
-      it 'returns an unauthorized status' do
+      it 'returns an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
@@ -203,25 +203,25 @@ RSpec.describe 'Mobility Devices' do
     context 'when logged in as a user' do
       include_context 'with user login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when logged in as a passenger' do
       include_context 'with pax login'
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
     context 'when not logged in' do
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
@@ -285,9 +285,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to(change { device.reload.attributes })
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -298,9 +298,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to(change { device.reload.attributes })
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -309,9 +309,9 @@ RSpec.describe 'Mobility Devices' do
         expect { submit }.not_to(change { device.reload.attributes })
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         submit
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
@@ -362,9 +362,9 @@ RSpec.describe 'Mobility Devices' do
         expect { call }.not_to change(MobilityDevice, :count)
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -375,9 +375,9 @@ RSpec.describe 'Mobility Devices' do
         expect { call }.not_to change(MobilityDevice, :count)
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -386,9 +386,9 @@ RSpec.describe 'Mobility Devices' do
         expect { call }.not_to change(MobilityDevice, :count)
       end
 
-      it 'responds with an unauthorized status' do
+      it 'responds with an forbidden status' do
         call
-        expect(response).to have_http_status :unauthorized
+        expect(response).to have_http_status :forbidden
       end
     end
   end
