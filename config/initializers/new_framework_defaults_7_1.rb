@@ -25,7 +25,7 @@ Rails.application.config.action_dispatch.default_headers = {
 # Do not treat an `ActionController::Parameters` instance
 # as equal to an equivalent `Hash` by default.
 #++
-# Rails.application.config.action_controller.allow_deprecated_parameters_hash_equality = false
+Rails.application.config.action_controller.allow_deprecated_parameters_hash_equality = false
 
 ###
 # Active Record Encryption now uses SHA-256 as its hash digest algorithm.
@@ -71,7 +71,7 @@ Rails.application.config.active_record.sqlite3_adapter_strict_strings_by_default
 ###
 # Disable deprecated singular associations names.
 #++
-# Rails.application.config.active_record.allow_deprecated_singular_associations_name = false
+Rails.application.config.active_record.allow_deprecated_singular_associations_name = false
 
 ###
 # Enable the Active Job `BigDecimal` argument serializer, which guarantees
@@ -165,7 +165,7 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 # The previous behavior was to validate the presence of the parent record, which performed an extra query
 # to get the parent every time the child record was updated, even when parent has not changed.
 #++
-# Rails.application.config.active_record.belongs_to_required_validates_foreign_key = false
+Rails.application.config.active_record.belongs_to_required_validates_foreign_key = false
 
 ###
 # Enable precompilation of `config.filter_parameters`. Precompilation can
@@ -178,7 +178,7 @@ Rails.application.config.precompile_filter_parameters = true
 # The previous behavior was to only run the callbacks on the first copy of a record
 # if there were multiple copies of the same record enrolled in the transaction.
 #++
-# Rails.application.config.active_record.before_committed_on_all_records = true
+Rails.application.config.active_record.before_committed_on_all_records = true
 
 ###
 # Disable automatic column serialization into YAML.
