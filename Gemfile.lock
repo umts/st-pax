@@ -127,6 +127,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.4.1)
       railties (>= 6.0.0)
+    csv (3.3.2)
     date (3.4.1)
     debug (1.10.0)
       irb (~> 1.10)
@@ -457,6 +458,7 @@ DEPENDENCIES
   capistrano-rails
   capybara
   cssbundling-rails
+  csv
   debug
   ed25519
   exception_notification
