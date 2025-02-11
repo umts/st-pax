@@ -7,6 +7,7 @@ gem 'bootstrap_form', '~> 5.4'
 gem 'business_time'
 gem 'cssbundling-rails'
 gem 'exception_notification'
+gem 'faraday-retry'
 gem 'haml'
 gem 'haml-rails'
 gem 'irb'
@@ -40,6 +41,7 @@ end
 
 group :development do
   gem 'bcrypt_pbkdf', require: false
+  gem 'brakeman', require: false
   gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false
