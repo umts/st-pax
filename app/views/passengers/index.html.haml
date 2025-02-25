@@ -13,27 +13,27 @@
         %th Phone
         %th Email
         %th.permanent.text-center Permanent
-        %th.text-center{data: {type: 'date'}} Rides Expire
+        %th.text-center{ data: { type: 'date' } } Rides Expire
         - if @status == :pending
           %th.text-center Eligibility Verified
-        %th{data: {orderable: 'false'}}
+        %th{ data: { orderable: 'false' } }
           .sr-only View
-        %th{data: {orderable: 'false'}}
+        %th{ data: { orderable: 'false' } }
           .sr-only Edit
-        %th{data: {orderable: 'false'}}
+        %th{ data: { orderable: 'false' } }
           .sr-only= status_action_settings(@status)[:text]
         - if @current_user.admin?
-          %th{data: {orderable: 'false'}}
+          %th{ data: { orderable: 'false' } }
             .sr-only Delete
     %tbody
       - @passengers.each do |passenger|
-        %tr{class: passengers_table_row_class(passenger), data: {email: passenger.email} }
+        %tr{ class: passengers_table_row_class(passenger), data: { email: passenger.email } }
           %th{scope: 'row'}= passenger.name
           %td= passenger.mobility_device.try(:name)
           %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
           %td= passenger.email
-          %td.text-center{data: {filter: passenger.permanent_or_temporary}}= checkmark_glyph passenger.permanent?
+          %td.text-center{ data: { filter: passenger.permanent_or_temporary } }= checkmark_glyph passenger.permanent?
           %td.text-center= passenger.rides_expire.try(:strftime, '%m/%d/%Y')
           - if @status == :pending
             %td.text-center= checkmark_glyph passenger.eligibility_verification.present?
@@ -42,6 +42,6 @@
           %td= status_action_button(passenger, @status)
           - if @current_user.admin?
             %td= button_to 'Delete', passenger, method: :delete,
-              data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'
+                                                data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else
   No results
