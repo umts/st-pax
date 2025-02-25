@@ -8,7 +8,7 @@
             = f.radio_button :filter, filter, label: filter.capitalize, checked: @filter == filter, inline: true
       = f.submit 'Print', formaction: passengers_path(format: :pdf)
       - if @current_user.admin?
-        %input.btn.btn-secondary#copybtn{type: 'button', value: 'Copy Emails'}
+        %input#copybtn.btn.btn-secondary{ type: 'button', value: 'Copy Emails' }
       = f.submit 'Export CSV', formaction: passengers_path(format: :csv)
   .col-lg-4.my-3
     %table#key

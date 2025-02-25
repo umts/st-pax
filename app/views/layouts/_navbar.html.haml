@@ -9,8 +9,8 @@
                          aria: { haspopup: 'true', expanded: 'false' } do
             Passengers
             - if @pending.positive?
-              %i.fa-solid.fa-user-clock.text-warning{aria_label: 'Pending passengers present'}
-          .dropdown-menu{aria: { labelledby: 'passenger-dropdown' }}
+              %i.fa-solid.fa-user-clock.text-warning{ aria: { label: 'Pending passengers present' } }
+          .dropdown-menu{ aria: { labelledby: 'passenger-dropdown' } }
             = link_to 'Current', passengers_path, class: 'dropdown-item'
             = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
             = link_to pending_passengers_path, class: 'dropdown-item' do
@@ -23,7 +23,7 @@
           %li.nav-item.dropdown
             = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
                                      data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }
-            .dropdown-menu{aria: { labelledby: 'management-dropdown' }}
+            .dropdown-menu{ aria: { labelledby: 'management-dropdown' } }
               = link_to 'Users', users_path, class: 'dropdown-item'
               = link_to 'Mobility Devices', mobility_devices_path, class: 'dropdown-item'
       - if authenticated?

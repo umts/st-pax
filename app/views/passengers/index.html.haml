@@ -4,7 +4,7 @@
 
 = render partial: 'filters_and_key' if @status.blank?
 - if @passengers.present?
-  %table.table#passengers
+  %table#passengers.table
     %thead
       %tr
         %th Name
@@ -28,7 +28,7 @@
     %tbody
       - @passengers.each do |passenger|
         %tr{ class: passengers_table_row_class(passenger), data: { email: passenger.email } }
-          %th{scope: 'row'}= passenger.name
+          %th{ scope: 'row' }= passenger.name
           %td= passenger.mobility_device.try(:name)
           %td= checkmark_glyph(passenger.needs_longer_rides?, no: '')
           %td= passenger.phone
