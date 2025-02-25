@@ -1,7 +1,7 @@
 !!!
-%html{lang: 'en'}
+%html{ lang: 'en' }
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{ content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
     %title #{t 'department.abbr'} Passengers
     = favicon_link_tag
     = csrf_meta_tags
@@ -13,7 +13,7 @@
     %main.container-fluid
       .container
         - flash.each do |name, messages|
-          .alert.alert-dismissible{class: "alert-#{name}"}
-            %button.btn-close{data: { bs_dismiss: 'alert' }, aria: { label: 'Close' }}
+          .alert.alert-dismissible{ class: "alert-#{name}" }
+            %button.btn-close{ data: { bs_dismiss: 'alert' }, aria: { label: 'Close' } }
             = list_messages(messages)
       = yield
