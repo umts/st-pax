@@ -1,6 +1,6 @@
 %p
   Your #{t 'department.name'} account has been created but is still pending.
-  You can receive rides until #{3.business_days.after(Time.now).strftime("%m/%d/%Y")}.
+  You can receive rides until #{3.business_days.from_now.strftime('%m/%d/%Y')}.
 %p
   Once your account has been activated, we will notify you of the date until which you can
   receive rides. Before using our service, please read the brochure at our website at this link:
