@@ -5,4 +5,6 @@
     - if @current_user.admin?
       .input-group.ms-2
         .input-group-text
-          = f.check_box :pinned, multiple: true
+          .custom-control.custom-checkbox
+            = f.check_box_without_bootstrap :pinned, class: 'custom-control-input'
+            = f.label :pinned, class: 'custom-control-label'
