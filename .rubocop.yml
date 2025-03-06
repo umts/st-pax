@@ -1,13 +1,13 @@
 inherit_from: .rubocop_todo.yml
 
 plugins:
+  - rubocop-factory_bot
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
 
 require:
   - rubocop-capybara
-  - rubocop-factory_bot
   - rubocop-rspec_rails
 
 AllCops:
