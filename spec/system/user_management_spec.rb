@@ -30,6 +30,7 @@ RSpec.describe 'User Management' do
       it 'deletes the user' do
         submit
         visit users_path
+        page.find('h1', text: 'Users')
         expect(page).to have_no_text(user.name)
       end
 

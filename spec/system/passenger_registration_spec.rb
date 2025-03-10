@@ -49,6 +49,7 @@ RSpec.describe 'Passenger self-registration' do
         submit
         when_current_user_is :anybody
         visit passengers_path
+        page.find('h1', text: 'Passengers')
         expect(page).to have_no_text passenger.name
       end
 

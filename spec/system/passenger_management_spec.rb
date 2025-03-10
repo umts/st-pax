@@ -76,6 +76,7 @@ RSpec.describe 'Passenger Management', :js do
         it 'does not create the passenger' do
           click_on 'Submit'
           visit passengers_path
+          page.find('h1', text: 'Passengers')
           expect(page).to have_no_text('Foo Baz')
         end
 
@@ -130,6 +131,7 @@ RSpec.describe 'Passenger Management', :js do
       it 'deletes the passenger' do
         delete
         visit passengers_path
+        page.find('h1', text: 'Passengers')
         expect(page).to have_no_text(passenger.name)
       end
 
@@ -182,6 +184,7 @@ RSpec.describe 'Passenger Management', :js do
       context 'with an active registration status' do
         it 'does not create the passenger' do
           visit passengers_path
+          page.find('h1', text: 'Passengers')
           expect(page).to have_no_text('Jane Fonda')
         end
 
@@ -227,6 +230,7 @@ RSpec.describe 'Passenger Management', :js do
       context 'with active registration status' do
         it 'does not create the passenger' do
           visit passengers_path
+          page.find('h1', text: 'Passengers')
           expect(page).to have_no_text('Jane Fonda')
         end
 
@@ -261,6 +265,7 @@ RSpec.describe 'Passenger Management', :js do
 
       it 'does not offer a button to delete a passenger' do
         visit passengers_path
+        page.find('h1', text: 'Passengers')
         expect(page).to have_no_button 'Delete'
       end
     end
