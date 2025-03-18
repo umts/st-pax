@@ -20,7 +20,7 @@ gem 'prawn-table'
 gem 'puma'
 gem 'rails', '~> 7.2.2'
 gem 'rake'
-gem 'sprockets-rails'
+gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'turbo-rails'
 
 group :development, :test do
