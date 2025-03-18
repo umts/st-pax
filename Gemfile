@@ -36,6 +36,7 @@ group :test do
   gem 'rack_session_access'
   gem 'rspec-html-matchers'
   gem 'rspec-rails'
+  gem 'rspec-retry'
   gem 'selenium-webdriver'
   gem 'timecop'
 end
