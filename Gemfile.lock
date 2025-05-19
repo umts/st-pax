@@ -281,7 +281,7 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.14)
+    rack (3.1.15)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -378,12 +378,12 @@ GEM
     rubocop-factory_bot (2.27.1)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-rails (2.31.0)
+    rubocop-rails (2.32.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
-      rubocop-ast (>= 1.38.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
     rubocop-rake (0.7.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1)
@@ -640,7 +640,7 @@ CHECKSUMS
   public_suffix (6.0.1) sha256=61d44e1cab5cbbbe5b31068481cf16976dd0dc1b6b07bd95617ef8c5e3e00c6f
   puma (6.6.0) sha256=f25c06873eb3d5de5f0a4ebc783acc81a4ccfe580c760cfe323497798018ad87
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
-  rack (3.1.14) sha256=84613c2a8df193bb6711d9c14ecc6d5a65a7cb4312379a65e793562608944b44
+  rack (3.1.15) sha256=d12b3e9960d18a26ded961250f2c0e3b375b49ff40dbe6786e9c3b160cbffca4
   rack-session (2.1.1) sha256=0b6dc07dea7e4b583f58a48e8b806d4c9f1c6c9214ebc202ec94562cbea2e4e9
   rack-test (2.2.0) sha256=005a36692c306ac0b4a9350355ee080fd09ddef1148a5f8b2ac636c720f5c463
   rack_session_access (0.2.0) sha256=03eb98f2027429ccbbeb18556006dfb6d928b0557ad3770783b8e2f368198d6b
@@ -669,7 +669,7 @@ CHECKSUMS
   rubocop-ast (1.44.1) sha256=e3cc04203b2ef04f6d6cf5f85fe6d643f442b18cc3b23e3ada0ce5b6521b8e92
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-factory_bot (2.27.1) sha256=9d744b5916778c1848e5fe6777cc69855bd96548853554ec239ba9961b8573fe
-  rubocop-rails (2.31.0) sha256=79476e1075299c3e60fc50549c7c32614f9ebaae719b899ed75785c6786c52bd
+  rubocop-rails (2.32.0) sha256=9fcc623c8722fe71e835e99c4a18b740b5b0d3fb69915d7f0777f00794b30490
   rubocop-rake (0.7.1) sha256=3797f2b6810c3e9df7376c26d5f44f3475eda59eb1adc38e6f62ecf027cbae4d
   rubocop-rspec (3.6.0) sha256=c0e4205871776727e54dee9cc91af5fd74578001551ba40e1fe1a1ab4b404479
   rubocop-rspec_rails (2.31.0) sha256=775375e18a26a1184a812ef3054b79d218e85601b9ae897f38f8be24dddf1f45
