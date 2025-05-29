@@ -13,7 +13,7 @@
     "datatables.net-bs5": "^2.3.1",
     "datatables.net-fixedheader-bs5": "^4.0.2",
     "jquery": "^3.7.1",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.4",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
