@@ -21,7 +21,7 @@ class FeedbackController < ApplicationController
 
   def create
     @feedback = Feedback.new(feedback_params)
-    if submit_feedback
+    if submitted_feedback?
       flash[:info] = t('.success')
       redirect_to feedback_path(@feedback.issue.number)
     else
@@ -38,7 +38,7 @@ class FeedbackController < ApplicationController
           .merge(user: @current_user)
   end
 
-  def submit_feedback
+  def submitted_feedback?
     return false unless @feedback.valid?
 
     begin
