@@ -7,8 +7,8 @@ class EligibilityVerification < ApplicationRecord
   belongs_to :verifying_agency, optional: true
 
   validates :passenger, uniqueness: true
-  validates :expiration_date, presence: true, if: :passenger_requires_validation
-  validates :verifying_agency_id, presence: true, if: :passenger_requires_validation
+  validates :expiration_date, presence: true, if: :passenger_requires_validation?
+  validates :verifying_agency_id, presence: true, if: :passenger_requires_validation?
   validates :expiration_date, absence: { if: -> { verifying_agency.blank? }, message: :no_agency }
   validates :expiration_date, absence: { if: -> { passenger&.permanent? }, message: :perm_pax }
   validates :name, presence: { if: -> { verifying_agency&.needs_contact_info? } }
@@ -47,7 +47,7 @@ class EligibilityVerification < ApplicationRecord
 
   private
 
-  def passenger_requires_validation
+  def passenger_requires_validation?
     passenger&.active? && passenger.temporary?
   end
 
