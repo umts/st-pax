@@ -1,3 +1,10 @@
+@use "@fortawesome/fontawesome-free/scss/variables" with (
+  $font-path: "@fortawesome/fontawesome-free/webfonts"
+);
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/fa" as fa;
+@use "@fortawesome/fontawesome-free/scss/solid" as fas;
+
 $primary: #881c1c;
 $secondary: #63666a;
 $success: #76881d;
@@ -11,10 +18,6 @@ $dark: #333333;
 
 @import "datatables.net-bs5/css/dataTables.bootstrap5";
 @import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
-
-$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
-@import "@fortawesome/fontawesome-free/scss/solid";
 
 @import "passengers";
 
