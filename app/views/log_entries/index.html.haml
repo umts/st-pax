@@ -16,7 +16,7 @@
             - if entry.pinned?
               %span.text-primary.mr-2
                 %i.fa-solid.fa-thumbtack
-                .sr-only Pinned
+                .visually-hidden Pinned
             %strong= entry.user&.name || 'Unknown'
             - title = entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p')
             %span.text-muted{ title:, tabindex: 0, data: { toggle: 'tooltip' } }

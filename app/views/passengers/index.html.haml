@@ -17,14 +17,14 @@
         - if @status == :pending
           %th.text-center Eligibility Verified
         %th{ data: { orderable: 'false' } }
-          .sr-only View
+          .visually-hidden View
         %th{ data: { orderable: 'false' } }
-          .sr-only Edit
+          .visually-hidden Edit
         %th{ data: { orderable: 'false' } }
-          .sr-only= status_action_settings(@status)[:text]
+          .visually-hidden= status_action_settings(@status)[:text]
         - if @current_user.admin?
           %th{ data: { orderable: 'false' } }
-            .sr-only Delete
+            .visually-hidden Delete
     %tbody
       - @passengers.each do |passenger|
         %tr{ class: passengers_table_row_class(passenger), data: { email: passenger.email } }
