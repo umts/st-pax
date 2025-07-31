@@ -57,6 +57,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :spire, :active, :admin, :title)
+    params.expect user: %i[name spire active admin title]
   end
 end

@@ -52,6 +52,6 @@ class MobilityDevicesController < ApplicationController
   end
 
   def device_params
-    params.require(:mobility_device).permit :name, :needs_longer_rides
+    params.expect mobility_device: %i[name needs_longer_rides]
   end
 end
