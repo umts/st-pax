@@ -48,6 +48,6 @@ class LogEntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:log_entry).permit(:text, @current_user.admin? ? :pinned : nil)
+    params.expect log_entry: [:text, @current_user.admin? ? :pinned : nil]
   end
 end
