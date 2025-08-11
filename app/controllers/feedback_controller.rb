@@ -33,8 +33,7 @@ class FeedbackController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback)
-          .permit(:title, :description, :category)
+    params.expect(feedback: %i[title description category])
           .merge(user: @current_user)
   end
 

@@ -1,29 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "3f1929bcd3fa7a6a4cdebe53ba45d8cd20f173c9e04f5c10e90834ea9d22512f",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/users_controller.rb",
-      "line": 60,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user).permit(:name, :spire, :active, :admin, :title)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "UsersController",
-        "method": "user_params"
-      },
-      "user_input": ":admin",
-      "confidence": "High",
-      "cwe_id": [
-        915
-      ],
-      "note": "The entire `UsersController` is restricted to admin users. They may make/unmake users admins"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "918fe336faf9a5b6c23782f42065bb9efa994b032f42413eee85f013644fe842",
