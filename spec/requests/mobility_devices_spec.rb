@@ -128,9 +128,9 @@ RSpec.describe 'Mobility Devices' do
           expect { submit }.not_to change(MobilityDevice, :count)
         end
 
-        it 'returns an unprocessable entity status' do
+        it 'returns an unprocessable content status' do
           submit
-          expect(response).to have_http_status :unprocessable_entity
+          expect(response).to have_http_status :unprocessable_content
         end
       end
 
@@ -141,9 +141,9 @@ RSpec.describe 'Mobility Devices' do
           expect { submit }.not_to change(MobilityDevice, :count)
         end
 
-        it 'returns an unprocessable entity status' do
+        it 'returns an unprocessable content status' do
           submit
-          expect(response).to have_http_status :unprocessable_entity
+          expect(response).to have_http_status :unprocessable_content
         end
       end
     end
@@ -258,9 +258,9 @@ RSpec.describe 'Mobility Devices' do
           expect { submit }.not_to(change { device.reload.attributes })
         end
 
-        it 'returns an unprocessable entity status' do
+        it 'returns an unprocessable content status' do
           submit
-          expect(response).to have_http_status :unprocessable_entity
+          expect(response).to have_http_status :unprocessable_content
         end
       end
 
@@ -271,9 +271,9 @@ RSpec.describe 'Mobility Devices' do
           expect { submit }.not_to(change { device.reload.attributes })
         end
 
-        it 'returns an unprocessable entity status' do
+        it 'returns an unprocessable content status' do
           submit
-          expect(response).to have_http_status :unprocessable_entity
+          expect(response).to have_http_status :unprocessable_content
         end
       end
     end
