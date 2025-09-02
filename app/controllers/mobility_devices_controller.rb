@@ -22,7 +22,7 @@ class MobilityDevicesController < ApplicationController
       redirect_to mobility_devices_url
     else
       flash.now[:danger] = @device.errors.full_messages
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -32,7 +32,7 @@ class MobilityDevicesController < ApplicationController
       redirect_to mobility_devices_url
     else
       flash.now[:danger] = @device.errors.full_messages
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
