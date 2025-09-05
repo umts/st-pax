@@ -23,19 +23,19 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: mysql2://root@127.0.0.1:3306/st_pax_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
       - run: bin/rails db:create db:schema:load test:prepare
       - run: bundle exec rspec
   rubocop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
       - run: bundle exec rubocop
   brakeman:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/setup
       - run: bundle exec brakeman --no-pager
