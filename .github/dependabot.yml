@@ -12,3 +12,7 @@ updates:
       datatables-packages:
         patterns:
           - 'datatables.net*'
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
