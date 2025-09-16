@@ -7,6 +7,6 @@
     "defaultStatus": ["⏳", "S"]
   },
   {
-    "command": ["yarn", "build:css", "--watch"]
+    "command": ["npm", "run", "build:css", "--watch"]
   }
 ]

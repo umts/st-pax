@@ -28,7 +28,7 @@ This app may later be expanded to serve other AVS department needs, as well.
 ## Setup
 
 - To seed the database, use `rails db:seed`.
-- Run `yarn` to add Boostrap, jQuery, jQuery-ui, and Datatables packages.
+- Run `npm i` to add Boostrap, jQuery, jQuery-ui, and Datatables packages.
 
 ## Pull Requests
 
