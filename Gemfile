@@ -38,7 +38,6 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'selenium-webdriver'
-  gem 'timecop'
 end
 
 group :development do
