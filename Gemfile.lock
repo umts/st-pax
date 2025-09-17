@@ -439,7 +439,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     thor (1.4.0)
     tilt (2.4.0)
-    timecop (0.9.10)
     timeout (0.4.3)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
@@ -523,7 +522,6 @@ DEPENDENCIES
   spring-watcher-listen
   sprockets-rails
   terser
-  timecop
   turbo-rails
   web-console
 
@@ -696,7 +694,6 @@ CHECKSUMS
   terser (1.2.6) sha256=6ddf00b93df7015b07e2b9b149e74cd70fa7aa4f0f89a15d9922a6ebd13f37ab
   thor (1.4.0) sha256=8763e822ccb0f1d7bee88cde131b19a65606657b847cc7b7b4b82e772bcd8a3d
   tilt (2.4.0) sha256=df74f29a451daed26591a85e8e0cebb198892cb75b6573394303acda273fba4d
-  timecop (0.9.10) sha256=12ba45ce57cdcf6b1043cb6cdffa6381fd89ce10d369c28a7f6f04dc1b0cd8eb
   timeout (0.4.3) sha256=9509f079b2b55fe4236d79633bd75e34c1c1e7e3fb4b56cb5fda61f80a0fe30e
   ttfunk (1.8.0) sha256=a7cbc7e489cc46e979dde04d34b5b9e4f5c8f1ee5fc6b1a7be39b829919d20ca
   turbo-rails (2.0.16) sha256=d24e1b60f0c575b3549ecda967e5391027143f8220d837ed792c8d48ea0ea38d
