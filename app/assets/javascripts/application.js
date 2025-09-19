@@ -20,8 +20,16 @@
 //= require clipboard/dist/clipboard
 //= require_tree .
 
-document.addEventListener('turbo:load', function () {
-  document.querySelectorAll('[data-toggle="tooltip"]').forEach(function (element) {
-    new bootstrap.Tooltip(element);
+const tooltipTriggerElements = () => document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+document.addEventListener('turbo:load', () => {
+  tooltipTriggerElements().forEach((tooltipTriggerEl) => {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+});
+
+document.addEventListener('turbo:before-cache', () => {
+  tooltipTriggerElements().forEach((tooltipTriggerEl) => {
+    new bootstrap.Tooltip(tooltipTriggerEl).dispose();
   });
 });
