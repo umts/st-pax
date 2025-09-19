@@ -28,9 +28,10 @@ document.addEventListener('turbo:load', () => {
   // ask for contact info when agency requries it
   document.querySelectorAll('.passenger-verifying-agency-field').forEach((field) => {
     field.addEventListener('change', (e) => {
-      console.log('hi');
-      const needsContactInfo = e.currentTarget.options[e.currentTarget.selectedIndex].dataset.needsContactInfo;
-      console.log(needsContactInfo);
+      const needsContactInfo = e.currentTarget
+          .options[e.currentTarget.selectedIndex]
+          .dataset
+          .needsContactInfo === 'true';
       e.currentTarget.closest('form').querySelector('.contact-information').hidden = !(needsContactInfo);
     });
   });
