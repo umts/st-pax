@@ -5,7 +5,7 @@ document.addEventListener('turbo:load', () => {
     logEntry.querySelector('.log-entry-show').hidden = value;
     logEntry.querySelector('.log-entry-edit').hidden = !(value);
     logEntry.querySelector('.log-entry-edit-cancel-button').hidden = !(value);
-  }
+  };
 
   document.querySelectorAll('.log-entry-edit-button').forEach((editButton) => {
     editButton.addEventListener('click', (e) => {
