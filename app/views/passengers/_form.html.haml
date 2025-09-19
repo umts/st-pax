@@ -4,7 +4,8 @@
       - unless passenger.new_record?
         = form.text_field :registration_date, disabled: true, control_class: 'form-control-plaintext'
       = form.text_field :name, disabled: @registrant.present?
-      = form.text_field :spire, placeholder: '12345678@umass.edu', disabled: @registrant.present?
+      = form.text_field :spire, placeholder: '12345678@umass.edu', disabled: @registrant.present?,
+                                class: 'passenger-spire-field'
       = form.text_field :address
       = form.text_field :email
       = form.phone_field :phone
@@ -24,7 +25,7 @@
 
       - if @current_user&.admin?
         = form.form_group do
-          = form.check_box :permanent
+          = form.check_box :permanent, class: 'passenger-permanent-field'
 
       = form.form_group do
         = form.check_box :subscribed_to_sms
@@ -37,16 +38,15 @@
             end
           = d.select :verifying_agency_id,
                      options_for_select(options, passenger.eligibility_verification&.verifying_agency&.id),
-                     help: verifying_agency_help_text,
-                     label: verifying_agency_label,
-                     include_blank: true
+                     { help: verifying_agency_help_text, label: verifying_agency_label, include_blank: true },
+                     class: 'passenger-verifying-agency-field'
           - if passenger.eligibility_verification.blank? && passenger.temporary?
             - expiration_help = "Rides expire #{passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
           = d.date_field :expiration_date,
-                         class: 'verification-expires',
                          help: expiration_help,
                          label: expiration_date_label,
-                         disabled: passenger.permanent?
+                         disabled: passenger.permanent?,
+                         html_options: { class: 'verification-expires' }
           = d.form_group :contact_information,
                          label: { text: 'This verifying agency requires contact information to be entered' },
                          class: 'contact-information',
