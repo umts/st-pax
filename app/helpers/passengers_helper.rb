@@ -34,13 +34,6 @@ module PassengersHelper
     end
   end
 
-  def contact_information_class(verification)
-    needs_contact_info = verification&.verifying_agency&.needs_contact_info?
-    classes = ['contact-information']
-    classes << 'hide-view' unless needs_contact_info
-    classes
-  end
-
   def verification_information(passenger)
     agency = passenger.eligibility_verification&.verifying_agency
     if agency&.needs_contact_info?

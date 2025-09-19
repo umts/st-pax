@@ -16,14 +16,3 @@ table#key, table#passengers {
 .passenger-filters input[type='submit'] {
   margin-right: $spacer;
 }
-
-.hide-view {
-  display: none;
-}
-
-#brochure {
-  .table caption {
-    caption-side: top;
-    color: inherit;
-  }
-}
