@@ -1,27 +1,21 @@
-$(document).on('turbo:load', function() {
-  function setLogEntryEditing(logEntry, change) {
-    var edit = logEntry.find('.log-entry-edit-button');
-    var destroy = logEntry.find('.log-entry-delete-button');
-    var show = logEntry.find('.log-entry-show');
-    var form = logEntry.find('.log-entry-edit');
-    var cancel = logEntry.find('.log-entry-edit-cancel-button');
-
-    edit.prop('hidden', change);
-    destroy.prop('hidden', change);
-    show.prop('hidden', change);
-    form.prop('hidden', !(change));
-    cancel.prop('hidden', !(change));
+document.addEventListener('turbo:load', () => {
+  const setLogEntryEditing = (logEntry, value) => {
+    logEntry.querySelector('.log-entry-edit-button').hidden = value;
+    logEntry.querySelector('.log-entry-delete-button').hidden = value;
+    logEntry.querySelector('.log-entry-show').hidden = value;
+    logEntry.querySelector('.log-entry-edit').hidden = !(value);
+    logEntry.querySelector('.log-entry-edit-cancel-button').hidden = !(value);
   }
 
-  $('.log-entry-edit-button').on('click', function (e) {
-    var theClickedElement = $(e.target);
-    var parent = theClickedElement.closest('.log-entry');
-    setLogEntryEditing(parent, true);
+  document.querySelectorAll('.log-entry-edit-button').forEach((editButton) => {
+    editButton.addEventListener('click', (e) => {
+      setLogEntryEditing(e.currentTarget.closest('.log-entry'), true);
+    });
   });
 
-  $('.log-entry-edit-cancel-button').on('click', function (e) {
-    var theClickedElement = $(e.target);
-    var parent = theClickedElement.closest('.log-entry');
-    setLogEntryEditing(parent, false);
+  document.querySelectorAll('.log-entry-edit-cancel-button').forEach((cancelButton) => {
+    cancelButton.addEventListener('click', (e) => {
+      setLogEntryEditing(e.currentTarget.closest('.log-entry'), false);
+    });
   });
 });
