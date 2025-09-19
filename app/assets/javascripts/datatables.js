@@ -1,12 +1,23 @@
-$( document ).on("turbo:load", function() {
-  $('#passengers').DataTable({
-    fixedHeader: true,
-    paging: false,
-    order: [[0, 'asc']],
-    stateSave: true,
-  });
-});
+const whenPassengersTableIsPresent = (callback) => {
+  const element = document.querySelector('#passengers');
+  if (element) {
+    callback(element);
+  }
+}
 
-$( document ).on('turbo:before-cache', function() {
-  $('#passengers').DataTable().destroy();
-});
+document.addEventListener('turbo:load', () => {
+  whenPassengersTableIsPresent((element) => {
+    new DataTable(element, {
+      fixedHeader: true,
+      paging: false,
+      order: [[0, 'asc']],
+      stateSave: true,
+    });
+  })
+})
+
+document.addEventListener('turbo:before-cache', () => {
+  whenPassengersTableIsPresent((element) => {
+    new DataTable(element).destroy()
+  })
+})
