@@ -29,6 +29,7 @@ module.exports = [
         '$': 'readonly',
         'bootstrap': 'readonly',
         'ClipboardJS': 'readonly',
+        'DataTable': 'readonly',
       },
     },
   },
