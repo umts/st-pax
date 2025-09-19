@@ -1,11 +1,9 @@
 {
-  "name": "st_pax_tracker",
-  "private": true,
   "dependencies": {
-    "@csstools/postcss-sass": "^5.1.1",
+    "@csstools/postcss-sass": "*",
     "@fortawesome/fontawesome-free": "^7.0.1",
     "@popperjs/core": "^2.11.8",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "*",
     "bootstrap": "^5.3.8",
     "@hotwired/turbo-rails": "^8.0.16",
     "clipboard": "^2.0.11",
@@ -13,16 +11,23 @@
     "datatables.net-bs5": "^2.3.4",
     "datatables.net-fixedheader-bs5": "^4.0.3",
     "jquery": "^3.7.1",
-    "postcss": "^8.5.6",
-    "postcss-cli": "^11.0.1",
-    "postcss-import": "^16.1.1",
-    "postcss-nesting": "^13.0.2",
-    "postcss-scss": "^4.0.9"
+    "postcss": "*",
+    "postcss-cli": "< 11",
+    "postcss-scss": "*"
   },
   "devDependencies": {
-    "run-pty": "^5.0.0"
+    "@eslint/js": "< 9",
+    "eslint": "< 9",
+    "eslint-config-google": "*",
+    "globals": "*",
+    "run-pty": "^5.0.0",
+    "stylelint": "< 16",
+    "stylelint-config-standard": "< 35",
+    "stylelint-config-standard-scss": "< 12"
   },
   "scripts": {
-    "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css"
+    "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css",
+    "lint": "eslint .",
+    "lint:css": "stylelint **/*.css **/*.scss"
   }
 }
