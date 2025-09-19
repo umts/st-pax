@@ -21,6 +21,11 @@ $dark: #333333;
 
 @import "passengers";
 
+h1 {
+  text-align: center;
+  margin: 15px 0;
+}
+
 .pre-wrap {
   white-space: pre-wrap;
 }
