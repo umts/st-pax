@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery/dist/jquery
 //= require @popperjs/core/dist/umd/popper
 //= require bootstrap/dist/js/bootstrap
 //= require @hotwired/turbo/dist/turbo.es2017-umd.js
