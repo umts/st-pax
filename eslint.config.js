@@ -26,6 +26,9 @@ module.exports = [
     languageOptions: {
       globals: {
         ...globals.browser,
+        '$': 'readonly',
+        'bootstrap': 'readonly',
+        'ClipboardJS': 'readonly',
       },
     },
   },
