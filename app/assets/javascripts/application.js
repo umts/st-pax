@@ -17,7 +17,6 @@
 //= require datatables.net/js/dataTables.js
 //= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
 //= require datatables.net-bs5/js/dataTables.bootstrap5.js
-//= require clipboard/dist/clipboard
 //= require_tree .
 
 const tooltipTriggerElements = () => document.querySelectorAll('[data-bs-toggle="tooltip"]');
