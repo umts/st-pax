@@ -22,7 +22,7 @@
     "globals": "*",
     "run-pty": "^5.0.0",
     "stylelint": "< 16",
-    "stylelint-config-standard": "< 35",
+    "stylelint-config-standard": "< 40",
     "stylelint-config-standard-scss": "< 12"
   },
   "scripts": {
