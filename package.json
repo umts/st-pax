@@ -12,7 +12,7 @@
     "datatables.net-fixedheader-bs5": "^4.0.3",
     "jquery": "^3.7.1",
     "postcss": "*",
-    "postcss-cli": "< 11",
+    "postcss-cli": "< 12",
     "postcss-scss": "*"
   },
   "devDependencies": {
