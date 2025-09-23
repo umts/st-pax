@@ -21,9 +21,9 @@
     "eslint-config-google": "*",
     "globals": "*",
     "run-pty": "^5.0.0",
-    "stylelint": "< 16",
-    "stylelint-config-standard": "< 35",
-    "stylelint-config-standard-scss": "< 12"
+    "stylelint": "*",
+    "stylelint-config-standard": "*",
+    "stylelint-config-standard-scss": "*"
   },
   "scripts": {
     "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css",
