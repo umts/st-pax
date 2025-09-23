@@ -12,18 +12,19 @@
     "datatables.net-fixedheader-bs5": "^4.0.3",
     "jquery": "^3.7.1",
     "postcss": "*",
-    "postcss-cli": "< 11",
+    "postcss-cli": "< 12",
     "postcss-scss": "*"
   },
   "devDependencies": {
-    "@eslint/js": "< 9",
-    "eslint": "< 9",
+    "@eslint/js": "*",
+    "eslint": "*",
     "eslint-config-google": "*",
+    "eslint-formatter-compact": "*",
     "globals": "*",
     "run-pty": "^5.0.0",
-    "stylelint": "< 16",
-    "stylelint-config-standard": "< 35",
-    "stylelint-config-standard-scss": "< 12"
+    "stylelint": "*",
+    "stylelint-config-standard": "*",
+    "stylelint-config-standard-scss": "*"
   },
   "scripts": {
     "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css",
