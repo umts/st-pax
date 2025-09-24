@@ -49,7 +49,8 @@
                          disabled: passenger.permanent?
           = d.form_group :contact_information,
                          label: { text: 'This verifying agency requires contact information to be entered' },
-                         class: contact_information_class(@verification),
+                         class: 'contact-information',
+                         hidden: !@verification&.verifying_agency&.needs_contact_info?,
                          help: 'either phone or address is required' do
             = d.text_field :name
             = d.text_field :phone

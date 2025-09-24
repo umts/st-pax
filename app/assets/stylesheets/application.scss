@@ -11,30 +11,17 @@ $success: #76881d;
 $danger: #a8431e;
 $warning: #c69214;
 $info: #71b2c9;
-$light: #eeeeee;
-$dark: #333333;
+$light: #eee;
+$dark: #333;
 
 @import "bootstrap/scss/bootstrap";
-
 @import "datatables.net-bs5/css/dataTables.bootstrap5";
 @import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
-
 @import "passengers";
 
-h1{
+h1 {
   text-align: center;
   margin: 15px 0;
-}
-
-th[scope="row"] {
-  font-weight: normal;
-}
-
-span.yes-glyph {
-  color: $success;
-}
-span.no-glyph {
-  color: $danger;
 }
 
 .pre-wrap {
