@@ -2,10 +2,10 @@
   "dependencies": {
     "@csstools/postcss-sass": "*",
     "@fortawesome/fontawesome-free": "^7.0.1",
+    "@hotwired/turbo-rails": "^8.0.16",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "*",
     "bootstrap": "^5.3.8",
-    "@hotwired/turbo-rails": "^8.0.16",
     "clipboard": "^2.0.11",
     "datatables.net": "^2.3.4",
     "datatables.net-bs5": "^2.3.4",
@@ -16,14 +16,15 @@
     "postcss-scss": "*"
   },
   "devDependencies": {
-    "@eslint/js": "< 9",
-    "eslint": "< 9",
+    "@eslint/js": "*",
+    "eslint": "*",
     "eslint-config-google": "*",
+    "eslint-formatter-compact": "*",
     "globals": "*",
     "run-pty": "^5.0.0",
-    "stylelint": "< 16",
-    "stylelint-config-standard": "< 35",
-    "stylelint-config-standard-scss": "< 12"
+    "stylelint": "*",
+    "stylelint-config-standard": "*",
+    "stylelint-config-standard-scss": "*"
   },
   "scripts": {
     "build:css": "postcss ./app/assets/stylesheets/application.scss -o ./app/assets/builds/application.css",
