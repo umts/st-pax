@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
-    @current_user =
+    Current.user =
       if session.key? :user_id
         User.active.find_by id: session[:user_id]
       elsif request.env.key? 'fcIdNumber'
