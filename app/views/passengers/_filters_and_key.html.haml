@@ -7,7 +7,7 @@
           - %w[permanent temporary all].each do |filter|
             = f.radio_button :filter, filter, label: filter.capitalize, checked: @filter == filter, inline: true
       = f.submit 'Print', formaction: passengers_path(format: :pdf)
-      - if @current_user.admin?
+      - if Current.user.admin?
         %input#copybtn.btn.btn-secondary{ type: 'button', value: 'Copy Emails' }
       = f.submit 'Export CSV', formaction: passengers_path(format: :csv)
   .col-lg-4.my-3

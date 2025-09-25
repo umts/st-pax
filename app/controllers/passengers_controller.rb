@@ -11,7 +11,7 @@ class PassengersController < ApplicationController
   def brochure; end
 
   def welcome
-    redirect_to @current_user.present? ? passengers_path : register_passengers_path
+    redirect_to Current.user.present? ? passengers_path : register_passengers_path
   end
 
   def set_status
@@ -55,7 +55,7 @@ class PassengersController < ApplicationController
   def show; end
 
   def new
-    @passenger = if @current_user.present?
+    @passenger = if Current.user.present?
                    Passenger.new(registration_status: 'active')
                  elsif @registrant.present?
                    @registrant
@@ -82,7 +82,7 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
-    @passenger.registerer = @current_user
+    @passenger.registerer = Current.user
     success = -> { redirect_to @passenger }
     failure = -> { render :new, status: :unprocessable_content }
 
@@ -122,7 +122,7 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    PassengerParamManager.new(params, request.env, @current_user).params
+    PassengerParamManager.new(params, request.env, Current.user).params
   end
 
   def try_notifying_passenger(success:, failure:, success_message:)
