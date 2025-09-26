@@ -27,11 +27,12 @@ document.addEventListener('turbo:load', () => {
 
     // email copying
     document.querySelector('#copybtn')?.addEventListener('click', (e) => {
+      const button = e.currentTarget;
       const emails = [...passengerTable.querySelectorAll('tbody tr')].map((tr) => tr.dataset.email).join(';');
       navigator.clipboard.writeText(emails).then(() => {
-        new bootstrap.Tooltip(e.currentTarget, {title: 'Copied'}).show();
+        new bootstrap.Tooltip(button, {title: 'Copied'}).show();
       }).catch(() => {
-        new bootstrap.Tooltip(e.currentTarget, {title: 'Failed to copy!'}).show();
+        new bootstrap.Tooltip(button, {title: 'Failed to copy!'}).show();
       });
     });
   });
