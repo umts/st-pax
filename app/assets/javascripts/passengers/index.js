@@ -18,7 +18,7 @@ document.addEventListener('turbo:load', () => {
     const filterPassengers = () => {
       const selected = document.querySelector('.passenger-filter:checked').value;
       document.querySelector('.filter-name').textContent = selected.charAt(0).toUpperCase() + selected.slice(1);
-      dataTable.columns(5).search(selected === 'all' ? '' : selected).draw();
+      dataTable.columns('permanent:name').search(selected === 'all' ? '' : selected).draw();
     };
     filterPassengers();
     document.querySelectorAll('.passenger-filter').forEach((filterInput) => {
