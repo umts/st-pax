@@ -26,7 +26,7 @@ document.addEventListener('turbo:load', () => {
     });
 
     // email copying
-    document.querySelector('#copybtn').addEventListener('click', (e) => {
+    document.querySelector('#copybtn')?.addEventListener('click', (e) => {
       const emails = [...passengerTable.querySelectorAll('tbody tr')].map((tr) => tr.dataset.email).join(';');
       navigator.clipboard.writeText(emails).then(() => {
         new bootstrap.Tooltip(e.currentTarget, {title: 'Copied'}).show();
