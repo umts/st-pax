@@ -2,7 +2,7 @@
   "dependencies": {
     "@csstools/postcss-sass": "*",
     "@fortawesome/fontawesome-free": "^7.0.1",
-    "@hotwired/turbo-rails": "^8.0.16",
+    "@hotwired/turbo-rails": "^8.0.18",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "*",
     "bootstrap": "^5.3.8",
