@@ -4,7 +4,7 @@
   .col-md-6.offset-md-3
     .alert.alert-danger
       %p The site isn't configured to submit feedback, yet.
-      - if @current_user&.admin?
+      - if Current.user&.admin?
         %p
           To complete the set up,
           = succeed '.' do

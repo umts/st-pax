@@ -34,7 +34,7 @@ class FeedbackController < ApplicationController
 
   def feedback_params
     params.expect(feedback: %i[title description category])
-          .merge(user: @current_user)
+          .merge(user: Current.user)
   end
 
   def submitted_feedback?

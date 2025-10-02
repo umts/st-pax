@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def new_passenger_link_text
-    return 'Add New Passenger' if @current_user.present?
+    return 'Add New Passenger' if Current.user.present?
     return 'Edit Registration' if @registrant&.persisted?
 
     "Register for #{t 'department.name'}"
