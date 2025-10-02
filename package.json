@@ -1,8 +1,9 @@
 {
+  "type": "module",
   "dependencies": {
     "@csstools/postcss-sass": "*",
-    "@fortawesome/fontawesome-free": "^7.0.1",
-    "@hotwired/turbo-rails": "^8.0.16",
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@hotwired/turbo-rails": "^8.0.18",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "*",
     "bootstrap": "^5.3.8",
