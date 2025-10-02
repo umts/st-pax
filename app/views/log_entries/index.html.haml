@@ -19,7 +19,7 @@
                 .visually-hidden Pinned
             %strong= entry.user&.name || 'Unknown'
             - title = entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p')
-            %span.text-muted{ title:, tabindex: 0, data: { toggle: 'tooltip' } }
+            %span.text-muted{ title:, tabindex: 0, data: { 'bs-toggle': 'tooltip' } }
               #{time_ago_in_words(entry.created_at)} ago
           - if @current_user.can_modify? entry
             .d-flex
