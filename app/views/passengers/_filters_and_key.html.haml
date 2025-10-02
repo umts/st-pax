@@ -5,7 +5,7 @@
         %fieldset
           %legend.visually-hidden Filter Passengers
           - %w[permanent temporary all].each do |filter|
-            = f.radio_button :filter, filter, label: filter.capitalize, checked: @filter == filter, inline: true
+            = f.radio_button :filter, filter, label: filter.capitalize, checked: current_filter == filter, inline: true
       = f.submit 'Print', formaction: passengers_path(format: :pdf)
       - if Current.user.admin?
         %input#copybtn.btn.btn-secondary{ type: 'button', value: 'Copy Emails' }

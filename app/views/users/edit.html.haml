@@ -1,5 +1,5 @@
 %h1 Editing #{@user.name}
 
-= render 'form'
+= render 'form', user: @user
 
 = link_to 'Back', users_path

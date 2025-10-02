@@ -27,7 +27,7 @@ class PassengersController < ApplicationController
     @passenger = Passenger.find_by(spire: params[:spire_id])
     return if @passenger.blank?
 
-    render partial: 'check_existing'
+    render partial: 'check_existing', locals: { passenger: @passenger }
   end
 
   def index
