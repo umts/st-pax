@@ -1,4 +1,4 @@
 %h1= registration_header
-= render partial: 'form', locals: { passenger: @passenger }
+= render partial: 'form', locals: { passenger: @passenger, registrant: @registrant, verification: @verification }
 %p
   = link_to 'Back', :back

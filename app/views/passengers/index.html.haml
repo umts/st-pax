@@ -2,7 +2,7 @@
   %span.filter-name
   #{@status.to_s.capitalize} Passengers
 
-= render partial: 'filters_and_key' if @status.blank?
+= render partial: 'filters_and_key', locals: { current_filter: @filter } if @status.blank?
 - if @passengers.present?
   %table#passengers.table
     %thead
