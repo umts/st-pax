@@ -10,18 +10,25 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery/dist/jquery
-//= require @popperjs/core/dist/umd/popper
-//= require bootstrap/dist/js/bootstrap
-//= require @hotwired/turbo/dist/turbo.es2017-umd.js
-//= require datatables.net/js/dataTables.js
-//= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
-//= require datatables.net-bs5/js/dataTables.bootstrap5.js
-//= require clipboard/dist/clipboard
-//= require_tree .
+// = require jquery/dist/jquery
+// = require @popperjs/core/dist/umd/popper
+// = require bootstrap/dist/js/bootstrap
+// = require @hotwired/turbo/dist/turbo.es2017-umd.js
+// = require datatables.net/js/dataTables.js
+// = require datatables.net-fixedheader/js/dataTables.fixedHeader.js
+// = require datatables.net-bs5/js/dataTables.bootstrap5.js
+// = require_tree .
 
-document.addEventListener('turbo:load', function () {
-  document.querySelectorAll('[data-toggle="tooltip"]').forEach(function (element) {
-    new bootstrap.Tooltip(element);
+const tooltipTriggerElements = () => document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+document.addEventListener('turbo:load', () => {
+  tooltipTriggerElements().forEach((tooltipTriggerEl) => {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+});
+
+document.addEventListener('turbo:before-cache', () => {
+  tooltipTriggerElements().forEach((tooltipTriggerEl) => {
+    new bootstrap.Tooltip(tooltipTriggerEl).dispose();
   });
 });
