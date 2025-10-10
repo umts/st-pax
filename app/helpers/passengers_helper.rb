@@ -6,19 +6,19 @@ module PassengersHelper
   end
 
   def registration_header
-    return 'New Passenger' if @current_user.present?
+    return 'New Passenger' if Current.user.present?
 
     "Register for #{t 'department.name'}"
   end
 
   def verifying_agency_label
-    return 'Which agency verifies that this passenger needs rides?' if @current_user.present?
+    return 'Which agency verifies that this passenger needs rides?' if Current.user.present?
 
     'Which agency verifies that you need our service?'
   end
 
   def expiration_date_label
-    subject = @current_user.present? ? 'the passenger' : 'you'
+    subject = Current.user.present? ? 'the passenger' : 'you'
     "How long will #{subject} be with us?"
   end
 
