@@ -3,7 +3,7 @@
   %hr
   .card.mb-3
     .card-header
-      %strong= @current_user.name
+      %strong= Current.user.name
       %span.text-muted now
     .card-body
       = render partial: 'form', locals: { log_entry: @entry }
@@ -21,7 +21,7 @@
             - title = entry.created_at.strftime('%A, %B, %d, %Y %-I:%M %p')
             %span.text-muted{ title:, tabindex: 0, data: { 'bs-toggle': 'tooltip' } }
               #{time_ago_in_words(entry.created_at)} ago
-          - if @current_user.can_modify? entry
+          - if Current.user.can_modify? entry
             .d-flex
               = button_tag type: :button, class: 'log-entry-edit-button btn btn-sm' do
                 %i.fa-solid.fa-edit
@@ -34,5 +34,5 @@
                 %i.fa-solid.fa-xmark
                 Cancel
       .log-entry-show.card-body.pre-wrap= entry.text
-      - if @current_user.can_modify? entry
+      - if Current.user.can_modify? entry
         .log-entry-edit.card-body{ hidden: true }= render partial: 'form', locals: { log_entry: entry }

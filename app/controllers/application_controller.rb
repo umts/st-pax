@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :set_passenger_information
 
   def authenticated?
-    @current_user.present? || @registrant.present?
+    Current.user.present? || @registrant.present?
   end
 
   private
@@ -27,17 +27,17 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
-    @current_user =
+    Current.user =
       if session.key? :user_id
         User.active.find_by id: session[:user_id]
       elsif request.env.key? 'fcIdNumber'
         User.active.find_by spire: request.env['fcIdNumber']
       end
-    session[:user_id] = @current_user.id if @current_user.present?
+    session[:user_id] = Current.user.id if Current.user.present?
   end
 
   def login_as_passenger
-    return if @current_user.present?
+    return if Current.user.present?
 
     @registrant =
       if session[:passenger_id]
@@ -70,11 +70,11 @@ class ApplicationController < ActionController::Base
   end
 
   def restrict_to_admin
-    deny_access && return unless @current_user&.admin?
+    deny_access && return unless Current.user&.admin?
   end
 
   def restrict_to_employee
-    deny_access && return if @current_user.blank?
+    deny_access && return if Current.user.blank?
   end
 
   def set_passenger_information
