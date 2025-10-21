@@ -12,7 +12,7 @@
         %th Longer rides
         %th Phone
         %th Email
-        %th.permanent.text-center Permanent
+        %th.permanent.text-center{ 'data-name': 'permanent' } Permanent
         %th.text-center{ data: { type: 'date' } } Rides Expire
         - if @status == :pending
           %th.text-center Eligibility Verified

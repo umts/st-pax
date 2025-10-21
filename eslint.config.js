@@ -1,8 +1,8 @@
-const js = require('@eslint/js');
-const googleConfig = require('eslint-config-google');
-const globals = require('globals');
+import js from '@eslint/js';
+import googleConfig from 'eslint-config-google';
+import globals from 'globals';
 
-module.exports = [
+export default [
   {
     ignores: [
       'app/assets/builds/*',
@@ -28,9 +28,8 @@ module.exports = [
     languageOptions: {
       globals: {
         ...globals.browser,
-        '$': 'readonly',
         'bootstrap': 'readonly',
-        'ClipboardJS': 'readonly',
+        'DataTable': 'readonly',
       },
     },
   },
