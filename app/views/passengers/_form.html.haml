@@ -31,7 +31,7 @@
         = form.check_box :subscribed_to_sms
 
       .verification-fields
-        = form.fields_for :eligibility_verification, @verification do |d|
+        = form.fields_for :eligibility_verification, verification do |d|
           :ruby
             options = VerifyingAgency.all.map do |agency|
               [agency.name, agency.id, { 'data-needs-contact-info': agency.needs_contact_info? }]
@@ -50,7 +50,7 @@
           = d.form_group :contact_information,
                          label: { text: 'This verifying agency requires contact information to be entered' },
                          class: 'contact-information',
-                         hidden: !@verification&.verifying_agency&.needs_contact_info?,
+                         hidden: !verification&.verifying_agency&.needs_contact_info?,
                          help: 'either phone or address is required' do
             = d.text_field :name
             = d.text_field :phone

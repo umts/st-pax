@@ -1,5 +1,5 @@
 %h1 Editing #{@device.name}
 
-= render 'form'
+= render 'form', device: @device
 
 = link_to 'Back', mobility_devices_url

@@ -1,6 +1,6 @@
 .row
   .col-md-6.offset-md-3
-    = bootstrap_form_with model: @device, local: true do |f|
+    = bootstrap_form_with model: device, local: true do |f|
       = f.text_field :name, required: true
       = f.form_group do
         = f.check_box :needs_longer_rides
