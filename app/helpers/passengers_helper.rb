@@ -45,6 +45,14 @@ module PassengersHelper
     end
   end
 
+  def expiration_date_help_text(passenger)
+    if passenger.eligibility_verification.blank? && passenger.temporary?
+      "Rides expire #{passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
+    else
+      ""
+    end
+  end
+
   def status_action_button(passenger, current_status)
     settings = status_action_settings current_status
 
