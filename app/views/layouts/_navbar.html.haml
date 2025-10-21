@@ -1,25 +1,25 @@
 %nav.navbar.navbar-expand-lg.bg-light{ aria: { label: 'Main' } }
   .container-fluid
     %ul.navbar-nav.me-auto
-      - if @current_user
+      - if Current.user.present?
         %li.nav-item.dropdown
           = link_to '#', class: 'nav-link dropdown-toggle',
                          id: 'passenger-dropdown',
                          data: { bs_toggle: 'dropdown' },
                          aria: { haspopup: 'true', expanded: 'false' } do
             Passengers
-            - if @pending.positive?
+            - if pending.positive?
               %i.fa-solid.fa-user-clock.text-warning{ aria: { label: 'Pending passengers present' } }
           .dropdown-menu{ aria: { labelledby: 'passenger-dropdown' } }
             = link_to 'Current', passengers_path, class: 'dropdown-item'
             = link_to 'Archived', archived_passengers_path, class: 'dropdown-item'
             = link_to pending_passengers_path, class: 'dropdown-item' do
               Pending
-              - if @pending.positive?
-                %span.badge.bg-warning= @pending
+              - if pending.positive?
+                %span.badge.bg-warning= pending
         %li.nav-item
           = link_to 'Dispatch Log', log_entries_path, class: 'nav-link'
-        - if @current_user.admin?
+        - if Current.user.admin?
           %li.nav-item.dropdown
             = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
                                      data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }

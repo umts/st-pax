@@ -2,7 +2,7 @@
   %span.filter-name
   #{@status.to_s.capitalize} Passengers
 
-= render partial: 'filters_and_key' if @status.blank?
+= render partial: 'filters_and_key', locals: { current_filter: @filter } if @status.blank?
 - if @passengers.present?
   %table#passengers.table
     %thead
@@ -12,7 +12,7 @@
         %th Longer rides
         %th Phone
         %th Email
-        %th.permanent.text-center Permanent
+        %th.permanent.text-center{ 'data-name': 'permanent' } Permanent
         %th.text-center{ data: { type: 'date' } } Rides Expire
         - if @status == :pending
           %th.text-center Eligibility Verified
@@ -22,7 +22,7 @@
           .visually-hidden Edit
         %th{ data: { orderable: 'false' } }
           .visually-hidden= status_action_settings(@status)[:text]
-        - if @current_user.admin?
+        - if Current.user.admin?
           %th{ data: { orderable: 'false' } }
             .visually-hidden Delete
     %tbody
@@ -40,7 +40,7 @@
           %td= link_to 'View', passenger
           %td= link_to 'Edit', edit_passenger_path(passenger)
           %td= status_action_button(passenger, @status)
-          - if @current_user.admin?
+          - if Current.user.admin?
             %td= button_to 'Delete', passenger, method: :delete,
                                                 data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger'
 - else

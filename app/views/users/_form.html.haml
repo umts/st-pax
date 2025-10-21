@@ -1,6 +1,6 @@
 .row
   .col-md-6.offset-md-3
-    = bootstrap_form_with model: @user, local: true do |f|
+    = bootstrap_form_with model: user, local: true do |f|
       = f.text_field :name
       = f.text_field :spire, placeholder: '12345678@umass.edu'
       = f.check_box :active

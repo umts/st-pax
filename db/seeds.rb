@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require 'factory_bot'
-require 'timecop'
+require 'active_support/testing/time_helpers'
 
 module SeedCreator
   class << self
     include FactoryBot::Syntax::Methods
+    include ActiveSupport::Testing::TimeHelpers
 
     def create_users
       create :user, :admin, title: 'Coordinator'
@@ -34,7 +35,7 @@ module SeedCreator
     def create_dispatch_logs
       dispatchers = User.dispatchers
       300.times do
-        Timecop.freeze 12.months.ago + rand(12.months) do
+        travel_to 12.months.ago + rand(12.months) do
           create :log_entry, user: dispatchers.sample
         end
       end
