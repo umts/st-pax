@@ -10,7 +10,7 @@
       = form.text_field :email
       = form.phone_field :phone
 
-      - if @current_user.present?
+      - if Current.user.present?
         - help = "You can select 'pending' if the passenger is temporary but has no verifying information yet"
         = form.form_group :registration_status, help:, label: { text: 'Registration Status' } do
           = form.radio_button :registration_status, 'pending'
@@ -23,7 +23,7 @@
                                                        passenger.mobility_device&.id),
                     include_blank: 'None'
 
-      - if @current_user&.admin?
+      - if Current.user&.admin?
         = form.form_group do
           = form.check_box :permanent, class: 'passenger-permanent-field'
 

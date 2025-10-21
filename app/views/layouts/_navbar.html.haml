@@ -1,7 +1,7 @@
 %nav.navbar.navbar-expand-lg.bg-light{ aria: { label: 'Main' } }
   .container-fluid
     %ul.navbar-nav.me-auto
-      - if @current_user
+      - if Current.user.present?
         %li.nav-item.dropdown
           = link_to '#', class: 'nav-link dropdown-toggle',
                          id: 'passenger-dropdown',
@@ -19,7 +19,7 @@
                 %span.badge.bg-warning= @pending
         %li.nav-item
           = link_to 'Dispatch Log', log_entries_path, class: 'nav-link'
-        - if @current_user.admin?
+        - if Current.user.admin?
           %li.nav-item.dropdown
             = link_to 'Manage', '#', class: 'nav-link dropdown-toggle', id: 'management-dropdown',
                                      data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }

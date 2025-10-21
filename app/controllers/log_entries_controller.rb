@@ -10,7 +10,7 @@ class LogEntriesController < ApplicationController
   end
 
   def create
-    @entry = LogEntry.new entry_params.merge(user: @current_user)
+    @entry = LogEntry.new entry_params.merge(user: Current.user)
     if @entry.save
       flash[:success] = t('.success')
     else
@@ -44,10 +44,10 @@ class LogEntriesController < ApplicationController
 
   def find_modifiable_entry
     @entry = LogEntry.find params.require(:id)
-    deny_access and return unless @current_user.can_modify? @entry
+    deny_access and return unless Current.user.can_modify? @entry
   end
 
   def entry_params
-    params.expect log_entry: [:text, @current_user.admin? ? :pinned : nil]
+    params.expect log_entry: [:text, Current.user.admin? ? :pinned : nil]
   end
 end
