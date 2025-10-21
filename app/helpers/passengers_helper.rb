@@ -49,7 +49,7 @@ module PassengersHelper
     if passenger.eligibility_verification.blank? && passenger.temporary?
       "Rides expire #{passenger.rides_expire.try(:strftime, '%m/%d/%Y')}"
     else
-      ""
+      ''
     end
   end
 
