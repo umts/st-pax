@@ -13,7 +13,7 @@ AllCops:
     - bin/**/*
     - config.ru
     - config/{environments,initializers}/**/*
-    - config/{application,boot,environment,puma,spring}.rb
+    - config/{application,boot,ci,environment,puma,spring}.rb
     - db/schema.rb
     - db/migrate/*.rb
     - vendor/**/*
