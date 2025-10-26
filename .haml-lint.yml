@@ -1,7 +1,9 @@
 linters:
+  All:
+    exclude:
+      - 'vendor/*'
   ClassesBeforeIds:
     EnforcedStyle: id
-
   LineLength:
     exclude:
       - 'app/views/passengers/brochure.html.haml'
