@@ -1,7 +1,4 @@
 linters:
-  All:
-    exclude:
-      - 'vendor/*'
   ClassesBeforeIds:
     EnforcedStyle: id
   LineLength:
@@ -14,3 +11,5 @@ linters:
       - 'app/views/passengers/brochure.html.haml'
       - 'app/views/passengers/brochure/*.html.haml'
     max: 80
+exclude:
+  - 'vendor/**/*'
