@@ -13,7 +13,7 @@ class MockGithubClient
 
   def create_issue(repo, title, body, options = {})
     @logger.info <<~LOG
-      GH Issue Sumbission
+      GH Issue Submission
       -------------------
       Repo: #{repo}
       Title: #{title}
