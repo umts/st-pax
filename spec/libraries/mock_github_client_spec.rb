@@ -21,7 +21,7 @@ RSpec.describe MockGithubClient do
       expect(log).to(match(%r{^Repo: acme/widgets$})
                      .and(match(/^Title: It broke$/))
                      .and(match(/^  \* This is broken$/))
-                     .and(match(/^Options: {:labels=>"[^"]*"}$/)))
+                     .and(match(/^Options: {labels: "[^"]*"}$/)))
     end
 
     it 'returns a dummy issue' do
