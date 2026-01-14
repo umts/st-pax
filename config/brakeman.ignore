@@ -3,40 +3,6 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "918fe336faf9a5b6c23782f42065bb9efa994b032f42413eee85f013644fe842",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/passengers/index.html.haml",
-      "line": 36,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "::Haml::AttributeBuilder.build_data(true, \"'\", :filter => (Unresolved Model).new.permanent_or_temporary)",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "PassengersController",
-          "method": "index",
-          "line": 44,
-          "file": "app/controllers/passengers_controller.rb",
-          "rendered": {
-            "name": "passengers/index",
-            "file": "app/views/passengers/index.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "passengers/index"
-      },
-      "user_input": "(Unresolved Model).new.permanent_or_temporary",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "HAML _does_ sanitize values passed to data: and aria:"
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
       "fingerprint": "a379a470d5fb5524904987eb30f4f699858900c104d9aae3e46db201f2b4ec16",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
@@ -69,5 +35,5 @@
       "note": "Helper method `passengers_table_row_class` returns static strings"
     }
   ],
-  "brakeman_version": "7.1.0"
+  "brakeman_version": "7.1.2"
 }
