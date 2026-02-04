@@ -174,7 +174,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
-    haml_lint (0.68.0)
+    haml_lint (0.69.0)
       haml (>= 5.0)
       parallel (~> 1.10)
       rainbow
@@ -601,7 +601,7 @@ CHECKSUMS
   haml (7.2.0) sha256=87fd2b71f7feab1724337b090a7d767f5ab2d42f08c974f3ead673f18cfcd55a
   haml-lint (0.999.999) sha256=5b1fb5d06dbb0db220ea092cf97771bbb5c031e6867265bee9b2edbe0e79e395
   haml-rails (3.0.0) sha256=091fe496a85ca521d9cac87fb50f1ecf77a57974a99aa7e267130add81a5585f
-  haml_lint (0.68.0) sha256=25a9f3887886e7bf432ee15f3223d321995d3013872a23edc99d50e382416569
+  haml_lint (0.69.0) sha256=8b6aff90691fe5b58e3a8e0cd5455a32f79adf23838ec460d325bcaca3dd7d99
   hashery (2.1.2) sha256=d239cc2310401903f6b79d458c2bbef5bf74c46f3f974ae9c1061fb74a404862
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   iniparse (1.5.0) sha256=36a165e98d8a250b7631c4a7f9afba32af78f089970cd6446a39771189c761f1
@@ -724,7 +724,7 @@ CHECKSUMS
   zeitwerk (2.7.4) sha256=2bef90f356bdafe9a6c2bd32bcd804f83a4f9b8bc27f3600fff051eb3edcec8b
 
 RUBY VERSION
-   ruby 3.4.8p72
+  ruby 3.4.8p72
 
 BUNDLED WITH
-   4.0.3
+  4.0.3
