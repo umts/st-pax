@@ -21,7 +21,7 @@
     "eslint-config-google": "*",
     "eslint-formatter-compact": "*",
     "globals": "*",
-    "run-pty": "^5.0.0",
+    "run-pty": "^6.0.2",
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "stylelint-config-standard-scss": "*"
