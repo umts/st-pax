@@ -88,7 +88,7 @@ GEM
     bcrypt_pbkdf (1.1.2-x86_64-darwin)
     bigdecimal (3.3.1)
     bindex (0.8.1)
-    bootstrap_form (5.5.0)
+    bootstrap_form (5.6.0)
       actionpack (>= 7.2)
       activemodel (>= 7.2)
     brakeman (7.1.1)
@@ -485,7 +485,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt_pbkdf
-  bootstrap_form (~> 5.5)
+  bootstrap_form (~> 5.6)
   brakeman
   business_time
   capistrano
@@ -561,7 +561,7 @@ CHECKSUMS
   bcrypt_pbkdf (1.1.2-x86_64-darwin) sha256=35f5639d0058e6c2cc2f856f9c0b14080543268d3047abe6bc81c513093caa0e
   bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
-  bootstrap_form (5.5.0) sha256=330b9a2f8ac04eebc06ddd810da13ffb123c921a11c18fc098231e5ad61683e8
+  bootstrap_form (5.6.0) sha256=e7e52cacfc9ca5c2fecd1be9ea29bf0cd8caecab6767ec6590e4c2beeda5f642
   brakeman (7.1.1) sha256=629426b5d6496c75e3ffa2299e1ab1bb3ba721fea03d8808414c083660439498
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   business_time (0.13.0) sha256=d62cdd1dff5e619328701b8376b38934572bdc664e2bc7831573b1d2f7026f69
