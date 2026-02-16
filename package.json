@@ -9,7 +9,7 @@
     "bootstrap": "^5.3.8",
     "datatables.net": "^2.3.7",
     "datatables.net-bs5": "^2.3.7",
-    "datatables.net-fixedheader-bs5": "^4.0.5",
+    "datatables.net-fixedheader-bs5": "^4.0.6",
     "jquery": "^4.0.0",
     "postcss": "*",
     "postcss-cli": "< 12",
