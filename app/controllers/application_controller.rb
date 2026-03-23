@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
 
   def require_authentication
     return if authenticated?
+
     redirect_to dev_login_path and return if Rails.env.development?
 
     deny_access
