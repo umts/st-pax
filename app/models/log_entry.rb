@@ -13,7 +13,7 @@ class LogEntry < ApplicationRecord
     CSV.generate headers: %w[text pinned spire created_at updated_at], write_headers: true do |csv|
       find_each do |log_entry|
         csv << {
-          'text' => log_entry.text, 'pinned' => log_entry.pinned, 'spire' => log_entry.user.spire.chomp('@umass.edu'),
+          'text' => log_entry.text, 'pinned' => log_entry.pinned, 'spire' => log_entry.user&.spire&.chomp('@umass.edu'),
           'created_at' => log_entry.created_at.iso8601, 'updated_at' => log_entry.updated_at.iso8601
         }
       end
