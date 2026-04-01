@@ -4,7 +4,7 @@ class LogEntriesController < ApplicationController
   before_action :find_modifiable_entry, only: %i[destroy update]
 
   def index
-    redirect_to 'https://umasstransit.org/dispatch_logs', allow_other_host: true
+    redirect_to 'https://umasstransit.org/dispatch_logs?redirected=true', allow_other_host: true
   end
 
   def create
