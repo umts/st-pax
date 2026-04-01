@@ -40,6 +40,12 @@ class LogEntriesController < ApplicationController
     redirect_to log_entries_path
   end
 
+  def export
+    send_data LogEntry.includes(:user).to_export_csv,
+              type: Mime[:csv],
+              disposition: 'attachment; filename=log_entries.csv'
+  end
+
   private
 
   def find_modifiable_entry
